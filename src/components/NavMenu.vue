@@ -11,7 +11,7 @@
                         <router-link :to="{ name: 'hello' }" class="nav-link">测试</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link :to="{ name: 'hello' }" class="nav-link">普通用户管理</router-link>
+                        <router-link :to="{ name: 'account' }" class="nav-link">普通用户管理</router-link>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Another nav item</a>
