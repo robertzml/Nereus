@@ -1,25 +1,16 @@
 <template>
     <div>
-        <h1>{{ msg }}</h1>
+        <h2>{{ msg }}</h2>
         <div class="my-1 row">
             <div class="col-md-6">
-                <b-form-fieldset horizontal label="Rows per page" :label-cols="6">
+                <b-form-fieldset horizontal label="每页记录" :label-cols="6">
                     <b-form-select :options="pageOptions" v-model="perPage" />
                 </b-form-fieldset>
             </div>
             <div class="col-md-6">
-                <b-form-fieldset horizontal label="Filter" :label-cols="3">
+                <b-form-fieldset horizontal label="搜索" :label-cols="3">
                     <b-form-input v-model="filter" placeholder="Type to Search" />
                 </b-form-fieldset>
-            </div>
-        </div>
-
-        <div class="row my-1">
-            <div class="col-sm-8">
-            <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" />
-            </div>
-            <div class="col-sm-4 text-md-right">
-            <b-button :disabled="!sortBy" @click="sortBy = null">Clear Sort</b-button>
             </div>
         </div>
 
@@ -34,17 +25,25 @@
                 :sort-desc.sync="sortDesc"
                 @filtered="onFiltered"
         >
-            <template slot="name" scope="row">{{row.value.first}} {{row.value.last}}</template>
-            <template slot="isActive" scope="row">{{row.value?'Yes :)':'No :('}}</template>
+            <template slot="loginState" scope="row">{{ row.value == 1 ? '在线':'离线' }}</template>
             <template slot="actions" scope="row">
-            <!-- We use click.stop here to prevent a 'row-clicked' event from also happening -->
-            <b-btn size="sm" @click.stop="details(row.item,row.index,$event.target)">Details</b-btn>
+                <!-- We use click.stop here to prevent a 'row-clicked' event from also happening -->
+                <b-btn size="sm" @click.stop="details(row.item, row.index, $event.target)">Details</b-btn>
             </template>
         </b-table>
 
         <p>
             Sort By: {{ sortBy || 'n/a' }}, Direction: {{ sortDesc ? 'descending' : 'ascending' }}
         </p>
+
+        <div class="row my-1">
+            <div class="col-sm-8">
+                <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" />
+            </div>
+            <div class="col-sm-4 text-md-right">
+                <b-button :disabled="!sortBy" @click="sortBy = null">Clear Sort</b-button>
+            </div>
+        </div>
 
         <!-- Details modal -->
         <b-modal id="modal1" @hide="resetModal" ok-only>
@@ -65,11 +64,13 @@ export default {
         return {
             items: [],
             msg: '用户列表',
-            count: 0,
             fields: {
-                name: { label: 'Person Full name', sortable: true },
-                age: { label: 'Person age', sortable: true, 'class': 'text-center' },
-                isActive: { label: 'is Active' },
+                id: { label: 'id', sortable: true },
+                userName: { label: '用户名', sortable: true, 'class': 'text-center' },
+                phone: { label: '电话' },
+                accountType: { label: '账户类型' },
+                imei: { label: 'imei' },
+                loginState: { label: '登录状态' },
                 actions: { label: 'Actions' }
             },
             currentPage: 1,
@@ -97,18 +98,22 @@ export default {
             this.totalRows = filteredItems.length
             this.currentPage = 1
         },
-        getAccounts (page, pageSize) {
-             axios.get(apihost + '/account/getaccountDetail', {
-                 params: {
-                     page: page,
-                     pageSize: pageSize
-                 }
-             }).then(function (response) {
+        getAccounts: function (page, pageSize) {
+            var vm = this
+            axios.get(apihost + '/account/getAccountDetail', {
+                params: {
+                    page: page,
+                    pageSize: pageSize
+                }
+            }).then(function (response) {
                  console.log(response)
-             })
+                 vm.items = response.data
+                 vm.totalRows = response.data.length
+            })
         }
     },
     created: function () {
+        /* 
         var vm = this
         axios.get(apihost + '/account/getAccountCount')
             .then(function (response) {
@@ -117,6 +122,8 @@ export default {
                 // vm.vendors = response.data
                 // vm.tableData = response.data
             })
+        */
+        this.getAccounts(1, 10)
     }
 }
 </script>
