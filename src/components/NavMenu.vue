@@ -12,7 +12,7 @@
                         <router-link :to="{ name: 'account' }" class="nav-link">普通用户管理</router-link>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Another nav item</a>
+                        <router-link :to="{ name: 'company' }" class="nav-link">厂家管理</router-link>
                     </li>
                 </ul>
             </b-card>

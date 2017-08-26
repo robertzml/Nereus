@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
 import Hello from '@/components/Hello'
-import Account from '@/views/account/index'
 import AccountList from '@/views/account/list'
 import AccountCreate from '@/views/account/create'
 import AccountDetails from '@/views/account/details'
@@ -23,7 +22,9 @@ export default new Router({
     }, {
       path: '/account',
       name: 'account',
-      component: Account,
+      component: function (resolve) {
+        return require(['@/views/account/index.vue'], resolve)
+      },
       children: [
         {
           path: 'list',
@@ -33,6 +34,25 @@ export default new Router({
           component: AccountCreate
         }, {
           path: 'details/:id', component: AccountDetails          
+        }
+      ]
+    }, {
+      path: '/company',
+      name: 'company',
+      component: require('@/views/company/index.vue'),
+      children: [
+        {
+          path: 'list',
+          component: function (resolve) {
+            return require(['@/views/company/list.vue'], resolve)
+          }
+        }, {
+          path: 'create',
+          component: require('@/views/company/create.vue')
+        }, {
+          name: 'company_details',
+          path: 'details/:id',
+          component: require('@/views/company/details.vue')
         }
       ]
     }
