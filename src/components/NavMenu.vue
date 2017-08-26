@@ -4,9 +4,7 @@
         <b-collapse id="accordion1" visible accordion="my-accordion">
             <b-card>
                 <ul class="nav nav-pills flex-column">
-                    <li class="nav-item">
-                        <router-link :to="{ name: 'home' }" class="nav-link">主页</router-link>
-                    </li>
+                    
                     <li class="nav-item">
                         <router-link :to="{ name: 'hello' }" class="nav-link">测试</router-link>
                     </li>
