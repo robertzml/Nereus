@@ -32,39 +32,54 @@
 
 
 <script>
+import company from '../../actions/company.js'
 import axios from 'axios'
 import { apihost } from '../../config.js'
 
 export default {
-  name: 'company_create',
-  data () {
-      return {
-        msg: '厂家信息',
-        form: {
-          name: '',
-          address: '',
-          contacts: '',
-          phone: ''
-        }   
-      }
-  },
-  methods: {
-      onSubmit (evt) {
-        evt.preventDefault()
-        var vm = this
-        // console.log(JSON.stringify(this.form))
+    name: 'company_edit',
+    data () {
+        return {
+            msg: '厂家信息',
+            companyId: this.$route.params.id,
+            form: {}
+        }
+    },
+    methods: {
+        onSubmit (evt) {
+            evt.preventDefault()           
+            console.log(JSON.stringify(this.form))
+            this.updateCompany()
+        },
+        getCompany (id) {
+            var vm = this
 
-        axios.post(apihost + '/company/AddCompany', vm.form)
-            .then(function (response) {
-                console.log(response)
-                alert(response.data)
-                vm.$router.push({ path: '/company/list' })
+            company.details(id, function (response) {
+                vm.form = response
             })
-            .catch(function (error) {
-                console.log(error)
+        },
+        updateCompany () {
+            var vm = this
+
+            axios.post(apihost + '/company/EditCompany', {
+                id: vm.form.id,
+                name: vm.form.name,
+                address: vm.form.address,
+                contacts: vm.form.contacts,
+                phone: vm.form.phone
             })
-      }
+                .then(function (response) {
+                    console.log(response)
+                    alert(response.data)
+                    vm.$router.push({ path: '/company/list' })
+                })
+                .catch(function (error) {
+                    console.log(error)
+                })
+        }
+    },
+    mounted: function () {
+        this.getCompany(this.companyId)
     }
 }
 </script>
-

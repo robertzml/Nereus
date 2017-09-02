@@ -61,6 +61,12 @@ export default new Router({
           component: function (resolve) {
             return require(['@/views/company/details.vue'], resolve)
           }
+        }, {
+          name: 'company_edit',
+          path: 'edit/:id',
+          component: function (resolve) {
+            return require(['@/views/company/edit.vue'], resolve)
+          }
         }
       ]
     }, {

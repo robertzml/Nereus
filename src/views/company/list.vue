@@ -27,7 +27,9 @@
         >
             <template slot="actions" scope="row">
                 <!-- We use click.stop here to prevent a 'row-clicked' event from also happening -->
-                <b-btn size="sm" @click.stop="details(row.item, row.index, $event.target)">Details</b-btn>
+                <b-btn size="sm" variant="primary" @click.stop="details(row.item, row.index, $event.target)">信息</b-btn>
+                <b-btn size="sm" variant="warning" @click.stop="edit(row.item, $event.target)">编辑</b-btn>
+                <b-btn size="sm" variant="danger" @click.stop="remove(row.item, row.index, $event.target)">删除</b-btn>
             </template>
         </b-table>
 
@@ -45,20 +47,20 @@
         </div>
 
         <!-- Details modal -->
-        <b-modal id="modal1" @hide="resetModal" ok-only>
-            <h4 class="my-1 py-1" slot="modal-header">Index: {{ modalDetails.index }}</h4>
-            <pre>{{ modalDetails.data }}</pre>
+        <b-modal id="modal1" ref="modal1" @hidden="resetModal" @ok="handleOk">
+            <h4 class="my-1 py-1" slot="modal-header">是否确认删除该厂商?</h4>
+            <pre>名称: {{ modalDetails.data.name }}</pre>
+            <pre>地址: {{ modalDetails.data.address }}</pre>
         </b-modal>
 
     </div>
 </template>
 
 <script>
-import axios from 'axios'
-import { apihost } from '../../config.js'
+import company from '../../actions/company.js'
 
 export default {
-    name: 'list',
+    name: 'company_list',
     data () {
         return {
             items: [],
@@ -70,43 +72,59 @@ export default {
                 contacts: { label: '联系人' },
                 phone: { label: '电话' },
                 updateDate: { label: '更新时间', sortable: true },
-                actions: { label: 'Actions' }
+                actions: { label: '操作' }
             },
             currentPage: 1,
-            perPage: 5,
+            perPage: 10,
             totalRows: 10,
             pageOptions: [{ text: 5, value: 5 }, { text: 10, value: 10 }, { text: 15, value: 15 }],
             sortBy: null,
             sortDesc: false,
             filter: null,
-            modalDetails: { index: '', data: '' }
+            modalDetails: { data: {} }
         }
     },
     methods: {
         details (item, index, button) {
             this.$router.push({ name: 'company_details', params: { id: item.id } })
-            // this.$router.push('/account/list')
             /*
             this.modalDetails.data = JSON.stringify(item, null, 2)
             this.modalDetails.index = index
             this.$root.$emit('show::modal', 'modal1', button)
             */
         },
-        resetModal () {
-            this.modalDetails.data = ''
-            this.modalDetails.index = ''
+        edit (item, button) {
+            this.$router.push({ name: 'company_edit', params: { id: item.id } })
+        },
+        remove (item, index, button) {
+            this.modalDetails.data = item
+            console.log(this.modalDetails.data.id)
+            this.$root.$emit('show::modal', 'modal1', button)
         },
         onFiltered (filteredItems) {
             // Trigger pagination to update the number of buttons/pages due to filtering
             this.totalRows = filteredItems.length
             this.currentPage = 1
         },
-        getCompanys: function () {
+        handleOk (e) {            
+            e.cancel()
             var vm = this
-            axios.get(apihost + '/company/getAllCompanyDetail').then(function (response) {
-                console.log(response)
-                vm.items = response.data
-                vm.totalRows = response.data.length
+            company.delete(this.modalDetails.data.id, function (response) {
+                alert(response)
+                vm.getCompanys()
+                vm.$refs.modal1.hide()
+            })
+        },
+        resetModal () {
+            console.log('reset')
+            this.modalDetails.data = {}
+        },
+        getCompanys () {
+            var vm = this
+         
+            vm.items = company.list(function (response) {
+                vm.items = response
+                vm.totalRows = response.length
             })
         }
     },

@@ -2,7 +2,7 @@
     <div>
         <h4>{{ msg }}</h4>
 
-        <table class="table">
+        <table class="table table-striped">
             <thead>
                 <tr>
                     <th>属性</th>
@@ -10,6 +10,9 @@
                 </tr>
             </thead>
             <tbody>
+                <tr>
+                    <td>Id</td>
+                    <td>{{ company.id }}</td>
                 <tr>
                     <td>名称</td>
                     <td>{{ company.name }}</td>
@@ -26,15 +29,24 @@
                     <td>电话</td>
                     <td>{{ company.phone }}</td>
                 </tr>
+                <tr>
+                    <td>创建时间</td>
+                    <td>{{ company.createDate }}</td>
+                </tr>
+                <tr>
+                    <td>更新时间</td>
+                    <td>{{ company.updateDate }}</td>
+                </tr>
             </tbody>
         </table>
+
+        <hr />
     </div>
 </template>
 
 
 <script>
-import axios from 'axios'
-import { apihost } from '../../config.js'
+import company from '../../actions/company.js'
 
 export default {
     name: 'company_details',
@@ -48,17 +60,13 @@ export default {
     methods: {
         getCompany: function (id) {
             var vm = this
-            axios.get(apihost + '/company/ViewCompany', {
-                params: {
-                    id: id
-                }
-            }).then(function (response) {
-                console.log(response)
-                vm.company = response.data
+
+            company.details(id, function (response) {
+                vm.company = response
             })
         }
     },
-    created: function () {
+    mounted: function () {
         this.getCompany(this.companyId)
     }
 }
