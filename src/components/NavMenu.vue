@@ -1,28 +1,37 @@
 <<template>
     <div class="navmenu">
-        <b-btn block v-b-toggle.accordion1 variant="primary">用户管理</b-btn>
+        <b-btn block v-b-toggle.accordion1 variant="primary">系统用户管理</b-btn>
         <b-collapse id="accordion1" visible accordion="my-accordion">
             <b-card>
                 <ul class="nav nav-pills flex-column">
-                    
                     <li class="nav-item">
                         <router-link :to="{ name: 'hello' }" class="nav-link">测试</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link :to="{ name: 'account' }" class="nav-link">普通用户管理</router-link>
+                        <router-link :to="{ name: 'account' }" class="nav-link">用户管理</router-link>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">角色管理</a>
+                    </li>
+                </ul>
+            </b-card>
+        </b-collapse>
+        <b-btn block class="mt-1" v-b-toggle.accordion2 variant="primary">厂家管理</b-btn>
+        <b-collapse id="accordion2" accordion="my-accordion">
+            <b-card>
+                <ul class="nav nav-pills flex-column">
                     <li class="nav-item">
                         <router-link :to="{ name: 'company' }" class="nav-link">厂家管理</router-link>
                     </li>
                 </ul>
             </b-card>
         </b-collapse>
-        <b-btn block class="mt-1" v-b-toggle.accordion2 variant="primary">货品管理</b-btn>
-        <b-collapse id="accordion2" accordion="my-accordion">
+        <b-btn block class="mt-1" v-b-toggle.accordion3 variant="primary">产品管理</b-btn>
+        <b-collapse id="accordion3" accordion="my-accordion">
             <b-card>
                  <ul class="nav nav-pills flex-column">
                     <li class="nav-item">
-                         <router-link :to="{ name: 'product' }" class="nav-link">产品</router-link>
+                         <router-link :to="{ name: 'product' }" class="nav-link">产品类别</router-link>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">One more nav</a>
@@ -33,8 +42,8 @@
                 </ul>
             </b-card>
         </b-collapse>
-        <b-btn block class="mt-1" v-b-toggle.accordion3 variant="primary">Accordion 3</b-btn>
-        <b-collapse id="accordion3" accordion="my-accordion">
+        <b-btn block class="mt-1" v-b-toggle.accordion4 variant="primary">订单管理</b-btn>
+        <b-collapse id="accordion4" accordion="my-accordion">
             <b-card>
                 Accordion 3 contents Here
             </b-card>

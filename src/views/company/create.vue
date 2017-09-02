@@ -32,8 +32,7 @@
 
 
 <script>
-import axios from 'axios'
-import { apihost } from '../../config.js'
+import company from '../../actions/company.js'
 
 export default {
   name: 'company_create',
@@ -54,15 +53,10 @@ export default {
         var vm = this
         // console.log(JSON.stringify(this.form))
 
-        axios.post(apihost + '/company/AddCompany', vm.form)
-            .then(function (response) {
-                console.log(response)
-                alert(response.data)
-                vm.$router.push({ path: '/company/list' })
-            })
-            .catch(function (error) {
-                console.log(error)
-            })
+        company.create(vm.form, function (response) {
+            alert(response)
+            vm.$router.push({ path: '/company/list' })
+        })
       }
     }
 }

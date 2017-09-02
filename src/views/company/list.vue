@@ -116,7 +116,6 @@ export default {
             })
         },
         resetModal () {
-            console.log('reset')
             this.modalDetails.data = {}
         },
         getCompanys () {

@@ -33,8 +33,6 @@
 
 <script>
 import company from '../../actions/company.js'
-import axios from 'axios'
-import { apihost } from '../../config.js'
 
 export default {
     name: 'company_edit',
@@ -61,21 +59,10 @@ export default {
         updateCompany () {
             var vm = this
 
-            axios.post(apihost + '/company/EditCompany', {
-                id: vm.form.id,
-                name: vm.form.name,
-                address: vm.form.address,
-                contacts: vm.form.contacts,
-                phone: vm.form.phone
+            company.update(vm.form, function (response) {
+                alert(response.data)
+                vm.$router.push({ path: '/company/list' })
             })
-                .then(function (response) {
-                    console.log(response)
-                    alert(response.data)
-                    vm.$router.push({ path: '/company/list' })
-                })
-                .catch(function (error) {
-                    console.log(error)
-                })
         }
     },
     mounted: function () {
