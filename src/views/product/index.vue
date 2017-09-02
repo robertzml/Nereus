@@ -18,7 +18,7 @@ export default {
     name: 'company',
     data () {
         return {
-            msg: '厂家管理'
+            msg: 'cp管理'
         }       
     }
 }

@@ -22,7 +22,7 @@
             <b-card>
                  <ul class="nav nav-pills flex-column">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Nav item again</a>
+                         <router-link :to="{ name: 'product' }" class="nav-link">产品</router-link>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">One more nav</a>

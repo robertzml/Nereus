@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
-import Hello from '@/components/Hello'
-import AccountList from '@/views/account/list'
 import AccountCreate from '@/views/account/create'
 import AccountDetails from '@/views/account/details'
 
@@ -18,7 +16,9 @@ export default new Router({
     }, {
       path: '/hello',
       name: 'hello',
-      component: Hello
+      component: function (resolve) {
+        return require(['@/components/hello.vue'], resolve)
+      }
     }, {
       path: '/account',
       name: 'account',
@@ -28,7 +28,9 @@ export default new Router({
       children: [
         {
           path: 'list',
-          component: AccountList
+          component: function (resolve) {
+            return require(['@/views/account/list.vue'], resolve)
+          }
         }, {
           path: 'create',
           component: AccountCreate
@@ -39,7 +41,9 @@ export default new Router({
     }, {
       path: '/company',
       name: 'company',
-      component: require('@/views/company/index.vue'),
+      component: function (resolve) {
+        return require(['@/views/company/index.vue'], resolve)
+      },
       children: [
         {
           path: 'list',
@@ -48,13 +52,23 @@ export default new Router({
           }
         }, {
           path: 'create',
-          component: require('@/views/company/create.vue')
+          component: function (resolve) {
+            return require(['@/views/company/create.vue'], resolve)
+          }
         }, {
           name: 'company_details',
           path: 'details/:id',
-          component: require('@/views/company/details.vue')
+          component: function (resolve) {
+            return require(['@/views/company/details.vue'], resolve)
+          }
         }
       ]
+    }, {
+      path: '/product',
+      name: 'product',
+      component: function (resolve) {
+        return require(['@/views/product/index.vue'], resolve)
+      }
     }
   ]
 })
