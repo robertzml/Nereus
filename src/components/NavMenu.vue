@@ -8,10 +8,10 @@
                         <router-link :to="{ name: 'hello' }" class="nav-link">测试</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link :to="{ name: 'account' }" class="nav-link">用户管理</router-link>
+                        <router-link :to="{ name: 'role' }" class="nav-link">角色管理</router-link>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">角色管理</a>
+                        <router-link :to="{ name: 'member' }" class="nav-link">用户管理</router-link>
                     </li>
                 </ul>
             </b-card>
@@ -29,12 +29,12 @@
         <b-btn block class="mt-1" v-b-toggle.accordion3 variant="primary">产品管理</b-btn>
         <b-collapse id="accordion3" accordion="my-accordion">
             <b-card>
-                 <ul class="nav nav-pills flex-column">
+                <ul class="nav nav-pills flex-column">
                     <li class="nav-item">
-                         <router-link :to="{ name: 'product' }" class="nav-link">产品类别</router-link>
+                         <a class="nav-link" href="#">产品类别</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">One more nav</a>
+                         <router-link :to="{ name: 'product' }" class="nav-link">产品信息</router-link>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Another nav item</a>
@@ -46,6 +46,16 @@
         <b-collapse id="accordion4" accordion="my-accordion">
             <b-card>
                 Accordion 3 contents Here
+            </b-card>
+        </b-collapse>
+        <b-btn block class="mt-1" v-b-toggle.accordion4 variant="primary">客户管理</b-btn>
+        <b-collapse id="accordion4" accordion="my-accordion">
+            <b-card>
+                <ul class="nav nav-pills flex-column">
+                   <li class="nav-item">
+                        <router-link :to="{ name: 'account' }" class="nav-link">用户管理</router-link>
+                    </li>
+                </ul>
             </b-card>
         </b-collapse>
     </div>

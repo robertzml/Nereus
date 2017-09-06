@@ -3,8 +3,7 @@
         <h2>{{ msg }}</h2>
         <hr />
         <b-button-group>
-             <b-button to="/product/list" size="sm" variant="info">产品列表</b-button>
-             <b-button to="/product/create" size="sm" variant="primary">新增产品</b-button>
+             <b-button to="/role/list" size="sm" variant="info">角色列表</b-button>
         </b-button-group>        
 
         <hr />
@@ -18,7 +17,7 @@ export default {
     name: 'product',
     data () {
         return {
-            msg: '产品管理'
+            msg: '角色管理'
         }       
     }
 }
