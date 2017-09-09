@@ -1,4 +1,4 @@
-<<template>
+<template>
     <div class="navmenu">
         <b-btn block v-b-toggle.accordion1 variant="primary">系统用户管理</b-btn>
         <b-collapse id="accordion1" visible accordion="my-accordion">

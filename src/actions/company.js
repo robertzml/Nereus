@@ -28,7 +28,7 @@ export default {
             })
             .catch(function (error) {
                 console.log(error)
-            })        
+            })
     },
     update (model, callback) {
         axios.post(apihost + '/company/EditCompany', {
