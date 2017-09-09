@@ -33,13 +33,13 @@
 
 
 <script>
-import role from '../../actions/role.js'
+import member from '../../actions/member.js'
 
 export default {
-    name: 'role-list',
+    name: 'member-list',
     data () {
         return {
-            msg: '角色列表',
+            msg: '管理员列表',
             items: [],
             fields: {
                 id: { label: 'id' },
@@ -62,17 +62,17 @@ export default {
             this.totalRows = filteredItems.length
             this.currentPage = 1
         },
-        getRoles () {
+        getMembers () {
             var vm = this
          
-            vm.items = role.list(function (response) {
+            vm.items = member.list(function (response) {
                 vm.items = response
                 vm.totalRows = response.length
             })
         }
     },
     created: function () {
-        this.getRoles()
+        this.getMembers()
     }
 }
 </script>

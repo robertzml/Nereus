@@ -14,7 +14,7 @@
 
 <script>
 export default {
-    name: 'product',
+    name: 'role',
     data () {
         return {
             msg: '角色管理'

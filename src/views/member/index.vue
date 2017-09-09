@@ -3,7 +3,7 @@
         <h2>{{ msg }}</h2>
         <hr />
         <b-button-group>
-             <b-button to="/role/list" size="sm" variant="info">角色列表</b-button>
+             <b-button to="/member/list" size="sm" variant="info">用户列表</b-button>
         </b-button-group>        
 
         <hr />

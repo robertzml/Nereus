@@ -98,7 +98,15 @@ export default new Router({
             name: 'member',
             component: function (resolve) {
                 return require(['@/views/member/index.vue'], resolve)
-            }
+            },
+            children: [
+                {
+                    path: 'list',
+                    component: function (resolve) {
+                        return require(['@/views/member/list.vue'], resolve)
+                    }
+                }
+            ]
         },
         
         {

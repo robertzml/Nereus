@@ -5,7 +5,7 @@ export default {
     name: 'role',
 
     list (callback) {
-        axios.get(apihost + '/role/getGoodsDetail')
+        axios.get(apihost + '/role/getRoleDetail')
             .then(function (response) {
                 console.log(response)
                 callback(response.data)
