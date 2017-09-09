@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/views/Home'
 import AccountCreate from '@/views/account/create'
-import AccountDetails from '@/views/account/details'
 
 Vue.use(Router)
 
@@ -100,6 +99,12 @@ export default new Router({
                             component: function (resolve) {
                                 return require(['@/views/product/list.vue'], resolve)
                             }
+                        }, {
+                            name: 'product_details',
+                            path: 'details/:id',
+                            component: function (resolve) {
+                                return require(['@/views/product/details.vue'], resolve)
+                            }
                         }
                     ]
                 },
@@ -120,7 +125,11 @@ export default new Router({
                             path: 'create',
                             component: AccountCreate
                         }, {
-                            path: 'details/:id', component: AccountDetails          
+                            name: 'account_details',
+                            path: 'details/:id', 
+                            component: function (resolve) {
+                                return require(['@/views/account/details.vue'], resolve)
+                            }
                         }
                     ]
                 }

@@ -17,7 +17,7 @@ export default {
     name: 'member',
     data () {
         return {
-            msg: '系统用户管理'
+            msg: '用户管理'
         }       
     }
 }

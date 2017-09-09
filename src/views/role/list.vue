@@ -49,7 +49,7 @@ export default {
             },            
             totalRows: 0,
             currentPage: 1,
-            perPage: 5,
+            perPage: 10,
             pageOptions: [{ text: 5, value: 5 }, { text: 10, value: 10 }, { text: 15, value: 15 }],
             sortBy: null,
             sortDesc: false,

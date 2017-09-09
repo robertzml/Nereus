@@ -16,6 +16,7 @@
                 </ul>
             </b-card>
         </b-collapse>
+
         <b-btn block class="mt-1" v-b-toggle.accordion2 variant="primary">厂家管理</b-btn>
         <b-collapse id="accordion2" accordion="my-accordion">
             <b-card>
@@ -26,6 +27,7 @@
                 </ul>
             </b-card>
         </b-collapse>
+
         <b-btn block class="mt-1" v-b-toggle.accordion3 variant="primary">产品管理</b-btn>
         <b-collapse id="accordion3" accordion="my-accordion">
             <b-card>
@@ -42,14 +44,23 @@
                 </ul>
             </b-card>
         </b-collapse>
+
         <b-btn block class="mt-1" v-b-toggle.accordion4 variant="primary">订单管理</b-btn>
         <b-collapse id="accordion4" accordion="my-accordion">
             <b-card>
-                Accordion 3 contents Here
+                <ul class="nav nav-pills flex-column">
+                    <li class="nav-item">
+                         <a class="nav-link" href="#">订单类别</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Another nav item</a>
+                    </li>
+               </ul>
             </b-card>
         </b-collapse>
-        <b-btn block class="mt-1" v-b-toggle.accordion4 variant="primary">客户管理</b-btn>
-        <b-collapse id="accordion4" accordion="my-accordion">
+
+        <b-btn block class="mt-1" v-b-toggle.accordion5 variant="primary">客户管理</b-btn>
+        <b-collapse id="accordion5" accordion="my-accordion">
             <b-card>
                 <ul class="nav nav-pills flex-column">
                    <li class="nav-item">

@@ -16,18 +16,5 @@ export default {
         .catch(function (error) {
             console.log(error)
         })
-    },
-
-    save (username) {
-        localStorage.username = username
-        // this.$store.commit('updateUserInfo', userInfo)
-    },
-
-    load () {
-        return localStorage.username
-    },
-
-    remove () {
-        localStorage.removeItem('username')
     }
 }

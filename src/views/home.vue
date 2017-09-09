@@ -1,22 +1,18 @@
 <template>
-  <div class="home">
-      <top-head></top-head>
-      <div class="container-fluid">
-        <div class="row">
-          <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
-            <nav-menu></nav-menu>
-          </nav>
-          
-          <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
-                <transition name="fade">
-                    <keep-alive>
-                        <router-view></router-view>
-                    </keep-alive>
-                </transition>
-          </main>
+    <div class="home">
+        <top-head></top-head>
+        <div class="container-fluid">
+            <div class="row">
+                <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+                    <nav-menu></nav-menu>
+                </nav>
 
+                <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
+                    <router-view></router-view>
+                </main>
+
+            </div>
         </div>
-      </div>
   </div>
 </template>
 

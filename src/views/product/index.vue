@@ -8,7 +8,11 @@
         </b-button-group>        
 
         <hr />
-        <router-view></router-view>
+        <transition name="fade">
+            <keep-alive>
+                <router-view></router-view>
+            </keep-alive>
+        </transition>
     </div>
 </template>
 

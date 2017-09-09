@@ -49,7 +49,7 @@
 import company from '../../actions/company.js'
 
 export default {
-    name: 'company_details',
+    name: 'company-details',
     data () {
         return {
             msg: '厂家信息',

@@ -16,7 +16,7 @@ Vue.use(BootstrapVue)
 const store = new Vuex.Store({
   state: {
     domain: 'http://test.example.com',  // 保存后台请求的地址，修改时方便（比方说从测试服改成正式服域名）
-    userInfo: {
+    user: {
       login: false,
       id: '',
       name: '',
@@ -26,15 +26,15 @@ const store = new Vuex.Store({
   },
   mutations: {
     login (state, newUserInfo) {
-      state.userInfo = newUserInfo
+      state.user = newUserInfo
     },
 
     logout (state) {
-      state.userInfo.login = false
-      state.userInfo.id = ''
-      state.userInfo.name = ''
-      state.userInfo.roleId = ''
-      state.userInfo.companyId = ''
+      state.user.login = false
+      state.user.id = ''
+      state.user.name = ''
+      state.user.roleId = ''
+      state.user.companyId = ''
     }
   }
 })

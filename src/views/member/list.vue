@@ -20,12 +20,21 @@
             :current-page="currentPage"
             :per-page="perPage"
             :filter="filter"
+            :sort-by.sync="sortBy"
+            :sort-desc.sync="sortDesc"
             @filtered="onFiltered">
         </b-table>
+
+        <p>
+            Sort By: {{ sortBy || 'n/a' }}, Direction: {{ sortDesc ? 'descending' : 'ascending' }}
+        </p>
 
         <div class="row my-1">
             <div class="col-sm-8">
                 <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" />
+            </div>
+            <div class="col-sm-4 text-md-right">
+                <b-button :disabled="!sortBy" @click="sortBy = null">Clear Sort</b-button>
             </div>
         </div>
     </div>
@@ -42,14 +51,16 @@ export default {
             msg: '管理员列表',
             items: [],
             fields: {
-                id: { label: 'id' },
-                name: { label: '名称' },
-                type: { label: '类型' },
+                id: { label: 'id', sortable: true },
+                userName: { label: '用户名' },
+                companyId: { label: '厂商ID', sortable: true },
+                phone: { label: '电话' },
+                email: { label: 'Email' },
                 status: { label: '状态' }
             },            
             totalRows: 0,
             currentPage: 1,
-            perPage: 5,
+            perPage: 10,
             pageOptions: [{ text: 5, value: 5 }, { text: 10, value: 10 }, { text: 15, value: 15 }],
             sortBy: null,
             sortDesc: false,
