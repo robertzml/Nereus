@@ -39,6 +39,20 @@ const store = new Vuex.Store({
   }
 })
 
+router.beforeEach((to, from, next) => {
+  if (to.path === '/login') {
+    next()
+  } else {
+    if (store.state.user.login) {
+      next()
+    } else {
+      next({
+        path: '/login'
+      })
+    }
+  }
+})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

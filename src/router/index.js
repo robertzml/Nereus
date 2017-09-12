@@ -105,6 +105,11 @@ export default new Router({
                             component: function (resolve) {
                                 return require(['@/views/product/details.vue'], resolve)
                             }
+                        }, {
+                            path: 'create',
+                            component: function (resolve) {
+                                return require(['@/views/product/create.vue'], resolve)
+                            }
                         }
                     ]
                 },

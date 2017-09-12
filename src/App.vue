@@ -8,7 +8,7 @@
 export default {
     name: 'app',
     created: function () {
-        this.checkLogin()
+        // this.checkLogin()
     },
     methods: {
         checkLogin () {

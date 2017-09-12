@@ -35,7 +35,7 @@
                 </tr>
                 <tr>
                     <td>价格</td>
-                    <td>{{ details.stock }}</td>
+                    <td>{{ details.price }}</td>
                 </tr>
                 <tr>
                     <td>商品描述</td>
