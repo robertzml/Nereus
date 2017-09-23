@@ -1,11 +1,11 @@
 import axios from 'axios'
-import { apihost } from '../config.js'
+import config from '../utility/config.js'
 
 export default {
     name: 'product',
 
     list (callback) {
-        axios.get(apihost + '/goods/getGoodsDetail')
+        axios.get(config.apihost + '/goods/getGoodsDetail')
             .then(function (response) {
                 console.log(response)
                 callback(response.data)
@@ -13,7 +13,7 @@ export default {
     },
 
     listByCompany (companyId, callback) {
-        axios.get(apihost + '/goods/getGoodsByCompany', {
+        axios.get(config.apihost + '/goods/getGoodsByCompany', {
             params: {
                 companyId: companyId
             }
@@ -23,7 +23,7 @@ export default {
     },
 
     details (id, callback) {
-        axios.get(apihost + '/goods/ViewGoods', {
+        axios.get(config.apihost + '/goods/ViewGoods', {
             params: {
                 id: id
             }

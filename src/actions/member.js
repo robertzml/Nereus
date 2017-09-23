@@ -1,11 +1,11 @@
 import axios from 'axios'
-import { apihost } from '../config.js'
+import config from '../utility/config.js'
 
 export default {
     name: 'role',
 
     list (callback) {
-        axios.get(apihost + '/member/getMemberDetail')
+        axios.get(config.apihost + '/member/getMemberDetail')
             .then(function (response) {
                 console.log(response)
                 callback(response.data)
@@ -13,7 +13,7 @@ export default {
     },
 
     details (id, callback) {
-        axios.get(apihost + '/member/ViewMember', {
+        axios.get(config.apihost + '/member/ViewMember', {
             params: {
                 id: id
             }
@@ -24,7 +24,7 @@ export default {
     },
 
     update (model, callback) {
-        axios.post(apihost + '/member/EditMember', {
+        axios.post(config.apihost + '/member/EditMember', {
             id: model.id,
             name: model.name,
             address: model.address,

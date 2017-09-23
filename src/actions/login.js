@@ -1,11 +1,11 @@
 import axios from 'axios'
-import { apihost } from '../config.js'
+import config from '../utility/config.js'
 
 export default {
     name: 'login',
     
     check (username, password, callback) {
-        axios.post(apihost + '/login/loginMember', {
+        axios.post(config.apihost + '/login/loginMember', {
             userName: username,
             password: password
         })

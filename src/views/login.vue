@@ -2,7 +2,7 @@
     <div>
         <div class="container">
 
-            <b-form @submit="onSubmit" class="form-signin">
+            <b-form @submit="onSubmit3" class="form-signin">
                 <h2 class="form-signin-heading">{{ msg }}</h2>
 
                 <b-form-group id="iptgName"
@@ -26,7 +26,9 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import login from '../actions/login.js'
+import * as api from '../utility/api.js'
 
 export default {
     name: 'login',
@@ -40,6 +42,8 @@ export default {
         }       
     },
     methods: {
+        ...mapActions(['login']),
+
       onSubmit (evt) {
         evt.preventDefault()
         // alert(JSON.stringify(this.form))
@@ -62,6 +66,25 @@ export default {
                 alert('用户名密码错误')
             }
         })
+      },
+
+      onSubmit2 (evt) {
+          evt.preventDefault()
+         
+          api._post({ url: '/login/loginMember', data: { userName: this.form.name, password: this.form.password } })
+            .then(res => {
+                console.log(res)
+            })
+      },
+
+      onSubmit3 (evt) {
+          evt.preventDefault()        
+
+          this.login({ userName: this.form.name, password: this.form.password })
+            .then(res => {                
+                console.log('out:')
+                console.log(JSON.stringify(res))
+            })
       }
     }
 }

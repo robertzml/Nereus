@@ -56,7 +56,7 @@
 
 <script>
 import axios from 'axios'
-import { apihost } from '../../config.js'
+import config from '../../utility/config.js'
 
 export default {
     name: 'list',
@@ -100,7 +100,7 @@ export default {
         },
         getAccounts: function (page, pageSize) {
             var vm = this
-            axios.get(apihost + '/account/getAccountDetail', {
+            axios.get(config.apihost + '/account/getAccountDetail', {
                 params: {
                     page: page,
                     pageSize: pageSize
