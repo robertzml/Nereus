@@ -15,7 +15,7 @@ router.beforeEach((to, from, next) => {
   if (to.path === '/login') {
     next()
   } else {
-    console.log('login: ' + store.getters.isLogin)
+    console.log('main login: ' + store.getters.isLogin)
     if (store.getters.isLogin) {
       next()
     } else {

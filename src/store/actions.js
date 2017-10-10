@@ -14,5 +14,9 @@ export default {
                 })
                 return res.data
             })
+    },
+
+    logout ({commit}) {
+        commit('LOGOUT')
     }
 }

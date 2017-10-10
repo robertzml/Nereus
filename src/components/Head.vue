@@ -26,6 +26,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
     name: 'head',
     data () {
@@ -33,8 +35,11 @@ export default {
         }
     },
     methods: {
+        ...mapActions(['logout']),
+
         onLogout (evt) {
-            this.$store.commit('logout')
+            // this.$store.commit('logout')
+            this.logout()
             this.$router.push('/login')
         }
     }

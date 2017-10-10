@@ -44,48 +44,54 @@ export default {
     methods: {
         ...mapActions(['login']),
 
-      onSubmit (evt) {
-        evt.preventDefault()
-        // alert(JSON.stringify(this.form))
+        onSubmit (evt) {
+            evt.preventDefault()
+            // alert(JSON.stringify(this.form))
 
-        var vm = this
-        login.check(this.form.name, this.form.password, function (response) {
-            if (typeof response === 'object') {
-                var userInfo = {
-                    id: response.id,
-                    name: response.userName,
-                    companyId: response.companyId,
-                    roleId: 0,
-                    login: true
+            var vm = this
+            login.check(this.form.name, this.form.password, function (response) {
+                if (typeof response === 'object') {
+                    var userInfo = {
+                        id: response.id,
+                        name: response.userName,
+                        companyId: response.companyId,
+                        roleId: 0,
+                        login: true
+                    }
+
+                    console.log(userInfo)
+                    vm.$store.commit('login', userInfo)
+                    vm.$router.push('/')
+                } else {
+                    alert('用户名密码错误')
                 }
-
-                console.log(userInfo)
-                vm.$store.commit('login', userInfo)
-                vm.$router.push('/')
-            } else {
-                alert('用户名密码错误')
-            }
-        })
-      },
-
-      onSubmit2 (evt) {
-          evt.preventDefault()
-         
-          api._post({ url: '/login/loginMember', data: { userName: this.form.name, password: this.form.password } })
-            .then(res => {
-                console.log(res)
             })
-      },
+        },
 
-      onSubmit3 (evt) {
-          evt.preventDefault()        
+        onSubmit2 (evt) {
+            evt.preventDefault()
+            
+            api._post({ url: '/login/loginMember', data: { userName: this.form.name, password: this.form.password } })
+                .then(res => {
+                    console.log(res)
+                })
+        },
 
-          this.login({ userName: this.form.name, password: this.form.password })
-            .then(res => {                
-                console.log('out:')
-                console.log(JSON.stringify(res))
+        onSubmit3 (evt) {
+            evt.preventDefault()        
+
+            var vm = this
+            this.login({ userName: this.form.name, password: this.form.password })
+                .then(res => {
+                    console.log(JSON.stringify(res))   
+                    if (typeof res === 'object') {
+                        // console.log('out:')
+                        vm.$router.push('/')
+                    } else {
+                        alert('用户名密码错误')
+                    }
             })
-      }
+        }
     }
 }
 </script>
