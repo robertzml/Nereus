@@ -32,29 +32,36 @@
 
 
 <script>
-import company from '../../actions/company.js'
+import company from '../../controllers/company.js'
 
 export default {
-  name: 'company_create',
-  data () {
-      return {
-        msg: '厂家信息',
-        form: {
-          name: '',
-          address: '',
-          contacts: '',
-          phone: ''
-        }   
-      }
-  },
-  methods: {
-      onSubmit (evt) {
+    name: 'company-create',
+    data () {
+        return {
+            msg: '厂家信息',
+            form: {
+                name: '',
+                address: '',
+                contacts: '',
+                phone: ''
+            }   
+        }
+    },
+    methods: {
+        onSubmit (evt) {
         evt.preventDefault()
         var vm = this
         // console.log(JSON.stringify(this.form))
 
+        /*
         company.create(vm.form, function (response) {
             alert(response)
+            vm.$router.push({ path: '/company/list' })
+        })
+        */
+
+        company.create(vm.form).then(res => {
+            alert(res)
             vm.$router.push({ path: '/company/list' })
         })
       }

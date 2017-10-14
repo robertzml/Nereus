@@ -57,10 +57,10 @@
 </template>
 
 <script>
-import company from '../../actions/company.js'
+import company from '../../controllers/company.js'
 
 export default {
-    name: 'company_list',
+    name: 'company-list',
     data () {
         return {
             items: [],
@@ -108,26 +108,34 @@ export default {
         },
         handleOk (e) {            
             e.cancel()
+            /*
             var vm = this
+            
             company.delete(this.modalDetails.data.id, function (response) {
                 alert(response)
                 vm.getCompanys()
                 vm.$refs.modal1.hide()
             })
+            */
         },
         resetModal () {
             this.modalDetails.data = {}
         },
         getCompanys () {
             var vm = this
-         
-            vm.items = company.list(function (response) {
-                vm.items = response
-                vm.totalRows = response.length
+        
+            company.list().then(res => {
+                vm.items = res
+                vm.totalRows = res.length
             })
         }
     },
-    created: function () {     
+    created: function () {
+        console.log('In company list create function')
+        this.getCompanys()
+    },
+    activated: function () {
+        console.log('In company list activated function')
         this.getCompanys()
     }
 }

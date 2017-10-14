@@ -46,7 +46,7 @@
 
 
 <script>
-import company from '../../actions/company.js'
+import company from '../../controllers/company.js'
 
 export default {
     name: 'company-details',
@@ -61,8 +61,8 @@ export default {
         getCompany: function (id) {
             var vm = this
 
-            company.details(id, function (response) {
-                vm.company = response
+            company.details(id).then(res => {
+                vm.company = res
             })
         }
     },

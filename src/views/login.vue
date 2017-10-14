@@ -83,7 +83,7 @@ export default {
             var vm = this
             this.login({ userName: this.form.name, password: this.form.password })
                 .then(res => {
-                    console.log(JSON.stringify(res))   
+                    console.log(JSON.stringify(res))
                     if (typeof res === 'object') {
                         // console.log('out:')
                         vm.$router.push('/')
