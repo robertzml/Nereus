@@ -28,5 +28,22 @@ export default {
                 console.log(res)
                 return res.data
             })
+    },
+
+    update (model) {
+        return api._post({ 
+            url: '/company/EditCompany', 
+            data: {
+                id: model.id,
+                name: model.name,
+                address: model.address,
+                contacts: model.contacts,
+                phone: model.phone
+            }})
+            .then(res => {
+                console.log('company update: ')
+                console.log(res)
+                return res.data
+            })
     }
 }

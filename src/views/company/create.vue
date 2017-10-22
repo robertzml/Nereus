@@ -49,22 +49,22 @@ export default {
     },
     methods: {
         onSubmit (evt) {
-        evt.preventDefault()
-        var vm = this
-        // console.log(JSON.stringify(this.form))
+            evt.preventDefault()
+            var vm = this
+            // console.log(JSON.stringify(this.form))
 
-        /*
-        company.create(vm.form, function (response) {
-            alert(response)
-            vm.$router.push({ path: '/company/list' })
-        })
-        */
+            /*
+            company.create(vm.form, function (response) {
+                alert(response)
+                vm.$router.push({ path: '/company/list' })
+            })
+            */
 
-        company.create(vm.form).then(res => {
-            alert(res)
-            vm.$router.push({ path: '/company/list' })
-        })
-      }
+            company.create(vm.form).then(res => {
+                alert(res)
+                vm.$router.push({ path: '/company/list' })
+            })
+        }
     }
 }
 </script>

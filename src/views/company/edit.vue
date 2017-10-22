@@ -32,7 +32,7 @@
 
 
 <script>
-import company from '../../actions/company.js'
+import company from '../../controllers/company.js'
 
 export default {
     name: 'company_edit',
@@ -52,15 +52,22 @@ export default {
         getCompany (id) {
             var vm = this
 
-            company.details(id, function (response) {
-                vm.form = response
+            company.details(id).then(res => {
+                vm.form = res    
             })
         },
         updateCompany () {
             var vm = this
 
+            /*
             company.update(vm.form, function (response) {
                 alert(response.data)
+                vm.$router.push({ path: '/company/list' })
+            })
+            */
+
+            company.update(vm.form).then(res => {
+                alert(res)
                 vm.$router.push({ path: '/company/list' })
             })
         }
