@@ -5,11 +5,18 @@ import HelloWorld from '@/components/HelloWorld'
 Vue.use(Router)
 
 export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'Home',
-      component: resolve => { require(['../components/Home.vue'], resolve) }
-    }
-  ]
+    routes: [
+        {
+            path: '/',
+            name: 'Home',
+            component: resolve => { require(['../components/Home.vue'], resolve) }
+        },
+        {
+            path: '/login',
+            name: 'login',
+            component: function (resolve) {
+                return require(['@/views/login.vue'], resolve)
+            }
+        }
+    ]
 })

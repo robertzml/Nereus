@@ -1,18 +1,20 @@
 <template>
-  <div id="app">
-    <router-view/>
-  </div>
+    <div id="app" class="app-main">
+        <router-view/>
+    </div>
 </template>
 
 <script>
 export default {
-  name: 'app'
+    name: 'app'
 }
 </script>
 
 <style>
-#app {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.app-main{
+    width: 100%;
+    height: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 </style>
