@@ -35,6 +35,7 @@
 
 <script>
 import { mapActions } from 'vuex'
+import axios from 'axios'
 
 export default {
     name: 'login',
@@ -75,6 +76,16 @@ export default {
                     */
 
                     var vm = this
+
+                    var params = new URLSearchParams()
+                    // params.append('user_name', this.form.userName)
+                    // params.append('password', this.form.password)
+                    axios.post('http://192.168.0.111:7500/freeplatform/t_account/login', { user_name: this.form.userName, password: this.form.password })
+                        .then(res => {
+                            console.log(res)
+                        })
+                    
+                    /*
                     this.login({ user_name: this.form.userName, password: this.form.password })
                         .then(res => {
                             console.log(JSON.stringify(res))
@@ -85,6 +96,7 @@ export default {
                                 alert('用户名密码错误')
                             }
                     })
+                    */
                 }
             })
         }
