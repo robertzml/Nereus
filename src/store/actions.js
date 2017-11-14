@@ -4,31 +4,28 @@ export default {
     login ({commit}, payload) {
         return api._post({ url: '/t_account/login', data: payload })
             .then(res => {
+                console.log('action:')
                 console.log(res)
-                commit('LOGIN', {
-                    login: true,
-                    id: res.data,
-                    name: '',
-                    roleId: '',
-                    complayId: ''
-                })
+                let u = res.data
+                if (u.status === 0) {
+                    commit('LOGIN', {
+                        login: true,
+                        id: u.admin.id,
+                        userName: u.admin.user_name,
+                        roleId: u.admin.role_id,
+                        complayId: u.admin.company_id 
+                    })
+                } else {
+                    commit('LOGIN', {
+                        login: false,
+                        id: 0,
+                        userName: '',
+                        roleId: '',
+                        complayId: '' 
+                    })
+                }
                 return res.data
             })
-        
-        /*
-        return api._get({url: '/t_account/login', data: { user_name: payload.user_name, password: payload.password }})
-            .then(res => {
-                console.log(res)
-                commit('LOGIN', {
-                    login: true,
-                    id: res.data,
-                    name: '',
-                    roleId: '',
-                    complayId: ''
-                })
-                return res.data
-            })
-            */
     },
 
     logout ({commit}) {

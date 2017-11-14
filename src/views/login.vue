@@ -75,28 +75,17 @@ export default {
                     });
                     */
 
-                    var vm = this
-
-                    var params = new URLSearchParams()
-                    // params.append('user_name', this.form.userName)
-                    // params.append('password', this.form.password)
-                    axios.post('http://192.168.0.111:7500/freeplatform/t_account/login', { user_name: this.form.userName, password: this.form.password })
-                        .then(res => {
-                            console.log(res)
-                        })
+                    let vm = this
                     
-                    /*
                     this.login({ user_name: this.form.userName, password: this.form.password })
                         .then(res => {
-                            console.log(JSON.stringify(res))
-                            if (typeof res === 'object') {
+                            if (res.status === 0) {
                                 // console.log('out:')
                                 vm.$router.push('/')
                             } else {
                                 alert('用户名密码错误')
                             }
-                    })
-                    */
+                    })                    
                 }
             })
         }

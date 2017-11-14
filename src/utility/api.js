@@ -14,7 +14,6 @@ export const _get = (req) => {
 }
 
 export const _post = (req) => {
-    console.log(JSON.stringify(req.data))
-    // return ax({ method: 'post', url: req.url, data: req.data })
-    return ax.post(req.url, { data: req.data })
+    // console.log(JSON.stringify(req.data))
+    return ax.post(req.url, req.data)
 }
