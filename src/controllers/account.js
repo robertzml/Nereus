@@ -8,5 +8,12 @@ export default {
             .then(res => {
                 return res.data
             })
+    },
+
+    listView () {
+        return api._get({ url: '/t_account/findAllInfo' })
+            .then(res => {
+                return res.data
+            })
     }
 }

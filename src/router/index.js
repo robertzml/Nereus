@@ -20,6 +20,11 @@ export default new Router({
                     path: '/account',
                     name: 'account',
                     component: resolve => { require(['@/views/account/index.vue'], resolve) }
+                },
+                {
+                    path: '/company',
+                    name: 'company',
+                    component: resolve => { require(['@/views/company/index.vue'], resolve) }
                 }
             ]
         }
