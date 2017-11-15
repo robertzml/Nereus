@@ -8,20 +8,22 @@ export default {
                 console.log(res)
                 let u = res.data
                 if (u.status === 0) {
+                    console.log('login success')
                     commit('LOGIN', {
                         login: true,
                         id: u.admin.id,
                         userName: u.admin.user_name,
                         roleId: u.admin.role_id,
-                        complayId: u.admin.company_id 
+                        companyId: u.admin.company_id 
                     })
                 } else {
+                    console.log('login failed')
                     commit('LOGIN', {
                         login: false,
                         id: 0,
                         userName: '',
                         roleId: '',
-                        complayId: '' 
+                        companyId: '' 
                     })
                 }
                 return res.data

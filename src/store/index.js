@@ -11,9 +11,9 @@ const store = new Vuex.Store({
         user: {
             login: false,
             id: '',
-            name: '',
+            userName: '',
             roleId: '',
-            complayId: ''
+            companyId: ''
         }
     },
     getters,
