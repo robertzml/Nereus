@@ -69,7 +69,6 @@
         },
         methods: {
             changeMenu (name) {
-                console.log(name)
                 this.$router.push({
                     name: name
                 })
