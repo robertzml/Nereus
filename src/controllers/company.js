@@ -15,5 +15,25 @@ export default {
             .then(res => {
                 return res.data
             })
+    },
+
+    update (model) {
+        return api._post({ 
+            url: '/t_company/update', 
+            data: {
+                id: model.id,
+                name: model.name,
+                code: model.code,
+                type: model.type,
+                address: model.address,
+                contact: model.contact,
+                phone: model.phone,
+                remark: model.remark
+            }})
+            .then(res => {
+                console.log('company update: ')
+                console.log(res)
+                return res.data
+            })
     }
 }

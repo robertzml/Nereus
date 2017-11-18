@@ -19,12 +19,6 @@
             <p>Content of dialog</p>
             <p>Content of dialog</p>
         </Modal>
-
-        <transition name="fade">
-            <keep-alive>
-                <router-view></router-view>
-            </keep-alive>
-        </transition>
     </Row>
 </template>
 
@@ -82,7 +76,18 @@ export default {
                                         this.showDetails(params.row.id)
                                     }
                                 }
-                            }, '查看')
+                            }, '查看'),
+                            h('Button', {
+                                props: {
+                                    type: 'warning',
+                                    size: 'small'
+                                },
+                                on: {
+                                    click: () => {
+                                        this.showEdit(params.row)
+                                    }
+                                }
+                            }, '编辑')
                         ])
                     }
                 }
@@ -121,6 +126,9 @@ export default {
         showDetails (id) {
             // this.modalView = true
             this.$router.push({ name: 'company_details', params: { id: id } })
+        },
+        showEdit (item) {
+            this.$router.push({ name: 'company_edit', params: { id: item.id } })
         }
     },
     created: function () {

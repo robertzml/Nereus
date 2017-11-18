@@ -24,14 +24,17 @@ export default new Router({
                 {
                     path: '/company',
                     name: 'company',
-                    component: resolve => { require(['@/views/company/index.vue'], resolve) },
-                    children: [
-                    ]
+                    component: resolve => { require(['@/views/company/index.vue'], resolve) }
                 },
                 {
                     name: 'company_details',
                     path: '/company/details/:id',
                     component: resolve => { require(['@/views/company/details.vue'], resolve) }
+                },
+                {
+                    name: 'company_edit',
+                    path: '/company/edit/:id',
+                    component: resolve => { require(['@/views/company/edit.vue'], resolve) }
                 }
             ]
         }
