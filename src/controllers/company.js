@@ -17,6 +17,17 @@ export default {
             })
     },
 
+    create (model) {
+        return api._post({ 
+            url: '/t_company/add', 
+            data: model
+        }).then(res => {
+            console.log('company add: ')
+            console.log(res)
+            return res.data
+        })
+    },
+
     update (model) {
         return api._post({ 
             url: '/t_company/update', 
@@ -28,6 +39,7 @@ export default {
                 address: model.address,
                 contact: model.contact,
                 phone: model.phone,
+                aftersale_phone: model.aftersale_phone,
                 remark: model.remark
             }})
             .then(res => {

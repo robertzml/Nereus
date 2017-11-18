@@ -2,16 +2,24 @@
     <Row>
         <Col span="24">
             <Card>
-            <p slot="title">
-                <Icon type="grid"></Icon>
-                厂商列表
-            </p>
-            <Table :data="tableData" :columns="columns" border stripe></Table>
-            <div style="margin: 10px;overflow-x: hidden">
-                <div style="float: right;">
-                    <Page :total="itemsCount" :current="1" :page-size="pageSize" show-sizer @on-change="changePage"></Page>
+                <p slot="title">
+                    <Icon type="grid"></Icon>
+                    厂商列表
+                </p>
+                <a href="#" slot="extra" @click.prevent="showCreate">
+                    <Icon type="plus-round"></Icon>
+                    新增
+                </a>
+                <a href="#" slot="extra" @click.prevent="getCompany">
+                    <Icon type="ios-loop-strong"></Icon>
+                    刷新
+                </a>
+                <Table :data="tableData" :columns="columns" border stripe></Table>
+                <div style="margin: 10px;overflow-x: hidden">
+                    <div style="float: right;">
+                        <Page :total="itemsCount" :current="1" :page-size="pageSize" show-sizer @on-change="changePage"></Page>
+                    </div>
                 </div>
-            </div>
             </Card>
         </Col>
         <Modal v-model="modalView" title="公司信息">
@@ -31,6 +39,11 @@ export default {
     data () {
         return {
             columns: [
+                {
+                    type: 'index',
+                    width: 60,
+                    align: 'center'
+                },
                 {
                     title: '名称',
                     key: 'name'
@@ -55,6 +68,10 @@ export default {
                 {
                     title: '电话',
                     key: 'phone'
+                },
+                {
+                    title: '售后电话',
+                    key: 'aftersale_phone'
                 },
                 {
                     title: '操作',
@@ -100,6 +117,15 @@ export default {
             modalView: false
         }
     },
+    beforeRouteEnter (to, from, next) {
+        if (from.name === 'company_edit' || from.name === 'company_create') {
+            next(vm => {
+                vm.getCompany()
+            })
+        } else {
+            next()
+        }
+    },
     methods: {
         getCompany () {
             let vm = this
@@ -129,6 +155,9 @@ export default {
         },
         showEdit (item) {
             this.$router.push({ name: 'company_edit', params: { id: item.id } })
+        },
+        showCreate () {
+            this.$router.push({ name: 'company_create' })
         }
     },
     created: function () {

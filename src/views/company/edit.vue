@@ -19,6 +19,9 @@
                             <FormItem label="电话">
                                 <Input v-model="companyInfo.phone"></Input>
                             </FormItem>
+                            <FormItem label="售后电话">
+                                <Input v-model="companyInfo.aftersale_phone"></Input>
+                            </FormItem>
                             <FormItem label="地址">
                                 <Input v-model="companyInfo.address"></Input>
                             </FormItem>
@@ -34,8 +37,13 @@
 
                 <hr />
                 <br />
-                <Button type="success" @click="updateCompany">保存</Button>
-                <Button type="primary" @click="toIndex">返回</Button>
+
+                <Row>
+                    <Col span="16" push="5">
+                        <Button type="success" @click="updateCompany">保存</Button>
+                        <Button type="primary" @click="toIndex">返回</Button>
+                    </Col>
+                </Row>
             </Card>
         </Col>
     </Row>
@@ -53,7 +61,8 @@ export default {
                 id: 0,
                 name: '',
                 phone: '',
-                type: '',
+                aftersale_phone: '',
+                type: 0,
                 contact: '',
                 address: '',
                 code: '',
@@ -73,9 +82,9 @@ export default {
 
         updateCompany () {
             let vm = this
-            console.log('begin update')
+
             company.update(this.companyInfo).then(res => {
-                alert(res)
+                vm.$Message.info(res.message)
                 vm.$router.push({ name: 'company' })
             })
         },
@@ -85,7 +94,6 @@ export default {
         }
     },
     activated: function () {
-        console.log('company edit mount')
         this.companyId = this.$route.params.id
         this.getCompany(this.companyId)
     }
