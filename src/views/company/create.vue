@@ -13,7 +13,7 @@
                             <FormItem label="名称" prop="name">
                                 <Input v-model="companyInfo.name"></Input>
                             </FormItem>
-                             <FormItem label="联系人" prop="contact">
+                            <FormItem label="联系人" prop="contact">
                                 <Input v-model="companyInfo.contact"></Input>
                             </FormItem>
                             <FormItem label="电话">
@@ -54,7 +54,7 @@
 import company from '../../controllers/company.js'
 
 export default {
-    name: 'company_create',
+    name: 'company-create',
     data () {
         return {
             companyInfo: {

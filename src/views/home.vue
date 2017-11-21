@@ -30,7 +30,7 @@
                             系统管理
                         </template>
                         <MenuItem name="account">用户管理</MenuItem>
-                        <MenuItem name="3-2">Option 2</MenuItem>
+                        <MenuItem name="product-type">产品分类</MenuItem>
                         <MenuItem name="3-3">Option 3</MenuItem>
                     </Submenu>
                 </Menu>

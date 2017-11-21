@@ -53,7 +53,7 @@
 import company from '../../controllers/company.js'
 
 export default {
-    name: 'company_edit',
+    name: 'company-edit',
     data () {
         return {
             companyId: this.$route.params.id,

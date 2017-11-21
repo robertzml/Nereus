@@ -27,19 +27,29 @@ export default new Router({
                     component: resolve => { require(['@/views/company/index.vue'], resolve) }
                 },
                 {
-                    name: 'company_details',
+                    name: 'company-details',
                     path: '/company/details/:id',
                     component: resolve => { require(['@/views/company/details.vue'], resolve) }
                 },
                 {
-                    name: 'company_create',
+                    name: 'company-create',
                     path: '/company/create',
                     component: resolve => { require(['@/views/company/create.vue'], resolve) }
                 },
                 {
-                    name: 'company_edit',
+                    name: 'company-edit',
                     path: '/company/edit/:id',
                     component: resolve => { require(['@/views/company/edit.vue'], resolve) }
+                },
+                {
+                    path: '/product-type',
+                    name: 'product-type',
+                    component: resolve => { require(['@/views/product-type/index.vue'], resolve) }
+                },
+                {
+                    path: '/product-type/create',
+                    name: 'product-type-create',
+                    component: resolve => { require(['@/views/product-type/create.vue'], resolve) }
                 },
                 {
                     path: '/equipment',

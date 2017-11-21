@@ -118,7 +118,7 @@ export default {
         }
     },
     beforeRouteEnter (to, from, next) {
-        if (from.name === 'company_edit' || from.name === 'company_create') {
+        if (from.name === 'company-edit' || from.name === 'company-create') {
             next(vm => {
                 vm.getCompany()
             })
@@ -151,13 +151,13 @@ export default {
         },
         showDetails (id) {
             // this.modalView = true
-            this.$router.push({ name: 'company_details', params: { id: id } })
+            this.$router.push({ name: 'company-details', params: { id: id } })
         },
         showEdit (item) {
-            this.$router.push({ name: 'company_edit', params: { id: item.id } })
+            this.$router.push({ name: 'company-edit', params: { id: item.id } })
         },
         showCreate () {
-            this.$router.push({ name: 'company_create' })
+            this.$router.push({ name: 'company-create' })
         }
     },
     created: function () {

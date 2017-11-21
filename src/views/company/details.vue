@@ -49,7 +49,7 @@
 import company from '../../controllers/company.js'
 
 export default {
-    name: 'company_details',
+    name: 'company-details',
     data () {
         return {
             companyId: this.$route.params.id,
