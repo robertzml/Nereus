@@ -21,7 +21,7 @@
                             <Icon type="ios-analytics"></Icon>
                             产品管理
                         </template>
-                        <MenuItem name="2-1">Option 1</MenuItem>
+                        <MenuItem name="equipment">设备管理</MenuItem>
                         <MenuItem name="2-2">Option 2</MenuItem>
                     </Submenu>
                     <Submenu name="3">

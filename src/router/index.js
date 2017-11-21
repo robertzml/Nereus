@@ -40,6 +40,11 @@ export default new Router({
                     name: 'company_edit',
                     path: '/company/edit/:id',
                     component: resolve => { require(['@/views/company/edit.vue'], resolve) }
+                },
+                {
+                    path: '/equipment',
+                    name: 'equipment',
+                    component: resolve => { require(['@/views/equipment/index.vue'], resolve) }
                 }
             ]
         }
