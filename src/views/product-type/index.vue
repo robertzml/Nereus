@@ -14,6 +14,22 @@
                     <Icon type="ios-loop-strong"></Icon>
                     刷新
                 </a>
+
+                <Row>
+                    <Col span="10">
+                        <Tree :data="treeData" @on-select-change="showDetails"></Tree>
+                    </Col>
+                    <Col span="14">
+                        <Form :model="typeInfo" :label-width="80">
+                            <FormItem label="名称">
+                                <Input v-model="typeInfo.name" readonly></Input>
+                            </FormItem>
+                             <FormItem label="备注">
+                                <Input v-model="typeInfo.remark" type="textarea" :rows="4" readonly></Input>
+                            </FormItem>
+                        </Form>
+                    </Col>
+                </Row>
             </Card>
         </Col>
     </Row>
@@ -27,7 +43,11 @@ export default {
     name: 'product-type',
     data () {
         return {
-
+            treeData: [],
+            typeInfo: {
+                name: '',
+                remark: ''
+            }
         }
     },
     methods: {
@@ -35,30 +55,35 @@ export default {
             let vm = this
             productType.list().then(res => {
                 console.log(res)
+
+                vm.treeData = vm.listToTree(res.entities)
+                console.log(vm.treeData)
             })
         },
         showCreate () {
             this.$router.push({ name: 'product-type-create' })
         },
-        list_to_tree (list) {
-            var map = {}
-            var node
-            var roots = []
-            var i
-            for (i = 0; i < list.length; i += 1) {
+        listToTree (list) {
+            let map = {}
+            let roots = []            
+            for (let i = 0; i < list.length; i += 1) {
                 map[list[i].id] = i  // initialize the map
                 list[i].children = [] // initialize the children
             }
-            for (i = 0; i < list.length; i += 1) {
-                node = list[i]
-                if (node.parentId !== '0') {
+            for (let i = 0; i < list.length; i += 1) {
+                let node = list[i]
+                node.title = node.name
+                if (node.parent_id !== null) {
                     // if you have dangling branches check that map[node.parentId] exists
-                    list[map[node.parentId]].children.push(node)
+                    list[map[node.parent_id]].children.push(node)
                 } else {
                     roots.push(node)
                 }
             }
             return roots
+        },
+        showDetails (node) {
+            this.typeInfo = node[0]
         }
     },
     created: function () {
