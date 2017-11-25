@@ -58,6 +58,41 @@ export default {
                 {
                     title: '代理商ID',
                     key: 'agent_id'
+                },
+                {
+                    title: '操作',
+                    key: 'action',
+                    width: 150,
+                    align: 'center',
+                    render: (h, params) => {
+                        return h('div', [
+                             h('Button', {
+                                props: {
+                                    type: 'primary',
+                                    size: 'small'
+                                },
+                                style: {
+                                    marginRight: '5px'
+                                },
+                                on: {
+                                    click: () => {
+                                        this.showDetails(params.row)
+                                    }
+                                }
+                            }, '查看'),
+                            h('Button', {
+                                props: {
+                                    type: 'warning',
+                                    size: 'small'
+                                },
+                                on: {
+                                    click: () => {
+                                        // this.showEdit(params.row)
+                                    }
+                                }
+                            }, '编辑')
+                        ])
+                    }
                 }
             ],
             items: [],
@@ -76,6 +111,12 @@ export default {
                 vm.itemsCount = res.entities.length
                 vm.tableData = _.slice(vm.items, 0, vm.pageSize)
             })
+        },
+        changePage (page) {
+            this.tableData = _.slice(this.items, (page - 1) * this.pageSize, page * this.pageSize)
+        },
+        showDetails (item) {
+            this.$router.push({ name: 'equipment-details', params: { id: item.id } })
         }
     },
     created: function () {

@@ -13,7 +13,7 @@
                             <FormItem label="名称">
                                 <Input v-model="companyInfo.name" readonly></Input>
                             </FormItem>
-                             <FormItem label="联系人">
+                            <FormItem label="联系人">
                                 <Input v-model="companyInfo.contact" readonly></Input>
                             </FormItem>
                             <FormItem label="电话">

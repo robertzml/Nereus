@@ -90,7 +90,7 @@ export default {
                                 },
                                 on: {
                                     click: () => {
-                                        this.showDetails(params.row.id)
+                                        this.showDetails(params.row)
                                     }
                                 }
                             }, '查看'),
@@ -149,9 +149,9 @@ export default {
                     return '代理商'
             }
         },
-        showDetails (id) {
+        showDetails (item) {
             // this.modalView = true
-            this.$router.push({ name: 'company-details', params: { id: id } })
+            this.$router.push({ name: 'company-details', params: { id: item.id } })
         },
         showEdit (item) {
             this.$router.push({ name: 'company-edit', params: { id: item.id } })

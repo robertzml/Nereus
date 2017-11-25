@@ -55,6 +55,11 @@ export default new Router({
                     path: '/equipment',
                     name: 'equipment',
                     component: resolve => { require(['@/views/equipment/index.vue'], resolve) }
+                },
+                {
+                    name: 'equipment-details',
+                    path: '/equipment/details/:id',
+                    component: resolve => { require(['@/views/equipment/details.vue'], resolve) }
                 }
             ]
         }
