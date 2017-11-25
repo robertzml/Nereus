@@ -40,22 +40,25 @@ export default {
         showCreate () {
             this.$router.push({ name: 'product-type-create' })
         },
-        list_to_tree(list) {
-            var map = {}, node, roots = [], i;
+        list_to_tree (list) {
+            var map = {}
+            var node
+            var roots = []
+            var i
             for (i = 0; i < list.length; i += 1) {
-                map[list[i].id] = i; // initialize the map
-                list[i].children = []; // initialize the children
+                map[list[i].id] = i  // initialize the map
+                list[i].children = [] // initialize the children
             }
             for (i = 0; i < list.length; i += 1) {
-                node = list[i];
-                if (node.parentId !== "0") {
+                node = list[i]
+                if (node.parentId !== '0') {
                     // if you have dangling branches check that map[node.parentId] exists
-                    list[map[node.parentId]].children.push(node);
+                    list[map[node.parentId]].children.push(node)
                 } else {
-                    roots.push(node);
+                    roots.push(node)
                 }
             }
-            return roots;
+            return roots
         }
     },
     created: function () {
