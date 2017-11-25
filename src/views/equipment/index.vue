@@ -48,16 +48,20 @@ export default {
                     key: 'mainboard_serial_number'
                 },
                 {
-                    title: '产品ID',
-                    key: 'product_id'
+                    title: '产品名称',
+                    key: 'product_name'
                 },
                 {
-                    title: '厂商ID',
-                    key: 'company_id'
+                    title: '产品类别',
+                    key: 'product_type_name'
                 },
                 {
-                    title: '代理商ID',
-                    key: 'agent_id'
+                    title: '生产厂商',
+                    key: 'vendor_company_name'
+                },
+                {
+                    title: '代理商',
+                    key: 'agent_company_name'
                 },
                 {
                     title: '操作',
@@ -87,7 +91,7 @@ export default {
                                 },
                                 on: {
                                     click: () => {
-                                        // this.showEdit(params.row)
+                                        this.showEdit(params.row)
                                     }
                                 }
                             }, '编辑')
@@ -105,7 +109,7 @@ export default {
     methods: {
         getEquipment () {
             let vm = this
-            equipment.list().then(res => {
+            equipment.listView().then(res => {
                 console.log(res)
                 vm.items = res.entities
                 vm.itemsCount = res.entities.length
@@ -117,6 +121,9 @@ export default {
         },
         showDetails (item) {
             this.$router.push({ name: 'equipment-details', params: { id: item.id } })
+        },
+        showEdit (item) {
+            this.$router.push({ name: 'equipment-edit', params: { id: item.id } })
         }
     },
     created: function () {

@@ -43,8 +43,6 @@ export default {
                 remark: model.remark
             }})
             .then(res => {
-                console.log('company update: ')
-                console.log(res)
                 return res.data
             })
     }

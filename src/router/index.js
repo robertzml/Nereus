@@ -60,6 +60,11 @@ export default new Router({
                     name: 'equipment-details',
                     path: '/equipment/details/:id',
                     component: resolve => { require(['@/views/equipment/details.vue'], resolve) }
+                },
+                {
+                    name: 'equipment-edit',
+                    path: '/equipment/edit/:id',
+                    component: resolve => { require(['@/views/equipment/edit.vue'], resolve) }
                 }
             ]
         }

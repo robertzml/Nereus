@@ -10,10 +10,26 @@ export default {
             })
     },
 
+    listView () {
+        return api._get({ url: '/t_equipment/findAllInfo' })
+            .then(res => {
+                return res.data
+            })
+    },
+
     details (id) {
         return api._get({ url: '/t_equipment/findOne', data: { equipment_id: id } })
             .then(res => {
                 return res.data
             })
+    },
+
+    update (model) {
+        return api._post({ 
+            url: '/t_equipment/update', 
+            data: model
+        }).then(res => {
+            return res.data
+        })
     }
 }
