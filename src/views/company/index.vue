@@ -138,16 +138,6 @@ export default {
         changePage (page) {
             this.tableData = _.slice(this.items, (page - 1) * this.pageSize, page * this.pageSize)
         },
-        displayType (type) {
-            switch (type) {
-                case 1:
-                    return '平台'
-                case 2:
-                    return '厂商'
-                case 3:
-                    return '代理商'
-            }
-        },
         showDetails (item) {
             this.$router.push({ name: 'company-details', params: { id: item.id } })
         },

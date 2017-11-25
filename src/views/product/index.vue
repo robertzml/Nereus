@@ -4,8 +4,9 @@
             <Card>
                 <p slot="title">
                     <Icon type="grid"></Icon>
-                    用户列表
+                    产品列表
                 </p>
+
                 <Table :data="tableData" :columns="columns" stripe border></Table>
                 <div style="margin: 10px;overflow-x: hidden">
                     <div style="float: right;">
@@ -18,43 +19,34 @@
 </template>
 
 <script>
-import account from '../../controllers/account.js'
-import * as nereus from '../../utility/nereus.js'
+import product from '../../controllers/product.js'
 import _ from 'lodash'
 
 export default {
-    name: 'account-index',
+    name: 'product-index',
     data () {
         return {
             columns: [
                 {
-                    title: '用户名',
-                    key: 'user_name'
+                    type: 'index',
+                    width: 60,
+                    align: 'center'
                 },
                 {
-                    title: '电话',
-                    key: 'phone'
+                    title: '名称',
+                    key: 'name'
                 },
                 {
-                    title: 'Email',
-                    key: 'email'
+                    title: '分类名称',
+                    key: 'product_type_name'
                 },
                 {
-                    title: '角色',
-                    key: 'role_name'
-                },
-                {
-                    title: '公司',
+                    title: '厂商名称',
                     key: 'company_name'
                 },
                 {
-                    title: '公司类型',
-                    key: 'company_type',
-                    render: (h, params) => {
-                        return h('div', [
-                            h('span', nereus.displayCompanyType(params.row.company_type))
-                        ])
-                    }
+                    title: '型号规格',
+                    key: 'specification'
                 }
             ],
             items: [],
@@ -65,10 +57,10 @@ export default {
         }
     },
     methods: {
-        getAccounts () {
+        getProducts () {
             let vm = this
-            account.listView().then(res => {
-                vm.items = res.admins
+            product.listView().then(res => {
+                vm.items = res.entities
                 vm.itemsCount = vm.items.length
                 vm.tableData = _.slice(vm.items, 0, vm.pageSize)
             })
@@ -78,9 +70,8 @@ export default {
         }
     },
     created: function () {
-        console.log('In account index create function')
-        this.getAccounts()
+        console.log('In product index create function')
+        this.getProducts()
     }
 }
 </script>
-
