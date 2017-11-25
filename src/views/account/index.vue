@@ -6,10 +6,10 @@
                 <Icon type="grid"></Icon>
                 用户列表
             </p>
-            <Table :data="tableData" :columns="columns" stripe></Table>
+            <Table :data="tableData" :columns="columns" stripe border></Table>
             <div style="margin: 10px;overflow-x: hidden">
                 <div style="float: right;">
-                    <Page :total="itemsCount" :current="1" :page-size="pageSize" show-sizer @on-change="changePage"></Page>
+                    <Page :total="itemsCount" :current="1" :page-size="pageSize" @on-change="changePage"></Page>
                 </div>
             </div>
             </Card>
@@ -19,6 +19,7 @@
 
 <script>
 import account from '../../controllers/account.js'
+import * as nereus from '../../utility/nereus.js'
 import _ from 'lodash'
 
 export default {
@@ -45,6 +46,15 @@ export default {
                 {
                     title: '公司',
                     key: 'company_name'
+                },
+                {
+                    title: '公司类型',
+                    key: 'company_type',
+                    render: (h, params) => {
+                        return h('div', [
+                            h('span', nereus.displayCompanyType(params.row.company_type))
+                        ])
+                    }
                 }
             ],
             items: [],
@@ -58,7 +68,6 @@ export default {
         getAccounts () {
             let vm = this
             account.listView().then(res => {
-                console.log(res)
                 vm.items = res.admins
                 vm.itemsCount = vm.items.length
                 vm.tableData = _.slice(vm.items, 0, vm.pageSize)

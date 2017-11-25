@@ -10,7 +10,7 @@
                     <Icon type="plus-round"></Icon>
                     新增
                 </a>
-                <a href="#" slot="extra" @click.prevent="getCompany">
+                <a href="#" slot="extra" @click.prevent="getEquipment">
                     <Icon type="ios-loop-strong"></Icon>
                     刷新
                 </a>
@@ -110,7 +110,6 @@ export default {
         getEquipment () {
             let vm = this
             equipment.listView().then(res => {
-                console.log(res)
                 vm.items = res.entities
                 vm.itemsCount = res.entities.length
                 vm.tableData = _.slice(vm.items, 0, vm.pageSize)

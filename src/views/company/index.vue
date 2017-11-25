@@ -17,25 +17,21 @@
                 <Table :data="tableData" :columns="columns" border stripe></Table>
                 <div style="margin: 10px;overflow-x: hidden">
                     <div style="float: right;">
-                        <Page :total="itemsCount" :current="1" :page-size="pageSize" show-sizer @on-change="changePage"></Page>
+                        <Page :total="itemsCount" :current="1" :page-size="pageSize" @on-change="changePage"></Page>
                     </div>
                 </div>
             </Card>
         </Col>
-        <Modal v-model="modalView" title="公司信息">
-            <p>Content of dialog</p>
-            <p>Content of dialog</p>
-            <p>Content of dialog</p>
-        </Modal>
     </Row>
 </template>
 
 <script>
 import company from '../../controllers/company.js'
+import * as nereus from '../../utility/nereus.js'
 import _ from 'lodash'
 
 export default {
-    name: 'company_index',
+    name: 'company-index',
     data () {
         return {
             columns: [
@@ -57,7 +53,7 @@ export default {
                     key: 'type',
                     render: (h, params) => {
                         return h('div', [
-                            h('span', this.displayType(params.row.type))
+                            h('span', nereus.displayCompanyType(params.row.type))
                         ])
                     }
                 },
@@ -72,6 +68,10 @@ export default {
                 {
                     title: '售后电话',
                     key: 'aftersale_phone'
+                },
+                {
+                    title: '地址',
+                    key: 'address'
                 },
                 {
                     title: '操作',
@@ -97,7 +97,8 @@ export default {
                             h('Button', {
                                 props: {
                                     type: 'warning',
-                                    size: 'small'
+                                    size: 'small',
+                                    disabled: false
                                 },
                                 on: {
                                     click: () => {
@@ -113,8 +114,7 @@ export default {
             itemsCount: 0,
             tableData: [],
             pageSize: 10,
-            pageSizeOpt: [5, 10, 20, 30],
-            modalView: false
+            pageSizeOpt: [5, 10, 20, 30]
         }
     },
     beforeRouteEnter (to, from, next) {
@@ -130,7 +130,6 @@ export default {
         getCompany () {
             let vm = this
             company.list().then(res => {
-                console.log(res)
                 vm.items = res.entities
                 vm.itemsCount = res.entities.length
                 vm.tableData = _.slice(vm.items, 0, vm.pageSize)
@@ -150,7 +149,6 @@ export default {
             }
         },
         showDetails (item) {
-            // this.modalView = true
             this.$router.push({ name: 'company-details', params: { id: item.id } })
         },
         showEdit (item) {

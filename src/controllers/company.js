@@ -22,8 +22,6 @@ export default {
             url: '/t_company/add', 
             data: model
         }).then(res => {
-            console.log('company add: ')
-            console.log(res)
             return res.data
         })
     },
@@ -31,19 +29,9 @@ export default {
     update (model) {
         return api._post({ 
             url: '/t_company/update', 
-            data: {
-                id: model.id,
-                name: model.name,
-                code: model.code,
-                type: model.type,
-                address: model.address,
-                contact: model.contact,
-                phone: model.phone,
-                aftersale_phone: model.aftersale_phone,
-                remark: model.remark
-            }})
-            .then(res => {
-                return res.data
-            })
+            data: model
+        }).then(res => {
+            return res.data
+        })
     }
 }

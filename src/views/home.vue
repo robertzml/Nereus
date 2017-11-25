@@ -39,7 +39,7 @@
                 <div class="layout-header"></div>
                 <div class="layout-breadcrumb">
                     <Breadcrumb>
-                        <BreadcrumbItem href="#">Home</BreadcrumbItem>
+                        <BreadcrumbItem href="#">主页</BreadcrumbItem>
                         <BreadcrumbItem href="#">Projects</BreadcrumbItem>
                         <BreadcrumbItem>iView</BreadcrumbItem>
                     </Breadcrumb>

@@ -93,15 +93,6 @@ export default {
         }
     },
     methods: {
-        createCompany () {
-            let vm = this
-
-            company.create(this.companyInfo).then(res => {
-                vm.$Message.info(res.message)
-                vm.$router.push({ name: 'company' })
-            })
-        },
-
         handleSubmit (name) {
             let vm = this
 

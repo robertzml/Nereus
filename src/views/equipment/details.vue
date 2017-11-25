@@ -49,7 +49,7 @@ export default {
         getEquipment (id) {
             let vm = this
             equipment.details(id).then(res => {
-                console.log(res)
+                vm.equipmentInfo = res.entity
             })
         },
 

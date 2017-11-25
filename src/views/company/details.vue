@@ -52,7 +52,7 @@ export default {
     name: 'company-details',
     data () {
         return {
-            companyId: this.$route.params.id,
+            companyId: 0,
             companyInfo: {
                 id: 0,
                 name: '',
@@ -71,8 +71,11 @@ export default {
             let vm = this
 
             company.details(id).then(res => {
-                console.log(res)
-                vm.companyInfo = res.entity
+                if (res.status === 0) {
+                    vm.companyInfo = res.entity
+                } else {
+                    vm.$Message.error(res.message)
+                }
             })
         },
 
