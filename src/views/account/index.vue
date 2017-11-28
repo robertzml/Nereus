@@ -45,11 +45,11 @@ export default {
                     key: 'email'
                 },
                 {
-                    title: '角色',
+                    title: '所属角色',
                     key: 'role_name'
                 },
                 {
-                    title: '公司',
+                    title: '所属公司',
                     key: 'company_name'
                 },
                 {
@@ -115,4 +115,3 @@ export default {
     }
 }
 </script>
-

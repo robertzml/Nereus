@@ -17,6 +17,11 @@ export default new Router({
             component: resolve => { require(['@/views/home.vue'], resolve) },
             children: [
                 {
+                    path: '/role',
+                    name: 'role',
+                    component: resolve => { require(['@/views/role/index.vue'], resolve) }
+                },
+                {
                     path: '/account',
                     name: 'account',
                     component: resolve => { require(['@/views/account/index.vue'], resolve) }

@@ -28,6 +28,7 @@
                             <Icon type="settings"></Icon>
                             系统管理
                         </template>
+                        <MenuItem name="role">角色管理</MenuItem>
                         <MenuItem name="account">用户管理</MenuItem>
                         <MenuItem name="product-type">产品分类</MenuItem>
                     </Submenu>
