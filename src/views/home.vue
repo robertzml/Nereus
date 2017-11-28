@@ -14,7 +14,6 @@
                             厂商管理
                         </template>
                         <MenuItem name="company">厂商管理</MenuItem>
-                        <MenuItem name="1-2">Option 2</MenuItem>
                     </Submenu>
                     <Submenu name="2">
                         <template slot="title">
@@ -31,7 +30,6 @@
                         </template>
                         <MenuItem name="account">用户管理</MenuItem>
                         <MenuItem name="product-type">产品分类</MenuItem>
-                        <MenuItem name="3-3">Option 3</MenuItem>
                     </Submenu>
                 </Menu>
             </Col>

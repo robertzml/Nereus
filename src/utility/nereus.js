@@ -8,5 +8,7 @@ export const displayCompanyType = (type) => {
             return '厂商'
         case 3:
             return '代理商'
+        default:
+            return ''
     }
 }

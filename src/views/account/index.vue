@@ -28,6 +28,11 @@ export default {
         return {
             columns: [
                 {
+                    type: 'index',
+                    width: 60,
+                    align: 'center'
+                },
+                {
                     title: '用户名',
                     key: 'user_name'
                 },
@@ -55,6 +60,30 @@ export default {
                             h('span', nereus.displayCompanyType(params.row.company_type))
                         ])
                     }
+                },
+                {
+                    title: '操作',
+                    key: 'action',
+                    width: 150,
+                    align: 'center',
+                    render: (h, params) => {
+                        return h('div', [
+                             h('Button', {
+                                props: {
+                                    type: 'primary',
+                                    size: 'small'
+                                },
+                                style: {
+                                    marginRight: '5px'
+                                },
+                                on: {
+                                    click: () => {
+                                        this.showDetails(params.row)
+                                    }
+                                }
+                            }, '查看')
+                        ])
+                    }
                 }
             ],
             items: [],
@@ -75,6 +104,9 @@ export default {
         },
         changePage (page) {
             this.tableData = _.slice(this.items, (page - 1) * this.pageSize, page * this.pageSize)
+        },
+        showDetails (item) {
+            this.$router.push({ name: 'account-details', params: { id: item.id } })
         }
     },
     created: function () {
