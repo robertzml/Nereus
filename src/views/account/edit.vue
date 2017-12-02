@@ -13,6 +13,9 @@
                             <FormItem label="用户名">
                                 <Input v-model="accountInfo.user_name" readonly></Input>
                             </FormItem>
+                            <FormItem label="姓名">
+                                <Input v-model="accountInfo.name"></Input>
+                            </FormItem>
                             <FormItem label="电话" prop="phone">
                                 <Input v-model="accountInfo.phone"></Input>
                             </FormItem>
@@ -60,6 +63,7 @@ export default {
             accountInfo: {
                 id: 0,
                 user_name: '',
+                name: '',
                 phone: '',
                 email: '',
                 role_id: 0,               

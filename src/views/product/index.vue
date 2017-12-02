@@ -6,7 +6,14 @@
                     <Icon type="grid"></Icon>
                     产品列表
                 </p>
-
+                <a href="#" slot="extra" @click.prevent="showCreate">
+                    <Icon type="plus-round"></Icon>
+                    新增
+                </a>
+                <a href="#" slot="extra" @click.prevent="getProducts">
+                    <Icon type="ios-loop-strong"></Icon>
+                    刷新
+                </a>
                 <Table :data="tableData" :columns="columns" stripe border></Table>
                 <div style="margin: 10px;overflow-x: hidden">
                     <div style="float: right;">
@@ -47,6 +54,19 @@ export default {
                 {
                     title: '型号规格',
                     key: 'specification'
+                },
+                {
+                    title: '操作',
+                    key: 'action',
+                    width: 150,
+                    align: 'center',
+                    render: (h, params) => {
+                        return (
+                            <div>
+                                <i-button type="primary" size="small" style="marginRight: 5px" onClick={ () => { this.showDetails(params.row) } }>查看</i-button>
+                            </div>
+                        )
+                    }
                 }
             ],
             items: [],
@@ -54,6 +74,15 @@ export default {
             tableData: [],
             pageSize: 10,
             pageSizeOpt: [5, 10, 20, 30]
+        }
+    },
+    beforeRouteEnter (to, from, next) {
+        if (from.name === 'account-edit') {
+            next(vm => {
+                vm.getAccounts()
+            })
+        } else {
+            next()
         }
     },
     methods: {
@@ -67,6 +96,12 @@ export default {
         },
         changePage (page) {
             this.tableData = _.slice(this.items, (page - 1) * this.pageSize, page * this.pageSize)
+        },
+        showDetails (item) {
+            this.$router.push({ name: 'product-details', params: { id: item.id } })
+        },
+        showCreate () {
+            this.$router.push({ name: 'product-create' })
         }
     },
     created: function () {

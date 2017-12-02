@@ -41,6 +41,10 @@ export default {
                     key: 'user_name'
                 },
                 {
+                    title: '姓名',
+                    key: 'name'
+                },
+                {
                     title: '电话',
                     key: 'phone'
                 },

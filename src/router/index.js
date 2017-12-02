@@ -72,6 +72,11 @@ export default new Router({
                     component: resolve => { require(['@/views/product/index.vue'], resolve) }
                 },
                 {
+                    name: 'product-create',
+                    path: '/product/create',
+                    component: resolve => { require(['@/views/product/create.vue'], resolve) }
+                },
+                {
                     path: '/equipment',
                     name: 'equipment',
                     component: resolve => { require(['@/views/equipment/index.vue'], resolve) }
