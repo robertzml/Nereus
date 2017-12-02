@@ -42,7 +42,6 @@
     </Row>
 </template>
 
-
 <script>
 import account from '../../controllers/account.js'
 import * as nereus from '../../utility/nereus.js'
@@ -69,7 +68,7 @@ export default {
 
             account.detailsView(id).then(res => {
                 if (res.status === 0) {
-                    vm.accountInfo = res.entities[0]
+                    vm.accountInfo = res.entity
                 } else {
                     vm.$Message.error(res.message)
                 }

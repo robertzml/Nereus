@@ -32,6 +32,11 @@ export default new Router({
                     component: resolve => { require(['@/views/account/details.vue'], resolve) }
                 },
                 {
+                    name: 'account-edit',
+                    path: '/account/edit/:id',
+                    component: resolve => { require(['@/views/account/edit.vue'], resolve) }
+                },
+                {
                     path: '/company',
                     name: 'company',
                     component: resolve => { require(['@/views/company/index.vue'], resolve) }

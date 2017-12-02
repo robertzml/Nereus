@@ -6,6 +6,10 @@
                     <Icon type="grid"></Icon>
                     用户列表
                 </p>
+                 <a href="#" slot="extra" @click.prevent="getAccounts">
+                    <Icon type="ios-loop-strong"></Icon>
+                    刷新
+                </a>
                 <Table :data="tableData" :columns="columns" stripe border></Table>
                 <div style="margin: 10px;overflow-x: hidden">
                     <div style="float: right;">
@@ -81,7 +85,19 @@ export default {
                                         this.showDetails(params.row)
                                     }
                                 }
-                            }, '查看')
+                            }, '查看'),
+                            h('Button', {
+                                props: {
+                                    type: 'warning',
+                                    size: 'small',
+                                    disabled: false
+                                },
+                                on: {
+                                    click: () => {
+                                        this.showEdit(params.row)
+                                    }
+                                }
+                            }, '编辑')
                         ])
                     }
                 }
@@ -91,6 +107,15 @@ export default {
             tableData: [],
             pageSize: 10,
             pageSizeOpt: [5, 10, 20, 30]
+        }
+    },
+    beforeRouteEnter (to, from, next) {
+        if (from.name === 'account-edit') {
+            next(vm => {
+                vm.getAccounts()
+            })
+        } else {
+            next()
         }
     },
     methods: {
@@ -107,6 +132,9 @@ export default {
         },
         showDetails (item) {
             this.$router.push({ name: 'account-details', params: { id: item.id } })
+        },
+        showEdit (item) {
+            this.$router.push({ name: 'account-edit', params: { id: item.id } })
         }
     },
     created: function () {

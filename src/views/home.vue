@@ -81,6 +81,7 @@
         border: 1px solid #d7dde4;
         background: #f5f7f9;
         position: relative;
+        height: 100%;
     }
     .layout-breadcrumb{
         padding: 10px 15px 0;
