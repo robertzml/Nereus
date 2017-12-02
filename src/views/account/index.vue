@@ -71,34 +71,12 @@ export default {
                     width: 150,
                     align: 'center',
                     render: (h, params) => {
-                        return h('div', [
-                             h('Button', {
-                                props: {
-                                    type: 'primary',
-                                    size: 'small'
-                                },
-                                style: {
-                                    marginRight: '5px'
-                                },
-                                on: {
-                                    click: () => {
-                                        this.showDetails(params.row)
-                                    }
-                                }
-                            }, '查看'),
-                            h('Button', {
-                                props: {
-                                    type: 'warning',
-                                    size: 'small',
-                                    disabled: false
-                                },
-                                on: {
-                                    click: () => {
-                                        this.showEdit(params.row)
-                                    }
-                                }
-                            }, '编辑')
-                        ])
+                        return (
+                        <div>
+                            <i-button type="primary" size="small" style="marginRight: 5px" onClick={ () => { this.showDetails(params.row) } }>查看</i-button>
+                            <i-button type="warning" size="small" onClick={ () => { this.showEdit(params.row) } }>编辑</i-button>
+                        </div>
+                        )
                     }
                 }
             ],
