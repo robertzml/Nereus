@@ -18,7 +18,7 @@ export default {
     },
 
     details (id) {
-        return api._get({ url: '/t_equipment/findOne', data: { equipment_id: id } })
+        return api._get({ url: '/t_equipment/findOne', params: { equipment_id: id } })
             .then(res => {
                 return res.data
             })

@@ -1,5 +1,6 @@
 import axios from 'axios'
 import config from './config.js'
+import store from '../store'
 
 const ax = axios.create({
     baseURL: config.apihost,
@@ -10,10 +11,15 @@ const ax = axios.create({
 
 // get
 export const _get = (req) => {
-    return ax.get(req.url, { params: req.data })
+    return ax.get(req.url, { params: req.params })
 }
 
+// get with auth headers
+export const _getAuth = (req) => {
+    return ax.get(req.url, { params: req.params, headers: { 'User-Id': store.state.user.id, 'Role-Id': store.state.user.roleId, 'Company-Id': store.state.user.companyId } })
+}
+
+// post
 export const _post = (req) => {
-    // console.log(JSON.stringify(req.data))
     return ax.post(req.url, req.data)
 }

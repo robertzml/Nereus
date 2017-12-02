@@ -18,7 +18,7 @@ export default {
     },
 
     detailsView (id) {
-        return api._get({ url: '/t_account/findInfoById', data: { account_id: id } })
+        return api._get({ url: '/t_account/findInfoById', params: { account_id: id } })
             .then(res => {
                 return res.data
             })

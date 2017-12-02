@@ -1,4 +1,5 @@
 import * as api from '../utility/api'
+import store from '../store'
 
 export default {
     name: 'product-type',
@@ -11,10 +12,11 @@ export default {
     },
 
     listView () {
-        return api._get({ url: '/t_product/findAllInfo' })
-            .then(res => {
-                return res.data
-            })
+        return api._getAuth({ 
+            url: '/t_product/findAllInfo'
+        }).then(res => {
+            return res.data
+        })
     },
 
     create (model) {
