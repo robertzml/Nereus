@@ -13,8 +13,10 @@
                             <FormItem label="名称" prop="name">
                                 <Input v-model="productTypeInfo.name"></Input>
                             </FormItem>
-                            <FormItem label="上级" prop="parentId">
-                                <Input v-model="productTypeInfo.parent_id"></Input>
+                            <FormItem label="上级" prop="type">
+                                <Select v-model="productTypeInfo.parent_id">
+                                    <Option v-for="item in typeList" :value="item.id" :key="item.id">{{ item.name }}</Option>
+                                </Select>
                             </FormItem>
                             <FormItem label="备注">
                                 <Input v-model="productTypeInfo.remark" type="textarea" :rows="4"></Input>
@@ -49,10 +51,18 @@ export default {
                 name: [
                     { required: true, message: '名称不能为空', trigger: 'blur' }
                 ]
-            }
+            },
+            typeList: []
         }
     },
     methods: {
+        getProductType () {
+            let vm = this
+            productType.list().then(res => {
+                vm.typeList = res.entities
+            })
+        },
+
         handleSubmit (name) {
             let vm = this
 
@@ -73,6 +83,14 @@ export default {
         toIndex () {
             this.$router.push({ name: 'product-type' })
         }
+    },
+    activated: function () {
+        this.productTypeInfo = {
+            name: '',
+            parent_id: '',
+            remark: ''
+        }
+        this.getProductType()
     }
 }
 </script>

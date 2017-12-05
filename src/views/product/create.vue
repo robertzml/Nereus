@@ -118,10 +118,20 @@ export default {
         },
 
         toIndex () {
-            this.$router.push({ name: 'company' })
+            this.$router.push({ name: 'product' })
         }
     },
     activated: function () {
+        this.productInfo = {
+            name: '',
+            type_id: '',
+            company_id: '',
+            specification: '',
+            img: '',
+            info: '',
+            description: '',
+            after_sale: ''
+        }
         this.getProductType()
         this.getCompanys()
     }

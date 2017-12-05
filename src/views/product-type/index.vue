@@ -50,12 +50,19 @@ export default {
             }
         }
     },
+    beforeRouteEnter (to, from, next) {
+        if (from.name === 'product-type-create' || from.name === 'product-type-edit') {
+            next(vm => {
+                vm.getProductType()
+            })
+        } else {
+            next()
+        }
+    },
     methods: {
         getProductType () {
             let vm = this
             productType.list().then(res => {
-                console.log(res)
-
                 vm.treeData = vm.listToTree(res.entities)
                 console.log(vm.treeData)
             })

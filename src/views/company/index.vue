@@ -17,7 +17,7 @@
                 <Table :data="tableData" :columns="columns" border stripe></Table>
                 <div style="margin: 10px;overflow-x: hidden">
                     <div style="float: right;">
-                        <Page :total="itemsCount" :current="1" :page-size="pageSize" @on-change="changePage"></Page>
+                        <Page :total="itemsCount" :current.sync="currentPage" :page-size="pageSize" @on-change="changePage"></Page>
                     </div>
                 </div>
             </Card>
@@ -113,6 +113,7 @@ export default {
             items: [],
             itemsCount: 0,
             tableData: [],
+            currentPage: 1,
             pageSize: 10,
             pageSizeOpt: [5, 10, 20, 30]
         }
@@ -133,10 +134,13 @@ export default {
                 vm.items = res.entities
                 vm.itemsCount = res.entities.length
                 vm.tableData = _.slice(vm.items, 0, vm.pageSize)
+                vm.currentPage = 1
+                console.log('page is ' + vm.currentPage)
             })
         },
         changePage (page) {
             this.tableData = _.slice(this.items, (page - 1) * this.pageSize, page * this.pageSize)
+            console.log('page is ' + this.currentPage)
         },
         showDetails (item) {
             this.$router.push({ name: 'company-details', params: { id: item.id } })
