@@ -6,7 +6,11 @@
                     <Icon type="grid"></Icon>
                     用户列表
                 </p>
-                 <a href="#" slot="extra" @click.prevent="getAccounts">
+                <a href="#" slot="extra" @click.prevent="showCreate">
+                    <Icon type="plus-round"></Icon>
+                    新增
+                </a>
+                <a href="#" slot="extra" @click.prevent="getAccounts">
                     <Icon type="ios-loop-strong"></Icon>
                     刷新
                 </a>
@@ -92,7 +96,7 @@ export default {
         }
     },
     beforeRouteEnter (to, from, next) {
-        if (from.name === 'account-edit') {
+        if (from.name === 'account-edit' || from.name === 'account-create') {
             next(vm => {
                 vm.getAccounts()
             })
@@ -114,6 +118,9 @@ export default {
         },
         showDetails (item) {
             this.$router.push({ name: 'account-details', params: { id: item.id } })
+        },
+        showCreate () {
+            this.$router.push({ name: 'account-create' })
         },
         showEdit (item) {
             this.$router.push({ name: 'account-edit', params: { id: item.id } })

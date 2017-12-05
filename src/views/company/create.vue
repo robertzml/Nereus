@@ -114,6 +114,18 @@ export default {
         toIndex () {
             this.$router.push({ name: 'company' })
         }
+    },
+    activated: function () {
+        this.companyInfo = {
+            name: '',
+            phone: '',
+            aftersale_phone: '',
+            type: '',
+            contact: '',
+            address: '',
+            code: '',
+            remark: ''
+        }
     }
 }
 </script>

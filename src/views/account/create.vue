@@ -10,8 +10,14 @@
                 <Row>
                     <Col span="16" push="4">
                         <Form ref="formValidate" :model="accountInfo" :rules="ruleValidate" :label-width="80">
-                            <FormItem label="用户名">
-                                <Input v-model="accountInfo.user_name" readonly></Input>
+                            <FormItem label="用户名" prop="user_name">
+                                <Input v-model="accountInfo.user_name"></Input>
+                            </FormItem>
+                            <FormItem label="密码" prop="password">
+                                <Input v-model="accountInfo.password" type="password"></Input>
+                            </FormItem>
+                            <FormItem label="密码确认" prop="repassword">
+                                <Input v-model="accountInfo.repassword" type="password"></Input>
                             </FormItem>
                             <FormItem label="姓名">
                                 <Input v-model="accountInfo.name"></Input>
@@ -56,14 +62,31 @@ import company from '../../controllers/company.js'
 import * as nereus from '../../utility/nereus.js'
 
 export default {
-    name: 'account-edit',
+    name: 'account-create',
     data () {
+        const validatePass = (rule, value, callback) => {
+            if (value === '') {
+                callback(new Error('请输入密码'))
+            }
+            callback()
+        }
+
+        const validatePassCheck = (rule, value, callback) => {
+            if (value === '') {
+                callback(new Error('请再次输入密码'))
+            } else if (value !== this.accountInfo.password) {
+                callback(new Error('两次输入密码不一致'))
+            } else {
+                callback()
+            }
+        }
+
         return {
-            accountId: 0,
             accountInfo: {
-                id: 0,
                 user_name: '',
                 name: '',
+                password: '',
+                repassword: '',
                 phone: '',
                 email: '',
                 role_id: 0,
@@ -72,6 +95,15 @@ export default {
             roleList: [],
             companyList: [],
             ruleValidate: {
+                user_name: [
+                    { required: true, message: '用户名不能为空', trigger: 'blur' }
+                ],
+                password: [
+                    { validator: validatePass, trigger: 'blur' }
+                ],
+                repassword: [
+                    { validator: validatePassCheck, trigger: 'blur' }
+                ],
                 phone: [
                     { required: true, message: '电话不能为空', trigger: 'blur' }
                 ],
@@ -85,18 +117,6 @@ export default {
         }
     },
     methods: {
-        getAccount (id) {
-            let vm = this
-
-            account.details(id).then(res => {
-                if (res.status === 0) {
-                    vm.accountInfo = res.admin
-                } else {
-                    vm.$Message.error(res.message)
-                }
-            })
-        },
-
         getRoles () {
             let vm = this
 
@@ -118,7 +138,8 @@ export default {
 
             this.$refs[name].validate((valid) => {
                 if (valid) {
-                    account.update(this.accountInfo).then(res => {
+                    delete this.accountInfo.repassword
+                    account.create(this.accountInfo).then(res => {
                         vm.$Message.info(res.message)
                         vm.$router.push({ name: 'account' })
                     })
@@ -135,14 +156,17 @@ export default {
             this.$router.push({ name: 'account' })
         }
     },
-    computed: {
-        companyType: function () {
-            return nereus.displayCompanyType(this.accountInfo.company_type)
-        }
-    },
     activated: function () {
-        this.accountId = this.$route.params.id
-        this.getAccount(this.accountId)
+        this.accountInfo = {
+            user_name: '',
+            password: '',
+            repassword: '',
+            name: '',
+            phone: '',
+            email: '',
+            role_id: '',
+            company_id: ''
+        }
         this.getRoles()
         this.getCompanys()
     }

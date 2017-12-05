@@ -27,6 +27,11 @@ export default new Router({
                     component: resolve => { require(['@/views/account/index.vue'], resolve) }
                 },
                 {
+                    name: 'account-create',
+                    path: '/account/create',
+                    component: resolve => { require(['@/views/account/create.vue'], resolve) }
+                },
+                {
                     name: 'account-details',
                     path: '/account/details/:id',
                     component: resolve => { require(['@/views/account/details.vue'], resolve) }
