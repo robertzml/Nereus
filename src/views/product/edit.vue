@@ -56,10 +56,12 @@ import productType from '../../controllers/product-type.js'
 import company from '../../controllers/company.js'
 
 export default {
-    name: 'product-create',
+    name: 'product-edit',
     data () {
         return {
+            productId: 0,
             productInfo: {
+                id: 0,
                 name: '',
                 type_id: 0,
                 company_id: 0,
@@ -85,6 +87,13 @@ export default {
         }
     },
     methods: {
+        getProduct (id) {
+            let vm = this
+            product.details(id).then(res => {
+                vm.productInfo = res.entity
+            })
+        },
+
         getProductType () {
             let vm = this
             productType.list().then(res => {
@@ -104,7 +113,7 @@ export default {
 
             this.$refs[name].validate((valid) => {
                 if (valid) {
-                     product.create(this.productInfo).then(res => {
+                     product.update(this.productInfo).then(res => {
                         vm.$Message.info(res.message)
                         vm.$router.push({ name: 'product' })
                     })
@@ -122,16 +131,8 @@ export default {
         }
     },
     activated: function () {
-        this.productInfo = {
-            name: '',
-            type_id: '',
-            company_id: '',
-            specification: '',
-            img: '',
-            info: '',
-            description: '',
-            after_sale: ''
-        }
+        this.productId = this.$route.params.id
+        this.getProduct(this.productId)
         this.getProductType()
         this.getCompanys()
     }

@@ -64,6 +64,7 @@ export default {
                         return (
                             <div>
                                 <i-button type="primary" size="small" style="marginRight: 5px" onClick={ () => { this.showDetails(params.row) } }>查看</i-button>
+                                <i-button type="warning" size="small" onClick={ () => { this.showEdit(params.row) } }>编辑</i-button>
                             </div>
                         )
                     }
@@ -77,7 +78,7 @@ export default {
         }
     },
     beforeRouteEnter (to, from, next) {
-        if (from.name === 'account-edit') {
+        if (from.name === 'product-edit' || from.name === 'product-create') {
             next(vm => {
                 vm.getAccounts()
             })
@@ -99,6 +100,9 @@ export default {
         },
         showDetails (item) {
             this.$router.push({ name: 'product-details', params: { id: item.id } })
+        },
+        showEdit (item) {
+            this.$router.push({ name: 'product-edit', params: { id: item.id } })
         },
         showCreate () {
             this.$router.push({ name: 'product-create' })
