@@ -6,9 +6,13 @@
                     <Icon type="grid"></Icon>
                     产品列表
                 </p>
-                <a href="#" slot="extra" @click.prevent="showCreate">
+                <a href="#" slot="extra" @click.prevent="showCreate" style="margin-right: 5px">
                     <Icon type="plus-round"></Icon>
                     新增
+                </a>
+                <a href="#" slot="extra" @click.prevent="showAgent" style="margin-right: 5px">
+                    <Icon type="shuffle"></Icon>
+                    代理产品
                 </a>
                 <a href="#" slot="extra" @click.prevent="getProducts">
                     <Icon type="ios-loop-strong"></Icon>
@@ -106,6 +110,9 @@ export default {
         },
         showCreate () {
             this.$router.push({ name: 'product-create' })
+        },
+        showAgent () {
+            this.$router.push({ name: 'product-agent' })
         }
     },
     created: function () {
