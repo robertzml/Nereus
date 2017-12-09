@@ -10,7 +10,7 @@
                     <Icon type="plus-round"></Icon>
                     新增
                 </a>
-                <a href="#" slot="extra" @click.prevent="getCompany">
+                <a href="#" slot="extra" @click.prevent="getCompanys">
                     <Icon type="ios-loop-strong"></Icon>
                     刷新
                 </a>
@@ -121,14 +121,14 @@ export default {
     beforeRouteEnter (to, from, next) {
         if (from.name === 'company-edit' || from.name === 'company-create') {
             next(vm => {
-                vm.getCompany()
+                vm.getCompanys()
             })
         } else {
             next()
         }
     },
     methods: {
-        getCompany () {
+        getCompanys () {
             let vm = this
             company.list().then(res => {
                 vm.items = res.entities
@@ -154,7 +154,7 @@ export default {
     },
     created: function () {
         console.log('In company index create function')
-        this.getCompany()
+        this.getCompanys()
     }
 }
 </script>

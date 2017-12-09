@@ -24,6 +24,15 @@ export default {
             })
     },
 
+    create (model) {
+        return api._post({
+            url: '/t_equipment/add',
+            data: model
+        }).then(res => {
+            return res.data
+        })
+    },
+
     update (model) {
         return api._post({ 
             url: '/t_equipment/update', 

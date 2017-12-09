@@ -97,6 +97,11 @@ export default new Router({
                     component: resolve => { require(['@/views/equipment/index.vue'], resolve) }
                 },
                 {
+                    name: 'equipment-create',
+                    path: '/equipment/create',
+                    component: resolve => { require(['@/views/equipment/create.vue'], resolve) }
+                },
+                {
                     name: 'equipment-details',
                     path: '/equipment/details/:id',
                     component: resolve => { require(['@/views/equipment/details.vue'], resolve) }

@@ -84,7 +84,7 @@ export default {
     beforeRouteEnter (to, from, next) {
         if (from.name === 'product-edit' || from.name === 'product-create') {
             next(vm => {
-                vm.getAccounts()
+                vm.getProducts()
             })
         } else {
             next()

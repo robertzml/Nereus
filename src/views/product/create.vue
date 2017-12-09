@@ -104,7 +104,7 @@ export default {
 
             this.$refs[name].validate((valid) => {
                 if (valid) {
-                     product.create(this.productInfo).then(res => {
+                    product.create(this.productInfo).then(res => {
                         vm.$Message.info(res.message)
                         vm.$router.push({ name: 'product' })
                     })

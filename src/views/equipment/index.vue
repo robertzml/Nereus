@@ -10,14 +10,14 @@
                     <Icon type="plus-round"></Icon>
                     新增
                 </a>
-                <a href="#" slot="extra" @click.prevent="getEquipment">
+                <a href="#" slot="extra" @click.prevent="getEquipments">
                     <Icon type="ios-loop-strong"></Icon>
                     刷新
                 </a>
                 <Table :data="tableData" :columns="columns" border stripe></Table>
                 <div style="margin: 10px;overflow-x: hidden">
                     <div style="float: right;">
-                        <Page :total="itemsCount" :current="1" :page-size="pageSize" show-sizer @on-change="changePage"></Page>
+                        <Page :total="itemsCount" :current.sync="currentPage" :page-size="pageSize" show-sizer @on-change="changePage"></Page>
                     </div>
                 </div>
             </Card>
@@ -69,49 +69,39 @@ export default {
                     width: 150,
                     align: 'center',
                     render: (h, params) => {
-                        return h('div', [
-                             h('Button', {
-                                props: {
-                                    type: 'primary',
-                                    size: 'small'
-                                },
-                                style: {
-                                    marginRight: '5px'
-                                },
-                                on: {
-                                    click: () => {
-                                        this.showDetails(params.row)
-                                    }
-                                }
-                            }, '查看'),
-                            h('Button', {
-                                props: {
-                                    type: 'warning',
-                                    size: 'small'
-                                },
-                                on: {
-                                    click: () => {
-                                        this.showEdit(params.row)
-                                    }
-                                }
-                            }, '编辑')
-                        ])
+                        return (
+                            <div>
+                                <i-button type="primary" size="small" style="marginRight: 5px" onClick={ () => { this.showDetails(params.row) } }>查看</i-button>
+                                <i-button type="warning" size="small" onClick={ () => { this.showEdit(params.row) } }>编辑</i-button>
+                            </div>
+                        )
                     }
                 }
             ],
             items: [],
             itemsCount: 0,
             tableData: [],
+            currentPage: 1,
             pageSize: 10,
             pageSizeOpt: [5, 10, 20, 30]
         }
     },
+    beforeRouteEnter (to, from, next) {
+        if (from.name === 'equipment-edit' || from.name === 'equipment-create') {
+            next(vm => {
+                vm.getEquipments()
+            })
+        } else {
+            next()
+        }
+    },
     methods: {
-        getEquipment () {
+        getEquipments () {
             let vm = this
             equipment.listView().then(res => {
                 vm.items = res.entities
                 vm.itemsCount = res.entities.length
+                vm.currentPage = 1
                 vm.tableData = _.slice(vm.items, 0, vm.pageSize)
             })
         },
@@ -121,13 +111,16 @@ export default {
         showDetails (item) {
             this.$router.push({ name: 'equipment-details', params: { id: item.id } })
         },
+        showCreate () {
+            this.$router.push({ name: 'equipment-create' })
+        },
         showEdit (item) {
             this.$router.push({ name: 'equipment-edit', params: { id: item.id } })
         }
     },
     created: function () {
         console.log('In equipment index create function')
-        this.getEquipment()
+        this.getEquipments()
     }
 }
 </script>
