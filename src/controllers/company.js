@@ -10,6 +10,13 @@ export default {
             })
     },
 
+    listByType (type) {
+        return api._get({ url: '/t_company/findByType', params: { type: type } })
+            .then(res => {
+                return res.data
+            })
+    },
+
     details (id) {
         return api._get({ url: '/t_company/findOne', params: { company_id: id } })
             .then(res => {

@@ -17,8 +17,22 @@ export default {
             })
     },
 
+    listByCompanyView (companyId) {
+        return api._get({ url: '/t_equipment/findInfoByCompanyId', params: { company_id: companyId } })
+            .then(res => {
+                return res.data
+            })
+    },
+
     details (id) {
         return api._get({ url: '/t_equipment/findOne', params: { equipment_id: id } })
+            .then(res => {
+                return res.data
+            })
+    },
+
+    detailsView (id) {
+        return api._get({ url: '/t_equipment/findInfoById', params: { equipment_id: id } })
             .then(res => {
                 return res.data
             })

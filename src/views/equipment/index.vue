@@ -98,12 +98,25 @@ export default {
     methods: {
         getEquipments () {
             let vm = this
-            equipment.listView().then(res => {
-                vm.items = res.entities
-                vm.itemsCount = res.entities.length
-                vm.currentPage = 1
-                vm.tableData = _.slice(vm.items, 0, vm.pageSize)
-            })
+
+            let roleId = this.$store.state.user.roleId
+            let companyId = this.$store.state.user.companyId
+
+            if (roleId === 1) {
+                equipment.listView().then(res => {
+                    vm.items = res.entities
+                    vm.itemsCount = res.entities.length
+                    vm.currentPage = 1
+                    vm.tableData = _.slice(vm.items, 0, vm.pageSize)
+                })
+            } else {
+                equipment.listByCompanyView(companyId).then(res => {
+                    vm.items = res.entities
+                    vm.itemsCount = res.entities.length
+                    vm.currentPage = 1
+                    vm.tableData = _.slice(vm.items, 0, vm.pageSize)
+                })
+            }
         },
         changePage (page) {
             this.tableData = _.slice(this.items, (page - 1) * this.pageSize, page * this.pageSize)

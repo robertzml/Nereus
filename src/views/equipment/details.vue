@@ -1,6 +1,6 @@
 <template>
-    <Row>
-        <Col span="24">
+    <Row :gutter="16">
+        <Col span="12">
             <Card>
                 <p slot="title">
                     <Icon type="grid"></Icon>
@@ -9,12 +9,21 @@
 
                 <Row>
                     <Col span="16" push="4">
-                        <Form :model="equipmentInfo" :label-width="80">
+                        <Form :model="equipmentInfo" :label-width="100">
                             <FormItem label="序列号">
                                 <Input v-model="equipmentInfo.serial_number" readonly></Input>
                             </FormItem>
-                            <FormItem label="备注">
-                                <Input v-model="equipmentInfo.remark" type="textarea" :rows="4" readonly></Input>
+                            <FormItem label="主板序列号">
+                                <Input v-model="equipmentInfo.mainboard_serial_number" readonly></Input>
+                            </FormItem>
+                            <FormItem label="产品名称">
+                                <Input v-model="equipmentInfo.product_name" readonly></Input>
+                            </FormItem>
+                            <FormItem label="厂商名称">
+                                <Input v-model="equipmentInfo.vendor_company_name" readonly></Input>
+                            </FormItem>
+                            <FormItem label="代理商名称">
+                                <Input v-model="equipmentInfo.agent_company_name" readonly></Input>
                             </FormItem>
 
                             <FormItem>
@@ -25,6 +34,16 @@
                 </Row>
 
                 <br />
+            </Card>
+        </Col>
+        <Col span="12">
+            <Card>
+                <p slot="title">
+                    <Icon type="grid"></Icon>
+                    设备操作
+                </p>
+
+                <Button type="primary">激活</Button>
             </Card>
         </Col>
     </Row>
@@ -41,25 +60,31 @@ export default {
             equipmentInfo: {
                 id: 0,
                 serial_number: '',
-                remark: ''
+                mainboard_serial_number: '',
+                product_id: 0,
+                product_name: '',
+                company_id: 0,
+                vendor_company_name: '',
+                agent_id: 0,
+                agent_company_name: ''
             }
         }
     },
     methods: {
-        getEquipment (id) {
+        getEquipmentInfo (id) {
             let vm = this
-            equipment.details(id).then(res => {
+            equipment.detailsView(id).then(res => {
                 vm.equipmentInfo = res.entity
             })
         },
 
-         toIndex () {
+        toIndex () {
             this.$router.push({ name: 'equipment' })
         }
     },
     activated: function () {
         this.equipemntId = this.$route.params.id
-        this.getEquipment(this.equipemntId)
+        this.getEquipmentInfo(this.equipemntId)
     }
 }
 </script>

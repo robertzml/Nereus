@@ -20,6 +20,13 @@ export default {
         })
     },
 
+    listByCompanyView (companyId) {
+        return api._get({ url: '/t_product/findInfoByCompanyId', params: { company_id: companyId } })
+            .then(res => {
+                return res.data
+            })
+    },
+
     details (id) {
         return api._get({ url: '/t_product/findOne', params: { product_id: id } })
             .then(res => {
