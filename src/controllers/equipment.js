@@ -54,5 +54,9 @@ export default {
         }).then(res => {
             return res.data
         })
+    },
+
+    activiation (serialNumber) {
+        
     }
 }

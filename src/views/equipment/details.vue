@@ -43,7 +43,17 @@
                     设备操作
                 </p>
 
-                <Button type="primary">激活</Button>
+                <Button type="primary" @click="activation">激活</Button>
+
+                <br /><br />
+                <Form ref="formLock" :model="equipmentLock" :rules="ruleLock" inline>
+                    <FormItem prop="deadline">
+                        <DatePicker type="date" placeholder="选择日期" v-model="equipmentLock.deadline"></DatePicker>
+                    </FormItem>
+                    <FormItem>
+                        <Button type="primary" @click="handleLock('formLock')">解锁</Button>
+                    </FormItem>
+                </Form>
             </Card>
         </Col>
     </Row>
@@ -67,6 +77,14 @@ export default {
                 vendor_company_name: '',
                 agent_id: 0,
                 agent_company_name: ''
+            },
+            equipmentLock: {
+                deadline: ''
+            },
+            ruleLock: {
+                deadline: [
+                    { required: true, type: 'date', message: '请选择日期', trigger: 'change' }
+                ]
             }
         }
     },
@@ -80,6 +98,18 @@ export default {
 
         toIndex () {
             this.$router.push({ name: 'equipment' })
+        },
+
+        activation () {
+            equipment.activation(this.equipmentInfo.serial_number)
+        },
+
+        handleLock (name) {
+            this.$refs[name].validate((valid) => {
+                if (valid) {
+                    this.$Message.success('Success!')
+                }
+            })
         }
     },
     activated: function () {

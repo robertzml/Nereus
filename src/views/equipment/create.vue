@@ -22,7 +22,7 @@
                                 </Select>
                             </FormItem>
                             <FormItem label="所属代理商" prop="agent_id">
-                                <Select v-model="equipmentInfo.agent_id">
+                                <Select v-model="equipmentInfo.agent_id" transfer>
                                     <Option v-for="item in agentList" :value="item.id" :key="item.id">{{ item.name }}</Option>
                                 </Select>
                             </FormItem>
