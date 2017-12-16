@@ -33,24 +33,24 @@
                             <Icon type="ios-keypad"></Icon>
                             厂商管理
                         </template>
-                        <MenuItem name="company">厂商管理</MenuItem>
+                        <MenuItem name="company-index">厂商管理</MenuItem>
                     </Submenu>
                     <Submenu name="2">
                         <template slot="title">
                             <Icon type="ios-analytics"></Icon>
                             产品管理
                         </template>
-                        <MenuItem name="product">产品管理</MenuItem>
-                        <MenuItem name="equipment">设备管理</MenuItem>
+                        <MenuItem name="product-index">产品管理</MenuItem>
+                        <MenuItem name="equipment-index">设备管理</MenuItem>
                     </Submenu>
                     <Submenu name="3">
                         <template slot="title">
                             <Icon type="settings"></Icon>
                             系统管理
                         </template>
-                        <MenuItem name="role">角色管理</MenuItem>
-                        <MenuItem name="account">用户管理</MenuItem>
-                        <MenuItem name="product-type">产品分类</MenuItem>
+                        <MenuItem name="role-index">角色管理</MenuItem>
+                        <MenuItem name="account-index">用户管理</MenuItem>
+                        <MenuItem name="product-type-index">产品分类</MenuItem>
                     </Submenu>
                 </Menu>
             </div>

@@ -43,7 +43,7 @@
                     设备操作
                 </p>
 
-                <Button type="primary" @click="activation">激活</Button>
+                <Button type="primary" @click="activation">激活</Button> <Button type="primary" @click="search">查询</Button>
 
                 <br /><br />
                 <Form ref="formLock" :model="equipmentLock" :rules="ruleLock" inline>
@@ -97,19 +97,14 @@ export default {
         },
 
         toIndex () {
-            this.$router.push({ name: 'equipment' })
+            this.$router.push({ name: 'equipment-index' })
         },
 
         activation () {
-            let act = {
-                product_id: this.equipmentInfo.product_id,
-                company_id: this.equipmentInfo.company_id,
-                agent_id: this.equipmentInfo.agent_id,
-                mainboard_serial_number: this.equipmentInfo.mainboard_serial_number,
+            let act = [{
                 serial_number: this.equipmentInfo.serial_number,
-                is_activation: 1,
-                is_lock: 1
-            }
+                is_activation: 1
+            }]
 
             equipment.login().then(() => {
                 equipment.activation(act).then(res => {
@@ -124,6 +119,16 @@ export default {
                         })
                     }
                 })
+            })
+        },
+
+        search () {
+            equipment.getStatus(this.equipmentInfo.serial_number).then(res => {
+                if (res.status === 0) {
+                    this.$Notice.success({
+                        title: res.entity.is_activation
+                    })
+                }
             })
         },
 

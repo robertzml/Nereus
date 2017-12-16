@@ -80,7 +80,7 @@ export default {
         },
 
         toIndex () {
-            this.$router.push({ name: 'company' })
+            this.$router.push({ name: 'company-index' })
         }
     },
     activated: function () {
