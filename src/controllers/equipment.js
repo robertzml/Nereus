@@ -56,7 +56,19 @@ export default {
         })
     },
 
-    activiation (serialNumber) {
-        
+    login () {
+        return api._get({ url: '/t_equipment/activateEquipmentLogin' })
+            .then(res => {
+                return res.data
+            })
+    },
+
+    activation (models) {
+        return api._post({ 
+            url: '/t_equipment/activateEquipmentOnly', 
+            data: models
+        }).then(res => {
+            return res.data
+        })
     }
 }

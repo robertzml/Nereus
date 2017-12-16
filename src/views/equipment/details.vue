@@ -101,7 +101,30 @@ export default {
         },
 
         activation () {
-            equipment.activation(this.equipmentInfo.serial_number)
+            let act = {
+                product_id: this.equipmentInfo.product_id,
+                company_id: this.equipmentInfo.company_id,
+                agent_id: this.equipmentInfo.agent_id,
+                mainboard_serial_number: this.equipmentInfo.mainboard_serial_number,
+                serial_number: this.equipmentInfo.serial_number,
+                is_activation: 1,
+                is_lock: 1
+            }
+
+            equipment.login().then(() => {
+                equipment.activation(act).then(res => {
+                    if (res.status === 0) {
+                        this.$Notice.success({
+                            title: res.message
+                        })
+                    } else {
+                        this.$Notice.error({
+                            title: res.message,
+                            desc: ''
+                        })
+                    }
+                })
+            })
         },
 
         handleLock (name) {
