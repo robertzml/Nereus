@@ -141,7 +141,7 @@ export default {
                     delete this.accountInfo.repassword
                     account.create(this.accountInfo).then(res => {
                         vm.$Message.info(res.message)
-                        vm.$router.push({ name: 'account' })
+                        vm.$router.push({ name: 'account-index' })
                     })
                 } else {
                     this.$Message.error('输入数据有误')
@@ -153,7 +153,7 @@ export default {
         },
 
         toIndex () {
-            this.$router.push({ name: 'account' })
+            this.$router.push({ name: 'account-index' })
         }
     },
     activated: function () {

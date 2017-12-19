@@ -80,7 +80,7 @@ export default {
         },
 
         toIndex () {
-            this.$router.push({ name: 'account' })
+            this.$router.push({ name: 'account-index' })
         }
     },
     computed: {

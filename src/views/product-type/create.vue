@@ -70,7 +70,7 @@ export default {
                 if (valid) {
                      productType.create(this.productTypeInfo).then(res => {
                         vm.$Message.info(res.message)
-                        vm.$router.push({ name: 'product-type' })
+                        vm.$router.push({ name: 'product-type-index' })
                     })
                 } else {
                     this.$Message.error('输入数据有误')
@@ -81,7 +81,7 @@ export default {
             this.$refs[name].resetFields()
         },
         toIndex () {
-            this.$router.push({ name: 'product-type' })
+            this.$router.push({ name: 'product-type-index' })
         }
     },
     activated: function () {

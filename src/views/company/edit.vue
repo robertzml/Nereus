@@ -111,7 +111,7 @@ export default {
 
             company.update(this.companyInfo).then(res => {
                 vm.$Message.info(res.message)
-                vm.$router.push({ name: 'company' })
+                vm.$router.push({ name: 'company-index' })
             })
         },
 
@@ -122,7 +122,7 @@ export default {
                 if (valid) {
                      company.update(this.companyInfo).then(res => {
                         vm.$Message.info(res.message)
-                        vm.$router.push({ name: 'company' })
+                        vm.$router.push({ name: 'company-index' })
                     })
                 } else {
                     this.$Message.error('输入数据有误')
@@ -134,7 +134,7 @@ export default {
         },
 
         toIndex () {
-            this.$router.push({ name: 'company' })
+            this.$router.push({ name: 'company-index' })
         }
     },
     activated: function () {

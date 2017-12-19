@@ -108,7 +108,7 @@ export default {
                 if (valid) {
                     equipment.create(this.equipmentInfo).then(res => {
                         vm.$Message.info(res.message)
-                        vm.$router.push({ name: 'equipment' })
+                        vm.$router.push({ name: 'equipment-index' })
                     })
                 } else {
                     this.$Message.error('输入数据有误')
@@ -120,7 +120,7 @@ export default {
         },
 
         toIndex () {
-            this.$router.push({ name: 'equipment' })
+            this.$router.push({ name: 'equipment-index' })
         }
     },
     activated: function () {

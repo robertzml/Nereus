@@ -74,12 +74,12 @@ export default {
 
             equipment.update(this.equipmentInfo).then(res => {
                 vm.$Message.info(res.message)
-                vm.$router.push({ name: 'equipment' })
+                vm.$router.push({ name: 'equipment-index' })
             })
         },
 
         toIndex () {
-            this.$router.push({ name: 'equipment' })
+            this.$router.push({ name: 'equipment-index' })
         }
     },
     activated: function () {

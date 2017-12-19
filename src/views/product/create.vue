@@ -106,7 +106,7 @@ export default {
                 if (valid) {
                     product.create(this.productInfo).then(res => {
                         vm.$Message.info(res.message)
-                        vm.$router.push({ name: 'product' })
+                        vm.$router.push({ name: 'product-index' })
                     })
                 } else {
                     this.$Message.error('输入数据有误')
@@ -118,7 +118,7 @@ export default {
         },
 
         toIndex () {
-            this.$router.push({ name: 'product' })
+            this.$router.push({ name: 'product-index' })
         }
     },
     activated: function () {

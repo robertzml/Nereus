@@ -1,5 +1,8 @@
 /* the nereus common function */
 
+import productType from '../controllers/product-type.js'
+import company from '../controllers/company.js'
+
 export const displayCompanyType = (type) => {
     switch (type) {
         case 1:
@@ -11,4 +14,24 @@ export const displayCompanyType = (type) => {
         default:
             return ''
     }
+}
+
+export const getProductTypeName = (typeId) => {
+    return productType.details(typeId).then(res => {
+        if (res.status === 0) {
+            return res.entity.name
+        } else {
+            return ''
+        }
+    })
+}
+
+export const getCompanyName = (companyId) => {
+    return company.details(companyId).then(res => {
+        if (res.status === 0) {
+            return res.entity.name
+        } else {
+            return ''
+        }
+    })
 }

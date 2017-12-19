@@ -44,8 +44,8 @@ export const menuRouter = [
         title: '产品分类',
         component: Home,
         children: [
-            { path: 'index', title: '用户管理', name: 'product-type-index', component: resolve => { require(['@/views/product-type/index.vue'], resolve) } },
-            { path: 'create', title: '用户添加', name: 'product-type-create', component: resolve => { require(['@/views/product-type/create.vue'], resolve) } }
+            { path: 'index', title: '产品分类管理', name: 'product-type-index', component: resolve => { require(['@/views/product-type/index.vue'], resolve) } },
+            { path: 'create', title: '产品分类添加', name: 'product-type-create', component: resolve => { require(['@/views/product-type/create.vue'], resolve) } }
         ]
     },
     {
@@ -55,6 +55,7 @@ export const menuRouter = [
         component: Home,
         children: [
             { path: 'index', title: '', name: 'product-index', component: resolve => { require(['@/views/product/index.vue'], resolve) } },
+            { path: 'details/:id', title: '产品信息', name: 'product-details', component: resolve => { require(['@/views/product/details.vue'], resolve) } },
             { path: 'create', title: '', name: 'product-create', component: resolve => { require(['@/views/product/create.vue'], resolve) } },
             { path: 'edit/:id', title: '', name: 'product-edit', component: resolve => { require(['@/views/product/edit.vue'], resolve) } },
             { path: 'agent', title: '', name: 'product-agent', component: resolve => { require(['@/views/product/agent.vue'], resolve) } }
