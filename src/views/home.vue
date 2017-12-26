@@ -23,7 +23,11 @@
        
         <div class="body-wrapper">
             <div class="main-sidebar-con">
-                 <Menu active-name="home" theme="dark" width="300px" accordion @on-select="changeMenu">
+                <sidebar-menu 
+                    :menu-list="menuList">
+                </sidebar-menu>
+
+                <Menu active-name="home" theme="dark" width="300px" accordion @on-select="changeMenu">
                     <MenuItem name="home">
                         <Icon type="home"></Icon>
                         主页
@@ -81,35 +85,46 @@
 </template>
 
 <script>
-    export default {
-        name: 'home',
-        data () {
-            return {
-                userName: ''
-            }
-        },
-        methods: {
-            changeMenu (name) {
-                this.$router.push({
-                    name: name
-                })
-            },
-            handleClickUserDropdown (name) {
-                if (name === 'ownSpace') {
+import sidebarMenu from '../components/SidebarMenu.vue'
 
-                } else if (name === 'logout') {
-                    // 退出登录
-                    this.$store.commit('LOGOUT')
-                    this.$router.push({
-                        name: 'login'
-                    })
-                }
-            }
-        },
-        mounted () {
-            this.userName = this.$store.state.user.userName
+export default {
+    components: {
+        sidebarMenu
+    },
+    name: 'home',
+    data () {
+        return {
+            userName: ''
         }
+    },
+    computed: {
+        menuList () {
+            return this.$store.state.menuList
+        }
+    },
+    methods: {
+        changeMenu (name) {
+            this.$router.push({
+                name: name
+            })
+        },
+        handleClickUserDropdown (name) {
+            if (name === 'ownSpace') {
+
+            } else if (name === 'logout') {
+                // 退出登录
+                this.$store.commit('LOGOUT')
+                this.$router.push({
+                    name: 'login'
+                })
+            }
+        }
+    },
+    mounted () {
+        this.userName = this.$store.state.user.userName
+        this.$store.commit('UpdateMenu')
     }
+}
 </script>
 
 <style lang="less" scoped>

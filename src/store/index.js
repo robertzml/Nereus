@@ -14,7 +14,8 @@ const store = new Vuex.Store({
             userName: '',
             roleId: '',
             companyId: ''
-        }
+        },
+        menuList: []
     },
     getters,
     mutations,
