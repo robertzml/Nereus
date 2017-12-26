@@ -26,37 +26,6 @@
                 <sidebar-menu 
                     :menu-list="menuList">
                 </sidebar-menu>
-
-                <Menu active-name="home" theme="dark" width="300px" accordion @on-select="changeMenu">
-                    <MenuItem name="home">
-                        <Icon type="home"></Icon>
-                        主页
-                    </MenuItem>
-                    <Submenu name="1">
-                        <template slot="title">
-                            <Icon type="ios-keypad"></Icon>
-                            厂商管理
-                        </template>
-                        <MenuItem name="company-index">厂商管理</MenuItem>
-                    </Submenu>
-                    <Submenu name="2">
-                        <template slot="title">
-                            <Icon type="ios-analytics"></Icon>
-                            产品管理
-                        </template>
-                        <MenuItem name="product-index">产品管理</MenuItem>
-                        <MenuItem name="equipment-index">设备管理</MenuItem>
-                    </Submenu>
-                    <Submenu name="3">
-                        <template slot="title">
-                            <Icon type="settings"></Icon>
-                            系统管理
-                        </template>
-                        <MenuItem name="role-index">角色管理</MenuItem>
-                        <MenuItem name="account-index">用户管理</MenuItem>
-                        <MenuItem name="product-type-index">产品分类</MenuItem>
-                    </Submenu>
-                </Menu>
             </div>
 
             <div class="page-wrapper">
