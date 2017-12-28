@@ -33,8 +33,7 @@ export default {
     },
     methods: {
         selectMenu (name) {
-            console.log(name)
-             this.$router.push({
+            this.$router.push({
                 name: name
             })
         }

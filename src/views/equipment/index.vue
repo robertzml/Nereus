@@ -64,6 +64,14 @@ export default {
                     key: 'agent_company_name'
                 },
                 {
+                    title: '激活状态',
+                    key: 'is_activate'
+                },
+                {
+                    title: '解锁状态',
+                    key: 'is_unlock'
+                },
+                {
                     title: '操作',
                     key: 'action',
                     width: 150,

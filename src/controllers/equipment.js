@@ -72,6 +72,15 @@ export default {
         })
     },
 
+    lock (models) {
+        return api._post({ 
+            url: '/t_equipment/setDeblockingTimeAndDeblocking', 
+            data: models
+        }).then(res => {
+            return res.data
+        })
+    },
+
     getStatus (serialNumber) {
         return api._get({ url: '/device/t_equipment_key_status/findOneBySerialNumber', params: { serial_number: serialNumber } })
             .then(res => {

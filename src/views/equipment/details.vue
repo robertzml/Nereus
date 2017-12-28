@@ -25,6 +25,15 @@
                             <FormItem label="代理商名称">
                                 <Input v-model="equipmentInfo.agent_company_name" readonly></Input>
                             </FormItem>
+                            <FormItem label="激活状态">
+                                <Checkbox v-model="equipmentInfo.is_activate" disabled></Checkbox>
+                            </FormItem>
+                            <FormItem label="激活日期">
+                                <Input v-model="equipmentInfo.activate_date" readonly></Input>
+                            </FormItem>
+                            <FormItem label="解锁状态">
+                                <Checkbox v-model="equipmentInfo.is_unlock" disabled></Checkbox>
+                            </FormItem>
 
                             <FormItem>
                                 <Button type="primary" @click="toIndex">返回</Button>
@@ -76,7 +85,8 @@ export default {
                 company_id: 0,
                 vendor_company_name: '',
                 agent_id: 0,
-                agent_company_name: ''
+                agent_company_name: '',
+                is_activate: false
             },
             equipmentLock: {
                 deadline: ''
@@ -88,12 +98,19 @@ export default {
             }
         }
     },
+    computed: {
+
+    },
     methods: {
         getEquipmentInfo (id) {
             let vm = this
             equipment.detailsView(id).then(res => {
                 vm.equipmentInfo = res.entity
             })
+        },
+
+        showDate (dt) {
+            return new Date(dt)
         },
 
         toIndex () {
@@ -105,20 +122,44 @@ export default {
                 serial_number: this.equipmentInfo.serial_number,
                 is_activation: 1
             }]
+       
+            equipment.activation(act).then(res => {
+                if (res.status === 0) {
+                    this.$Notice.success({
+                        title: res.message
+                    })
+                } else {
+                    this.$Notice.error({
+                        title: res.message,
+                        desc: ''
+                    })
+                }
+            })
+        },
 
-            equipment.login().then(() => {
-                equipment.activation(act).then(res => {
-                    if (res.status === 0) {
-                        this.$Notice.success({
-                            title: res.message
-                        })
-                    } else {
-                        this.$Notice.error({
-                            title: res.message,
-                            desc: ''
-                        })
-                    }
-                })
+        handleLock (name) {
+            this.$refs[name].validate((valid) => {
+                if (valid) {
+                    let act = [{
+                        serial_number: this.equipmentInfo.serial_number,
+                        is_activation: 1,
+                        is_unlock: 1,
+                        device_deadline_date: this.equipmentLock.deadline
+                    }]
+
+                    equipment.lock(act).then(res => {
+                        if (res.status === 0) {
+                            this.$Notice.success({
+                                title: res.message
+                            })
+                        } else {
+                            this.$Notice.error({
+                                title: res.message,
+                                desc: ''
+                            })
+                        }
+                    })
+                }
             })
         },
 
@@ -128,14 +169,6 @@ export default {
                     this.$Notice.success({
                         title: res.entity.is_activation
                     })
-                }
-            })
-        },
-
-        handleLock (name) {
-            this.$refs[name].validate((valid) => {
-                if (valid) {
-                    this.$Message.success('Success!')
                 }
             })
         }
