@@ -30,7 +30,6 @@
 <script>
 import company from '../../controllers/company.js'
 import * as nereus from '../../utility/nereus.js'
-import _ from 'lodash'
 
 export default {
     name: 'company-index',
@@ -135,18 +134,16 @@ export default {
             company.list().then(res => {
                 vm.items = res.entities
                 vm.itemsCount = res.entities.length
-                vm.tableData = _.slice(vm.items, 0, vm.pageSize)
+                vm.tableData = vm.items.slice(0, vm.pageSize)
                 vm.currentPage = 1
-                console.log('page is ' + vm.currentPage)
             })
         },
         changePage (page) {
-            this.tableData = _.slice(this.items, (page - 1) * this.pageSize, page * this.pageSize)
-            console.log('page is ' + this.currentPage)
+            this.tableData = this.items.slice((page - 1) * this.pageSize, page * this.pageSize)
         },
         changePageSize (pageSize) {
             this.pageSize = pageSize
-            this.tableData = _.slice(this.items, (this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize)
+            this.tableData = this.items.slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize)
         },
         showDetails (item) {
             this.$router.push({ name: 'company-details', params: { id: item.id } })

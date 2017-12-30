@@ -11,25 +11,25 @@
                     <Col span="16" push="4">
                         <Form :model="companyInfo" :label-width="80">
                             <FormItem label="名称">
-                                <Input v-model="companyInfo.name" readonly></Input>
+                                {{ companyInfo.name }}
                             </FormItem>
                             <FormItem label="联系人">
-                                <Input v-model="companyInfo.contact" readonly></Input>
+                                {{ companyInfo.contact }}
                             </FormItem>
                             <FormItem label="电话">
-                                <Input v-model="companyInfo.phone" readonly></Input>
+                                {{ companyInfo.phone }}
                             </FormItem>
                             <FormItem label="售后电话">
-                                <Input v-model="companyInfo.aftersale_phone" readonly></Input>
+                                {{ companyInfo.aftersale_phone }}
                             </FormItem>
                             <FormItem label="地址">
-                                <Input v-model="companyInfo.address" readonly></Input>
+                                {{ companyInfo.address }}
                             </FormItem>
                             <FormItem label="代码">
-                                <Input v-model="companyInfo.code" readonly></Input>
+                                {{ companyInfo.code }}
                             </FormItem>
                             <FormItem label="备注">
-                                <Input v-model="companyInfo.remark" type="textarea" :rows="4" readonly></Input>
+                                {{ companyInfo.remark }}
                             </FormItem>
 
                             <FormItem>
@@ -53,17 +53,7 @@ export default {
     data () {
         return {
             companyId: 0,
-            companyInfo: {
-                id: 0,
-                name: '',
-                phone: '',
-                aftersale_phone: '',
-                type: 0,
-                contact: '',
-                address: '',
-                code: '',
-                remark: ''
-            }
+            companyInfo: {}
         }
     },
     methods: {

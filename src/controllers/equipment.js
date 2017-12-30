@@ -56,6 +56,14 @@ export default {
         })
     },
 
+    // 获取待激活设备
+    getInactivate () {
+        return api._get({ url: '/t_device_owner_protocol/findAllOfActivate', params: { auditing_state: 0 } })
+            .then(res => {
+                return res.data
+            })
+    },
+
     login () {
         return api._get({ url: '/t_equipment/activateEquipmentLogin' })
             .then(res => {
@@ -63,6 +71,7 @@ export default {
             })
     },
 
+    // 设备激活
     activation (models) {
         return api._post({ 
             url: '/t_equipment/activateEquipmentOnly', 
@@ -72,6 +81,7 @@ export default {
         })
     },
 
+    // 设备解锁
     lock (models) {
         return api._post({ 
             url: '/t_equipment/setDeblockingTimeAndDeblocking', 

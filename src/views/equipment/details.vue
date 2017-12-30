@@ -62,9 +62,6 @@
                     设备操作
                 </p>
 
-                <Button type="primary" @click="activation">激活</Button> <Button type="primary" @click="search">查询</Button>
-
-                <br /><br />
                 <Form ref="formLock" :model="equipmentLock" :rules="ruleLock" inline>
                     <FormItem prop="deadline">
                         <DatePicker type="date" placeholder="选择日期" :options="deadlineOptions" v-model="equipmentLock.deadline"></DatePicker>
@@ -87,18 +84,7 @@ export default {
     data () {
         return {
             equipmentId: 0,
-            equipmentInfo: {
-                id: 0,
-                serial_number: '',
-                mainboard_serial_number: '',
-                product_id: 0,
-                product_name: '',
-                company_id: 0,
-                vendor_company_name: '',
-                agent_id: 0,
-                agent_company_name: '',
-                is_activate: false
-            },
+            equipmentInfo: {},
             equipmentLock: {
                 deadline: ''
             },
@@ -157,12 +143,13 @@ export default {
             equipment.activation(act).then(res => {
                 if (res.status === 0) {
                     this.$Notice.success({
-                        title: res.message
+                        title: '激活成功',
+                        desc: res.message
                     })
                 } else {
                     this.$Notice.error({
-                        title: res.message,
-                        desc: ''
+                        title: '激活失败',
+                        desc: res.message
                     })
                 }
             })
@@ -181,12 +168,13 @@ export default {
                     equipment.lock(act).then(res => {
                         if (res.status === 0) {
                             this.$Notice.success({
-                                title: res.message
+                                title: '解锁成功',
+                                desc: res.message
                             })
                         } else {
                             this.$Notice.error({
-                                title: res.message,
-                                desc: ''
+                                title: '解锁失败',
+                                desc: res.message
                             })
                         }
                     })
@@ -212,7 +200,7 @@ export default {
 </script>
 
 <style scoped>
-.ivu-form .ivu-form-item-label {
+.ivu-form-item .ivu-form-item-label {
     font-weight: 1000;
 }
 </style>

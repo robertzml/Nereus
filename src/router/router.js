@@ -105,6 +105,7 @@ export const appRouter = [
         component: Home,
         children: [
             { path: 'index', title: '设备管理', parent: 'product-menu', role: 15, name: 'equipment-index', component: resolve => { require(['@/views/equipment/index.vue'], resolve) } },
+            { path: 'inactivate', title: '待激活设备', parent: 'product-menu', role: 15, name: 'equipment-inactivate', component: resolve => { require(['@/views/equipment/inactivate.vue'], resolve) } },
             { path: 'details/:id', title: '', name: 'equipment-details', component: resolve => { require(['@/views/equipment/details.vue'], resolve) } },
             { path: 'create', title: '', name: 'equipment-create', component: resolve => { require(['@/views/equipment/create.vue'], resolve) } },
             { path: 'edit/:id', title: '', name: 'equipment-edit', component: resolve => { require(['@/views/equipment/edit.vue'], resolve) } }

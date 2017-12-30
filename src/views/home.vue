@@ -72,11 +72,6 @@ export default {
         }
     },
     methods: {
-        changeMenu (name) {
-            this.$router.push({
-                name: name
-            })
-        },
         handleClickUserDropdown (name) {
             if (name === 'ownSpace') {
 

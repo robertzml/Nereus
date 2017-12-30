@@ -28,6 +28,7 @@
 <script>
 import equipment from '../../controllers/equipment.js'
 import _ from 'lodash'
+import moment from 'moment'
 
 export default {
     name: 'equipment',
@@ -74,7 +75,21 @@ export default {
                 },
                 {
                     title: '解锁状态',
-                    key: 'is_unlock'
+                    key: 'is_unlock',
+                    render: (h, params) => {
+                        return (
+                            <span>{ params.row.is_unlock ? '已解锁' : '未解锁' }</span>
+                        )
+                    }
+                },
+                {
+                    title: '使用截至时间',
+                    key: 'device_deadline_date',
+                    render: (h, params) => {
+                        return (
+                            <span>{ this.displayDateTime(params.row.device_deadline_date) }</span>
+                        )
+                    }
                 },
                 {
                     title: '操作',
@@ -142,6 +157,13 @@ export default {
         },
         showEdit (item) {
             this.$router.push({ name: 'equipment-edit', params: { id: item.id } })
+        },
+        displayDateTime: function (date) {
+            if (date === null || date === '') {
+                return ''
+            } else {
+                return moment(date).format('YYYY-MM-DD HH:mm:ss')
+            }
         }
     },
     created: function () {
