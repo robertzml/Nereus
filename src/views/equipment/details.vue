@@ -6,33 +6,43 @@
                     <Icon type="grid"></Icon>
                     设备信息
                 </p>
+                <a href="#" slot="extra" @click.prevent="refresh">
+                    <Icon type="ios-loop-strong"></Icon>
+                    刷新
+                </a>
 
                 <Row>
                     <Col span="16" push="4">
                         <Form :model="equipmentInfo" :label-width="100">
                             <FormItem label="序列号">
-                                <Input v-model="equipmentInfo.serial_number" readonly></Input>
+                                {{ equipmentInfo.serial_number }}
                             </FormItem>
                             <FormItem label="主板序列号">
-                                <Input v-model="equipmentInfo.mainboard_serial_number" readonly></Input>
+                                {{ equipmentInfo.mainboard_serial_number }}
                             </FormItem>
                             <FormItem label="产品名称">
-                                <Input v-model="equipmentInfo.product_name" readonly></Input>
+                                {{ equipmentInfo.product_name }}
                             </FormItem>
                             <FormItem label="厂商名称">
-                                <Input v-model="equipmentInfo.vendor_company_name" readonly></Input>
+                                {{ equipmentInfo.vendor_company_name }}
                             </FormItem>
                             <FormItem label="代理商名称">
-                                <Input v-model="equipmentInfo.agent_company_name" readonly></Input>
+                                {{ equipmentInfo.agent_company_name }}
                             </FormItem>
                             <FormItem label="激活状态">
-                                <Checkbox v-model="equipmentInfo.is_activate" disabled></Checkbox>
+                                {{ equipmentInfo.is_activate | activateState }}
                             </FormItem>
                             <FormItem label="激活日期">
-                                <Input v-model="equipmentInfo.activate_date" readonly></Input>
+                                {{ equipmentInfo.activate_date | displayDateTime }}
                             </FormItem>
                             <FormItem label="解锁状态">
-                                <Checkbox v-model="equipmentInfo.is_unlock" disabled></Checkbox>
+                                {{ equipmentInfo.is_unlock | lockState }}
+                            </FormItem>
+                            <FormItem label="解锁日期">
+                                {{ equipmentInfo.unlock_date | displayDateTime }}
+                            </FormItem>
+                            <FormItem label="使用截至日期">
+                                {{ equipmentInfo.device_deadline_date | displayDateTime }}
                             </FormItem>
 
                             <FormItem>
@@ -57,7 +67,7 @@
                 <br /><br />
                 <Form ref="formLock" :model="equipmentLock" :rules="ruleLock" inline>
                     <FormItem prop="deadline">
-                        <DatePicker type="date" placeholder="选择日期" v-model="equipmentLock.deadline"></DatePicker>
+                        <DatePicker type="date" placeholder="选择日期" :options="deadlineOptions" v-model="equipmentLock.deadline"></DatePicker>
                     </FormItem>
                     <FormItem>
                         <Button type="primary" @click="handleLock('formLock')">解锁</Button>
@@ -70,12 +80,13 @@
 
 <script>
 import equipment from '../../controllers/equipment.js'
+import moment from 'moment'
 
 export default {
     name: 'equipment-details',
     data () {
         return {
-            equipemntId: 0,
+            equipmentId: 0,
             equipmentInfo: {
                 id: 0,
                 serial_number: '',
@@ -95,11 +106,31 @@ export default {
                 deadline: [
                     { required: true, type: 'date', message: '请选择日期', trigger: 'change' }
                 ]
+            },
+            deadlineOptions: {
+                disabledDate (date) {
+                    return date && date.valueOf() < Date.now() - 86400000
+                }
             }
         }
     },
     computed: {
 
+    },
+    filters: {
+        displayDateTime: function (date) {
+            if (date === null || date === '') {
+                return ''
+            } else {
+                return moment(date).format('YYYY-MM-DD HH:mm:ss')
+            }
+        },
+        activateState: function (isActivate) {
+            return isActivate ? '已激活' : '未激活'
+        },
+        lockState: function (isUnlock) {
+            return isUnlock ? '已解锁' : '未解锁'
+        }
     },
     methods: {
         getEquipmentInfo (id) {
@@ -109,8 +140,8 @@ export default {
             })
         },
 
-        showDate (dt) {
-            return new Date(dt)
+        refresh () {
+            this.getEquipmentInfo(this.equipmentId)
         },
 
         toIndex () {
@@ -120,7 +151,7 @@ export default {
         activation () {
             let act = [{
                 serial_number: this.equipmentInfo.serial_number,
-                is_activation: 1
+                is_activate: 1
             }]
        
             equipment.activation(act).then(res => {
@@ -142,7 +173,7 @@ export default {
                 if (valid) {
                     let act = [{
                         serial_number: this.equipmentInfo.serial_number,
-                        is_activation: 1,
+                        is_activate: 1,
                         is_unlock: 1,
                         device_deadline_date: this.equipmentLock.deadline
                     }]
@@ -174,8 +205,14 @@ export default {
         }
     },
     activated: function () {
-        this.equipemntId = this.$route.params.id
-        this.getEquipmentInfo(this.equipemntId)
+        this.equipmentId = this.$route.params.id
+        this.getEquipmentInfo(this.equipmentId)
     }
 }
 </script>
+
+<style scoped>
+.ivu-form .ivu-form-item-label {
+    font-weight: 1000;
+}
+</style>
