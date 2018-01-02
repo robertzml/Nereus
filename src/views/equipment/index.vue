@@ -67,6 +67,8 @@ export default {
                 {
                     title: '激活状态',
                     key: 'is_activate',
+                    width: 100,
+                    align: 'center',
                     render: (h, params) => {
                         return (
                             <span>{ params.row.is_activate ? '已激活' : '未激活' }</span>
@@ -76,6 +78,8 @@ export default {
                 {
                     title: '解锁状态',
                     key: 'is_unlock',
+                    width: 100,
+                    align: 'center',
                     render: (h, params) => {
                         return (
                             <span>{ params.row.is_unlock ? '已解锁' : '未解锁' }</span>

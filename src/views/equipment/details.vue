@@ -56,6 +56,36 @@
             </Card>
         </Col>
         <Col span="12">
+            <Card style="margin-bottom: 15px">
+                <p slot="title">
+                    <Icon type="grid"></Icon>
+                    设备实时状态
+                </p>
+
+                <div>
+                    <Button type="primary" @click="readStatus">Read</Button>
+                    <Button type="primary" @click="readRealStatus">Real</Button>
+                </div>
+
+                <Row>
+                    <Col span="16" push="4">
+                        <Form :model="realInfo" :label-width="100">
+                            <FormItem label="次数">
+                                {{ counter }}
+                            </FormItem>
+                            <FormItem label="开关机状态">
+                                {{ realInfo.power == 1 ? '开机' : '关机' }}
+                            </FormItem>
+                            <FormItem label="设定温度">
+                                {{ parseInt(realInfo.setting_temp, 16) }} &#8451;
+                            </FormItem>
+                            <FormItem label="日志时间">
+                                {{ realInfo.log_time | displayDateTime }}
+                            </FormItem>
+                        </Form>
+                    </Col>
+                </Row>
+            </Card>
             <Card>
                 <p slot="title">
                     <Icon type="grid"></Icon>
@@ -97,7 +127,10 @@ export default {
                 disabledDate (date) {
                     return date && date.valueOf() < Date.now() - 86400000
                 }
-            }
+            },
+            realInfo: {},    // 实时状态
+            counter: 0,
+            intervalId1: 0
         }
     },
     computed: {
@@ -182,11 +215,23 @@ export default {
             })
         },
 
-        search () {
-            equipment.getStatus(this.equipmentInfo.serial_number).then(res => {
+        readStatus () {
+            equipment.getKeyStatus(this.equipmentInfo.serial_number).then(res => {
+                console.log(res)
+            })
+        },
+
+        readRealStatus () {
+            let vm = this
+            this.counter += 1
+
+            equipment.getRealStatus(this.equipmentInfo.serial_number).then(res => {
                 if (res.status === 0) {
-                    this.$Notice.success({
-                        title: res.entity.is_activation
+                    vm.realInfo = res.entities[0]
+                } else {
+                    this.$Notice.error({
+                        title: '获取实时状态出错',
+                        desc: res.message
                     })
                 }
             })
@@ -195,6 +240,14 @@ export default {
     activated: function () {
         this.equipmentId = this.$route.params.id
         this.getEquipmentInfo(this.equipmentId)
+        this.counter = 0
+
+        this.intervalId1 = setInterval(() => {
+            this.readRealStatus()
+        }, 2000)
+    },
+    deactivated: function () {
+        clearInterval(this.intervalId1)
     }
 }
 </script>

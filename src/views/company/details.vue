@@ -68,7 +68,6 @@ export default {
                 }
             })
         },
-
         toIndex () {
             this.$router.push({ name: 'company-index' })
         }

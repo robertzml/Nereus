@@ -91,8 +91,15 @@ export default {
         })
     },
 
-    getStatus (serialNumber) {
+    getKeyStatus (serialNumber) {
         return api._get({ url: '/device/t_equipment_key_status/findOneBySerialNumber', params: { serial_number: serialNumber } })
+            .then(res => {
+                return res.data
+            })
+    },
+
+    getRealStatus (serialNumber) {
+        return api._get({ url: '/device/t_equipment_key_status/getEquipmentStatusBySerialNumber', params: { serial_number: serialNumber, startRowNumber: 1, rowNumber: 1 } })
             .then(res => {
                 return res.data
             })
