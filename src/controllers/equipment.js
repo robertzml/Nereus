@@ -99,7 +99,7 @@ export default {
     },
 
     getRealStatus (serialNumber) {
-        return api._get({ url: '/device/t_equipment_key_status/getEquipmentStatusBySerialNumber', params: { serial_number: serialNumber, startRowNumber: 1, rowNumber: 1 } })
+        return api._get({ url: '/device/t_equipment_key_status/getEquipmentStatusBySerialNumber', params: { serial_number: serialNumber, start_row_number: 1, row_number: 1 } })
             .then(res => {
                 return res.data
             })

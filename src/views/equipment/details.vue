@@ -64,7 +64,8 @@
 
                 <div>
                     <Button type="primary" @click="readStatus">Read</Button>
-                    <Button type="primary" @click="readRealStatus">Real</Button>
+                    <Button type="primary" :disabled="openReal" @click="openRealStatus">开启实时读取状态</Button>
+                    <Button type="primary" :disabled="!openReal" @click="closeRealStatus">关闭实时读取状态</Button>
                 </div>
 
                 <Row>
@@ -130,7 +131,8 @@ export default {
             },
             realInfo: {},    // 实时状态
             counter: 0,
-            intervalId1: 0
+            intervalId1: 0,
+            openReal: true
         }
     },
     computed: {
@@ -155,7 +157,14 @@ export default {
         getEquipmentInfo (id) {
             let vm = this
             equipment.detailsView(id).then(res => {
-                vm.equipmentInfo = res.entity
+                if (res.status === 0) {
+                    vm.equipmentInfo = res.entity
+                } else {
+                    this.$Notice.error({
+                        title: '获取设备信息失败',
+                        desc: res.message
+                    })
+                }
             })
         },
 
@@ -235,6 +244,22 @@ export default {
                     })
                 }
             })
+        },
+
+        openRealStatus () {
+            if (!this.openReal) {
+                this.intervalId1 = setInterval(() => {
+                    this.readRealStatus()
+                }, 2000)
+                this.openReal = true
+            }
+        },
+
+        closeRealStatus () {
+            if (this.openReal) {
+                clearInterval(this.intervalId1)
+                this.openReal = false
+            }
         }
     },
     activated: function () {
