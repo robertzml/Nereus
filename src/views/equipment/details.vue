@@ -44,6 +44,9 @@
                             <FormItem label="使用截至日期">
                                 {{ equipmentInfo.device_deadline_date | displayDateTime }}
                             </FormItem>
+                            <FormItem label="状态">
+                                {{ equipmentInfo.status }}
+                            </FormItem>
 
                             <FormItem>
                                 <Button type="primary" @click="toIndex">返回</Button>
@@ -101,6 +104,10 @@
                         <Button type="primary" @click="handleLock('formLock')">解锁</Button>
                     </FormItem>
                 </Form>
+
+                <br />
+
+                <Button type="primary" @click="inactivate">同意注销</Button>
             </Card>
         </Col>
     </Row>
@@ -191,6 +198,27 @@ export default {
                 } else {
                     this.$Notice.error({
                         title: '激活失败',
+                        desc: res.message
+                    })
+                }
+            })
+        },
+
+        inactivate () {
+            let act = [{
+                serial_number: this.equipmentInfo.serial_number,
+                apply_state: 2
+            }]
+
+            equipment.inactivate(act).then(res => {
+                if (res.status === 0) {
+                    this.$Notice.success({
+                        title: '注销成功',
+                        desc: res.message
+                    })
+                } else {
+                    this.$Notice.error({
+                        title: '注销失败',
                         desc: res.message
                     })
                 }
