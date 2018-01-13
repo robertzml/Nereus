@@ -13,6 +13,7 @@ const store = new Vuex.Store({
             id: '',
             userName: '',
             roleId: '',
+            roleType: '',
             companyId: ''
         },
         menuList: []

@@ -10,6 +10,7 @@ export default {
         state.user.id = ''
         state.user.userName = ''
         state.user.roleId = ''
+        state.user.roleType = ''
         state.user.companyId = ''
     },
 

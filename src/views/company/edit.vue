@@ -33,6 +33,11 @@
                                     <Option v-for="item in typeList" :value="item.value" :key="item.value">{{ item.label }}</Option>
                                 </Select>
                             </FormItem>
+                            <FormItem label="所属厂商" prop="parent_id">
+                                <Select v-model="companyInfo.parent_id">
+                                    <Option v-for="item in parentList" :value="item.id" :key="item.id">{{ item.name }}</Option>
+                                </Select>
+                            </FormItem>
                             <FormItem label="备注">
                                 <Input v-model="companyInfo.remark" type="textarea" :rows="4"></Input>
                             </FormItem>
@@ -67,6 +72,7 @@ export default {
                 phone: '',
                 aftersale_phone: '',
                 type: 0,
+                parent_id: '',
                 contact: '',
                 address: '',
                 code: '',
@@ -84,6 +90,7 @@ export default {
                     label: '代理商'
                 }
             ],
+            parentList: [],
             ruleValidate: {
                 name: [
                     { required: true, message: '名称不能为空', trigger: 'blur' }
@@ -93,11 +100,21 @@ export default {
                 ],
                 type: [
                     { required: true, message: '请选择类型', type: 'number', trigger: 'change' }
+                ],
+                parent_id: [
+                    { required: true, message: '请选择所属公司', type: 'number', trigger: 'change' }
                 ]
             }
         }
     },
     methods: {
+        getParentList () {
+            let vm = this
+            company.list().then(res => {
+                vm.parentList = res.entities
+            })
+        },
+
         getCompany (id) {
             let vm = this
 
@@ -140,6 +157,7 @@ export default {
     activated: function () {
         this.companyId = this.$route.params.id
         this.getCompany(this.companyId)
+        this.getParentList()
     }
 }
 </script>

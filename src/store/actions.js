@@ -11,6 +11,7 @@ export default {
                         id: u.admin.id,
                         userName: u.admin.user_name,
                         roleId: u.admin.role_id,
+                        roleType: u.role_type,
                         companyId: u.admin.company_id 
                     })
                 } else {
@@ -19,6 +20,7 @@ export default {
                         id: 0,
                         userName: '',
                         roleId: '',
+                        roleType: '',
                         companyId: '' 
                     })
                 }
