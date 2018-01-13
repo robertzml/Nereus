@@ -68,9 +68,9 @@ export default {
                     title: '公司类型',
                     key: 'company_type',
                     render: (h, params) => {
-                        return h('div', [
-                            h('span', nereus.displayCompanyType(params.row.company_type))
-                        ])
+                        return (
+                            <span>{ nereus.displayCompanyType(params.row.company_type) }</span>
+                        )
                     }
                 },
                 {
@@ -109,10 +109,14 @@ export default {
         getAccounts () {
             let vm = this
             account.listView().then(res => {
-                vm.items = res.admins
-                vm.itemsCount = vm.items.length
-                vm.currentPage = 1
-                vm.tableData = _.slice(vm.items, 0, vm.pageSize)
+                if (res.status === 0) {
+                    vm.items = res.admins
+                    vm.itemsCount = vm.items.length
+                    vm.currentPage = 1
+                    vm.tableData = _.slice(vm.items, 0, vm.pageSize)
+                } else {
+                    vm.$Message.error(res.message)
+                }
             })
         },
         changePage (page) {

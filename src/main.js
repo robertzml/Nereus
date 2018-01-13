@@ -7,6 +7,8 @@ import {appRouter} from './router/router'
 import store from './store'
 import iView from 'iview'
 import 'iview/dist/styles/iview.css'
+import moment from 'moment'
+import * as nereus from './utility/nereus.js'
 
 Vue.use(iView)
 Vue.config.productionTip = false
@@ -21,6 +23,19 @@ router.beforeEach((to, from, next) => {
         } else {
             next({ path: '/login' })
         }
+    }
+})
+
+Vue.filter('displayCompanyType', function (value) {
+    if (!value) return ''
+    return nereus.displayCompanyType(value)
+})
+
+Vue.filter('displayDateTime', function (value) {
+    if (value === null || value === '') {
+        return ''
+    } else {
+        return moment(value).format('YYYY-MM-DD HH:mm:ss')
     }
 })
 

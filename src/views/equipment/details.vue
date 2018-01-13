@@ -207,7 +207,7 @@ export default {
         inactivate () {
             let act = [{
                 serial_number: this.equipmentInfo.serial_number,
-                apply_state: 2
+                apply_state: 1
             }]
 
             equipment.inactivate(act).then(res => {
@@ -294,6 +294,7 @@ export default {
         this.equipmentId = this.$route.params.id
         this.getEquipmentInfo(this.equipmentId)
         this.counter = 0
+        this.openReal = true
 
         this.intervalId1 = setInterval(() => {
             this.readRealStatus()
@@ -301,6 +302,7 @@ export default {
     },
     deactivated: function () {
         clearInterval(this.intervalId1)
+        this.openReal = false
     }
 }
 </script>

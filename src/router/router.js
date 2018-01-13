@@ -15,20 +15,20 @@ export const menuRouter = [
         name: 'company-menu',
         path: 'company',
         icon: 'ios-keypad',
-        role: 15,
+        role: 10,
         title: '厂商管理'
     },
     {
         name: 'product-menu',
         path: 'product',
         icon: 'ios-analytics',
-        role: 15,
+        role: 10,
         title: '产品管理'
     },
     {
         name: 'system-menu',
         path: 'system',
-        role: 6,
+        role: 4,
         icon: 'settings',
         title: '系统管理'
     }

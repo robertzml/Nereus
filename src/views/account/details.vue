@@ -11,25 +11,28 @@
                     <Col span="16" push="4">
                         <Form :model="accountInfo" :label-width="80">
                             <FormItem label="用户名">
-                                <Input v-model="accountInfo.user_name" readonly></Input>
+                                {{ accountInfo.user_name }}
                             </FormItem>
                             <FormItem label="姓名">
-                                <Input v-model="accountInfo.name" readonly></Input>
+                                {{ accountInfo.name }}
                             </FormItem>
                             <FormItem label="电话">
-                                <Input v-model="accountInfo.phone" readonly></Input>
+                                {{ accountInfo.phone }}
                             </FormItem>
                             <FormItem label="Email">
-                                <Input v-model="accountInfo.email" readonly></Input>
+                                {{ accountInfo.email }}
                             </FormItem>
                             <FormItem label="所属角色">
-                                <Input v-model="accountInfo.role_name" readonly></Input>
+                                {{ accountInfo.role_name }}
                             </FormItem>
                             <FormItem label="所属公司">
-                                <Input v-model="accountInfo.company_name" readonly></Input>
+                                {{ accountInfo.company_name }}
                             </FormItem>
                             <FormItem label="公司类型">
-                                <Input v-model="companyType" readonly></Input>
+                                {{ accountInfo.company_type | displayCompanyType }}
+                            </FormItem>
+                            <FormItem label="创建时间">
+                                {{ accountInfo.create_date | displayDateTime }}
                             </FormItem>
 
                             <FormItem>
@@ -47,7 +50,6 @@
 
 <script>
 import account from '../../controllers/account.js'
-import * as nereus from '../../utility/nereus.js'
 
 export default {
     name: 'account-details',
@@ -84,9 +86,7 @@ export default {
         }
     },
     computed: {
-        companyType: function () {
-            return nereus.displayCompanyType(this.accountInfo.company_type)
-        }
+        
     },
     activated: function () {
         this.accountId = this.$route.params.id
