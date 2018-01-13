@@ -28,12 +28,12 @@
                             <FormItem label="代码">
                                 <Input v-model="companyInfo.code"></Input>
                             </FormItem>
-                            <FormItem label="类型" prop="type">
-                                <Select v-model="companyInfo.type">
+                            <FormItem label="类型" prop="type" v-if="roleType === 0">
+                                <Select v-model="companyInfo.type" @on-change="selectType">
                                     <Option v-for="item in typeList" :value="item.value" :key="item.value">{{ item.label }}</Option>
                                 </Select>
                             </FormItem>
-                            <FormItem label="所属厂商" prop="parent_id">
+                            <FormItem label="所属厂商" prop="parent_id" v-if="roleType === 0  && companyInfo.type !== 1">
                                 <Select v-model="companyInfo.parent_id">
                                     <Option v-for="item in parentList" :value="item.id" :key="item.id">{{ item.name }}</Option>
                                 </Select>
@@ -104,15 +104,32 @@ export default {
                 parent_id: [
                     { required: true, message: '请选择所属公司', type: 'number', trigger: 'change' }
                 ]
-            }
+            },
+            roleType: -1
         }
     },
     methods: {
-        getParentList () {
+        init () {
+            this.roleType = this.$store.state.user.roleType
+            this.companyId = this.$route.params.id
+
+            this.getCompany(this.companyId)
+            
+            this.getParentList()
+        },
+
+        selectType (val) {
             let vm = this
-            company.list().then(res => {
-                vm.parentList = res.entities
-            })
+
+            if (val === 2) {
+                company.listByType(1).then(res => {
+                    vm.parentList = res.entities
+                })
+            } else if (val === 3) {
+                company.listByType(2).then(res => {
+                    vm.parentList = res.entities
+                })
+            }
         },
 
         getCompany (id) {
@@ -155,9 +172,7 @@ export default {
         }
     },
     activated: function () {
-        this.companyId = this.$route.params.id
-        this.getCompany(this.companyId)
-        this.getParentList()
+        this.init()
     }
 }
 </script>

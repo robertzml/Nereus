@@ -28,12 +28,17 @@
                             <FormItem label="代码">
                                 <Input v-model="companyInfo.code"></Input>
                             </FormItem>
-                            <FormItem label="类型" prop="type">
-                                <Select v-model="companyInfo.type">
+                            <FormItem label="类型" prop="type" v-if="createType === 0">
+                                <Select v-model="companyInfo.type" @on-change="selectType">
                                     <Option v-for="item in typeList" :value="item.value" :key="item.value">{{ item.label }}</Option>
                                 </Select>
                             </FormItem>
-                            <FormItem label="所属厂商" prop="parent_id">
+                            <FormItem label="类型" prop="type" v-else>
+                                <Select v-model="companyInfo.type" disabled>
+                                    <Option v-for="item in typeList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+                                </Select>
+                            </FormItem>
+                            <FormItem label="所属厂商" prop="parent_id" v-if="createType === 0 && companyInfo.type !== 1">
                                 <Select v-model="companyInfo.parent_id">
                                     <Option v-for="item in parentList" :value="item.id" :key="item.id">{{ item.name }}</Option>
                                 </Select>
@@ -99,25 +104,53 @@ export default {
                 parent_id: [
                     { required: true, message: '请选择所属公司', type: 'number', trigger: 'change' }
                 ]
-            }
+            },
+            createType: 0   // 0: 管理员添加公司  1：厂商添加代理商
         }
     },
     methods: {
         init () {
             let roleId = this.$store.state.user.roleId
+            let companyId = this.$store.state.user.companyId
+
+            if (this.$route.params.type !== undefined) {
+                this.createType = this.$route.params.type
+            } else {
+                this.createType = 0
+            }
+            
+            if (this.createType === 1) {
+                this.companyInfo.type = 3
+            }
         },
-        getParentList () {
+
+        selectType (val) {
             let vm = this
-            company.list().then(res => {
-                vm.parentList = res.entities
-            })
+
+            if (val === 2) {
+                company.listByType(1).then(res => {
+                    vm.parentList = res.entities
+                })
+            } else if (val === 3) {
+                company.listByType(2).then(res => {
+                    vm.parentList = res.entities
+                })
+            }
         },
+
         handleSubmit (name) {
             let vm = this
 
             this.$refs[name].validate((valid) => {
                 if (valid) {
-                     company.create(this.companyInfo).then(res => {
+                    if (this.createType === 1) {
+                        this.companyInfo.parent_id = this.$store.state.user.companyId
+                    }
+                    if (this.companyInfo.type === 1) {
+                        this.companyInfo.parent_id = 0
+                    }
+
+                    company.create(this.companyInfo).then(res => {
                         vm.$Message.info(res.message)
                         vm.$router.push({ name: 'company-index' })
                     })
@@ -140,12 +173,14 @@ export default {
             phone: '',
             aftersale_phone: '',
             type: '',
+            parent_id: '',
             contact: '',
             address: '',
             code: '',
             remark: ''
         }
-        this.getParentList()
+        console.log('router:' + this.$route.params.type)
+        this.init()
     }
 }
 </script>

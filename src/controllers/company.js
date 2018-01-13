@@ -17,6 +17,13 @@ export default {
             })
     },
 
+    listByParent (parentId) {
+        return api._get({ url: '/t_company/findByParentId', params: { parent_id: parentId } })
+            .then(res => {
+                return res.data
+            })
+    },
+
     details (id) {
         return api._get({ url: '/t_company/findOne', params: { company_id: id } })
             .then(res => {

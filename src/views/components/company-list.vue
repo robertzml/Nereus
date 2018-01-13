@@ -1,7 +1,7 @@
 <template>
     <div class="company-list">
         <Table :data="tableData" :columns="columns" border stripe></Table>
-        <div style="margin: 10px;overflow-x: hidden">
+        <div style="margin: 10px;overflow-x: hidden" v-if="showPager">
             <div style="float: right;">
                 <Page :total="itemsCount" :current.sync="currentPage" :page-size="pageSize" show-sizer placement="top" 
                     @on-change="changePage"
@@ -18,7 +18,8 @@ import _ from 'lodash'
 export default {
     name: 'companyList',
     props: {
-        itemList: { type: Array, required: true }
+        itemList: { type: Array, required: true },
+        showPager: { type: Boolean, default: true }
     },
     data () {
         return {

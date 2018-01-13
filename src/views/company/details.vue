@@ -28,6 +28,18 @@
                             <FormItem label="代码">
                                 {{ companyInfo.code }}
                             </FormItem>
+                            <FormItem label="公司类型">
+                                {{ companyInfo.type | displayCompanyType }}
+                            </FormItem>
+                            <FormItem label="所属公司">
+                                {{ parentName }}
+                            </FormItem>
+                            <FormItem label="创建时间">
+                                {{ companyInfo.create_date | displayDateTime }}
+                            </FormItem>
+                            <FormItem label="编辑时间">
+                                {{ companyInfo.modify_date | displayDateTime }}
+                            </FormItem>
                             <FormItem label="备注">
                                 {{ companyInfo.remark }}
                             </FormItem>
@@ -53,7 +65,8 @@ export default {
     data () {
         return {
             companyId: 0,
-            companyInfo: {}
+            companyInfo: {},
+            parentName: ''
         }
     },
     methods: {
@@ -63,11 +76,26 @@ export default {
             company.details(id).then(res => {
                 if (res.status === 0) {
                     vm.companyInfo = res.entity
+
+                    this.getParent(vm.companyInfo.parent_id)
                 } else {
                     vm.$Message.error(res.message)
                 }
             })
         },
+
+        getParent (pid) {
+            let vm = this
+
+            company.details(pid).then(res => {
+                if (res.status === 0) {
+                    this.parentName = res.entity.name
+                } else {
+                    this.parentName = ''
+                }
+            })
+        },
+
         toIndex () {
             this.$router.push({ name: 'company-index' })
         }
