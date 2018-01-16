@@ -1,7 +1,7 @@
 <template>
-    <div class="company-list">
-        <Table :data="tableData" :columns="columns" border stripe></Table>
-        <div style="margin: 10px;overflow-x: hidden" v-if="showPager">
+    <div class="account-list">
+        <Table :data="tableData" :columns="columns" stripe border></Table>
+        <div style="margin: 10px;overflow-x: hidden">
             <div style="float: right;">
                 <Page :total="itemsCount" :current.sync="currentPage" :page-size="pageSize" show-sizer placement="top" 
                     @on-change="changePage"
@@ -16,7 +16,7 @@ import * as nereus from '../../utility/nereus.js'
 import _ from 'lodash'
 
 export default {
-    name: 'company-list',
+    name: 'account-list',
     props: {
         itemList: { type: Array, required: true },
         showPager: { type: Boolean, default: true }
@@ -30,37 +30,37 @@ export default {
                     align: 'center'
                 },
                 {
-                    title: '名称',
+                    title: '用户名',
+                    key: 'user_name'
+                },
+                {
+                    title: '姓名',
                     key: 'name'
-                },
-                {
-                    title: '编码',
-                    key: 'code'
-                },
-                {
-                    title: '类型',
-                    key: 'type',
-                    render: (h, params) => {
-                        return h('div', [
-                            h('span', nereus.displayCompanyType(params.row.type))
-                        ])
-                    }
-                },
-                {
-                    title: '联系人',
-                    key: 'contact'
                 },
                 {
                     title: '电话',
                     key: 'phone'
                 },
                 {
-                    title: '售后电话',
-                    key: 'aftersale_phone'
+                    title: 'Email',
+                    key: 'email'
                 },
                 {
-                    title: '地址',
-                    key: 'address'
+                    title: '所属角色',
+                    key: 'role_name'
+                },
+                {
+                    title: '所属公司',
+                    key: 'company_name'
+                },
+                {
+                    title: '公司类型',
+                    key: 'company_type',
+                    render: (h, params) => {
+                        return (
+                            <span>{ nereus.displayCompanyType(params.row.company_type) }</span>
+                        )
+                    }
                 },
                 {
                     title: '操作',
@@ -102,10 +102,10 @@ export default {
             this.tableData = this.itemList.slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize)
         },
         showDetails (item) {
-            this.$router.push({ name: 'company-details', params: { id: item.id } })
+            this.$router.push({ name: 'account-details', params: { id: item.id } })
         },
         showEdit (item) {
-            this.$router.push({ name: 'company-edit', params: { id: item.id } })
+            this.$router.push({ name: 'account-edit', params: { id: item.id } })
         }
     }
 }
