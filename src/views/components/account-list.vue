@@ -1,7 +1,7 @@
 <template>
     <div class="account-list">
         <Table :data="tableData" :columns="columns" stripe border></Table>
-        <div style="margin: 10px;overflow-x: hidden">
+        <div style="margin: 10px;overflow-x: hidden" v-if="showPager">
             <div style="float: right;">
                 <Page :total="itemsCount" :current.sync="currentPage" :page-size="pageSize" show-sizer placement="top" 
                     @on-change="changePage"
@@ -19,7 +19,8 @@ export default {
     name: 'account-list',
     props: {
         itemList: { type: Array, required: true },
-        showPager: { type: Boolean, default: true }
+        showPager: { type: Boolean, default: true },
+        listType: { type: Number, default: 0 }
     },
     data () {
         return {
@@ -105,7 +106,7 @@ export default {
             this.$router.push({ name: 'account-details', params: { id: item.id } })
         },
         showEdit (item) {
-            this.$router.push({ name: 'account-edit', params: { id: item.id } })
+            this.$router.push({ name: 'account-edit', params: { id: item.id, type: this.listType } })
         }
     }
 }

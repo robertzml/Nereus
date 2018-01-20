@@ -4,7 +4,7 @@
             <Card>
                 <p slot="title">
                     <Icon type="grid"></Icon>
-                    用户信息
+                    {{ title }}用户信息
                 </p>
 
                 <Row>
@@ -23,12 +23,12 @@
                                 <Input v-model="accountInfo.email"></Input>
                             </FormItem>
                             <FormItem label="所属角色" prop="role_id" v-if="roleType <= 2">
-                                 <Select v-model="accountInfo.role_id">
+                                 <Select v-model="accountInfo.role_id" @on-change="selectRole">
                                     <Option v-for="item in roleList" :value="item.id" :key="item.id">{{ item.name }}</Option>
                                 </Select>
                             </FormItem>
                             <FormItem label="所属公司" prop="company_id" v-if="roleType <= 2">
-                                <Select v-model="accountInfo.company_id">
+                                <Select v-model="accountInfo.company_id" :disabled="editType === 1">
                                     <Option v-for="item in companyList" :value="item.id" :key="item.id">{{ item.name }}</Option>
                                 </Select>
                             </FormItem>
@@ -82,18 +82,30 @@ export default {
                     { required: true, message: '请选择公司', type: 'number', trigger: 'change' }
                 ]
             },
-            roleType: ''
+            roleType: '',
+            editType: 0,
+            title: ''
         }
     },
     methods: {
         init () {
             this.roleType = this.$store.state.user.roleType
             this.accountId = this.$route.params.id
-            this.companyId = this.$route.params.id
+
+            if (this.$route.params.type !== undefined) {
+                this.editType = this.$route.params.type
+            } else {
+                this.editType = 0
+            }
+
+            if (this.editType === 1) {
+                this.title = '本公司'
+            } else if (this.editType === 2) {
+                this.title = '代理商'
+            }
 
             this.getAccount(this.accountId)
             this.getRoles()
-            this.getCompanys()
         },
 
         getAccount (id) {
@@ -112,16 +124,43 @@ export default {
             let vm = this
 
             role.list().then(res => {
-                vm.roleList = res.entities
+                if (vm.roleType === 2) {
+                    if (this.editType === 1) {
+                        vm.roleList = res.entities.filter(r => r.type === 2)
+                    } else if (this.editType === 2) {
+                        vm.roleList = res.entities.filter(r => r.type === 3)
+                    }
+                } else if (vm.roleType === 3) {
+                    vm.roleList = res.entities.filter(r => r.type === 3)
+                } else {
+                    vm.roleList = res.entities.filter(r => r.type !== 0)
+                }
             })
         },
 
-        getCompanys () {
+        selectRole (val) {
             let vm = this
+            let companyId = this.$store.state.user.companyId
 
-            company.list().then(res => {
-                vm.companyList = res.entities
-            })
+            if (val >= 2 && val <= 4) {
+                company.listByType(1).then(res => {
+                    vm.companyList = res.entities
+                })
+            } else if (val >= 5 && val <= 7) {
+                company.listByType(2).then(res => {
+                    vm.companyList = res.entities
+                })
+            } else if (val >= 8) {
+                if (this.editType === 2) {
+                    company.listByParent(companyId).then(res => {
+                        vm.companyList = res.entities
+                    })
+                } else {
+                    company.listByType(3).then(res => {
+                        vm.companyList = res.entities
+                    })
+                }
+            }
         },
 
         handleSubmit (name) {

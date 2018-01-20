@@ -32,7 +32,7 @@
                         刷新
                     </a>
 
-                    <account-list :itemList="myAccount" :showPager="false"></account-list>
+                    <account-list :itemList="myAccount" :show-pager="false" :list-type="1"></account-list>
                 </Card>
             </Col>
         </Row>
@@ -52,7 +52,7 @@
                         刷新
                     </a>
 
-                    <account-list :itemList="agentData"></account-list>
+                    <account-list :itemList="agentData" :list-type="2"></account-list>
                 </Card>
             </Col>
         </Row>
@@ -81,6 +81,8 @@ export default {
         if (from.name === 'account-edit' || from.name === 'account-create') {
             next(vm => {
                 vm.getAccounts()
+                vm.getMyAccounts()
+                vm.getAgents()
             })
         } else {
             next()
