@@ -48,7 +48,7 @@ export const appRouter = [
         title: '角色管理',
         component: Home,
         children: [
-            { path: 'index', title: '角色管理', parent: 'system-menu', role: 6, name: 'role-index', component: resolve => { require(['@/views/role/index.vue'], resolve) } }
+            { path: 'index', title: '角色管理', parent: 'system-menu', role: 1, name: 'role-index', component: resolve => { require(['@/views/role/index.vue'], resolve) } }
         ]
     },
     {
@@ -57,7 +57,7 @@ export const appRouter = [
         title: '厂商管理',
         component: Home,
         children: [
-            { path: 'index', title: '厂商管理', parent: 'company-menu', role: 11, name: 'company-index', component: resolve => { require(['@/views/company/index.vue'], resolve) } },
+            { path: 'index', title: '厂商管理', parent: 'company-menu', role: 8, name: 'company-index', component: resolve => { require(['@/views/company/index.vue'], resolve) } },
             { path: 'details/:id', title: '厂商信息', name: 'company-details', component: resolve => { require(['@/views/company/details.vue'], resolve) } },
             { path: 'create', title: '厂商添加', name: 'company-create', component: resolve => { require(['@/views/company/create.vue'], resolve) } },
             { path: 'edit/:id', title: '厂商编辑', name: 'company-edit', component: resolve => { require(['@/views/company/edit.vue'], resolve) } }
@@ -69,7 +69,7 @@ export const appRouter = [
         title: '用户管理',
         component: Home,
         children: [
-            { path: 'index', title: '用户管理', parent: 'company-menu', role: 6, name: 'account-index', component: resolve => { require(['@/views/account/index.vue'], resolve) } },
+            { path: 'index', title: '用户管理', parent: 'company-menu', role: 8, name: 'account-index', component: resolve => { require(['@/views/account/index.vue'], resolve) } },
             { path: 'create', title: '用户添加', name: 'account-create', component: resolve => { require(['@/views/account/create.vue'], resolve) } },
             { path: 'details/:id', title: '用户信息', name: 'account-details', component: resolve => { require(['@/views/account/details.vue'], resolve) } },
             { path: 'edit/:id', title: '用户编辑', name: 'account-edit', component: resolve => { require(['@/views/account/edit.vue'], resolve) } }

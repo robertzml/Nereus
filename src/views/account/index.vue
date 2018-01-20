@@ -20,8 +20,43 @@
                 </Card>
             </Col>
         </Row>
+        <Row v-if="roleType === 2 || roleType === 3" style="margin-bottom: 15px;">
+            <Col span="24">
+                <Card>
+                    <p slot="title">
+                        <Icon type="grid"></Icon>
+                        本公司用户
+                    </p>
+                    <a href="#" slot="extra" @click.prevent="getMyAccounts">
+                        <Icon type="ios-loop-strong"></Icon>
+                        刷新
+                    </a>
+
+                    <account-list :itemList="myAccount" :showPager="false"></account-list>
+                </Card>
+            </Col>
+        </Row>
+        <Row v-if="roleType === 2">
+            <Col span="24">
+                <Card>
+                    <p slot="title">
+                        <Icon type="grid"></Icon>
+                        代理商用户
+                    </p>
+                    <a href="#" slot="extra" @click.prevent="showCreateAgent">
+                        <Icon type="plus-round"></Icon>
+                        新增
+                    </a>
+                    <a href="#" slot="extra" @click.prevent="getAgents">
+                        <Icon type="ios-loop-strong"></Icon>
+                        刷新
+                    </a>
+
+                    <account-list :itemList="agentData"></account-list>
+                </Card>
+            </Col>
+        </Row>
     </div>
-    
 </template>
 
 <script>
@@ -57,6 +92,11 @@ export default {
             this.roleType = this.$store.state.user.roleType
             if (this.roleType === 0 || this.roleType === 1) {
                 this.getAccounts()
+            } else if (this.roleType === 2) {
+                this.getMyAccounts()
+                this.getAgents()
+            } else if (this.roleType === 3) {
+                this.getMyAccounts()
             }
         },
 
@@ -66,6 +106,34 @@ export default {
             account.listView().then(res => {
                 if (res.status === 0) {
                     vm.accountData = res.admins
+                } else {
+                    vm.$Message.error(res.message)
+                }
+            })
+        },
+
+        // 获取本公司用户
+        getMyAccounts () {
+            let vm = this
+            let companyId = this.$store.state.user.companyId
+
+            account.companyView(companyId).then(res => {
+                if (res.status === 0) {
+                    vm.myAccount = res.entities
+                } else {
+                    vm.$Message.error(res.message)
+                }
+            })
+        },
+
+        // 获取代理商用户
+        getAgents () {
+            let vm = this
+            let companyId = this.$store.state.user.companyId
+
+            account.agentsView(companyId).then(res => {
+                if (res.status === 0) {
+                    vm.agentData = res.entities
                 } else {
                     vm.$Message.error(res.message)
                 }

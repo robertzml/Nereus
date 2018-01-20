@@ -94,7 +94,7 @@ export default {
                 this.getCompanys()
             } else if (this.roleType === 2) {
                 this.getMyCompany()
-                this.getAgents()                
+                this.getAgents()
             } else if (this.roleType === 3) {
                 this.getMyCompany()
             }

@@ -31,6 +31,20 @@ export default {
             })
     },
 
+    companyView (companyId) {
+        return api._get({ url: '/t_account/findInfoByCompanyId', params: { company_id: companyId } })
+            .then(res => {
+                return res.data
+            })
+    },
+
+    agentsView (companyId) {
+        return api._get({ url: '/t_account/findAgentInfoByCompanyId', params: { company_id: companyId } })
+            .then(res => {
+                return res.data
+            })
+    },
+
     create (model) {
         return api._post({ 
             url: '/t_account/add', 
