@@ -45,7 +45,7 @@
                                 {{ equipmentInfo.device_deadline_date | displayDateTime }}
                             </FormItem>
                             <FormItem label="状态">
-                                {{ equipmentInfo.status }}
+                                {{ equipmentInfo.status | equipmentStatus }}
                             </FormItem>
 
                             <FormItem>
@@ -107,7 +107,7 @@
 
                 <br />
 
-                <Button type="primary" @click="inactivate">同意注销</Button>
+                <Button type="primary" @click="inactivate" v-if="equipmentInfo.status === 2">同意注销</Button>
             </Card>
         </Col>
     </Row>
@@ -158,6 +158,18 @@ export default {
         },
         lockState: function (isUnlock) {
             return isUnlock ? '已解锁' : '未解锁'
+        },
+        equipmentStatus: function (status) {
+            switch (status) {
+                case 0:
+                    return '正常'
+                case 1:
+                    return '删除'
+                case 2:
+                    return '申请注销'
+                case 3:
+                    return '已注销'
+            }
         }
     },
     methods: {

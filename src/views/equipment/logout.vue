@@ -6,10 +6,6 @@
                     <Icon type="grid"></Icon>
                     设备列表
                 </p>
-                <a href="#" slot="extra" @click.prevent="showCreate">
-                    <Icon type="plus-round"></Icon>
-                    新增
-                </a>
                 <a href="#" slot="extra" @click.prevent="getEquipments">
                     <Icon type="ios-loop-strong"></Icon>
                     刷新
@@ -24,8 +20,6 @@
 <script>
 import equipment from '../../controllers/equipment.js'
 import equipmentList from '../components/equipment-list.vue'
-import _ from 'lodash'
-import moment from 'moment'
 
 export default {
     name: 'equipment',
@@ -54,28 +48,14 @@ export default {
         getEquipments () {
             let vm = this
 
-            let roleId = this.$store.state.user.roleId
-            let companyId = this.$store.state.user.companyId
-
-            if (roleId === 1) {
-                equipment.listView().then(res => {
-                    vm.equipmentData = res.entities
-                })
-            } else {
-                equipment.listByCompanyView(companyId).then(res => {
-                    vm.equipmentData = res.entities
-                })
-            }
-        },
-       
-        showCreate () {
-            this.$router.push({ name: 'equipment-create' })
+            equipment.getLogout().then(res => {
+                vm.equipmentData = res.entities
+            })
         }
     },
     created: function () {
-        console.log('In equipment index create function')
+        console.log('In equipment logout create function')
         this.init()
     }
 }
 </script>
-

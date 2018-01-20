@@ -64,6 +64,22 @@ export default {
             })
     },
 
+    // 获取待注销设备列表
+    getLogout () {
+        return api._get({ url: '/t_device_inactivate_apply/findInfoByMyCompanyId' })
+            .then(res => {
+                return res.data
+            })
+    },
+
+    // 获取设备服务器设备列表
+    getOnline () {
+        return api._get({ url: '/device/t_equipment_key_status/findAll' })
+            .then(res => {
+                return res.data
+            })
+    },
+
     login () {
         return api._get({ url: '/t_equipment/activateEquipmentLogin' })
             .then(res => {

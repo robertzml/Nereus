@@ -13,7 +13,6 @@
 
 <script>
 import * as nereus from '../../utility/nereus.js'
-import _ from 'lodash'
 
 export default {
     name: 'account-list',

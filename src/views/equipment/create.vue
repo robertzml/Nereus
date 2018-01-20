@@ -13,9 +13,6 @@
                             <FormItem label="序列号" prop="serial_number">
                                 <Input v-model="equipmentInfo.serial_number"></Input>
                             </FormItem>
-                            <FormItem label="主板序列号" prop="mainboard_serial_number">
-                                <Input v-model="equipmentInfo.mainboard_serial_number"></Input>
-                            </FormItem>
                             <FormItem label="所属公司" prop="company_id">
                                 <Select v-model="equipmentInfo.company_id">
                                     <Option v-for="item in companyList" :value="item.id" :key="item.id">{{ item.name }}</Option>
@@ -58,7 +55,6 @@ export default {
             equipmentInfo: {
                 id: 0,
                 serial_number: '',
-                mainboard_serial_number: '',
                 product_id: 0,
                 company_id: 0,
                 agent_id: 0
@@ -69,9 +65,6 @@ export default {
             ruleValidate: {
                 serial_number: [
                     { required: true, message: '序列号不能为空', trigger: 'blur' }
-                ],
-                mainboard_serial_number: [
-                    { required: true, message: '主板序列号不能为空', trigger: 'blur' }
                 ],
                 product_id: [
                     { required: true, message: '请选择产品', type: 'number', trigger: 'change' }
@@ -127,7 +120,6 @@ export default {
         this.equipmentInfo = {
             id: 0,
             serial_number: '',
-            mainboard_serial_number: '',
             product_id: '',
             company_id: '',
             agent_id: ''
