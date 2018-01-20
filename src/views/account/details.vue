@@ -85,9 +85,6 @@ export default {
             this.$router.push({ name: 'account-index' })
         }
     },
-    computed: {
-        
-    },
     activated: function () {
         this.accountId = this.$route.params.id
         this.getAccount(this.accountId)

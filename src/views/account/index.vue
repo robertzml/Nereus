@@ -63,7 +63,6 @@
 import account from '../../controllers/account.js'
 import * as nereus from '../../utility/nereus.js'
 import accountList from '../components/account-list.vue'
-import _ from 'lodash'
 
 export default {
     name: 'account-index',
@@ -142,6 +141,11 @@ export default {
         
         showCreate () {
             this.$router.push({ name: 'account-create' })
+        },
+
+        // 增加代理商用户
+        showCreateAgent () {
+            this.$router.push({ name: 'account-create', params: { type: 2 } })
         }
     },
     created: function () {

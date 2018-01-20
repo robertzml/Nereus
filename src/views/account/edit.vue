@@ -22,12 +22,12 @@
                             <FormItem label="Email">
                                 <Input v-model="accountInfo.email"></Input>
                             </FormItem>
-                            <FormItem label="所属角色" prop="role_id">
+                            <FormItem label="所属角色" prop="role_id" v-if="roleType <= 2">
                                  <Select v-model="accountInfo.role_id">
                                     <Option v-for="item in roleList" :value="item.id" :key="item.id">{{ item.name }}</Option>
                                 </Select>
                             </FormItem>
-                            <FormItem label="所属公司" prop="company_id">
+                            <FormItem label="所属公司" prop="company_id" v-if="roleType <= 2">
                                 <Select v-model="accountInfo.company_id">
                                     <Option v-for="item in companyList" :value="item.id" :key="item.id">{{ item.name }}</Option>
                                 </Select>
@@ -81,10 +81,21 @@ export default {
                 company_id: [
                     { required: true, message: '请选择公司', type: 'number', trigger: 'change' }
                 ]
-            }
+            },
+            roleType: ''
         }
     },
     methods: {
+        init () {
+            this.roleType = this.$store.state.user.roleType
+            this.accountId = this.$route.params.id
+            this.companyId = this.$route.params.id
+
+            this.getAccount(this.accountId)
+            this.getRoles()
+            this.getCompanys()
+        },
+
         getAccount (id) {
             let vm = this
 
@@ -141,10 +152,7 @@ export default {
         }
     },
     activated: function () {
-        this.accountId = this.$route.params.id
-        this.getAccount(this.accountId)
-        this.getRoles()
-        this.getCompanys()
+        this.init()
     }
 }
 </script>

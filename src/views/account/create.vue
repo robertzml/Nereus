@@ -4,7 +4,7 @@
             <Card>
                 <p slot="title">
                     <Icon type="grid"></Icon>
-                    用户信息
+                    {{ title }}
                 </p>
 
                 <Row>
@@ -29,7 +29,7 @@
                                 <Input v-model="accountInfo.email"></Input>
                             </FormItem>
                             <FormItem label="所属角色" prop="role_id">
-                                 <Select v-model="accountInfo.role_id">
+                                 <Select v-model="accountInfo.role_id" @on-change="selectRole">
                                     <Option v-for="item in roleList" :value="item.id" :key="item.id">{{ item.name }}</Option>
                                 </Select>
                             </FormItem>
@@ -113,24 +113,68 @@ export default {
                 company_id: [
                     { required: true, message: '请选择公司', type: 'number', trigger: 'change' }
                 ]
-            }
+            },
+            title: '',
+            createType: 0
         }
     },
     methods: {
+        init () {
+            let roleId = this.$store.state.user.roleId
+
+            if (this.$route.params.type !== undefined) {
+                this.createType = this.$route.params.type
+            } else {
+                this.createType = 0
+                this.title = '增加用户'
+            }
+
+            if (this.createType === 1) {
+                this.title = '增加厂商用户'
+            } else if (this.createType === 2) {
+                this.title = '增加代理商用户'
+            }
+
+            this.getRoles()
+        },
+
         getRoles () {
             let vm = this
 
             role.list().then(res => {
-                vm.roleList = res.entities
+                if (this.createType === 1) {
+                    vm.roleList = res.entities.filter(r => r.type === 2)
+                } else if (this.createType === 2) {
+                    vm.roleList = res.entities.filter(r => r.type === 3)
+                } else {
+                    vm.roleList = res.entities.filter(r => r.type !== 0)
+                }
             })
         },
-
-        getCompanys () {
+        
+        selectRole (val) {
             let vm = this
+            let companyId = this.$store.state.user.companyId
 
-            company.list().then(res => {
-                vm.companyList = res.entities
-            })
+            if (val >= 2 && val <= 4) {
+                company.listByType(1).then(res => {
+                    vm.companyList = res.entities
+                })
+            } else if (val >= 5 && val <= 7) {
+                company.listByType(2).then(res => {
+                    vm.companyList = res.entities
+                })
+            } else if (val >= 8) {
+                if (this.createType === 2) {
+                    company.listByParent(companyId).then(res => {
+                        vm.companyList = res.entities
+                    })
+                } else {
+                    company.listByType(3).then(res => {
+                        vm.companyList = res.entities
+                    })
+                }
+            }
         },
 
         handleSubmit (name) {
@@ -167,8 +211,9 @@ export default {
             role_id: '',
             company_id: ''
         }
-        this.getRoles()
-        this.getCompanys()
+
+        console.log('router type:' + this.$route.params.type)
+        this.init()
     }
 }
 </script>
