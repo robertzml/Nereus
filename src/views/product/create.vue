@@ -18,7 +18,7 @@
                                     <Option v-for="item in typeList" :value="item.id" :key="item.id">{{ item.name }}</Option>
                                 </Select>
                             </FormItem>
-                            <FormItem label="所属公司" prop="company_id">
+                            <FormItem label="所属公司" prop="company_id" v-if="roleType === 0 || roleType === 1">
                                 <Select v-model="productInfo.company_id">
                                     <Option v-for="item in companyList" :value="item.id" :key="item.id">{{ item.name }}</Option>
                                 </Select>
@@ -81,10 +81,23 @@ export default {
                 company_id: [
                     { required: true, message: '请选择所属公司', type: 'number', trigger: 'change' }
                 ]
-            }
+            },
+            roleType: ''
         }
     },
     methods: {
+        init () {
+            this.roleType = this.$store.state.user.roleType
+            
+            this.getProductType()
+
+            if (this.roleType === 0 || this.roleType === 1) {
+                this.getCompanys()
+            } else {
+                let companyId = this.$store.state.user.companyId
+                this.productInfo.company_id = companyId
+            }
+        },
         getProductType () {
             let vm = this
             productType.list().then(res => {
@@ -94,7 +107,7 @@ export default {
 
         getCompanys () {
             let vm = this
-            company.list().then(res => {
+            company.listByType(2).then(res => {
                 vm.companyList = res.entities
             })
         },
@@ -113,6 +126,7 @@ export default {
                 }
             })
         },
+        
         handleReset (name) {
             this.$refs[name].resetFields()
         },
@@ -132,8 +146,7 @@ export default {
             description: '',
             after_sale: ''
         }
-        this.getProductType()
-        this.getCompanys()
+        this.init()
     }
 }
 </script>
