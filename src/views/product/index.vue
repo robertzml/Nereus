@@ -35,7 +35,8 @@ export default {
     },
     data () {
         return {
-            productData: []
+            productData: [],
+            roleType: ''
         }
     },
     beforeRouteEnter (to, from, next) {
@@ -51,12 +52,24 @@ export default {
         init () {
             this.getProducts()
         },
+
         getProducts () {
             let vm = this
-            product.listView().then(res => {
-                vm.productData = res.entities
-            })
+
+            this.roleType = this.$store.state.user.roleType
+            let companyId = this.$store.state.user.companyId
+
+            if (this.roleType === 0 || this.roleType === 1) {
+                product.listView().then(res => {
+                    vm.productData = res.entities
+                })
+            } else if (this.roleType === 2) {
+                product.listByCompanyView(companyId).then(res => {
+                    vm.productData = res.entities
+                })
+            }
         },
+       
         showCreate () {
             this.$router.push({ name: 'product-create' })
         },

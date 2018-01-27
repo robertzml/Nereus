@@ -51,11 +51,11 @@ export default {
 
         getEquipments () {
             let vm = this
-
-            let roleId = this.$store.state.user.roleId
+           
+            let roleType = this.$store.state.user.roleType
             let companyId = this.$store.state.user.companyId
 
-            if (roleId === 1) {
+            if (roleType === 0 || roleType === 1) {
                 equipment.listView().then(res => {
                     vm.equipmentData = res.entities
                 })

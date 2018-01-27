@@ -41,7 +41,7 @@ export default {
                     key: 'serial_number'
                 },
                 {
-                    title: '申请管理员',
+                    title: '申请人',
                     key: 'agent_account_apply_inactivate_name'
                 },
                 {

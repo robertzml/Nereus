@@ -11,25 +11,25 @@
                     <Col span="16" push="4">
                         <Form :model="productInfo" :label-width="80">
                             <FormItem label="产品名称">
-                                <Input v-model="productInfo.name" readonly></Input>
+                                {{ productInfo.name }}
                             </FormItem>
                             <FormItem label="产品类型">
-                                <Input v-model="typeName" readonly></Input>
+                                {{ typeName }}
                             </FormItem>
                             <FormItem label="所属公司" prop="company_id">
-                                <Input v-model="companyName" readonly></Input>
+                                {{ companyName }}
                             </FormItem>
                             <FormItem label="规格型号">
-                                <Input v-model="productInfo.specification" readonly></Input>
+                                {{ productInfo.specification }}
                             </FormItem>
                             <FormItem label="简介">
-                                <Input v-model="productInfo.info" type="textarea" :rows="4" readonly></Input>
+                                {{ productInfo.info }}
                             </FormItem>
                             <FormItem label="产品描述">
-                                <Input v-model="productInfo.description" type="textarea" :rows="4" readonly></Input>
+                                {{ productInfo.description }}
                             </FormItem>
                             <FormItem label="售后信息">
-                                <Input v-model="productInfo.after_sale" type="textarea" :rows="4" readonly></Input>
+                                {{ productInfo.after_sale }}
                             </FormItem>
 
                             <FormItem>
