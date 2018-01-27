@@ -23,6 +23,7 @@
 
 <script>
 import equipment from '../../controllers/equipment.js'
+import * as nereus from '../../utility/nereus.js'
 import _ from 'lodash'
 
 export default {
@@ -40,12 +41,12 @@ export default {
                     key: 'serial_number'
                 },
                 {
-                    title: '主板序列号',
-                    key: 'mainboard_serial_number'
+                    title: '申请管理员',
+                    key: 'agent_account_name'
                 },
                 {
-                    title: '代理商ID',
-                    key: 'agent_id'
+                    title: '代理商',
+                    key: 'agent_company_name'
                 },
                 {
                     title: '用户姓名',
@@ -60,6 +61,15 @@ export default {
                     key: 'auditing_state'
                 },
                 {
+                    title: '申请时间',
+                    key: 'create_date',
+                    render: (h, params) => {
+                        return (
+                            <span>{ nereus.displayDateTime(params.row.create_date) }</span>
+                        )
+                    }
+                },
+                {
                     title: '操作',
                     key: 'action',
                     width: 150,
@@ -68,6 +78,7 @@ export default {
                         return (
                             <div>
                                 <i-button type="primary" size="small" style="marginRight: 5px" onClick={ () => { this.activate(params.row) } }>激活</i-button>
+                                <i-button type="warning" size="small" style="marginRight: 5px" onClick={ () => { this.reject(params.row) } }>驳回</i-button>
                             </div>
                         )
                     }
@@ -82,15 +93,31 @@ export default {
         }
     },
     methods: {
+        init () {
+            this.getData()
+        },
+
         getData () {
             let vm = this
+            let roleType = this.$store.state.user.roleType
 
-            equipment.getInactivate().then(res => {
-                vm.items = res.entities
-                vm.itemsCount = res.entities.length
-                vm.currentPage = 1
-                vm.tableData = _.slice(vm.items, 0, vm.pageSize)
-            })
+            if (roleType === 0 || roleType === 1) {
+                equipment.getInactivate().then(res => {
+                    vm.items = res.entities
+                    vm.itemsCount = res.entities.length
+                    vm.currentPage = 1
+                    vm.tableData = _.slice(vm.items, 0, vm.pageSize)
+                })
+            } else if (roleType === 2 || roleType === 3) {
+                let companyId = this.$store.state.user.companyId
+
+                equipment.getInactivate(companyId).then(res => {
+                    vm.items = res.entities
+                    vm.itemsCount = res.entities.length
+                    vm.currentPage = 1
+                    vm.tableData = _.slice(vm.items, 0, vm.pageSize)
+                })
+            }
         },
 
         changePage (page) {
@@ -116,11 +143,31 @@ export default {
                     })
                 }
             })
+        },
+
+        reject (item) {
+            let act = [{
+                serial_number: item.serial_number,
+                is_activate: 0
+            }]
+       
+            equipment.activation(act).then(res => {
+                if (res.status === 0) {
+                    this.$Notice.success({
+                        title: '激活已驳回',
+                        desc: res.message
+                    })
+                } else {
+                    this.$Notice.error({
+                        title: '驳回失败',
+                        desc: res.message
+                    })
+                }
+            })
         }
     },
     mounted: function () {
-        console.log('in inactivate mounted')
-        this.getData()
+        this.init()
     }
 }
 </script>

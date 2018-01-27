@@ -2,6 +2,7 @@
 
 import productType from '../controllers/product-type.js'
 import company from '../controllers/company.js'
+import moment from 'moment'
 
 export const displayCompanyType = (type) => {
     switch (type) {
@@ -34,4 +35,12 @@ export const getCompanyName = (companyId) => {
             return ''
         }
     })
+}
+
+export const displayDateTime = (date) => {
+    if (date === null || date === '') {
+        return ''
+    } else {
+        return moment(date).format('YYYY-MM-DD HH:mm:ss')
+    }
 }

@@ -13,7 +13,6 @@
 
 <script>
 import * as nereus from '../../utility/nereus.js'
-import moment from 'moment'
 
 export default {
     name: 'equipment-list',
@@ -80,7 +79,7 @@ export default {
                     key: 'device_deadline_date',
                     render: (h, params) => {
                         return (
-                            <span>{ this.displayDateTime(params.row.device_deadline_date) }</span>
+                            <span>{ nereus.displayDateTime(params.row.device_deadline_date) }</span>
                         )
                     }
                 },
@@ -128,13 +127,6 @@ export default {
         },
         showEdit (item) {
             this.$router.push({ name: 'equipment-edit', params: { id: item.id } })
-        },
-        displayDateTime: function (date) {
-            if (date === null || date === '') {
-                return ''
-            } else {
-                return moment(date).format('YYYY-MM-DD HH:mm:ss')
-            }
         }
     }
 }

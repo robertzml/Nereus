@@ -173,6 +173,18 @@ export default {
         }
     },
     methods: {
+        init () {
+            this.equipmentInfo = {}
+            this.equipmentId = this.$route.params.id
+            this.getEquipmentInfo(this.equipmentId)
+            this.counter = 0
+            this.openReal = true
+
+            this.intervalId1 = setInterval(() => {
+                this.readRealStatus()
+            }, 2000)
+        },
+        
         getEquipmentInfo (id) {
             let vm = this
             equipment.detailsView(id).then(res => {
@@ -303,14 +315,7 @@ export default {
         }
     },
     activated: function () {
-        this.equipmentId = this.$route.params.id
-        this.getEquipmentInfo(this.equipmentId)
-        this.counter = 0
-        this.openReal = true
-
-        this.intervalId1 = setInterval(() => {
-            this.readRealStatus()
-        }, 2000)
+        this.init()
     },
     deactivated: function () {
         clearInterval(this.intervalId1)

@@ -24,8 +24,6 @@
 <script>
 import equipment from '../../controllers/equipment.js'
 import equipmentList from '../components/equipment-list.vue'
-import _ from 'lodash'
-import moment from 'moment'
 
 export default {
     name: 'equipment',

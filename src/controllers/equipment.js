@@ -57,19 +57,33 @@ export default {
     },
 
     // 获取待激活设备
-    getInactivate () {
-        return api._get({ url: '/t_device_owner_protocol/findAllOfActivate', params: { auditing_state: 0 } })
-            .then(res => {
-                return res.data
-            })
+    getInactivate (agentCompanyId) {
+        if (agentCompanyId !== undefined) {
+            return api._get({ url: '/t_equipment_owner_protocol/findByAgentId', params: { agent_id: agentCompanyId, auditing_state: 0 } })
+                .then(res => {
+                    return res.data
+                })
+        } else {
+            return api._get({ url: '/t_equipment_owner_protocol/findAllOfActivate', params: { auditing_state: 0 } })
+                .then(res => {
+                    return res.data
+                })
+        }
     },
 
     // 获取待注销设备列表
-    getLogout () {
-        return api._get({ url: '/t_device_inactivate_apply/findInfoByMyCompanyId' })
-            .then(res => {
-                return res.data
-            })
+    getLogout (agentCompanyId) {
+        if (agentCompanyId !== undefined) {
+            return api._get({ url: '/t_equipment_inactivate_apply/findInfoByAgentId', params: { agent_id: agentCompanyId } })
+                .then(res => {
+                    return res.data
+                })
+        } else {
+            return api._get({ url: '/t_equipment_inactivate_apply/findAllInfo' })
+                .then(res => {
+                    return res.data
+                })
+        }
     },
 
     // 获取设备服务器设备列表
@@ -107,6 +121,7 @@ export default {
         })
     },
 
+    // 设备注销
     inactivate (models) {
         return api._post({
             url: '/t_equipment/inactivateEquipmentOnly',
