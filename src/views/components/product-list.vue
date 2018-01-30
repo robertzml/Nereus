@@ -45,14 +45,13 @@ export default {
                 {
                     title: '操作',
                     key: 'action',
-                    width: 250,
+                    width: 150,
                     align: 'center',
                     render: (h, params) => {
                         return (
                             <div>
                                 <i-button type="primary" size="small" style="marginRight: 5px" onClick={ () => { this.showDetails(params.row) } }>查看</i-button>
                                 <i-button type="warning" size="small" style="marginRight: 5px" onClick={ () => { this.showEdit(params.row) } }>编辑</i-button>
-                                <i-button type="info" size="small" onClick={ () => { this.showAgentCompany(params.row) } }>代理商</i-button>
                             </div>
                         )
                     }
@@ -87,9 +86,6 @@ export default {
         },
         showEdit (item) {
             this.$router.push({ name: 'product-edit', params: { id: item.id } })
-        },
-        showAgentCompany (item) {
-            this.$router.push({ name: 'product-agent', params: { id: item.id } })
         }
     }
 }
