@@ -10,6 +10,9 @@
                 <Row>
                     <Col span="16" push="4">
                         <Form ref="formValidate" :model="productInfo" :rules="ruleValidate" :label-width="80">
+                            <FormItem label="产品代码" prop="product_code">
+                                <Input v-model="productInfo.product_code"></Input>
+                            </FormItem>
                             <FormItem label="产品名称" prop="name">
                                 <Input v-model="productInfo.name"></Input>
                             </FormItem>
@@ -18,7 +21,7 @@
                                     <Option v-for="item in typeList" :value="item.id" :key="item.id">{{ item.name }}</Option>
                                 </Select>
                             </FormItem>
-                            <FormItem label="所属公司" prop="company_id">
+                            <FormItem label="所属公司" prop="company_id" v-if="roleType === 0 || roleType === 1">
                                 <Select v-model="productInfo.company_id">
                                     <Option v-for="item in companyList" :value="item.id" :key="item.id">{{ item.name }}</Option>
                                 </Select>
@@ -58,9 +61,20 @@ import company from '../../controllers/company.js'
 export default {
     name: 'product-edit',
     data () {
+        const validateCode = (rule, value, callback) => {
+            if (value === '') {
+                callback(new Error('请输入代码'))
+            } else {
+                if (!/^[0-9]{3}$/.test(value)) {
+                    callback(new Error('请输入三位数字'))
+                }
+            }
+            callback()
+        }
         return {
             productId: 0,
             productInfo: {
+                product_code: '',
                 id: 0,
                 name: '',
                 type_id: 0,
@@ -74,6 +88,9 @@ export default {
             typeList: [],
             companyList: [],
             ruleValidate: {
+                product_code: [
+                    { required: true, validator: validateCode, trigger: 'change' }
+                ],
                 name: [
                     { required: true, message: '名称不能为空', trigger: 'blur' }
                 ],
@@ -83,10 +100,25 @@ export default {
                 company_id: [
                     { required: true, message: '请选择所属公司', type: 'number', trigger: 'change' }
                 ]
-            }
+            },
+            roleType: ''
         }
     },
     methods: {
+        init () {
+            this.roleType = this.$store.state.user.roleType
+
+            this.getProduct(this.productId)
+            this.getProductType()
+
+            if (this.roleType === 0 || this.roleType === 1) {
+                this.getCompanys()
+            } else {
+                let companyId = this.$store.state.user.companyId
+                this.productInfo.company_id = companyId
+            }
+        },
+
         getProduct (id) {
             let vm = this
             product.details(id).then(res => {
@@ -132,9 +164,7 @@ export default {
     },
     activated: function () {
         this.productId = this.$route.params.id
-        this.getProduct(this.productId)
-        this.getProductType()
-        this.getCompanys()
+        this.init()
     }
 }
 </script>

@@ -27,6 +27,10 @@ export default {
                     align: 'center'
                 },
                 {
+                    title: '代码',
+                    key: 'product_code'
+                },
+                {
                     title: '名称',
                     key: 'name'
                 },

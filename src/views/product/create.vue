@@ -10,6 +10,9 @@
                 <Row>
                     <Col span="16" push="4">
                         <Form ref="formValidate" :model="productInfo" :rules="ruleValidate" :label-width="80">
+                            <FormItem label="产品代码" prop="product_code">
+                                <Input v-model="productInfo.product_code"></Input>
+                            </FormItem>
                             <FormItem label="产品名称" prop="name">
                                 <Input v-model="productInfo.name"></Input>
                             </FormItem>
@@ -58,8 +61,19 @@ import company from '../../controllers/company.js'
 export default {
     name: 'product-create',
     data () {
+        const validateCode = (rule, value, callback) => {
+            if (value === '') {
+                callback(new Error('请输入代码'))
+            } else {
+                if (!/^[0-9]{3}$/.test(value)) {
+                    callback(new Error('请输入三位数字'))
+                }
+            }
+            callback()
+        }
         return {
             productInfo: {
+                product_code: '',
                 name: '',
                 type_id: 0,
                 company_id: 0,
@@ -72,6 +86,9 @@ export default {
             typeList: [],
             companyList: [],
             ruleValidate: {
+                product_code: [
+                    { required: true, validator: validateCode, trigger: 'change' }
+                ],
                 name: [
                     { required: true, message: '名称不能为空', trigger: 'blur' }
                 ],
@@ -137,6 +154,7 @@ export default {
     },
     activated: function () {
         this.productInfo = {
+            product_code: '',
             name: '',
             type_id: '',
             company_id: '',

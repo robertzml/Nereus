@@ -10,6 +10,9 @@
                 <Row>
                     <Col span="16" push="4">
                         <Form :model="productInfo" :label-width="80">
+                            <FormItem label="产品代码">
+                                {{ productInfo.product_code }}
+                            </FormItem>
                             <FormItem label="产品名称">
                                 {{ productInfo.name }}
                             </FormItem>
