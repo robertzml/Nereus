@@ -3,10 +3,17 @@ import store from '../store'
 import { mapActions } from 'vuex'
 
 export default {
-    name: 'product-type',
+    name: 'product',
     
     list () {
         return api._get({ url: '/t_product/findAll' })
+            .then(res => {
+                return res.data
+            })
+    },
+
+    listByMyCompany () {
+        return api._get({ url: '/t_product/findByMyCompany' })
             .then(res => {
                 return res.data
             })
