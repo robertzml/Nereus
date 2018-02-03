@@ -74,7 +74,7 @@ export default {
     methods: {
         handleClickUserDropdown (name) {
             if (name === 'ownSpace') {
-
+                this.$router.push({ name: 'account-info' })
             } else if (name === 'logout') {
                 // 退出登录
                 this.$store.commit('LOGOUT')

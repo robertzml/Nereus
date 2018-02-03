@@ -61,5 +61,14 @@ export default {
         }).then(res => {
             return res.data
         })
+    },
+
+    changePassword (model) {
+        return api._post({
+            url: '/t_account/updatePassowrd',
+            data: model
+        }).then(res => {
+            return res.data
+        })
     }
 }

@@ -42,7 +42,7 @@ export default {
                 },
                 {
                     title: '申请人',
-                    key: 'agent_account_name'
+                    key: 'apply_account_name'
                 },
                 {
                     title: '代理商',

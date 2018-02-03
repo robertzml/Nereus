@@ -72,7 +72,9 @@ export const appRouter = [
             { path: 'index', title: '用户管理', parent: 'company-menu', role: 8, name: 'account-index', component: resolve => { require(['@/views/account/index.vue'], resolve) } },
             { path: 'create', title: '用户添加', name: 'account-create', component: resolve => { require(['@/views/account/create.vue'], resolve) } },
             { path: 'details/:id', title: '用户信息', name: 'account-details', component: resolve => { require(['@/views/account/details.vue'], resolve) } },
-            { path: 'edit/:id', title: '用户编辑', name: 'account-edit', component: resolve => { require(['@/views/account/edit.vue'], resolve) } }
+            { path: 'info', title: '个人中心', name: 'account-info', component: resolve => { require(['@/views/account/info.vue'], resolve) } },
+            { path: 'edit/:id', title: '用户编辑', name: 'account-edit', component: resolve => { require(['@/views/account/edit.vue'], resolve) } },
+            { path: 'change-password', title: '修改密码', name: 'account-change-password', component: resolve => { require(['@/views/account/change-password.vue'], resolve) } }
         ]
     },
   
