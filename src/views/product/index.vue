@@ -11,10 +11,6 @@
                         <Icon type="plus-round"></Icon>
                         新增
                     </a>
-                    <a href="#" slot="extra" @click.prevent="showAgent" style="margin-right: 5px">
-                        <Icon type="shuffle"></Icon>
-                        代理产品
-                    </a>
                     <a href="#" slot="extra" @click.prevent="getProducts">
                         <Icon type="ios-loop-strong"></Icon>
                         刷新
@@ -24,7 +20,7 @@
             </Col>
         </Row>
 
-        <Row>
+        <Row v-if="this.roleType === 2">
             <Col span="24">
                 <Card>
                     <p slot="title">
@@ -179,9 +175,6 @@ export default {
 
         showCreate () {
             this.$router.push({ name: 'product-create' })
-        },
-        showAgent () {
-            this.$router.push({ name: 'product-agent2' })
         },
         showProductAgent (item) {
             this.$router.push({ name: 'product-agent', params: { id: item.id } })

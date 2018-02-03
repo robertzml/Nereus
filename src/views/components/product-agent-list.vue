@@ -45,19 +45,6 @@ export default {
                 {
                     title: '型号规格',
                     key: 'product_specification'
-                },
-                {
-                    title: '操作',
-                    key: 'action',
-                    width: 150,
-                    align: 'center',
-                    render: (h, params) => {
-                        return (
-                            <div>
-                                <i-button type="warning" size="small" style="marginRight: 5px" onClick={ () => { this.showEdit(params.row) } }>编辑</i-button>
-                            </div>
-                        )
-                    }
                 }
             ],
             pageSize: 10,
@@ -83,9 +70,6 @@ export default {
         changePageSize (pageSize) {
             this.pageSize = pageSize
             this.tableData = this.itemList.slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize)
-        },
-        showEdit (item) {
-            this.$router.push({ name: 'product-edit', params: { id: item.id } })
         }
     }
 }
