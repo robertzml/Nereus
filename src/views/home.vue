@@ -2,41 +2,33 @@
     <div class="layout">
         <Layout>
             <Header>
-                <Menu mode="horizontal" theme="dark" active-name="1">
-                    <div class="layout-logo"></div>
-                    <div class="layout-nav">
-                        <MenuItem name="1">
-                            <Icon type="ios-navigate"></Icon>
-                            Item 1
-                        </MenuItem>
-                        <MenuItem name="2">
-                            <Icon type="ios-keypad"></Icon>
-                            Item 2
-                        </MenuItem>
-                        <MenuItem name="3">
-                            <Icon type="ios-analytics"></Icon>
-                            Item 3
-                        </MenuItem>
-                        <MenuItem name="4">
-                            <Icon type="ios-paper"></Icon>
-                            Item 4
-                        </MenuItem>
-                    </div>
-                </Menu>
+                <div class="layout-logo"></div>
+                <div class="layout-top-menu">
+                    <Dropdown transfer trigger="click" @on-click="handleClickUserDropdown">
+                        <a href="javascript:void(0)">
+                            <span class="main-user-name">当前用户: {{ userName }}</span>
+                            <Icon type="arrow-down-b"></Icon>
+                        </a>
+                        <DropdownMenu slot="list">
+                            <DropdownItem name="ownSpace">个人中心</DropdownItem>
+                            <DropdownItem name="logout" divided>退出登录</DropdownItem>
+                        </DropdownMenu>
+                    </Dropdown>
+                </div>
             </Header>
             <Layout>
-                <Sider hide-trigger :style="{position: 'fixed', height: '100vh', left: 0, overflow: 'auto'}">
+                <Sider hide-trigger :style="{position: 'fixed', height: '100vh', left: 0, overflow: 'auto', background: '#fff'}">
                     <sidebar-menu 
                         :menu-list="menuList">
                     </sidebar-menu>
                 </Sider>
-                <Layout :style="{marginLeft: '200px', position: 'fixed', height: '100vh', left: '0', right:'0', top:'64px', bottom:'0'}">
+                <Layout :style="{marginLeft: '200px', position: 'fixed', height: '100vh', left: '0', right:'0', top:'65px', bottom:'0'}">
                     <Breadcrumb :style="{margin: '24px 15px'}">
                         <BreadcrumbItem>Home</BreadcrumbItem>
                         <BreadcrumbItem>Components</BreadcrumbItem>
                         <BreadcrumbItem>Layout</BreadcrumbItem>
                     </Breadcrumb>
-                    <Content theme="dark" :style="{padding: '24px', height: '100%', minHeight: '280px', background: '#fff'}">
+                    <Content :style="{padding: '24px', height: '100%', minHeight: '280px' }">
                         <keep-alive>
                             <router-view></router-view>
                         </keep-alive>
@@ -101,10 +93,10 @@ export default {
     float: left;
     position: relative;
     top: 10px;
-    left: 5px;
+    left: 0px;
 }
-.layout-nav{
-    width: 420px;
+.layout-top-menu{
+    width: 150px;
     margin: 0 auto;
     margin-right: 20px;
 }

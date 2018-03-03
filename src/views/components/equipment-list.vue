@@ -53,6 +53,10 @@ export default {
                     key: 'agent_company_name'
                 },
                 {
+                    title: '设备主人',
+                    key: 'owner_name'
+                },
+                {
                     title: '激活状态',
                     key: 'is_activate',
                     width: 100,
@@ -79,7 +83,7 @@ export default {
                     key: 'device_deadline_date',
                     render: (h, params) => {
                         return (
-                            <span>{ nereus.displayDateTime(params.row.device_deadline_date) }</span>
+                            <span>{ nereus.displayDate(params.row.device_deadline_date) }</span>
                         )
                     }
                 },

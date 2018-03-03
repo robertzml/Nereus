@@ -44,3 +44,11 @@ export const displayDateTime = (date) => {
         return moment(date).format('YYYY-MM-DD HH:mm:ss')
     }
 }
+
+export const displayDate = (date) => {
+    if (date === null || date === '') {
+        return ''
+    } else {
+        return moment(date).format('YYYY-MM-DD')
+    }
+}

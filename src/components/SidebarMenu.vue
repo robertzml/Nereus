@@ -1,6 +1,6 @@
 <template>
     <div class="sidebar-menu">
-        <Menu active-name="home" theme="dark" width="300px" accordion @on-select="selectMenu">
+        <Menu active-name="home" theme="light" accordion @on-select="selectMenu">
             <MenuItem name="home">
                 <Icon type="home"></Icon>
                 主页
@@ -40,4 +40,3 @@ export default {
     }
 }
 </script>
-
