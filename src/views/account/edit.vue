@@ -48,7 +48,6 @@
     </Row>
 </template>
 
-
 <script>
 import account from '../../controllers/account.js'
 import role from '../../controllers/role.js'

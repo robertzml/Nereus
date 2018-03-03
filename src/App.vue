@@ -6,12 +6,12 @@
 
 <script>
 export default {
-    name: 'app'
+    name: 'App'
 }
 </script>
 
 <style>
-.app-main{
+.app-main {
     width: 100%;
     height: 100%;
     -webkit-font-smoothing: antialiased;

@@ -74,7 +74,7 @@ export default {
             let map = {}
             let roots = []            
             for (let i = 0; i < list.length; i += 1) {
-                map[list[i].id] = i  // initialize the map
+                map[list[i].id] = i // initialize the map
                 list[i].children = [] // initialize the children
             }
             for (let i = 0; i < list.length; i += 1) {

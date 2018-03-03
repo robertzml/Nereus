@@ -105,7 +105,7 @@ export default {
                     { required: true, message: '请选择所属公司', type: 'number', trigger: 'change' }
                 ]
             },
-            createType: 0   // 0: 管理员添加公司  1：厂商添加代理商
+            createType: 0 // 0: 管理员添加公司  1：厂商添加代理商
         }
     },
     methods: {

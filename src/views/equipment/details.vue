@@ -136,7 +136,7 @@ export default {
                     return date && date.valueOf() < Date.now() - 86400000
                 }
             },
-            realInfo: {},    // 实时状态
+            realInfo: {}, // 实时状态
             counter: 0,
             intervalId1: 0,
             openReal: true

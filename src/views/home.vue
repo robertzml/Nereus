@@ -1,58 +1,51 @@
 <template>
-    <div class="main">
-        <div class="main-header-con">
-            <div class="layout-logo-left">
-            </div>
-            <div class="header-avator-con">
-                <div class="user-dropdown-menu-con">
-                    <Row type="flex" justify="end" align="middle" class="user-dropdown-innercon">
-                        <Dropdown transfer trigger="click" @on-click="handleClickUserDropdown">
-                            <a href="javascript:void(0)">
-                                <span class="main-user-name">当前用户: {{ userName }}</span>
-                                <Icon type="arrow-down-b"></Icon>
-                            </a>
-                            <DropdownMenu slot="list">
-                                <DropdownItem name="ownSpace">个人中心</DropdownItem>
-                                <DropdownItem name="logout" divided>退出登录</DropdownItem>
-                            </DropdownMenu>
-                        </Dropdown>
-                    </Row>
-                </div>
-            </div>
-        </div>
-       
-        <div class="body-wrapper">
-            <div class="main-sidebar-con">
-                <sidebar-menu 
-                    :menu-list="menuList">
-                </sidebar-menu>
-            </div>
-
-            <div class="page-wrapper">
-                <div class="main-breadcrumb-con">
-                    <Breadcrumb>
-                        <BreadcrumbItem href="#">主页</BreadcrumbItem>
-                        <BreadcrumbItem href="#">Projects</BreadcrumbItem>
-                        <BreadcrumbItem>iView</BreadcrumbItem>
+    <div class="layout">
+        <Layout>
+            <Header>
+                <Menu mode="horizontal" theme="dark" active-name="1">
+                    <div class="layout-logo"></div>
+                    <div class="layout-nav">
+                        <MenuItem name="1">
+                            <Icon type="ios-navigate"></Icon>
+                            Item 1
+                        </MenuItem>
+                        <MenuItem name="2">
+                            <Icon type="ios-keypad"></Icon>
+                            Item 2
+                        </MenuItem>
+                        <MenuItem name="3">
+                            <Icon type="ios-analytics"></Icon>
+                            Item 3
+                        </MenuItem>
+                        <MenuItem name="4">
+                            <Icon type="ios-paper"></Icon>
+                            Item 4
+                        </MenuItem>
+                    </div>
+                </Menu>
+            </Header>
+            <Layout>
+                <Sider hide-trigger :style="{position: 'fixed', height: '100vh', left: 0, overflow: 'auto'}">
+                    <sidebar-menu 
+                        :menu-list="menuList">
+                    </sidebar-menu>
+                </Sider>
+                <Layout :style="{marginLeft: '200px', position: 'fixed', height: '100vh', left: '0', right:'0', top:'64px', bottom:'0'}">
+                    <Breadcrumb :style="{margin: '24px 15px'}">
+                        <BreadcrumbItem>Home</BreadcrumbItem>
+                        <BreadcrumbItem>Components</BreadcrumbItem>
+                        <BreadcrumbItem>Layout</BreadcrumbItem>
                     </Breadcrumb>
-                </div>
-
-                <div class="main-content-con">
-                    <div class="layout-content-main">
+                    <Content theme="dark" :style="{padding: '24px', height: '100%', minHeight: '280px', background: '#fff'}">
                         <keep-alive>
                             <router-view></router-view>
                         </keep-alive>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="main-footer-con">
-            2017 &copy; 墨岚科技
-        </div>
+                    </Content>
+                </Layout>
+            </Layout>
+        </Layout>
     </div>
 </template>
-
 <script>
 import sidebarMenu from '../components/SidebarMenu.vue'
 
@@ -91,6 +84,28 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
-    @import "./home.less";
+<style scoped>
+.layout{
+    border: 1px solid #d7dde4;
+    background: #f5f7f9;
+    position: relative;
+    border-radius: 4px;
+    overflow: hidden;
+    height: 100%;
+}
+.layout-logo{
+    width: 400px;
+    height: 40px;
+    background: url('../assets/logo.png') no-repeat;
+    border-radius: 3px;
+    float: left;
+    position: relative;
+    top: 10px;
+    left: 5px;
+}
+.layout-nav{
+    width: 420px;
+    margin: 0 auto;
+    margin-right: 20px;
+}
 </style>

@@ -14,16 +14,16 @@ Vue.use(iView)
 Vue.config.productionTip = false
 
 router.beforeEach((to, from, next) => {
-    if (to.path === '/login') {
-        next()
-    } else {
-        console.log('main.js check login: ' + store.getters.isLogin)
-        if (store.getters.isLogin) {
-            next()
-        } else {
-            next({ path: '/login' })
-        }
-    }
+  if (to.path === '/login') {
+      next()
+  } else {
+      console.log('main.js check login: ' + store.getters.isLogin)
+      if (store.getters.isLogin) {
+          next()
+      } else {
+          next({ path: '/login' })
+      }
+  }
 })
 
 Vue.filter('displayCompanyType', function (value) {
@@ -41,9 +41,9 @@ Vue.filter('displayDateTime', function (value) {
 
 /* eslint-disable no-new */
 new Vue({
-    el: '#app',
-    router,
-    store,
-    template: '<App/>',
-    components: { App }
+  el: '#app',
+  router,
+  store,
+  components: { App },
+  template: '<App/>'
 })
