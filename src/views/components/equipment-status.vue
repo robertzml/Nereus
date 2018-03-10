@@ -6,11 +6,9 @@
                 设备实时状态
             </p>
 
-            <div>
-               
-            </div>
-
             <Form :model="realInfo" :label-width="100">
+                <i-switch v-model="openReal" @on-change="changeReal"></i-switch>
+
                 <Row>
                     <Col span="10" push="2">
                         <FormItem label="开关机状态">
@@ -23,12 +21,24 @@
                         <FormItem label="热水进水温度">
                             {{ parseInt(realInfo.hot_water_Input_temp, 16) }} &#8451;
                         </FormItem>
-                        <FormItem label="设定温度">
-                            {{ parseInt(realInfo.setting_temp, 16) }} &#8451;
+                       
+                        <FormItem label="累计加热时间">
+                            {{ parseInt(realInfo.cummlative_heat_time, 16) }} 分钟
+                        </FormItem>
+                        <FormItem label="累计使用热水量">
+                            {{ parseInt(realInfo.cummlative_heat_water, 16) }} 升
+                        </FormItem>
+
+                        <FormItem label="次数">
+                            {{ counter }}
                         </FormItem>
                     </Col>
 
                     <Col span="10">
+                        <FormItem label="设定温度">
+                            {{ parseInt(realInfo.setting_temp, 16) }} &#8451;
+                        </FormItem>
+
                         <FormItem label="出水温度">
                             {{ parseInt(realInfo.outlet_water_temp, 16) }} &#8451;
                         </FormItem>
@@ -38,29 +48,20 @@
                         <FormItem label="当前输出功率">
                             {{ parseInt(realInfo.output_capacity_factor, 16) }} KW
                         </FormItem>
+
+                        <FormItem label="累计使用电量">
+                            {{ parseInt(realInfo.cummlative_use_electricity, 16) }} 度
+                        </FormItem>
+                        <FormItem label="累计节省电量">
+                            {{ parseInt(realInfo.cummlative_electricity_saving, 16) }} 度
+                        </FormItem>
+
+                        <FormItem label="日志时间">
+                            {{ realInfo.log_time | displayDateTime }}
+                        </FormItem>
                     </Col>
                 </Row>
-                <FormItem label="次数">
-                    {{ counter }}
-                </FormItem>
-                
-                
                
-                <FormItem label="累计加热时间">
-                    {{ parseInt(realInfo.cummlative_heat_time, 16) }} 分钟
-                </FormItem>
-                <FormItem label="累计使用热水量">
-                    {{ parseInt(realInfo.cummlative_heat_water, 16) }} 升
-                </FormItem>
-                <FormItem label="累计使用电量">
-                    {{ parseInt(realInfo.cummlative_use_electricity, 16) }} 度
-                </FormItem>
-                <FormItem label="累计节省电量">
-                    {{ parseInt(realInfo.cummlative_electricity_saving, 16) }} 度
-                </FormItem>
-                <FormItem label="日志时间">
-                    {{ realInfo.log_time | displayDateTime }}
-                </FormItem>
             </Form>
         </Card>
     </div>
@@ -74,10 +75,21 @@ export default {
     data () {
         return {
             counter: 0,
+            intervalId1: 0,
+            openReal: true,
             realInfo: {} // 实时状态
         }
     },
     methods: {
+        init () {
+            this.counter = 0
+            this.openReal = true
+
+            this.intervalId1 = setInterval(() => {
+                this.readRealStatus()
+            }, 2000)
+        },
+
         readRealStatus () {
             let vm = this
             this.counter += 1
@@ -92,6 +104,10 @@ export default {
                     })
                 }
             })
+        },
+
+        changeReal (status) {
+            this.$Message.info('开关状态：' + status)
         }
     }
 }

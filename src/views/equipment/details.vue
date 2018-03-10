@@ -139,11 +139,11 @@
                 </Card>
             </Col>
         </Row>
+           
+        <Row>
             <Col span="12">
                 <equipment-status></equipment-status>
             </Col>
-        <Row>
-
         </Row>
     </div>
 </template>
