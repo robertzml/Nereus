@@ -6,9 +6,14 @@
                 设备实时状态
             </p>
 
-            <Form :model="realInfo" :label-width="100">
-                <i-switch v-model="openReal" @on-change="changeReal"></i-switch>
+            <div slot="extra">
+                <i-switch v-model="openReal" @on-change="changeReal">
+                    <span slot="open">开</span>
+                    <span slot="close">关</span>
+                </i-switch>
+            </div>
 
+            <Form :model="realInfo" :label-width="100">
                 <Row>
                     <Col span="10" push="2">
                         <FormItem label="开关机状态">
@@ -72,29 +77,28 @@ import equipment from '../../controllers/equipment.js'
 
 export default {
     name: 'equipment-status',
+    props: {
+        serial_number: { type: String, require: true }
+    },
     data () {
         return {
             counter: 0,
             intervalId1: 0,
-            openReal: true,
+            openReal: false,
             realInfo: {} // 实时状态
         }
     },
     methods: {
         init () {
             this.counter = 0
-            this.openReal = true
-
-            this.intervalId1 = setInterval(() => {
-                this.readRealStatus()
-            }, 2000)
+            this.openReal = false
         },
 
         readRealStatus () {
             let vm = this
             this.counter += 1
 
-            equipment.getRealStatus(this.equipmentInfo.serial_number).then(res => {
+            equipment.getRealStatus(this.serial_number).then(res => {
                 if (res.status === 0) {
                     vm.realInfo = res.entities[0]
                 } else {
@@ -107,8 +111,25 @@ export default {
         },
 
         changeReal (status) {
-            this.$Message.info('开关状态：' + status)
+            if (status === true) {
+                console.log('1' + status)
+                this.intervalId1 = setInterval(() => {
+                    this.readRealStatus()
+                }, 3000)
+                // this.openReal = true
+            } else {
+                console.log('2' + status)
+                clearInterval(this.intervalId1)
+                // this.openReal = false
+            }
         }
+    },
+    activated: function () {
+        this.init()
+    },
+    deactivated: function () {
+        clearInterval(this.intervalId1)
+        this.openReal = false
     }
 }
 </script>

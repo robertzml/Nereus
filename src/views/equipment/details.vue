@@ -60,65 +60,7 @@
                 </Card>
             </Col>
             <Col span="12">
-                <Card style="margin-bottom: 15px">
-                    <p slot="title">
-                        <Icon type="grid"></Icon>
-                        设备实时状态
-                    </p>
-
-                    <div>
-                        <Button type="primary" @click="readStatus">Read</Button>
-                        <Button type="primary" :disabled="openReal" @click="openRealStatus">开启实时读取状态</Button>
-                        <Button type="primary" :disabled="!openReal" @click="closeRealStatus">关闭实时读取状态</Button>
-                    </div>
-
-                    <Row>
-                        <Col span="16" push="4">
-                            <Form :model="realInfo" :label-width="100">
-                                <FormItem label="次数">
-                                    {{ counter }}
-                                </FormItem>
-                                <FormItem label="开关机状态">
-                                    {{ realInfo.power == 1 ? '开机' : '关机' }}
-                                </FormItem>
-                                <FormItem label="冷水进水温度">
-                                    {{ parseInt(realInfo.cold_water_Input_temp, 16) }} &#8451;
-                                </FormItem>
-                                <FormItem label="热水进水温度">
-                                    {{ parseInt(realInfo.hot_water_Input_temp, 16) }} &#8451;
-                                </FormItem>
-                                <FormItem label="设定温度">
-                                    {{ parseInt(realInfo.setting_temp, 16) }} &#8451;
-                                </FormItem>
-                                <FormItem label="出水温度">
-                                    {{ parseInt(realInfo.outlet_water_temp, 16) }} &#8451;
-                                </FormItem>
-                                <FormItem label="出水流量">
-                                    {{ parseInt(realInfo.output_flow_rate, 16) * 0.1 }} 升/分钟
-                                </FormItem>
-                                <FormItem label="当前输出功率">
-                                    {{ parseInt(realInfo.output_capacity_factor, 16) }} KW
-                                </FormItem>
-                                <FormItem label="累计加热时间">
-                                    {{ parseInt(realInfo.cummlative_heat_time, 16) }} 分钟
-                                </FormItem>
-                                <FormItem label="累计使用热水量">
-                                    {{ parseInt(realInfo.cummlative_heat_water, 16) }} 升
-                                </FormItem>
-                                <FormItem label="累计使用电量">
-                                    {{ parseInt(realInfo.cummlative_use_electricity, 16) }} 度
-                                </FormItem>
-                                <FormItem label="累计节省电量">
-                                    {{ parseInt(realInfo.cummlative_electricity_saving, 16) }} 度
-                                </FormItem>
-                                <FormItem label="日志时间">
-                                    {{ realInfo.log_time | displayDateTime }}
-                                </FormItem>
-                            </Form>
-                        </Col>
-                    </Row>
-                </Card>
-                <Card>
+                <Card style="margin-bottom: 20px;">
                     <p slot="title">
                         <Icon type="grid"></Icon>
                         设备操作
@@ -135,14 +77,11 @@
 
                     <br />
 
+                    <Button type="primary" @click="readStatus">Read</Button>
                     <Button type="primary" @click="inactivate" v-if="equipmentInfo.status === 2">同意注销</Button>
                 </Card>
-            </Col>
-        </Row>
-           
-        <Row>
-            <Col span="12">
-                <equipment-status></equipment-status>
+
+                <equipment-status :serial_number="equipmentInfo.serial_number"></equipment-status>
             </Col>
         </Row>
     </div>
@@ -174,15 +113,8 @@ export default {
                 disabledDate (date) {
                     return date && date.valueOf() < Date.now() - 86400000
                 }
-            },
-            realInfo: {}, // 实时状态
-            counter: 0,
-            intervalId1: 0,
-            openReal: true
+            }
         }
-    },
-    computed: {
-
     },
     filters: {
         displayDateTime: function (date) {
@@ -216,12 +148,6 @@ export default {
             this.equipmentInfo = {}
             this.equipmentId = this.$route.params.id
             this.getEquipmentInfo(this.equipmentId)
-            this.counter = 0
-            this.openReal = true
-
-            this.intervalId1 = setInterval(() => {
-                this.readRealStatus()
-            }, 2000)
         },
         
         getEquipmentInfo (id) {
@@ -319,46 +245,12 @@ export default {
             equipment.getKeyStatus(this.equipmentInfo.serial_number).then(res => {
                 console.log(res)
             })
-        },
-
-        readRealStatus () {
-            let vm = this
-            this.counter += 1
-
-            equipment.getRealStatus(this.equipmentInfo.serial_number).then(res => {
-                if (res.status === 0) {
-                    vm.realInfo = res.entities[0]
-                } else {
-                    this.$Notice.error({
-                        title: '获取实时状态出错',
-                        desc: res.message
-                    })
-                }
-            })
-        },
-
-        openRealStatus () {
-            if (!this.openReal) {
-                this.intervalId1 = setInterval(() => {
-                    this.readRealStatus()
-                }, 2000)
-                this.openReal = true
-            }
-        },
-
-        closeRealStatus () {
-            if (this.openReal) {
-                clearInterval(this.intervalId1)
-                this.openReal = false
-            }
         }
     },
     activated: function () {
         this.init()
     },
     deactivated: function () {
-        clearInterval(this.intervalId1)
-        this.openReal = false
     }
 }
 </script>
