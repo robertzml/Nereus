@@ -17,22 +17,25 @@
                 </div>
             </Header>
             <Layout>
-                <Sider hide-trigger :style="{position: 'fixed', height: '100vh', left: 0, overflow: 'auto', background: '#fff'}">
+                <Sider hide-trigger class="layout-sidebar" :width="sidebarWidth">
                     <sidebar-menu 
                         :menu-list="menuList">
                     </sidebar-menu>
                 </Sider>
-                <Layout :style="{marginLeft: '200px', position: 'fixed', height: '100vh', left: '0', right:'0', top:'65px', bottom:'0'}">
-                    <Breadcrumb :style="{margin: '24px 15px'}">
+                <Layout :style="{marginLeft: sidebarWidth + 'px', position: 'fixed', left: '0', right:'0', top:'65px', bottom:'0'}">
+                    <Breadcrumb :style="{margin: '20px 15px'}">
                         <BreadcrumbItem>Home</BreadcrumbItem>
                         <BreadcrumbItem>Components</BreadcrumbItem>
                         <BreadcrumbItem>Layout</BreadcrumbItem>
                     </Breadcrumb>
-                    <Content :style="{padding: '24px', height: '100%', minHeight: '280px' }">
+                    <Content class="layout-content" :style="{marginLeft: sidebarWidth + 'px'}">
                         <keep-alive>
                             <router-view></router-view>
                         </keep-alive>
                     </Content>
+                    <Footer class="layout-footer-center" :style="{marginLeft: sidebarWidth + 'px'}">
+                        2016-2018 &copy; 无锡墨岚科技
+                    </Footer>
                 </Layout>
             </Layout>
         </Layout>
@@ -48,7 +51,8 @@ export default {
     name: 'home',
     data () {
         return {
-            userName: ''
+            userName: '',
+            sidebarWidth: 240
         }
     },
     computed: {
@@ -99,5 +103,30 @@ export default {
     width: 150px;
     margin: 0 auto;
     margin-right: 20px;
+}
+.layout-sidebar {
+    position: fixed;
+    top: 65px;
+    left: 0;
+    bottom: 0;
+    overflow: auto;
+    background: #fff;
+}
+.layout-content {
+    padding: 24px;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 110px;
+    bottom: 50px;
+    overflow-y: scroll;    
+}
+.layout-footer-center{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 20px;
+    text-align: center;
 }
 </style>
