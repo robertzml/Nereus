@@ -57,5 +57,21 @@ export default {
         }).then(res => {
             return res.data
         })
+    },
+
+    addSaleRule (model) {
+        return api._post({
+            url: '/t_product_sale_rule/add',
+            data: model
+        }).then(res => {
+            return res.data
+        })
+    },
+
+    getSaleRules (productId) {
+        return api._get({ url: '/t_product_sale_rule/getProductSaleRuleByProductId', params: { product_id: productId } })
+            .then(res => {
+                return res.data
+            })
     }
 }

@@ -98,7 +98,8 @@ export const appRouter = [
             { path: 'details/:id', title: '产品信息', name: 'product-details', component: resolve => { require(['@/views/product/details.vue'], resolve) } },
             { path: 'create', title: '', name: 'product-create', component: resolve => { require(['@/views/product/create.vue'], resolve) } },
             { path: 'edit/:id', title: '', name: 'product-edit', component: resolve => { require(['@/views/product/edit.vue'], resolve) } },
-            { path: 'product-agent/:id', title: '', name: 'product-agent', component: resolve => { require(['@/views/product/product-agent.vue'], resolve) } }
+            { path: 'product-agent/:id', title: '', name: 'product-agent', component: resolve => { require(['@/views/product/product-agent.vue'], resolve) } },
+            { path: 'product-add-sale-rule/:id', title: '', name: 'product-add-sale-rule', component: resolve => { require(['@/views/product/add-sale-rule.vue'], resolve) } }
         ]
     },
     {
