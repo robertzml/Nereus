@@ -115,7 +115,7 @@ export default {
 
             this.getCompany(this.companyId)
             
-            this.getParentList()
+            // this.getParentList()
         },
 
         selectType (val) {

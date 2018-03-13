@@ -82,7 +82,9 @@ export default {
             next(vm => {
                 vm.getAccounts()
                 vm.getMyAccounts()
-                vm.getAgents()
+                if (vm.roleType === 2) {
+                    vm.getAgents()
+                }
             })
         } else {
             next()
