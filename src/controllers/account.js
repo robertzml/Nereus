@@ -31,6 +31,7 @@ export default {
             })
     },
 
+    /* 获取指定公司所有用户视图 */
     companyView (companyId) {
         return api._get({ url: '/t_account/findInfoByCompanyId', params: { company_id: companyId } })
             .then(res => {
@@ -38,6 +39,7 @@ export default {
             })
     },
 
+    /* 获取指定公司下代理商所有用户视图 */
     agentsView (companyId) {
         return api._get({ url: '/t_account/findAgentInfoByCompanyId', params: { company_id: companyId } })
             .then(res => {

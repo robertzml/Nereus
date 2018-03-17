@@ -93,6 +93,7 @@ export default {
     methods: {
         init () {
             this.roleType = this.$store.state.user.roleType
+            console.log('roleType is: ' + this.roleType)
             if (this.roleType === 0 || this.roleType === 1) {
                 this.getAccounts()
             } else if (this.roleType === 2) {

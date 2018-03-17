@@ -116,7 +116,7 @@ export default {
             this.$router.push({ name: 'product-add-sale-rule', params: { id: this.productId } })
         }
     },
-    activated: function () {
+    mounted: function () {
         this.productId = this.$route.params.id
         this.getProduct(this.productId)
         this.getSaleRules(this.productId)

@@ -33,7 +33,7 @@
                                     <Option v-for="item in typeList" :value="item.value" :key="item.value">{{ item.label }}</Option>
                                 </Select>
                             </FormItem>
-                            <FormItem label="所属厂商" prop="parent_id" v-if="roleType === 0  && companyInfo.type !== 1">
+                            <FormItem label="上级厂商" prop="parent_id" v-if="roleType === 0  && companyInfo.type !== 1">
                                 <Select v-model="companyInfo.parent_id">
                                     <Option v-for="item in parentList" :value="item.id" :key="item.id">{{ item.name }}</Option>
                                 </Select>
@@ -171,7 +171,7 @@ export default {
             this.$router.push({ name: 'company-index' })
         }
     },
-    activated: function () {
+    mounted: function () {
         this.init()
     }
 }

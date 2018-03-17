@@ -189,7 +189,7 @@ export default {
             return nereus.displayCompanyType(this.accountInfo.company_type)
         }
     },
-    activated: function () {
+    mounted: function () {
         this.init()
     }
 }

@@ -31,7 +31,7 @@
                             <FormItem label="公司类型">
                                 {{ companyInfo.type | displayCompanyType }}
                             </FormItem>
-                            <FormItem label="所属公司">
+                            <FormItem label="上级厂商">
                                 {{ parentName }}
                             </FormItem>
                             <FormItem label="创建时间">
@@ -100,7 +100,7 @@ export default {
             this.$router.push({ name: 'company-index' })
         }
     },
-    activated: function () {
+    mounted: function () {
         this.companyId = this.$route.params.id
         this.getCompany(this.companyId)
     }

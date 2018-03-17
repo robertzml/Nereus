@@ -38,7 +38,7 @@
                                     <Option v-for="item in typeList" :value="item.value" :key="item.value">{{ item.label }}</Option>
                                 </Select>
                             </FormItem>
-                            <FormItem label="所属厂商" prop="parent_id" v-if="createType === 0 && companyInfo.type !== 1">
+                            <FormItem label="上级厂商" prop="parent_id" v-if="createType === 0 && companyInfo.type !== 1">
                                 <Select v-model="companyInfo.parent_id">
                                     <Option v-for="item in parentList" :value="item.id" :key="item.id">{{ item.name }}</Option>
                                 </Select>
@@ -102,7 +102,7 @@ export default {
                     { required: true, message: '请选择类型', type: 'number', trigger: 'change' }
                 ],
                 parent_id: [
-                    { required: true, message: '请选择所属公司', type: 'number', trigger: 'change' }
+                    { required: true, message: '请选择上级厂商', type: 'number', trigger: 'change' }
                 ]
             },
             createType: 0 // 0: 管理员添加公司  1：厂商添加代理商
@@ -167,18 +167,7 @@ export default {
             this.$router.push({ name: 'company-index' })
         }
     },
-    activated: function () {
-        this.companyInfo = {
-            name: '',
-            phone: '',
-            aftersale_phone: '',
-            type: '',
-            parent_id: '',
-            contact: '',
-            address: '',
-            code: '',
-            remark: ''
-        }
+    mounted: function () {
         console.log('router:' + this.$route.params.type)
         this.init()
     }

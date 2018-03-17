@@ -200,7 +200,7 @@ export default {
             this.$router.push({ name: 'account-index' })
         }
     },
-    activated: function () {
+    mounted: function () {
         this.accountInfo = {
             user_name: '',
             password: '',

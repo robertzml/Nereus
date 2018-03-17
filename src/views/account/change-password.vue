@@ -113,7 +113,7 @@ export default {
             this.$router.push({ name: 'account-info' })
         }
     },
-    activated: function () {
+    mounted: function () {
         this.init()
     }
 }

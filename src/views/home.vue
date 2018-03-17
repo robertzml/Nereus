@@ -30,8 +30,9 @@
                     </Breadcrumb>
                     <Content class="layout-content" :style="{marginLeft: sidebarWidth + 'px'}">
                         <keep-alive>
-                            <router-view></router-view>
+                            <router-view v-if="$route.meta.keepAlive"></router-view>
                         </keep-alive>
+                        <router-view v-if="!$route.meta.keepAlive"></router-view>
                     </Content>
                     <Footer class="layout-footer-center" :style="{marginLeft: sidebarWidth + 'px'}">
                         2016-2018 &copy; 无锡墨岚科技
