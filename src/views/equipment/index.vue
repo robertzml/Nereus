@@ -26,7 +26,7 @@ import equipment from '../../controllers/equipment.js'
 import equipmentList from '../components/equipment-list.vue'
 
 export default {
-    name: 'equipment',
+    name: 'equipment-index',
     components: {
         equipmentList
     },

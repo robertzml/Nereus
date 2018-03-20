@@ -82,7 +82,7 @@ export default {
             this.$router.push({ name: 'equipment-index' })
         }
     },
-    activated: function () {
+    mounted: function () {
         this.equipmentId = this.$route.params.id
         this.getEquipment(this.equipmentId)
     }

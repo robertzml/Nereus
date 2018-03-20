@@ -124,10 +124,10 @@ export default {
             }
         }
     },
-    activated: function () {
+    mounted: function () {
         this.init()
     },
-    deactivated: function () {
+    beforeDestroy: function () {
         clearInterval(this.intervalId1)
         this.openReal = false
     }

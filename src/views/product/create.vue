@@ -152,7 +152,7 @@ export default {
             this.$router.push({ name: 'product-index' })
         }
     },
-    activated: function () {
+    mounted: function () {
         this.productInfo = {
             product_code: '',
             name: '',

@@ -84,7 +84,7 @@ export default {
             this.$router.push({ name: 'product-type-index' })
         }
     },
-    activated: function () {
+    mounted: function () {
         this.productTypeInfo = {
             name: '',
             parent_id: '',

@@ -63,9 +63,9 @@ export default {
             productId: 0,
             saleRuleInfo: {
                 product_id: 0,
-                pay_type: 0,
+                pay_type: '',
                 divided_pay_pers: 1,
-                charge_type: 0,
+                charge_type: '',
                 prepay_rent: 0,
                 installation_charge: 0,
                 device_deposit: 0,
@@ -126,7 +126,7 @@ export default {
             this.$router.push({ name: 'product-details', params: { id: this.productId } })
         }
     },
-    activated: function () {
+    mounted: function () {
         this.productId = this.$route.params.id
         this.init()
     }

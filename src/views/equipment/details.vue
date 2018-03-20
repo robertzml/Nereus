@@ -247,7 +247,7 @@ export default {
             })
         }
     },
-    activated: function () {
+    mounted: function () {
         this.init()
     },
     deactivated: function () {

@@ -17,7 +17,7 @@
                         :withCredentials="true"
                         :on-success="handleSuccess"
                         :on-error="handleError">
-                        <Button type="ghost" icon="ios-cloud-upload-outline">Upload files</Button>
+                        <Button type="ghost" icon="ios-cloud-upload-outline">上传设备文件</Button>
                     </Upload>
                 </Card>
             </Col>

@@ -116,7 +116,7 @@ export default {
             this.$router.push({ name: 'equipment-index' })
         }
     },
-    activated: function () {
+    mounted: function () {
         this.equipmentInfo = {
             id: 0,
             serial_number: '',

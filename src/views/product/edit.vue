@@ -162,7 +162,7 @@ export default {
             this.$router.push({ name: 'product-index' })
         }
     },
-    activated: function () {
+    mounted: function () {
         this.productId = this.$route.params.id
         this.init()
     }
