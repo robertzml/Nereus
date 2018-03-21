@@ -66,19 +66,34 @@
                         设备操作
                     </p>
 
-                    <Form ref="formLock" :model="equipmentLock" :rules="ruleLock" inline>
-                        <FormItem prop="deadline">
-                            <DatePicker type="date" placeholder="选择日期" :options="deadlineOptions" v-model="equipmentLock.deadline"></DatePicker>
-                        </FormItem>
-                        <FormItem>
-                            <Button type="primary" @click="handleLock('formLock')">解锁</Button>
-                        </FormItem>
-                    </Form>
+                    <Row>
+                        <Col span="12">
+                            <Form ref="formLock" :model="equipmentLock" :rules="ruleLock" inline>
+                                <FormItem prop="deadline">
+                                    <DatePicker type="date" placeholder="选择日期" :options="deadlineOptions" v-model="equipmentLock.deadline"></DatePicker>
+                                </FormItem>
+                                <FormItem>
+                                    <Button type="primary" @click="handleLock('formLock')">解锁</Button>
+                                </FormItem>
+                            </Form>
 
-                    <br />
+                            <br />
 
-                    <Button type="primary" @click="readStatus">Read</Button>
-                    <Button type="primary" @click="inactivate" v-if="equipmentInfo.status === 2">同意注销</Button>
+                            <Button type="primary" @click="readStatus">Read</Button>
+                            <Button type="primary" @click="inactivate" v-if="equipmentInfo.status === 2">同意注销</Button>
+                        </Col>
+                        <Col span="12">
+                            <Form ref="formTrade" :model="equipmentTrade" inline>
+                                <FormItem prop="tradeInMoney">
+                                    <InputNumber :max="5000000" :min="0" :precision="2" v-model="equipmentTrade.tradeInMoney" style="width: 150px;"></InputNumber>
+                                </FormItem>
+                                <FormItem>
+                                    <Button type="primary" @click="handleTrade('formTrade')">充值</Button>
+                                </FormItem>
+                            </Form>
+                        </Col>
+                    </Row>
+                   
                 </Card>
 
                 <equipment-status :serial_number="equipmentInfo.serial_number"></equipment-status>
@@ -103,6 +118,9 @@ export default {
             equipmentInfo: {},
             equipmentLock: {
                 deadline: ''
+            },
+            equipmentTrade: {
+                tradeInMoney: 0
             },
             ruleLock: {
                 deadline: [
@@ -233,6 +251,32 @@ export default {
                         } else {
                             this.$Notice.error({
                                 title: '解锁失败',
+                                desc: res.message
+                            })
+                        }
+                    })
+                }
+            })
+        },
+
+        handleTrade (name) {
+            this.$refs[name].validate((valid) => {
+                if (valid) {
+                     let act = {
+                        serial_number: this.equipmentInfo.serial_number,
+                        equipment_id: this.equipmentId,
+                        trade_in_money: this.equipmentTrade.tradeInMoney
+                    }
+
+                     equipment.tradeIn(act).then(res => {
+                        if (res.code === 0) {
+                            this.$Notice.success({
+                                title: '充值成功',
+                                desc: res.message
+                            })
+                        } else {
+                            this.$Notice.error({
+                                title: '充值失败',
                                 desc: res.message
                             })
                         }

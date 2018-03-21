@@ -121,6 +121,16 @@ export default {
         })
     },
 
+    // 设备充值
+    tradeIn (models) {
+        return api._post({ 
+            url: '/t_company_agent_equipment_finance_trade/addTochargeWalletByPlatform', 
+            data: models
+        }).then(res => {
+            return res.data
+        })
+    },
+
     // 设备注销
     inactivate (models) {
         return api._post({
