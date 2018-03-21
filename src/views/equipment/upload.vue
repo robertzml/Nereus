@@ -33,7 +33,7 @@ export default {
     data () {
         return {
             header: {
-                
+                'X-Requested-With': 'XMLHttpRequest'
             },
             uploadUrl: config.apihost + 't_store/addStoreByCompanyTxt/uploadTxt'
         }
