@@ -33,10 +33,6 @@ export default {
                     key: 'serial_number'
                 },
                 {
-                    title: '主板序列号',
-                    key: 'mainboard_serial_number'
-                },
-                {
                     title: '产品名称',
                     key: 'product_name'
                 },

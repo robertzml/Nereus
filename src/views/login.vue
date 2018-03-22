@@ -65,6 +65,7 @@ export default {
                     
                     this.login({ user_name: this.form.userName, password: this.form.password })
                         .then(res => {
+                            console.log('login status:' + res.status)
                             if (res.status === 0) {
                                 vm.$router.push('/')
                             } else {
