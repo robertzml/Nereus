@@ -31,7 +31,7 @@
                             {{ parseInt(realInfo.cummlative_heat_time, 16) }} 分钟
                         </FormItem>
                         <FormItem label="累计使用热水量">
-                            {{ parseInt(realInfo.cummlative_heat_water, 16) }} 升
+                            {{ realInfo.cummlative_heat_water }} 升
                         </FormItem>
 
                         <FormItem label="次数">
@@ -51,14 +51,14 @@
                             {{ parseInt(realInfo.output_flow_rate, 16) * 0.1 }} 升/分钟
                         </FormItem>
                         <FormItem label="当前输出功率">
-                            {{ parseInt(realInfo.output_capacity_factor, 16) }} KW
+                            {{ parseInt(realInfo.output_capacity_factor, 16) }} W
                         </FormItem>
 
                         <FormItem label="累计使用电量">
-                            {{ parseInt(realInfo.cummlative_use_electricity, 16) }} 度
+                            {{ realInfo.cummlative_use_electricity }} 度
                         </FormItem>
                         <FormItem label="累计节省电量">
-                            {{ parseInt(realInfo.cummlative_electricity_saving, 16) }} 度
+                            {{ realInfo.cummlative_electricity_saving }} 度
                         </FormItem>
 
                         <FormItem label="日志时间">
@@ -101,6 +101,10 @@ export default {
             equipment.getRealStatus(this.serial_number).then(res => {
                 if (res.status === 0) {
                     vm.realInfo = res.entities[0]
+                   
+                    vm.realInfo.cummlative_heat_water = vm.transDigit(vm.realInfo.cummlative_heat_water)
+                    vm.realInfo.cummlative_use_electricity = vm.transDigit(vm.realInfo.cummlative_use_electricity)
+                    vm.realInfo.cummlative_electricity_saving = vm.transDigit(vm.realInfo.cummlative_electricity_saving)
                 } else {
                     this.$Notice.error({
                         title: '获取实时状态出错',
@@ -122,6 +126,17 @@ export default {
                 clearInterval(this.intervalId1)
                 // this.openReal = false
             }
+        },
+
+        transDigit (input) {
+            let output = ''
+            for (let i = 0; i < 8;) {
+                let sub = input.substring(i, i + 2)
+                output += parseInt(sub, 16)
+
+                i = i + 2
+            }
+            return output
         }
     },
     mounted: function () {

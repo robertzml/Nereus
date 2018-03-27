@@ -6,10 +6,6 @@
                     <Icon type="grid"></Icon>
                     设备列表
                 </p>
-                <a href="#" slot="extra" @click.prevent="showCreate">
-                    <Icon type="plus-round"></Icon>
-                    新增
-                </a>
                 <a href="#" slot="extra" @click.prevent="getEquipments">
                     <Icon type="ios-loop-strong"></Icon>
                     刷新

@@ -67,7 +67,7 @@
                     </p>
 
                     <Row>
-                        <Col span="12">
+                        <Col span="24">
                             <Form ref="formLock" :model="equipmentLock" :rules="ruleLock" inline>
                                 <FormItem prop="deadline">
                                     <DatePicker type="date" placeholder="选择日期" :options="deadlineOptions" v-model="equipmentLock.deadline"></DatePicker>
@@ -82,7 +82,7 @@
                             <Button type="primary" @click="readStatus">Read</Button>
                             <Button type="primary" @click="inactivate" v-if="equipmentInfo.status === 2">同意注销</Button>
                         </Col>
-                        <Col span="12">
+                        <Col span="0" v-show="false">
                             <Form ref="formTrade" :model="equipmentTrade" inline>
                                 <FormItem prop="tradeInMoney">
                                     <InputNumber :max="5000000" :min="0" :precision="2" v-model="equipmentTrade.tradeInMoney" style="width: 150px;"></InputNumber>
