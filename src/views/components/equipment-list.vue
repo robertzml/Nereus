@@ -96,8 +96,7 @@ export default {
                     render: (h, params) => {
                         return (
                             <div>
-                                <i-button type="primary" size="small" style="marginRight: 5px" onClick={ () => { this.showDetails(params.row) } }>查看</i-button>
-                                <i-button type="warning" size="small" onClick={ () => { this.showEdit(params.row) } }>编辑</i-button>
+                                <i-button type="primary" size="small" onClick={ () => { this.showDetails(params.row) } }>查看</i-button>
                             </div>
                         )
                     }
@@ -106,7 +105,6 @@ export default {
             pageSize: 10,
             currentPage: 1,
             pageSizeOpt: [5, 10, 20, 30]
-            // tableData: this.itemList.slice(0, this.pageSize)
         }
     },
     computed: {
@@ -116,35 +114,8 @@ export default {
         tableData () {
             let temp = this.itemList
 
-            var filterKey = this.filterKey && this.filterKey.toLowerCase()
-            if (filterKey) {
-                temp = temp.filter(function (row) {
-                    return Object.keys(row).some(function (key) {
-                        return String(row[key]).toLowerCase().indexOf(filterKey) > -1
-                    })
-                })
-            }
-
             return temp.slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize)
         }
-    },
-    watch: {
-        /*
-        itemList: function (newList) {
-            let temp = newList
-
-            var filterKey = this.filterKey && this.filterKey.toLowerCase()
-            if (filterKey) {
-                temp = temp.filter(function (row) {
-                    return Object.keys(row).some(function (key) {
-                        return String(row[key]).toLowerCase().indexOf(filterKey) > -1
-                    })
-                })
-            }
-
-            this.tableData = temp.slice(0, this.pageSize)
-        }
-        */
     },
     methods: {
         changePage (page) {
@@ -156,9 +127,6 @@ export default {
         },
         showDetails (item) {
             this.$router.push({ name: 'equipment-details', params: { id: item.id } })
-        },
-        showEdit (item) {
-            this.$router.push({ name: 'equipment-edit', params: { id: item.id } })
         }
     }
 }
