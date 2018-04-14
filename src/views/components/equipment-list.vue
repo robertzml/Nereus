@@ -3,7 +3,7 @@
         <Table :data="tableData" :columns="columns" border stripe></Table>
         <div style="margin: 10px;overflow-x: hidden" v-if="showPager">
             <div style="float: right;">
-                <Page :total="itemsCount" :current.sync="currentPage" :page-size="pageSize" show-sizer placement="top" 
+                <Page :total="itemsCount" :current.sync="currentPage" :page-size="pageSize" :page-size-opts="pageSizeOpt" show-sizer placement="top" 
                     @on-change="changePage"
                     @on-page-size-change="changePageSize"></Page>
             </div>
@@ -18,7 +18,8 @@ export default {
     name: 'equipment-list',
     props: {
         itemList: { type: Array, required: true },
-        showPager: { type: Boolean, default: true }
+        showPager: { type: Boolean, default: true },
+        filterKey: { type: String }
     },
     data () {
         return {
@@ -51,6 +52,10 @@ export default {
                 {
                     title: '设备主人',
                     key: 'owner_name'
+                },
+                {
+                    title: '手机号',
+                    key: 'owner_phone'
                 },
                 {
                     title: '激活状态',
@@ -100,27 +105,54 @@ export default {
             ],
             pageSize: 10,
             currentPage: 1,
-            pageSizeOpt: [5, 10, 20, 30],
-            tableData: this.itemList.slice(0, this.pageSize)
+            pageSizeOpt: [5, 10, 20, 30]
+            // tableData: this.itemList.slice(0, this.pageSize)
         }
     },
     computed: {
         itemsCount () {
             return this.itemList.length
+        },
+        tableData () {
+            let temp = this.itemList
+
+            var filterKey = this.filterKey && this.filterKey.toLowerCase()
+            if (filterKey) {
+                temp = temp.filter(function (row) {
+                    return Object.keys(row).some(function (key) {
+                        return String(row[key]).toLowerCase().indexOf(filterKey) > -1
+                    })
+                })
+            }
+
+            return temp.slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize)
         }
     },
     watch: {
+        /*
         itemList: function (newList) {
-            this.tableData = newList.slice(0, this.pageSize)
+            let temp = newList
+
+            var filterKey = this.filterKey && this.filterKey.toLowerCase()
+            if (filterKey) {
+                temp = temp.filter(function (row) {
+                    return Object.keys(row).some(function (key) {
+                        return String(row[key]).toLowerCase().indexOf(filterKey) > -1
+                    })
+                })
+            }
+
+            this.tableData = temp.slice(0, this.pageSize)
         }
+        */
     },
     methods: {
         changePage (page) {
-            this.tableData = this.itemList.slice((page - 1) * this.pageSize, page * this.pageSize)
+            // this.tableData = this.itemList.slice((page - 1) * this.pageSize, page * this.pageSize)
         },
         changePageSize (pageSize) {
             this.pageSize = pageSize
-            this.tableData = this.itemList.slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize)
+            // this.tableData = this.itemList.slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize)
         },
         showDetails (item) {
             this.$router.push({ name: 'equipment-details', params: { id: item.id } })

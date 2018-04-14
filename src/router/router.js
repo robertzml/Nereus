@@ -66,12 +66,12 @@ export const appRouter = [
     {
         path: '/account',
         name: 'account',
-        title: '用户管理',
+        title: '管理员管理',
         component: Home,
         children: [
-            { path: 'index', title: '用户管理', parent: 'company-menu', role: 8, name: 'account-index', meta: { keepAlive: true }, component: resolve => { require(['@/views/account/index.vue'], resolve) } },
+            { path: 'index', title: '管理员管理', parent: 'company-menu', role: 8, name: 'account-index', meta: { keepAlive: true }, component: resolve => { require(['@/views/account/index.vue'], resolve) } },
             { path: 'create', title: '用户添加', name: 'account-create', component: resolve => { require(['@/views/account/create.vue'], resolve) } },
-            { path: 'details/:id', title: '用户信息', name: 'account-details', component: resolve => { require(['@/views/account/details.vue'], resolve) } },
+            { path: 'details/:id', title: '管理员信息', name: 'account-details', component: resolve => { require(['@/views/account/details.vue'], resolve) } },
             { path: 'info', title: '个人中心', name: 'account-info', meta: { keepAlive: true }, component: resolve => { require(['@/views/account/info.vue'], resolve) } },
             { path: 'edit/:id', title: '用户编辑', name: 'account-edit', component: resolve => { require(['@/views/account/edit.vue'], resolve) } },
             { path: 'change-password', title: '修改密码', name: 'account-change-password', component: resolve => { require(['@/views/account/change-password.vue'], resolve) } }
@@ -116,6 +116,15 @@ export const appRouter = [
             { path: 'create', title: '', name: 'equipment-create', component: resolve => { require(['@/views/equipment/create.vue'], resolve) } },
             { path: 'edit/:id', title: '', name: 'equipment-edit', component: resolve => { require(['@/views/equipment/edit.vue'], resolve) } },
             { path: 'upload', title: '上传设备信息', parent: 'product-menu', role: 15, name: 'equipment-upload', component: resolve => { require(['@/views/equipment/upload.vue'], resolve) } }
+        ]
+    },
+    {
+        path: '/user',
+        name: 'user',
+        title: '用户管理',
+        component: Home,
+        children: [
+            { path: 'index', title: '用户管理', parent: 'product-menu', role: 6, name: 'user-index', meta: { keepAlive: true }, component: resolve => { require(['@/views/user/index.vue'], resolve) } }
         ]
     }
 ]

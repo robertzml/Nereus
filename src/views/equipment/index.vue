@@ -11,7 +11,11 @@
                     刷新
                 </a>
                 
-                <equipment-list :item-list="equipmentData"></equipment-list>
+                <div style="margin-bottom: 10px;">
+                    搜索：<Input v-model="searchQuery" placeholder="" style="width: 200px"></Input>
+                </div>
+
+                <equipment-list :item-list="equipmentData" :filter-key="searchQuery"></equipment-list>
             </Card>
         </Col>
     </Row>
@@ -28,7 +32,8 @@ export default {
     },
     data () {
         return {
-           equipmentData: []
+           equipmentData: [],
+           searchQuery: ''
         }
     },
     beforeRouteEnter (to, from, next) {
