@@ -97,6 +97,7 @@
                 </Card>
 
                 <equipment-status :serial_number="equipmentInfo.serial_number"></equipment-status>
+                <equipment-key :serial_number="equipmentInfo.serial_number"></equipment-key>
             </Col>
         </Row>
     </div>
@@ -105,12 +106,14 @@
 <script>
 import equipment from '../../controllers/equipment.js'
 import equipmentStatus from '../components/equipment-status.vue'
+import equipmentKey from '../components/equipment-key.vue'
 import moment from 'moment'
 
 export default {
     name: 'equipment-details',
     components: {
-        equipmentStatus
+        equipmentStatus,
+        equipmentKey
     },
     data () {
         return {

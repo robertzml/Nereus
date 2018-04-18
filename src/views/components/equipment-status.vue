@@ -120,11 +120,9 @@ export default {
                 this.intervalId1 = setInterval(() => {
                     this.readRealStatus()
                 }, 3000)
-                // this.openReal = true
             } else {
                 console.log('2' + status)
                 clearInterval(this.intervalId1)
-                // this.openReal = false
             }
         },
 
