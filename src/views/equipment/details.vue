@@ -78,8 +78,7 @@
                             </Form>
 
                             <br />
-
-                            <Button type="primary" @click="readStatus">Read</Button>
+                           
                             <Button type="primary" @click="inactivate" v-if="equipmentInfo.status === 2">同意注销</Button>
                         </Col>
                         <Col span="0" v-show="false">
@@ -285,12 +284,6 @@ export default {
                         }
                     })
                 }
-            })
-        },
-
-        readStatus () {
-            equipment.getKeyStatus(this.equipmentInfo.serial_number).then(res => {
-                console.log(res)
             })
         }
     },

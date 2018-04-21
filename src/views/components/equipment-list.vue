@@ -31,15 +31,18 @@ export default {
                 },
                 {
                     title: '序列号',
-                    key: 'serial_number'
+                    key: 'serial_number',
+                    sortable: true
                 },
                 {
                     title: '产品名称',
-                    key: 'product_name'
+                    key: 'product_name',
+                    sortable: true
                 },
                 {
                     title: '产品类别',
-                    key: 'product_type_name'
+                    key: 'product_type_name',
+                    sortable: true
                 },
                 {
                     title: '生产厂商',

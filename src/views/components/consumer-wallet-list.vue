@@ -1,5 +1,5 @@
 <template>
-    <div class="user-list">
+    <div class="consumer-wallet-list">
         <Table :data="tableData" :columns="columns" stripe border></Table>
         <div style="margin: 10px;overflow-x: hidden" v-if="showPager">
             <div style="float: right;">
@@ -28,7 +28,7 @@ export default {
                     align: 'center'
                 },
                 {
-                    title: '生成厂家名称',
+                    title: '厂家名称',
                     key: 'company_name'
                 },
                 {

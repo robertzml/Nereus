@@ -26,6 +26,9 @@
                     <Select v-model="sAgent" style="width:200px" placeholder="选择代理商" clearable>
                         <Option v-for="item in agentList" :value="item.id" :key="item.id">{{ item.name }}</Option>
                     </Select>
+
+                    <span>搜索</span>
+                    <Input v-model="filterKey" style="width: 200px"></Input>
                 </div>
 
                 <equipment-list :item-list="filterData"></equipment-list>
@@ -54,7 +57,8 @@ export default {
             agentList: [],
             sProductType: '',
             sCompany: '',
-            sAgent: ''
+            sAgent: '',
+            filterKey: ''
         }
     },
     beforeRouteEnter (to, from, next) {
@@ -80,6 +84,16 @@ export default {
             if (this.sAgent) {
                 temp = temp.filter(r => r.agent_id === this.sAgent)
             }
+
+            var filterKey = this.filterKey && this.filterKey.toLowerCase()
+            if (filterKey) {
+                temp = temp.filter(function (row) {
+                    return Object.keys(row).some(function (key) {
+                        return String(row[key]).toLowerCase().indexOf(filterKey) > -1
+                    })
+                })
+            }
+
             return temp
         }
     },

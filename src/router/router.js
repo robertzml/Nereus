@@ -127,6 +127,15 @@ export const appRouter = [
             { path: 'index', title: '用户管理', parent: 'product-menu', role: 6, name: 'user-index', meta: { keepAlive: true }, component: resolve => { require(['@/views/user/index.vue'], resolve) } },
             { path: 'details/:id/:code', title: '用户信息', role: 6, name: 'user-details', component: resolve => { require(['@/views/user/details.vue'], resolve) } }
         ]
+    },
+    {
+        path: '/coupon',
+        name: 'coupon',
+        title: '优惠券管理',
+        component: Home,
+        children: [
+            { path: 'index', title: '优惠券管理', parent: 'product-menu', role: 6, name: 'coupon-index', meta: { keepAlive: true }, component: resolve => { require(['@/views/coupon/index.vue'], resolve) } }
+        ]
     }
 ]
 

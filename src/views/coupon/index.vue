@@ -5,7 +5,7 @@
                 <Card>
                     <p slot="title">
                         <Icon type="grid"></Icon>
-                        用户列表
+                        优惠券列表
                     </p>
                     <a href="#" slot="extra" @click.prevent="getEquipments">
                         <Icon type="ios-loop-strong"></Icon>
@@ -20,7 +20,7 @@
                     </div>
 
                     <br />
-                    <user-list :itemList="userData"></user-list>
+                    <coupon-list :item-list="couponData"></coupon-list>
                 </Card>
             </Col>
         </Row>
@@ -29,20 +29,20 @@
 
 <script>
 import company from '../../controllers/company.js'
-import user from '../../controllers/user.js'
-import userList from '../components/user-list.vue'
+import coupon from '../../controllers/coupon.js'
+import couponList from '../components/coupon-list.vue'
 
 export default {
-    name: 'user-index',
+    name: 'coupon-index',
     components: {
-        userList
+        couponList
     },
     data () {
         return {
             roleType: 0,
             agentCompany: [],
             selectedAgent: '',
-            userData: []
+            couponData: []
         }
     },
     methods: {
@@ -57,7 +57,7 @@ export default {
 
         getAllAgents () {
             let vm = this
-            
+
             company.list().then(res => {
                 vm.agentCompany = res.entities.filter(r => r.type !== 1)
             })
@@ -76,13 +76,15 @@ export default {
         selectAgent (val) {
             let vm = this
 
-            user.listByAgent(val).then(res => {
-                vm.userData = res.entities
+            coupon.listByCompany(val).then(res => {
+                if (res.status === 0) {
+                    vm.couponData = res.entities
+                }
             })
         }
     },
     created: function () {
-        console.log('In user index create function')
+        console.log('In coupon index create function')
         this.init()
     }
 }

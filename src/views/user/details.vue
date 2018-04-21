@@ -11,12 +11,16 @@
                         <Icon type="grid"></Icon>
                         消费者钱包记录
                     </p>
-                    <a href="#" slot="extra" @click.prevent="getEquipments">
+                    <a href="#" slot="extra" @click.prevent="loadWallet">
                         <Icon type="ios-loop-strong"></Icon>
                         刷新
                     </a>
 
                     <consumer-wallet-list :itemList="walletData"></consumer-wallet-list>
+
+                    <p>
+                        <Button type="primary" @click="toIndex">返回</Button>
+                    </p>
                 </Card>
             </Col>
         </Row>
@@ -66,6 +70,10 @@ export default {
                     vm.walletSummary = res.entities[0]
                 }
             })
+        },
+
+        toIndex () {
+            this.$router.push({ name: 'user-index' })
         }
     },
     mounted: function () {
