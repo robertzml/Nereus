@@ -12,11 +12,14 @@
                         刷新
                     </a>
 
-                    <Select v-model="selectedAgent" style="width:300px" placeholder="选择代理商" @on-change="selectAgent">
-                        <Option v-for="item in agentCompany" :value="item.id" :key="item.id">{{ item.name }}</Option>
-                    </Select>
+                    <div>
+                        <span>代理商：</span>
+                        <Select v-model="selectedAgent" style="width:300px" placeholder="选择代理商" @on-change="selectAgent">
+                            <Option v-for="item in agentCompany" :value="item.id" :key="item.id">{{ item.name }}</Option>
+                        </Select>
+                    </div>
 
-                    <br /><br />
+                    <br />
                     <user-list :itemList="userData"></user-list>
                 </Card>
             </Col>

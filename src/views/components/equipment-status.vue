@@ -51,14 +51,14 @@
                             {{ parseInt(realInfo.output_flow_rate, 16) * 0.1 }} 升/分钟
                         </FormItem>
                         <FormItem label="当前输出功率">
-                            {{ parseInt(realInfo.output_capacity_factor, 16) }} W
+                            {{ realInfo.output_capacity_factor }} W
                         </FormItem>
 
                         <FormItem label="累计使用电量">
-                            {{ realInfo.cummlative_use_electricity }} 度
+                            {{ realInfo.cummlative_use_electricity / 100 }} 度
                         </FormItem>
                         <FormItem label="累计节省电量">
-                            {{ realInfo.cummlative_electricity_saving }} 度
+                            {{ realInfo.cummlative_electricity_saving / 100 }} 度
                         </FormItem>
 
                         <FormItem label="日志时间">
@@ -102,9 +102,10 @@ export default {
                 if (res.status === 0) {
                     vm.realInfo = res.entities[0]
                    
-                    vm.realInfo.cummlative_heat_water = vm.transDigit(vm.realInfo.cummlative_heat_water)
-                    vm.realInfo.cummlative_use_electricity = vm.transDigit(vm.realInfo.cummlative_use_electricity)
-                    vm.realInfo.cummlative_electricity_saving = vm.transDigit(vm.realInfo.cummlative_electricity_saving)
+                    vm.realInfo.cummlative_heat_water = vm.transDigit(vm.realInfo.cummlative_heat_water, 8)
+                    vm.realInfo.cummlative_use_electricity = vm.transDigit(vm.realInfo.cummlative_use_electricity, 8)
+                    vm.realInfo.cummlative_electricity_saving = vm.transDigit(vm.realInfo.cummlative_electricity_saving, 8)
+                    vm.realInfo.output_capacity_factor = vm.transDigit(vm.realInfo.output_capacity_factor, 4)
                 } else {
                     this.$Notice.error({
                         title: '获取实时状态出错',
@@ -126,15 +127,16 @@ export default {
             }
         },
 
-        transDigit (input) {
+        transDigit (input, len) {
             let output = ''
-            for (let i = 0; i < 8;) {
+            for (let i = 0; i < len;) {
                 let sub = input.substring(i, i + 2)
-                output += parseInt(sub, 16)
+                output += parseInt(sub, 16).toString().padStart(2, '0')
 
                 i = i + 2
             }
-            return output
+
+            return parseInt(output)
         }
     },
     mounted: function () {

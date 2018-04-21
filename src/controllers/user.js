@@ -15,5 +15,13 @@ export default {
             .then(res => {
                 return res.data
             })
+    },
+
+    // 消费者钱包汇总
+    findConsumerWalletSum (consumerId, companyCode) {
+        return api._get({ url: '/t_company_agent_equipment_finance_trade/findConsumerWalletSumByConditions', params: { consumer_id: consumerId, company_code: companyCode } })
+            .then(res => {
+                return res.data
+            })
     }
 }
