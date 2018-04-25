@@ -17,11 +17,11 @@
                 <Row>
                     <Col span="10" push="2">
                         <FormItem label="激活状态">
-                            {{ realInfo.is_activate | activateState }}
+                            {{ realInfo.is_activation | activateState }}
                         </FormItem>
 
                         <FormItem label="解锁状态">
-                            {{ realInfo.is_unlock | lockState }}
+                            {{ realInfo.is_lock | lockState }}
                         </FormItem>
                       
                         <FormItem label="次数">
@@ -75,6 +75,7 @@ export default {
             }
         },
         activateState: function (isActivate) {
+            console.log(isActivate)
             return isActivate ? '已激活' : '未激活'
         },
         lockState: function (isUnlock) {

@@ -2,7 +2,8 @@
     <div>
         <Row :gutter="16">
             <Col span="8">
-                <consumer-wallet-summary :wallet-summary-info="walletSummary"></consumer-wallet-summary>
+                <consumer-wallet-summary :wallet-summary-info="walletSummary" style="margin-bottom: 15px;"></consumer-wallet-summary>                
+                <user-trade :phone="phone" :agent-company-id="agentCompanyId"></user-trade>
             </Col>
 
             <Col span="16">
@@ -31,27 +32,43 @@
 import user from '../../controllers/user.js'
 import consumerWalletList from '../components/consumer-wallet-list.vue'
 import consumerWalletSummary from '../components/consumer-wallet-summary.vue'
+import userTrade from '../components/user-trade.vue'
 
 export default {
     name: 'user-details',
     components: {
         consumerWalletList,
-        consumerWalletSummary
+        consumerWalletSummary,
+        userTrade
     },
     data () {
         return {
             consumerId: '',
             companyCode: '',
+            agentCompanyId: 0,
             walletData: [],
-            walletSummary: {}
+            walletSummary: {},
+            phone: ''
         }
     },
     methods: {
         init () {
             this.consumerId = this.$route.params.id
             this.companyCode = this.$route.params.code
+            this.agentCompanyId = this.$route.params.aid
+            this.loadUserPhone()
             this.loadWallet()
             this.loadWalletSummary()
+        },
+
+        loadUserPhone () {
+            let vm = this
+
+            user.findConsumerPhone(this.consumerId).then(res => {
+                if (res.status === 0) {
+                    vm.phone = res.entity.phone
+                }
+            })
         },
 
         loadWallet () {

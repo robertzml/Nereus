@@ -82,7 +82,7 @@ export default {
             this.pageSize = pageSize
         },
         showDetails (item) {
-            this.$router.push({ name: 'user-details', params: { id: item.consumer_id, code: item.company_code } })
+            this.$router.push({ name: 'user-details', params: { id: item.consumer_id, code: item.company_code, aid: item.agent_id } })
         }
     }
 }

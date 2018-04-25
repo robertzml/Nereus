@@ -23,5 +23,23 @@ export default {
             .then(res => {
                 return res.data
             })
+    },
+
+    // 获取用户手机号
+    findConsumerPhone (consumerId) {
+        return api._get({ url: '/t_company_agent_equipment_finance_trade/findConsumerPhoneByConsumerId', params: { consumer_id: consumerId } })
+            .then(res => {
+                return res.data
+            })
+    },
+
+    // 用户充值
+    tradeIn (model) {
+        return api._post({ 
+            url: '/t_company_agent_equipment_finance_trade/addTochargeWalletByPlatformAndPhone',
+            data: model
+        }).then(res => {
+            return res.data
+        })
     }
 }

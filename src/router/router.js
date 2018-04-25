@@ -125,7 +125,7 @@ export const appRouter = [
         component: Home,
         children: [
             { path: 'index', title: '用户管理', parent: 'product-menu', role: 6, name: 'user-index', meta: { keepAlive: true }, component: resolve => { require(['@/views/user/index.vue'], resolve) } },
-            { path: 'details/:id/:code', title: '用户信息', role: 6, name: 'user-details', component: resolve => { require(['@/views/user/details.vue'], resolve) } }
+            { path: 'details/:id/:code/:aid', title: '用户信息', role: 6, name: 'user-details', component: resolve => { require(['@/views/user/details.vue'], resolve) } }
         ]
     },
     {
