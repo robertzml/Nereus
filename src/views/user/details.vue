@@ -1,30 +1,29 @@
 <template>
     <div>
-        <Row :gutter="16">
-            <Col span="8">
-                <consumer-wallet-summary :wallet-summary-info="walletSummary" style="margin-bottom: 15px;"></consumer-wallet-summary>                
-                <user-trade :phone="phone" :agent-company-id="agentCompanyId"></user-trade>
-            </Col>
+        <Tabs>
+            <TabPane label="消费者钱包记录">
+                <Row>
+                    <Col span="24">
+                        <consumer-wallet-list :itemList="walletData"></consumer-wallet-list>
+                        <p>
+                            <Button type="primary" @click="toIndex">返回</Button>
+                        </p>
+                    </Col>
+                </Row>
+            </TabPane>
 
-            <Col span="16">
-                <Card>
-                    <p slot="title">
-                        <Icon type="grid"></Icon>
-                        消费者钱包记录
-                    </p>
-                    <a href="#" slot="extra" @click.prevent="loadWallet">
-                        <Icon type="ios-loop-strong"></Icon>
-                        刷新
-                    </a>
-
-                    <consumer-wallet-list :itemList="walletData"></consumer-wallet-list>
-
-                    <p>
-                        <Button type="primary" @click="toIndex">返回</Button>
-                    </p>
-                </Card>
-            </Col>
-        </Row>
+            <TabPane label="钱包充值">
+                <Row :gutter="16">
+                    <Col span="12">
+                        <consumer-wallet-summary :wallet-summary-info="walletSummary" style="margin-bottom: 15px;"></consumer-wallet-summary>
+                    </Col>
+                    <Col span="12">
+                        <user-trade :phone="phone" :agent-company-id="agentCompanyId"></user-trade>
+                    </Col>
+                </Row>
+            </TabPane>
+        </Tabs>
+       
     </div>
 </template>
 

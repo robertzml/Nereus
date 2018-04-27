@@ -1,7 +1,7 @@
 <template>
     <div>
-        <Row :gutter="16">
-            <Col span="12">
+        <Tabs>
+            <TabPane label="设备信息">
                 <Card>
                     <p slot="title">
                         <Icon type="grid"></Icon>
@@ -55,19 +55,27 @@
                             </Form>
                         </Col>
                     </Row>
-
-                    <br />
                 </Card>
-            </Col>
-            <Col span="12">
-                <Card style="margin-bottom: 20px;">
-                    <p slot="title">
-                        <Icon type="grid"></Icon>
-                        设备操作
-                    </p>
+            </TabPane>
+            <TabPane label="实时状态">
+                <Row :gutter="16">
+                    <Col span="12">
+                        <equipment-status :serial_number="equipmentInfo.serial_number"></equipment-status>
+                    </Col>
+                    <Col span="12">
+                        <equipment-key :serial_number="equipmentInfo.serial_number"></equipment-key>
+                    </Col>
+                </Row>
+            </TabPane>
+            <TabPane label="设备操作">
+                <Row>
+                    <Col span="24">
+                        <Card>
+                            <p slot="title">
+                                <Icon type="grid"></Icon>
+                                设备解锁
+                            </p>
 
-                    <Row>
-                        <Col span="24">
                             <Form ref="formLock" :model="equipmentLock" :rules="ruleLock" inline>
                                 <FormItem prop="deadline">
                                     <DatePicker type="date" placeholder="选择日期" :options="deadlineOptions" v-model="equipmentLock.deadline"></DatePicker>
@@ -78,27 +86,13 @@
                             </Form>
 
                             <br />
-                           
+                            
                             <Button type="primary" @click="inactivate" v-if="equipmentInfo.status === 2">同意注销</Button>
-                        </Col>
-                        <Col span="0" v-show="false">
-                            <Form ref="formTrade" :model="equipmentTrade" inline>
-                                <FormItem prop="tradeInMoney">
-                                    <InputNumber :max="5000000" :min="0" :precision="2" v-model="equipmentTrade.tradeInMoney" style="width: 150px;"></InputNumber>
-                                </FormItem>
-                                <FormItem>
-                                    <Button type="primary" @click="handleTrade('formTrade')">充值</Button>
-                                </FormItem>
-                            </Form>
-                        </Col>
-                    </Row>
-                   
-                </Card>
-
-                <equipment-status :serial_number="equipmentInfo.serial_number"></equipment-status>
-                <equipment-key :serial_number="equipmentInfo.serial_number"></equipment-key>
-            </Col>
-        </Row>
+                        </Card>
+                    </Col>
+                </Row>
+            </TabPane>
+        </Tabs>
     </div>
 </template>
 
