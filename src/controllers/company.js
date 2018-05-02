@@ -24,6 +24,14 @@ export default {
             })
     },
 
+    // 获取厂商和其下代理商
+    listAgentAndSelf (companyId) {
+        return api._get({ url: '/t_company/findAgentAndMyCompanyById', params: { company_id: companyId } })
+            .then(res => {
+                return res.data
+            })
+    },
+
     details (id) {
         return api._get({ url: '/t_company/findOne', params: { company_id: id } })
             .then(res => {

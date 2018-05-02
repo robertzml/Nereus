@@ -24,6 +24,10 @@
                             {{ realInfo.is_lock | lockState }}
                         </FormItem>
                       
+                        <FormItem label="主板序列号">
+                            {{ mainboard_serial_number }}
+                        </FormItem>
+
                         <FormItem label="次数">
                             {{ counter }}
                         </FormItem>

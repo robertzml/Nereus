@@ -68,7 +68,7 @@ export default {
             let vm = this
             let companyId = this.$store.state.user.companyId
 
-            company.listByParent(companyId).then(res => {
+            company.listAgentAndSelf(companyId).then(res => {
                 vm.agentCompany = res.entities
             })
         },

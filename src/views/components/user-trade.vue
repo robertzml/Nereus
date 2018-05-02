@@ -8,11 +8,11 @@
 
             <Form ref="formTrade" :model="tradeInfo" :label-width="80">
                 <FormItem label="充值金额">
-                    <InputNumber :max="5000000" :min="0" :precision="2" v-model="tradeInfo.tradeInMoney" style="width: 150px;"></InputNumber>
+                    <InputNumber :max="5000000" :min="0" :precision="0" v-model="tradeInfo.tradeInMoney" style="width: 150px;"></InputNumber>
                 </FormItem>
                 
                 <FormItem label="充值优惠券">
-                    <InputNumber :max="5000000" :min="0" :precision="2" v-model="tradeInfo.tradeInCoupon" style="width: 150px;"></InputNumber>
+                    <InputNumber :max="5000000" :min="0" :precision="0" v-model="tradeInfo.tradeInCoupon" style="width: 150px;"></InputNumber>
                 </FormItem>
 
                 <FormItem>
@@ -52,7 +52,7 @@ export default {
             }
 
             user.tradeIn(act).then(res => {
-                if (res.code === 0) {
+                if (res.status === 0) {
                     this.$Notice.success({
                         title: '充值成功',
                         desc: res.message

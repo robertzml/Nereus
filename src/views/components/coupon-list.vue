@@ -47,6 +47,15 @@ export default {
                             <span>{ nereus.displayDateTime(params.row.create_date) }</span>
                         )
                     }
+                },
+                {
+                    title: '修改日期',
+                    key: 'update_date',
+                    render: (h, params) => {
+                        return (
+                            <span>{ nereus.displayDateTime(params.row.update_date) }</span>
+                        )
+                    }
                 }
             ],
             pageSize: 10,

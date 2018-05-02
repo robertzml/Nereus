@@ -21,6 +21,9 @@
 
                     <br />
                     <coupon-list :item-list="couponData"></coupon-list>
+
+                    <br />
+                    <Button type="success" @click="addCoupon">添加优惠券</Button>
                 </Card>
             </Col>
         </Row>
@@ -68,7 +71,7 @@ export default {
             let vm = this
             let companyId = this.$store.state.user.companyId
 
-            company.listByParent(companyId).then(res => {
+            company.listAgentAndSelf(companyId).then(res => {
                 vm.agentCompany = res.entities
             })
         },
@@ -81,6 +84,10 @@ export default {
                     vm.couponData = res.entities
                 }
             })
+        },
+
+        addCoupon () {
+            this.$router.push({ name: 'coupon-create' })
         }
     },
     created: function () {

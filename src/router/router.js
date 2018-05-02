@@ -134,7 +134,8 @@ export const appRouter = [
         title: '优惠券管理',
         component: Home,
         children: [
-            { path: 'index', title: '优惠券管理', parent: 'product-menu', role: 6, name: 'coupon-index', meta: { keepAlive: true }, component: resolve => { require(['@/views/coupon/index.vue'], resolve) } }
+            { path: 'index', title: '优惠券管理', parent: 'product-menu', role: 6, name: 'coupon-index', meta: { keepAlive: true }, component: resolve => { require(['@/views/coupon/index.vue'], resolve) } },
+            { path: 'create', title: '添加优惠券', name: 'coupon-create', component: resolve => { require(['@/views/coupon/create.vue'], resolve) } }
         ]
     }
 ]

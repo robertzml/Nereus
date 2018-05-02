@@ -4,6 +4,9 @@
             <TabPane label="消费者钱包记录">
                 <Row>
                     <Col span="24">
+                        <div class="filter-panel">
+                            <Button type="primary" @click="loadWallet">刷新</Button>
+                        </div>
                         <consumer-wallet-list :itemList="walletData"></consumer-wallet-list>
                         <p>
                             <Button type="primary" @click="toIndex">返回</Button>
@@ -97,3 +100,10 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+div.filter-panel {
+    padding: 5px;
+    margin-bottom: 5px;
+}
+</style>
