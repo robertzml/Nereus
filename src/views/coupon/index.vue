@@ -7,7 +7,7 @@
                         <Icon type="grid"></Icon>
                         优惠券列表
                     </p>
-                    <a href="#" slot="extra" @click.prevent="getEquipments">
+                    <a href="#" slot="extra" @click.prevent="loadCoupon">
                         <Icon type="ios-loop-strong"></Icon>
                         刷新
                     </a>
@@ -44,8 +44,17 @@ export default {
         return {
             roleType: 0,
             agentCompany: [],
-            selectedAgent: '',
+            selectedAgent: 0,
             couponData: []
+        }
+    },
+    beforeRouteEnter (to, from, next) {
+        if (from.name === 'coupon-edit' || from.name === 'coupon-create') {
+            next(vm => {
+                vm.loadCoupon()
+            })
+        } else {
+            next()
         }
     },
     methods: {
@@ -77,13 +86,19 @@ export default {
         },
 
         selectAgent (val) {
-            let vm = this
+            this.loadCoupon()
+        },
 
-            coupon.listByCompany(val).then(res => {
-                if (res.status === 0) {
-                    vm.couponData = res.entities
-                }
-            })
+        loadCoupon () {
+            if (this.selectedAgent !== 0) {
+                let vm = this
+
+                coupon.listByCompany(this.selectedAgent).then(res => {
+                    if (res.status === 0) {
+                        vm.couponData = res.entities
+                    }
+                })
+            }
         },
 
         addCoupon () {

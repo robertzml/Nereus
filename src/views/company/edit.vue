@@ -154,7 +154,7 @@ export default {
 
             this.$refs[name].validate((valid) => {
                 if (valid) {
-                     company.update(this.companyInfo).then(res => {
+                    company.update(this.companyInfo).then(res => {
                         vm.$Message.info(res.message)
                         vm.$router.push({ name: 'company-index' })
                     })
@@ -163,6 +163,7 @@ export default {
                 }
             })
         },
+        
         handleReset (name) {
             this.$refs[name].resetFields()
         },

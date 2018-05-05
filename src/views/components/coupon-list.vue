@@ -56,6 +56,19 @@ export default {
                             <span>{ nereus.displayDateTime(params.row.update_date) }</span>
                         )
                     }
+                },
+                {
+                    title: '操作',
+                    key: 'action',
+                    width: 150,
+                    align: 'center',
+                    render: (h, params) => {
+                        return (
+                        <div>
+                            <i-button type="primary" size="small" style="marginRight: 5px" onClick={ () => { this.showEdit(params.row) } }>编辑</i-button>
+                        </div>
+                        )
+                    }
                 }
             ],
             pageSize: 10,
@@ -75,6 +88,10 @@ export default {
     methods: {
         changePageSize (pageSize) {
             this.pageSize = pageSize
+        },
+
+        showEdit (item) {
+            this.$router.push({ name: 'coupon-edit', params: { id: item.id } })
         }
     }
 }

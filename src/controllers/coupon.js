@@ -15,5 +15,14 @@ export default {
             .then(res => {
                 return res.data
             })
+    },
+
+    update (model) {
+        return api._post({ 
+            url: '/t_product_sale_coupon_rule/update', 
+            data: model
+        }).then(res => {
+            return res.data
+        })
     }
 }
