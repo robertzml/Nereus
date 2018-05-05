@@ -144,11 +144,25 @@ export default {
 
             if (this.roleType === 0 || this.roleType === 1) {
                 product.listView().then(res => {
-                    vm.productData = res.entities
+                    if (res.status === 0) {
+                        vm.productData = res.entities
+                    } else {
+                        this.$Notice.error({
+                            title: '获取产品失败',
+                            desc: res.message
+                        })
+                    }
                 })
             } else if (this.roleType === 2) {
                 product.listByCompanyView(companyId).then(res => {
-                    vm.productData = res.entities
+                    if (res.status === 0) {
+                        vm.productData = res.entities
+                    } else {
+                        this.$Notice.error({
+                            title: '获取产品失败',
+                            desc: res.message
+                        })
+                    }
                 })
             }
         },

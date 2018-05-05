@@ -21,15 +21,18 @@
 
         <Row>
             <Col span="24">
-                <Card>
+                <Card style="margin-bottom: 50px;">
                     <p slot="title">
                         <Icon type="grid"></Icon>
                         增加代理产品
                     </p>
                     <Form ref="formInline" :model="agentInfo" :rules="ruleAgentInfo" inline>
                         <FormItem prop="product_id">
-                            <Select v-model="agentInfo.product_id" style="width: 200px">
-                                <Option v-for="item in productList" :value="item.id" :key="item.id">{{ item.name }}</Option>
+                            <Select v-model="agentInfo.product_id" style="width: 200px" :transfer="true">           
+                                <Option v-for="item in productList" :value="item.id" :key="item.id" :label="item.name">
+                                    <span>{{ item.name }}</span>
+                                    <span style="float:right;color:#0cf">{{ item.product_code }}</span>
+                                </Option>
                             </Select>
                         </FormItem>
                         <FormItem>

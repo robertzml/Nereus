@@ -105,18 +105,32 @@ export default {
 
             if (roleType === 0 || roleType === 1) {
                 equipment.getLogout().then(res => {
-                    vm.items = res.entities
-                    vm.itemsCount = res.entities.length
-                    vm.currentPage = 1
-                    vm.tableData = vm.items.slice(0, vm.pageSize)
+                    if (res.status === 0) {
+                        vm.items = res.entities
+                        vm.itemsCount = res.entities.length
+                        vm.currentPage = 1
+                        vm.tableData = vm.items.slice(0, vm.pageSize)
+                    } else {
+                        this.$Notice.error({
+                            title: '获取设备信息失败',
+                            desc: res.message
+                        })
+                    }
                 })
             } else {
                 let companyId = this.$store.state.user.companyId
                 equipment.getLogout(companyId).then(res => {
-                    vm.items = res.entities
-                    vm.itemsCount = res.entities.length
-                    vm.currentPage = 1
-                    vm.tableData = vm.items.slice(0, vm.pageSize)
+                    if (res.status === 0) {
+                        vm.items = res.entities
+                        vm.itemsCount = res.entities.length
+                        vm.currentPage = 1
+                        vm.tableData = vm.items.slice(0, vm.pageSize)
+                    } else {
+                        this.$Notice.error({
+                            title: '获取设备信息失败',
+                            desc: res.message
+                        })
+                    }
                 })
             }
         },

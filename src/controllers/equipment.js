@@ -74,7 +74,7 @@ export default {
     // 获取待注销设备列表
     getLogout (agentCompanyId) {
         if (agentCompanyId !== undefined) {
-            return api._get({ url: '/t_equipment_inactivate_apply/findInfoByAgentId', params: { agent_id: agentCompanyId } })
+            return api._get({ url: '/t_equipment_inactivate_apply/findInfoByCompanyId', params: { company_id: agentCompanyId } })
                 .then(res => {
                     return res.data
                 })

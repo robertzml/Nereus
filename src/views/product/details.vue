@@ -89,7 +89,14 @@ export default {
         getProduct (id) {
             let vm = this
             product.details(id).then(res => {
-                vm.productInfo = res.entity
+                if (res.status === 0) {
+                    vm.productInfo = res.entity
+                } else {
+                    this.$Notice.error({
+                        title: '获取产品失败',
+                        desc: res.message
+                    })
+                }
             }).then(() => {
                 nereus.getProductTypeName(this.productInfo.type_id).then(res => {
                     vm.typeName = res

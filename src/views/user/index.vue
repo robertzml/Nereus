@@ -77,7 +77,14 @@ export default {
             let vm = this
 
             user.listByAgent(val).then(res => {
-                vm.userData = res.entities
+                if (res.status === 0) {
+                    vm.userData = res.entities
+                } else {
+                    this.$Notice.error({
+                        title: '获取消费者信息失败',
+                        desc: res.message
+                    })
+                }
             })
         }
     },
