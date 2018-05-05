@@ -1,7 +1,7 @@
 <template>
     <div>
-        <Row>
-            <Col span="24">
+        <Tabs>
+            <TabPane label="产品信息">
                 <Card>
                     <p slot="title">
                         <Icon type="grid"></Icon>
@@ -38,19 +38,25 @@
 
                                 <FormItem>
                                     <Button type="primary" @click="toIndex" style="margin-left: 8px">返回</Button>
-                                    <Button type="primary" @click="addRule" style="margin-left: 8px">添加销售规则</Button>
+                                    
                                 </FormItem>
                             </Form>
                         </Col>
                     </Row>
                 </Card>
-            </Col>
-        </Row>
-        <Row>
-            <Col span="24">
+            </TabPane>
+
+            <TabPane label="销售规则">
                 <sale-rule-list :item-list="saleRuleData"></sale-rule-list>
-            </Col>
-        </Row>
+                <p>
+                    <Button type="primary" @click="addRule" style="margin-left: 8px">添加销售规则</Button>
+                </p>
+            </TabPane>
+
+            <TabPane label="产品统计">
+                <product-lock-summary :item-list="lockSummaryData"></product-lock-summary>
+            </TabPane>
+        </Tabs>
     </div>
 </template>
 
@@ -60,11 +66,13 @@ import product from '../../controllers/product.js'
 import * as nereus from '../../utility/nereus.js'
 import company from '../../controllers/company.js'
 import saleRuleList from '../components/sale-rule-list.vue'
+import productLockSummary from '../components/product-lock-summary.vue'
 
 export default {
     name: 'product-details',
     components: {
-        saleRuleList
+        saleRuleList,
+        productLockSummary
     },
     data () {
         return {
@@ -82,7 +90,8 @@ export default {
             },
             typeName: '',
             companyName: '',
-            saleRuleData: []
+            saleRuleData: [],
+            lockSummaryData: []
         }
     },
     methods: {
@@ -115,6 +124,15 @@ export default {
             })
         },
 
+        getLockSummary () {
+            let vm = this
+            product.findQuantity(this.productId).then(res => {
+                if (res.status === 0) {
+                    vm.lockSummaryData = res.entities
+                }
+            })
+        },
+
         toIndex () {
             this.$router.push({ name: 'product-index' })
         },
@@ -127,6 +145,7 @@ export default {
         this.productId = this.$route.params.id
         this.getProduct(this.productId)
         this.getSaleRules(this.productId)
+        this.getLockSummary(this.productId)
     }
 }
 </script>

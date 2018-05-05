@@ -73,5 +73,12 @@ export default {
             .then(res => {
                 return res.data
             })
+    },
+
+    findQuantity (productId) {
+        return api._get({ url: '/t_equipment_owner_protocol/findQuantityByAgentIdAndIsUnlockForAgentApp', params: { product_id: productId } })
+            .then(res => {
+                return res.data
+            })
     }
 }
