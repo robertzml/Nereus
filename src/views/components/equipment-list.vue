@@ -4,7 +4,6 @@
         <div style="margin: 10px;overflow-x: hidden" v-if="showPager">
             <div style="float: right;">
                 <Page :total="itemsCount" :current.sync="currentPage" :page-size="pageSize" :page-size-opts="pageSizeOpt" show-sizer placement="top" 
-                    @on-change="changePage"
                     @on-page-size-change="changePageSize"></Page>
             </div>
         </div>
@@ -18,8 +17,7 @@ export default {
     name: 'equipment-list',
     props: {
         itemList: { type: Array, required: true },
-        showPager: { type: Boolean, default: true },
-        filterKey: { type: String }
+        showPager: { type: Boolean, default: true }
     },
     data () {
         return {
@@ -116,17 +114,21 @@ export default {
         },
         tableData () {
             let temp = this.itemList
+            
+            let pageCount = Math.ceil(temp.length / this.pageSize)
 
+            if (this.currentPage > pageCount) {
+                this.changePage(1)
+            }
             return temp.slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize)
         }
     },
     methods: {
         changePage (page) {
-            // this.tableData = this.itemList.slice((page - 1) * this.pageSize, page * this.pageSize)
+            this.currentPage = page
         },
         changePageSize (pageSize) {
             this.pageSize = pageSize
-            // this.tableData = this.itemList.slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize)
         },
         showDetails (item) {
             this.$router.push({ name: 'equipment-details', params: { id: item.id } })

@@ -35,6 +35,10 @@ export default {
                     key: 'agent_company_name'
                 },
                 {
+                    title: '产品代码',
+                    key: 'product_code'
+                },
+                {
                     title: '产品名称',
                     key: 'product_name'
                 },

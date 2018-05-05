@@ -13,7 +13,7 @@
                 
                 <div class="filter-panel">
                     <span>产品类型</span>
-                    <Select v-model="sProductType" style="width:200px" placeholder="选择产品类型" clearable @on-change="selectedProductType">
+                    <Select v-model="sProductType" style="width:200px" placeholder="选择产品类型" clearable>
                         <Option v-for="item in productTypeList" :value="item.id" :key="item.id">{{ item.name }}</Option>
                     </Select>
 
@@ -116,11 +116,25 @@ export default {
 
             if (this.roleType === 0 || this.roleType === 1) {
                 equipment.listView().then(res => {
-                    vm.equipmentData = res.entities
+                    if (res.status === 0) {
+                        vm.equipmentData = res.entities
+                    } else {
+                        this.$Notice.error({
+                            title: '获取设备信息失败',
+                            desc: res.message
+                        })
+                    }
                 })
             } else {
                 equipment.listByCompanyView(companyId).then(res => {
-                    vm.equipmentData = res.entities
+                    if (res.status === 0) {
+                        vm.equipmentData = res.entities
+                    } else {
+                        this.$Notice.error({
+                            title: '获取设备信息失败',
+                            desc: res.message
+                        })
+                    }
                 })
             }
         },
@@ -129,7 +143,14 @@ export default {
             let vm = this
 
             company.listByType(2).then(res => {
-                vm.companyList = res.entities
+                if (res.status === 0) {
+                    vm.companyList = res.entities
+                } else {
+                    this.$Notice.error({
+                        title: '获取公司信息失败',
+                        desc: res.message
+                    })
+                }
             })
         },
 
@@ -140,11 +161,25 @@ export default {
 
             if (this.roleType === 0 || this.roleType === 1) {
                 company.list().then(res => {
-                    vm.agentList = res.entities.filter(r => r.type !== 1)
+                    if (res.status === 0) {
+                        vm.agentList = res.entities.filter(r => r.type !== 1)
+                    } else {
+                        this.$Notice.error({
+                            title: '获取代理商信息失败',
+                            desc: res.message
+                        })
+                    }
                 })
             } else {
                 company.listByParent(companyId).then(res => {
-                    vm.agentList = res.entities
+                    if (res.status === 0) {
+                        vm.agentList = res.entities
+                    } else {
+                        this.$Notice.error({
+                            title: '获取代理商信息失败',
+                            desc: res.message
+                        })
+                    }
                 })
             }
         },
@@ -155,11 +190,6 @@ export default {
             productType.list().then(res => {
                 vm.productTypeList = res.entities
             })
-        },
-
-        selectedProductType (val) {
-            console.log('type is: ' + val)
-            console.log('s type is:' + this.sProductType)
         }
     },
     created: function () {
