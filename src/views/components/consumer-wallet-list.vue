@@ -74,6 +74,10 @@ export default {
                     }
                 },
                 {
+                    title: '操作者姓名',
+                    key: 'operate_account_name'
+                },
+                {
                     title: '交易描述',
                     key: 'transferred_description'
                 }

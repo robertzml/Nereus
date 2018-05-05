@@ -34,6 +34,10 @@ export default {
                     key: 'app_consumer_name'
                 },
                 {
+                    title: '公司代码',
+                    key: 'company_code'
+                },
+                {
                     title: '所属代理商',
                     key: 'agent_company_name'
                 },

@@ -1,6 +1,20 @@
 <template>
     <div>
         <Tabs>
+            <TabPane label="消费者信息">
+                <Row :gutter="16">
+                    <Col span="12">
+                        <consumer-wallet-details :wallet-details-info="walletDetails"></consumer-wallet-details>
+                        <br />
+                        <p>
+                            <Button type="primary" @click="toIndex">返回</Button>
+                        </p>
+                    </Col>
+                    <Col span="12">
+                        <consumer-wallet-summary :wallet-summary-info="walletSummary"></consumer-wallet-summary>
+                    </Col>
+                </Row>
+            </TabPane>
             <TabPane label="消费者钱包记录">
                 <Row>
                     <Col span="24">
@@ -8,19 +22,13 @@
                             <Button type="primary" @click="loadWallet">刷新</Button>
                         </div>
                         <consumer-wallet-list :itemList="walletData"></consumer-wallet-list>
-                        <p>
-                            <Button type="primary" @click="toIndex">返回</Button>
-                        </p>
                     </Col>
                 </Row>
             </TabPane>
 
             <TabPane label="钱包充值">
                 <Row :gutter="16">
-                    <Col span="12">
-                        <consumer-wallet-summary :wallet-summary-info="walletSummary" style="margin-bottom: 15px;"></consumer-wallet-summary>
-                    </Col>
-                    <Col span="12">
+                    <Col span="24">
                         <user-trade :phone="phone" :agent-company-id="agentCompanyId"></user-trade>
                     </Col>
                 </Row>
@@ -32,6 +40,7 @@
 
 <script>
 import user from '../../controllers/user.js'
+import consumerWalletDetails from '../components/consumer-wallet-details.vue'
 import consumerWalletList from '../components/consumer-wallet-list.vue'
 import consumerWalletSummary from '../components/consumer-wallet-summary.vue'
 import userTrade from '../components/user-trade.vue'
@@ -39,6 +48,7 @@ import userTrade from '../components/user-trade.vue'
 export default {
     name: 'user-details',
     components: {
+        consumerWalletDetails,
         consumerWalletList,
         consumerWalletSummary,
         userTrade
@@ -50,6 +60,7 @@ export default {
             agentCompanyId: 0,
             walletData: [],
             walletSummary: {},
+            walletDetails: {},
             phone: ''
         }
     },
@@ -59,6 +70,7 @@ export default {
             this.companyCode = this.$route.params.code
             this.agentCompanyId = this.$route.params.aid
             this.loadUserPhone()
+            this.loadWalletDetals()
             this.loadWallet()
             this.loadWalletSummary()
         },
@@ -69,6 +81,26 @@ export default {
             user.findConsumerPhone(this.consumerId).then(res => {
                 if (res.status === 0) {
                     vm.phone = res.entity.phone
+                } else {
+                    this.$Notice.error({
+                        title: '获取用户电话失败',
+                        desc: res.message
+                    })
+                }
+            })
+        },
+
+        loadWalletDetals () {
+            let vm = this
+
+            user.details(this.companyCode, this.agentCompanyId, this.consumerId).then(res => {
+                if (res.status === 0) {
+                    vm.walletDetails = res.entity
+                } else {
+                    this.$Notice.error({
+                        title: '获取用户信息失败',
+                        desc: res.message
+                    })
                 }
             })
         },
@@ -77,7 +109,14 @@ export default {
             let vm = this
 
             user.findConsumerWallet(this.consumerId, this.companyCode).then(res => {
-                vm.walletData = res.entities
+                if (res.status === 0) {
+                    vm.walletData = res.entities
+                } else {
+                    this.$Notice.error({
+                        title: '获取钱包记录失败',
+                        desc: res.message
+                    })
+                }
             })
         },
 

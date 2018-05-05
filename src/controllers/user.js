@@ -3,6 +3,13 @@ import * as api from '../utility/api'
 export default {
     name: 'user',
 
+    details (companyCode, agentId, consumerId) {
+        return api._get({ url: '/t_equipment_owner_protocol/findConsumerInfoByConsumerIdAndAgentIdAndCompanyCode', params: { company_code: companyCode, agent_id: agentId, consumer_id: consumerId } })
+            .then(res => {
+                return res.data
+            })
+    },
+
     listByAgent (agentId) {
         return api._get({ url: '/t_equipment_owner_protocol/findConsumerInfoByConditionsAndProductId', params: { agent_id: agentId } })
             .then(res => {
