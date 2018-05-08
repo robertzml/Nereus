@@ -57,9 +57,9 @@ export default {
     },
 
     // 获取待激活设备
-    getInactivate (agentCompanyId) {
-        if (agentCompanyId !== undefined) {
-            return api._get({ url: '/t_equipment_owner_protocol/findByAgentId', params: { agent_id: agentCompanyId, auditing_state: 0 } })
+    getInactivate (companyId) {
+        if (companyId !== undefined) {
+            return api._get({ url: '/t_equipment_owner_protocol/findByCompanyId', params: { company: companyId, auditing_state: 0 } })
                 .then(res => {
                     return res.data
                 })
@@ -153,5 +153,22 @@ export default {
             .then(res => {
                 return res.data
             })
+    },
+
+    // 获取直饮机解锁状态
+    getWaterCleanerLockStatus (serialNumber) {
+        return api._get({ url: '/deviceOfWaterCleaner/t_equipment_key_status/findOneBySerialNumber', params: { serial_number: serialNumber } })
+            .then(res => {
+                return res.data
+            })
+    },
+
+    // 获取直饮机状态
+    getWaterCleanerStatus (serialNumber) {
+        return api._get({ url: '/deviceOfWaterCleaner/t_equipment_key_status/getEquipmentStatusBySerialNumber', params: { serial_number: serialNumber, start_row_number: 1, row_number: 1 } })
+            .then(res => {
+                return res.data
+            })
     }
+
 }

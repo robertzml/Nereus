@@ -8,7 +8,7 @@
 
             <Row>
                 <Col span="16" push="4">
-                    <Form ref="formValidate" :model="couponInfo" :rules="ruleValidate" :label-width="120">
+                    <Form ref="formValidate" :model="couponInfo" :label-width="120">
                         <FormItem label="满足条件金额" prop="min_amount">
                             <InputNumber :max="5000000" :min="0" :precision="2" v-model="couponInfo.min_amount" style="width: 150px;"></InputNumber>
                         </FormItem>
@@ -18,7 +18,6 @@
 
                         <FormItem>
                             <Button type="success" @click="handleSubmit('formValidate')">保存</Button>
-                            <Button type="ghost" @click="handleReset('formValidate')" style="margin-left: 8px">重置</Button>
                             <Button type="primary" @click="toIndex" style="margin-left: 8px">返回</Button>
                         </FormItem>
                     </Form>
@@ -29,6 +28,8 @@
 </template>
 
 <script>
+import coupon from '../../controllers/coupon.js'
+
 export default {
     name: 'coupon-create',
     data () {
@@ -44,8 +45,17 @@ export default {
 
         },
 
-        handleReset (name) {
-            this.$refs[name].resetFields()
+        handleSubmit (name) {
+            let vm = this
+
+            coupon.create(this.couponInfo).then(res => {
+                if (res.status === 0) {
+                    vm.$Message.info(res.message)
+                    vm.$router.push({ name: 'coupon-index' })
+                } else {
+                    this.$Message.error('保存失败:' + res.message)
+                }
+            })
         },
 
         toIndex () {

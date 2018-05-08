@@ -169,12 +169,19 @@ export default {
             equipment.detailsView(id).then(res => {
                 if (res.status === 0) {
                     vm.equipmentInfo = res.entity
+                    vm.getWaterInfo1()
                 } else {
                     this.$Notice.error({
                         title: '获取设备信息失败',
                         desc: res.message
                     })
                 }
+            })
+        },
+
+        getWaterInfo1 () {
+            equipment.getWaterCleanerLockStatus(this.equipmentInfo.serial_number).then(res => {
+                console.log(res)
             })
         },
 
