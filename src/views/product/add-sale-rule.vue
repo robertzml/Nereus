@@ -37,11 +37,11 @@
                             <InputNumber :max="5000000" :min="0" :precision="2" v-model="saleRuleInfo.device_deposit" style="width: 100px;"></InputNumber>
                         </FormItem>
 
-                        <FormItem label="分期付款时每期充值金额(元)">
+                        <FormItem label="每期费用(元)">
                             <Input v-model="saleRuleInfo.fix_month_rent"></Input>
                         </FormItem>
 
-                        <FormItem label="分期付款时每期时间(月)">
+                        <FormItem label="每期时间(月)">
                             <Input v-model="saleRuleInfo.set_time_divided_pay_pers"></Input>
                         </FormItem>
 
@@ -88,13 +88,16 @@ export default {
                     label: '租金'
                 }, {
                     id: 4,
-                    label: '特殊分期'
+                    label: '浮动分期'
                 }
             ],
             chargeType: [
                 {
                     id: 1,
                     label: '固定租金'
+                }, {
+                    id: 3,
+                    label: '节能分享'
                 }
             ],
             ruleValidate: {

@@ -23,7 +23,7 @@
                     </sidebar-menu>
                 </Sider>
                 <Layout :style="{marginLeft: sidebarWidth + 'px', position: 'fixed', left: '0', right:'0', top:'65px', bottom:'0'}">
-                    <Breadcrumb :style="{margin: '20px 15px'}">
+                    <Breadcrumb v-if="false" :style="{margin: '20px 15px'}">
                         <BreadcrumbItem>Home</BreadcrumbItem>
                         <BreadcrumbItem>Components</BreadcrumbItem>
                         <BreadcrumbItem>Layout</BreadcrumbItem>
@@ -118,7 +118,7 @@ export default {
     position: fixed;
     left: 0;
     right: 0;
-    top: 110px;
+    top: 68px;
     bottom: 50px;
     overflow-y: scroll;    
 }

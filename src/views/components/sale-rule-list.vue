@@ -61,7 +61,7 @@ export default {
                     key: 'device_deposit'
                 },
                 {
-                    title: '每期充值金额(元)',
+                    title: '每期费用(元)',
                     key: 'fix_month_rent'
                 },
                 {
@@ -95,7 +95,7 @@ export default {
                 case 3:
                     return '租金'
                 case 4:
-                    return '特殊分期'
+                    return '浮动分期'
                 default:
                     return '未定义'
             }
@@ -106,6 +106,8 @@ export default {
                     return '固定租金'
                 case 2:
                     return '混合租金'
+                case 3:
+                    return '节能分享'
                 default:
                     return '未定义'
             }
