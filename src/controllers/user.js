@@ -10,6 +10,13 @@ export default {
             })
     },
 
+    list () {
+        return api._get({ url: '/t_equipment_owner_protocol/findConsumerInfoByConditionsAndProductId' })
+            .then(res => {
+                return res.data
+            })
+    },
+
     listByAgent (agentId) {
         return api._get({ url: '/t_equipment_owner_protocol/findConsumerInfoByConditionsAndProductId', params: { agent_id: agentId } })
             .then(res => {

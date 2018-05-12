@@ -25,7 +25,21 @@
                     <span>所属代理商</span>
                     <Select v-model="sAgent" style="width:200px" placeholder="选择代理商" clearable>
                         <Option v-for="item in agentList" :value="item.id" :key="item.id">{{ item.name }}</Option>
+                    </Select>                    
+
+                    <span>激活状态</span>
+                    <Select v-model="sActivate" style="width:150px" clearable>
+                        <Option value="1">已激活</Option>
+                        <Option value="0">未激活</Option>
                     </Select>
+
+                    <span>解锁状态</span>
+                    <Select v-model="sLock" style="width:150px" clearable>
+                        <Option value="1">已解锁</Option>
+                        <Option value="0">未解锁</Option>
+                    </Select>
+
+                    <br /><br />
 
                     <span>搜索</span>
                     <Input v-model="filterKey" style="width: 200px"></Input>
@@ -58,6 +72,8 @@ export default {
             sProductType: '',
             sCompany: '',
             sAgent: '',
+            sActivate: '',
+            sLock: '',
             filterKey: ''
         }
     },
@@ -83,6 +99,18 @@ export default {
 
             if (this.sAgent) {
                 temp = temp.filter(r => r.agent_id === this.sAgent)
+            }
+           
+            if (this.sActivate === '1') {
+                temp = temp.filter(r => r.is_activate === true)
+            } else if (this.sActivate === '0') {
+                temp = temp.filter(r => r.is_activate === false)
+            }
+
+            if (this.sLock === '1') {
+                temp = temp.filter(r => r.is_unlock === true)
+            } else if (this.sLock === '0') {
+                temp = temp.filter(r => r.is_unlock === false)
             }
 
             var filterKey = this.filterKey && this.filterKey.toLowerCase()

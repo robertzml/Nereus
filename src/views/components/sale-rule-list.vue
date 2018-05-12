@@ -61,8 +61,12 @@ export default {
                     key: 'device_deposit'
                 },
                 {
-                    title: '固定月租金(元)',
+                    title: '每期充值金额(元)',
                     key: 'fix_month_rent'
+                },
+                {
+                    title: '每期时间(月)',
+                    key: 'set_time_divided_pay_pers'
                 }
             ],
             pageSize: 10,
@@ -90,6 +94,8 @@ export default {
                     return '分期付款'
                 case 3:
                     return '租金'
+                case 4:
+                    return '特殊分期'
                 default:
                     return '未定义'
             }

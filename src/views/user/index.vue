@@ -14,13 +14,13 @@
 
                     <div>
                         <span>代理商：</span>
-                        <Select v-model="selectedAgent" style="width:300px" placeholder="选择代理商" @on-change="selectAgent">
+                        <Select v-model="selectedAgent" style="width:300px" placeholder="选择代理商" @on-change="selectAgent" clearable>
                             <Option v-for="item in agentCompany" :value="item.id" :key="item.id">{{ item.name }}</Option>
                         </Select>
                     </div>
 
                     <br />
-                    <user-list :itemList="userData"></user-list>
+                    <user-list :itemList="filterData"></user-list>
                 </Card>
             </Col>
         </Row>
@@ -45,6 +45,17 @@ export default {
             userData: []
         }
     },
+    computed: {
+        filterData () {
+            let temp = this.userData
+
+            if (this.selectedAgent) {
+                temp = temp.filter(r => r.agent_id === this.selectedAgent)
+            }
+
+            return temp
+        }
+    },
     methods: {
         init () {
             this.roleType = this.$store.state.user.roleType
@@ -53,8 +64,11 @@ export default {
             } else if (this.roleType === 2) {
                 this.getAgentCompany()
             }
+
+            this.loadUsers()
         },
 
+        // 获取所有代理商
         getAllAgents () {
             let vm = this
             
@@ -73,9 +87,25 @@ export default {
             })
         },
 
+        loadUsers () {
+            let vm = this
+
+            user.list().then(res => {
+                if (res.status === 0) {
+                    vm.userData = res.entities
+                } else {
+                    this.$Notice.error({
+                        title: '获取消费者信息失败',
+                        desc: res.message
+                    })
+                }
+            })
+        },
+
         selectAgent (val) {
             let vm = this
 
+            /*
             user.listByAgent(val).then(res => {
                 if (res.status === 0) {
                     vm.userData = res.entities
@@ -86,6 +116,7 @@ export default {
                     })
                 }
             })
+            */
         }
     },
     created: function () {

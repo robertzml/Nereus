@@ -8,7 +8,7 @@
 
             <Row>
                 <Col span="12" push="4">
-                    <Form ref="formValidate" :model="saleRuleInfo" :rules="ruleValidate" :label-width="120">
+                    <Form ref="formValidate" :model="saleRuleInfo" :rules="ruleValidate" :label-width="220">
                         <FormItem label="付款方式" prop="pay_type">
                             <Select v-model="saleRuleInfo.pay_type">
                                 <Option v-for="item in payType" :value="item.id" :key="item.id">{{ item.label }}</Option>
@@ -37,8 +37,12 @@
                             <InputNumber :max="5000000" :min="0" :precision="2" v-model="saleRuleInfo.device_deposit" style="width: 100px;"></InputNumber>
                         </FormItem>
 
-                        <FormItem label="固定月租金">
-                            <InputNumber :max="5000000" :min="0" :precision="2" v-model="saleRuleInfo.fix_month_rent" style="width: 100px;"></InputNumber>
+                        <FormItem label="分期付款时每期充值金额(元)">
+                            <Input v-model="saleRuleInfo.fix_month_rent"></Input>
+                        </FormItem>
+
+                        <FormItem label="分期付款时每期时间(月)">
+                            <Input v-model="saleRuleInfo.set_time_divided_pay_pers"></Input>
                         </FormItem>
 
                         <FormItem>
@@ -69,7 +73,8 @@ export default {
                 prepay_rent: 0,
                 installation_charge: 0,
                 device_deposit: 0,
-                fix_month_rent: 0
+                fix_month_rent: '',
+                set_time_divided_pay_pers: ''
             },
             payType: [
                 {
@@ -81,6 +86,9 @@ export default {
                 }, {
                     id: 3,
                     label: '租金'
+                }, {
+                    id: 4,
+                    label: '特殊分期'
                 }
             ],
             chargeType: [

@@ -59,7 +59,7 @@ export default {
     // 获取待激活设备
     getInactivate (companyId) {
         if (companyId !== undefined) {
-            return api._get({ url: '/t_equipment_owner_protocol/findByCompanyId', params: { company: companyId, auditing_state: 0 } })
+            return api._get({ url: '/t_equipment_owner_protocol/findByCompanyId', params: { company_id: companyId, auditing_state: 0 } })
                 .then(res => {
                     return res.data
                 })
