@@ -1,9 +1,9 @@
 <template>
-    <div class="equipment-status">
+    <div class="water-cleaner-key">
         <Card>
             <p slot="title">
                 <Icon type="grid"></Icon>
-                热水器解锁状态
+                直饮机解锁状态
             </p>
 
             <div slot="extra">
@@ -58,7 +58,7 @@ import equipment from '../../controllers/equipment.js'
 import moment from 'moment'
 
 export default {
-    name: 'equipment-key',
+    name: 'water-cleaner-key',
     props: {
         serial_number: { type: String, require: true }
     },
@@ -91,11 +91,12 @@ export default {
             this.openReal = false
         },
 
+        // 获取直饮机解锁状态
         readKeyStatus () {
             let vm = this
             this.counter += 1
 
-            equipment.getKeyStatus(this.serial_number).then(res => {
+            equipment.getWaterCleanerLockStatus(this.serial_number).then(res => {
                 if (res.status === 0) {
                     vm.realInfo = res.entity
                 } else {
@@ -109,12 +110,10 @@ export default {
 
         changeReal (status) {
             if (status === true) {
-                console.log('1' + status)
                 this.intervalId1 = setInterval(() => {
                     this.readKeyStatus()
                 }, 3000)
             } else {
-                console.log('2' + status)
                 clearInterval(this.intervalId1)
             }
         }

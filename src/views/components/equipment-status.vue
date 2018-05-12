@@ -3,7 +3,7 @@
         <Card>
             <p slot="title">
                 <Icon type="grid"></Icon>
-                设备实时状态
+                热水器实时状态
             </p>
 
             <div slot="extra">

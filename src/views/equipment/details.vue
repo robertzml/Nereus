@@ -18,9 +18,6 @@
                                 <FormItem label="序列号">
                                     {{ equipmentInfo.serial_number }}
                                 </FormItem>
-                                <FormItem label="主板序列号">
-                                    {{ equipmentInfo.mainboard_serial_number }}
-                                </FormItem>
                                 <FormItem label="产品名称">
                                     {{ equipmentInfo.product_name }}
                                 </FormItem>
@@ -60,10 +57,20 @@
             <TabPane label="实时状态">
                 <Row :gutter="16">
                     <Col span="12">
-                        <equipment-status :serial_number="equipmentInfo.serial_number"></equipment-status>
+                        <div v-if="equipmentInfo.product_type_code === '1'">
+                            <equipment-status :serial_number="equipmentInfo.serial_number"></equipment-status>
+                        </div>
+                        <div v-else-if="equipmentInfo.product_type_code === '2'">
+                            <water-cleaner-status :serial_number="equipmentInfo.serial_number"></water-cleaner-status>
+                        </div>
                     </Col>
-                    <Col span="12">
-                        <equipment-key :serial_number="equipmentInfo.serial_number"></equipment-key>
+                    <Col span="12" >
+                        <div v-if="equipmentInfo.product_type_code === '1'">
+                            <equipment-key :serial_number="equipmentInfo.serial_number"></equipment-key>
+                        </div>
+                        <div v-else-if="equipmentInfo.product_type_code === '2'">
+                            <water-cleaner-key :serial_number="equipmentInfo.serial_number"></water-cleaner-key>
+                        </div>
                     </Col>
                 </Row>
             </TabPane>
@@ -100,13 +107,17 @@
 import equipment from '../../controllers/equipment.js'
 import equipmentStatus from '../components/equipment-status.vue'
 import equipmentKey from '../components/equipment-key.vue'
+import waterCleanerKey from '../components/water-cleaner-key.vue'
+import waterCleanerStatus from '../components/water-cleaner-status.vue'
 import moment from 'moment'
 
 export default {
     name: 'equipment-details',
     components: {
         equipmentStatus,
-        equipmentKey
+        equipmentKey,
+        waterCleanerKey,
+        waterCleanerStatus
     },
     data () {
         return {
@@ -169,7 +180,8 @@ export default {
             equipment.detailsView(id).then(res => {
                 if (res.status === 0) {
                     vm.equipmentInfo = res.entity
-                    vm.getWaterInfo1()
+                    // vm.getWaterInfo1()
+                    // vm.getWaterInfo2()
                 } else {
                     this.$Notice.error({
                         title: '获取设备信息失败',
@@ -181,6 +193,12 @@ export default {
 
         getWaterInfo1 () {
             equipment.getWaterCleanerLockStatus(this.equipmentInfo.serial_number).then(res => {
+                console.log(res)
+            })
+        },
+
+        getWaterInfo2 () {
+            equipment.getWaterCleanerStatus(this.equipmentInfo.serial_number).then(res => {
                 console.log(res)
             })
         },
