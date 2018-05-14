@@ -47,10 +47,21 @@
             </TabPane>
 
             <TabPane label="销售规则">
-                <sale-rule-list :item-list="saleRuleData"></sale-rule-list>
-                <p>
-                    <Button type="primary" @click="addRule" style="margin-left: 8px">添加销售规则</Button>
-                </p>
+                <Card>
+                    <p slot="title">
+                        <Icon type="grid"></Icon>
+                        销售规则
+                    </p>
+                    <a href="#" slot="extra" @click.prevent="getSaleRules">
+                        <Icon type="ios-loop-strong"></Icon>
+                        刷新
+                    </a>
+
+                    <sale-rule-list :item-list="saleRuleData"></sale-rule-list>
+                    <p>
+                        <Button type="primary" @click="addRule" style="margin-left: 8px">添加销售规则</Button>
+                    </p>
+                </Card>
             </TabPane>
 
             <TabPane label="产品统计">
@@ -117,9 +128,9 @@ export default {
             })
         },
 
-        getSaleRules (id) {
+        getSaleRules () {
             let vm = this
-            product.getSaleRules(id).then(res => {
+            product.getSaleRules(this.productId).then(res => {
                 vm.saleRuleData = res.entities
             })
         },
@@ -144,8 +155,8 @@ export default {
     mounted: function () {
         this.productId = this.$route.params.id
         this.getProduct(this.productId)
-        this.getSaleRules(this.productId)
-        this.getLockSummary(this.productId)
+        this.getSaleRules()
+        this.getLockSummary()
     }
 }
 </script>

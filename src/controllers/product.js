@@ -34,6 +34,13 @@ export default {
             })
     },
 
+    getCompanyCode (productId) {
+        return api._get({ url: '/t_product/findCompanyCodeByProductId', params: { product_id: productId } })
+            .then(res => {
+                return res.data
+            })
+    },
+
     details (id) {
         return api._get({ url: '/t_product/findOne', params: { product_id: id } })
             .then(res => {
