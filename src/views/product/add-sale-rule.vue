@@ -66,7 +66,7 @@
                                 <Input v-model="saleRuleInfo.fix_month_rent"></Input>
                             </FormItem>
                             <FormItem label="节电比例" v-else-if="saleRuleInfo.charge_type === 3">
-                                <InputNumber :max="100" :min="0" :precision="0" v-model="saleRuleInfo.save_electricity_ratio" style="width: 100px;"></InputNumber>
+                                <InputNumber :max="1" :min="0" :precision="2" :step="0.01" v-model="saleRuleInfo.save_electricity_ratio" style="width: 100px;"></InputNumber>
                             </FormItem>
 
                         </div>
@@ -110,6 +110,7 @@
 import product from '../../controllers/product.js'
 
 export default {
+    name: 'add-sale-rule',
     data () {
         return {
             productId: 0,

@@ -131,7 +131,14 @@ export default {
         getSaleRules () {
             let vm = this
             product.getSaleRules(this.productId).then(res => {
-                vm.saleRuleData = res.entities
+                if (res.status === 0) {
+                    vm.saleRuleData = res.entities
+                } else {
+                    this.$Notice.error({
+                        title: '获取销售规则失败',
+                        desc: res.message
+                    })
+                }
             })
         },
 

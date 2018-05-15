@@ -67,6 +67,19 @@ export default {
                 {
                     title: '每期时间(月)',
                     key: 'set_time_divided_pay_pers'
+                },
+                {
+                    title: '操作',
+                    key: 'action',
+                    width: 150,
+                    align: 'center',
+                    render: (h, params) => {
+                        return (
+                            <div>
+                                <i-button type="primary" size="small" onClick={ () => { this.showDetails(params.row) } }>查看</i-button>
+                            </div>
+                        )
+                    }
                 }
             ],
             pageSize: 10,
@@ -118,6 +131,9 @@ export default {
         changePageSize (pageSize) {
             this.pageSize = pageSize
             this.tableData = this.itemList.slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize)
+        },
+        showDetails (item) {
+            this.$router.push({ name: 'sale-rule', params: { id: item.id } })
         }
     }
 }

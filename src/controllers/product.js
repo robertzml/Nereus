@@ -82,6 +82,13 @@ export default {
             })
     },
 
+    findSaleRule (ruleId) {
+        return api._get({ url: '/t_product_sale_rule/findOne', params: { product_sale_rule_id: ruleId } })
+            .then(res => {
+                return res.data
+            })
+    },
+
     findQuantity (productId) {
         return api._get({ url: '/t_equipment_owner_protocol/findQuantityByAgentIdAndIsUnlockForAgentApp', params: { product_id: productId } })
             .then(res => {
