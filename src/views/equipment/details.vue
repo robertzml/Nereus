@@ -12,14 +12,17 @@
                         刷新
                     </a>
 
-                    <Row>
-                        <Col span="16" push="4">
-                            <Form :model="equipmentInfo" :label-width="100">
+                    <Form :model="equipmentInfo" :label-width="100">
+                        <Row>
+                            <Col span="10" push="4">
                                 <FormItem label="序列号">
                                     {{ equipmentInfo.serial_number }}
                                 </FormItem>
                                 <FormItem label="产品名称">
                                     {{ equipmentInfo.product_name }}
+                                </FormItem>
+                                <FormItem label="产品代码">
+                                    {{ equipmentInfo.product_code }}
                                 </FormItem>
                                 <FormItem label="厂商名称">
                                     {{ equipmentInfo.vendor_company_name }}
@@ -42,16 +45,36 @@
                                 <FormItem label="使用截至日期">
                                     {{ equipmentInfo.device_deadline_date | displayDateTime }}
                                 </FormItem>
-                                <FormItem label="状态">
-                                    {{ equipmentInfo.status | equipmentStatus }}
-                                </FormItem>
 
                                 <FormItem>
                                     <Button type="primary" @click="toIndex">返回</Button>
                                 </FormItem>
-                            </Form>
-                        </Col>
-                    </Row>
+                            </Col>
+                            <Col span="10">
+                                <FormItem label="设备主人">
+                                    {{ equipmentInfo.owner_name }}
+                                </FormItem>
+                                <FormItem label="手机号">
+                                    {{ equipmentInfo.owner_phone }}
+                                </FormItem>
+                                <FormItem label="省">
+                                    {{ equipmentInfo.owner_address_province }}
+                                </FormItem>
+                                <FormItem label="市">
+                                    {{ equipmentInfo.owner_address_city }}
+                                </FormItem>
+                                <FormItem label="区">
+                                    {{ equipmentInfo.owner_address_district }}
+                                </FormItem>
+                                <FormItem label="地址">
+                                    {{ equipmentInfo.owner_address_detail }}
+                                </FormItem>
+                                <FormItem label="状态">
+                                    {{ equipmentInfo.status | equipmentStatus }}
+                                </FormItem>
+                            </Col>
+                        </Row>
+                    </Form>
                 </Card>
             </TabPane>
             <TabPane label="实时状态">

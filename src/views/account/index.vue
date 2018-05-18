@@ -16,7 +16,13 @@
                         刷新
                     </a>
 
-                    <account-list :itemList="accountData"></account-list>
+                    <div class="filter-panel">
+                        <span>所属公司</span>
+                        <Select v-model="sAgent" style="width:200px" placeholder="选择代理商" clearable>
+                            <Option v-for="item in agentList" :value="item.id" :key="item.id">{{ item.name }}</Option>
+                        </Select>
+                    </div>
+                    <account-list :itemList="accountFilterData"></account-list>
                 </Card>
             </Col>
         </Row>
@@ -52,7 +58,13 @@
                         刷新
                     </a>
 
-                    <account-list :itemList="agentData" :list-type="2"></account-list>
+                    <div class="filter-panel">
+                        <span>所属公司</span>
+                        <Select v-model="sAgent" style="width:200px" placeholder="选择代理商" clearable>
+                            <Option v-for="item in agentList" :value="item.id" :key="item.id">{{ item.name }}</Option>
+                        </Select>
+                    </div>
+                    <account-list :itemList="agentFilterData" :list-type="2"></account-list>
                 </Card>
             </Col>
         </Row>
@@ -63,6 +75,7 @@
 import account from '../../controllers/account.js'
 import * as nereus from '../../utility/nereus.js'
 import accountList from '../components/account-list.vue'
+import company from '../../controllers/company.js'
 
 export default {
     name: 'account-index',
@@ -74,7 +87,9 @@ export default {
             accountData: [],
             myAccount: [],
             agentData: [],
-            roleType: -1
+            roleType: -1,
+            agentList: [],
+            sAgent: ''
         }
     },
     beforeRouteEnter (to, from, next) {
@@ -90,6 +105,26 @@ export default {
             next()
         }
     },
+    computed: {
+        accountFilterData () {
+            let temp = this.accountData
+            
+            if (this.sAgent) {
+                temp = temp.filter(r => r.company_id === this.sAgent)
+            }
+
+            return temp
+        },
+        agentFilterData () {
+            let temp = this.agentData
+            
+            if (this.sAgent) {
+                temp = temp.filter(r => r.company_id === this.sAgent)
+            }
+
+            return temp
+        }
+    },
     methods: {
         init () {
             this.roleType = this.$store.state.user.roleType
@@ -102,6 +137,8 @@ export default {
             } else if (this.roleType === 3) {
                 this.getMyAccounts()
             }
+
+            this.loadAgents()
         },
 
         // 获取所有用户
@@ -143,6 +180,48 @@ export default {
                 }
             })
         },
+
+        // 获取代理商
+        loadAgents () {
+            let vm = this
+
+            let companyId = this.$store.state.user.companyId
+
+            if (this.roleType === 0) {
+                company.list().then(res => {
+                    if (res.status === 0) {
+                        vm.agentList = res.entities
+                    } else {
+                        this.$Notice.error({
+                            title: '获取代理商信息失败',
+                            desc: res.message
+                        })
+                    }
+                })
+            } else if (this.roleType === 1) {
+                company.list().then(res => {
+                    if (res.status === 0) {
+                        vm.agentList = res.entities.filter(r => r.type !== 1)
+                    } else {
+                        this.$Notice.error({
+                            title: '获取代理商信息失败',
+                            desc: res.message
+                        })
+                    }
+                })
+            } else {
+                company.listByParent(companyId).then(res => {
+                    if (res.status === 0) {
+                        vm.agentList = res.entities
+                    } else {
+                        this.$Notice.error({
+                            title: '获取代理商信息失败',
+                            desc: res.message
+                        })
+                    }
+                })
+            }
+        },
         
         showCreate () {
             this.$router.push({ name: 'account-create' })
@@ -159,3 +238,13 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.filter-panel {
+    margin-bottom: 10px;
+}
+
+.filter-panel .ivu-select {
+    margin-right: 15px;
+}
+</style>

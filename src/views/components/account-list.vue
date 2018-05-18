@@ -3,8 +3,7 @@
         <Table :data="tableData" :columns="columns" stripe border></Table>
         <div style="margin: 10px;overflow-x: hidden" v-if="showPager">
             <div style="float: right;">
-                <Page :total="itemsCount" :current.sync="currentPage" :page-size="pageSize" show-sizer placement="top" 
-                    @on-change="changePage"
+                <Page :total="itemsCount" :current.sync="currentPage" :page-size="pageSize" :page-size-opts="pageSizeOpt" show-sizer placement="top" 
                     @on-page-size-change="changePageSize"></Page>
             </div>
         </div>
@@ -79,27 +78,30 @@ export default {
             ],
             pageSize: 10,
             currentPage: 1,
-            pageSizeOpt: [5, 10, 20, 30],
-            tableData: this.itemList.slice(0, this.pageSize)
+            pageSizeOpt: [5, 10, 20, 30]
         }
     },
     computed: {
         itemsCount () {
             return this.itemList.length
-        }
-    },
-    watch: {
-        itemList: function (newList) {
-            this.tableData = newList.slice(0, this.pageSize)
+        },
+        tableData () {
+            let temp = this.itemList
+            
+            let pageCount = Math.ceil(temp.length / this.pageSize)
+
+            if (this.currentPage > pageCount) {
+                this.changePage(1)
+            }
+            return temp.slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize)
         }
     },
     methods: {
         changePage (page) {
-            this.tableData = this.itemList.slice((page - 1) * this.pageSize, page * this.pageSize)
+            this.currentPage = page
         },
         changePageSize (pageSize) {
             this.pageSize = pageSize
-            this.tableData = this.itemList.slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize)
         },
         showDetails (item) {
             this.$router.push({ name: 'account-details', params: { id: item.id } })
