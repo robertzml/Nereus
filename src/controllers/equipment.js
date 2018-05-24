@@ -169,6 +169,13 @@ export default {
             .then(res => {
                 return res.data
             })
-    }
+    },
 
+    // 获取库存设备
+    getStores (companyId) {
+        return api._get({ url: '/t_store/findStoreEquipmentInfoByConditions', params: { company_id: companyId } })
+            .then(res => {
+                return res.data
+            })
+    }
 }

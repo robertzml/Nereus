@@ -116,7 +116,8 @@ export const appRouter = [
             { path: 'details/:id', title: '', name: 'equipment-details', component: resolve => { require(['@/views/equipment/details.vue'], resolve) } },
             { path: 'create', title: '', name: 'equipment-create', component: resolve => { require(['@/views/equipment/create.vue'], resolve) } },
             { path: 'edit/:id', title: '', name: 'equipment-edit', component: resolve => { require(['@/views/equipment/edit.vue'], resolve) } },
-            { path: 'upload', title: '上传设备信息', parent: 'product-menu', role: 7, name: 'equipment-upload', component: resolve => { require(['@/views/equipment/upload.vue'], resolve) } }
+            { path: 'upload', title: '上传设备信息', parent: 'product-menu', role: 7, name: 'equipment-upload', component: resolve => { require(['@/views/equipment/upload.vue'], resolve) } },
+            { path: 'store', title: '库存列表', parent: 'product-menu', role: 7, name: 'equipment-store', component: resolve => { require(['@/views/equipment/store.vue'], resolve) } }
         ]
     },
     {
