@@ -21,6 +21,10 @@
                             <FormItem label="售价">
                                 {{ saleRuleInfo.device_deposit }}
                             </FormItem>
+
+                            <FormItem label="免费使用时间(天)">
+                                {{ saleRuleInfo.set_free_time }}
+                            </FormItem>
                         </div>
                        
                         <div v-if="saleRuleInfo.pay_type === 2">
@@ -38,6 +42,10 @@
 
                             <FormItem label="每期费用(元)">
                                  {{ saleRuleInfo.fix_month_rent }}
+                            </FormItem>
+
+                            <FormItem label="免费使用时间(天)">
+                                {{ saleRuleInfo.set_free_time }}
                             </FormItem>
                         </div>
 
@@ -64,6 +72,10 @@
                             <FormItem label="节电比例" v-else-if="saleRuleInfo.charge_type === 3">
                                 {{ saleRuleInfo.save_electricity_ratio }}
                             </FormItem>
+
+                            <FormItem label="免费使用时间(天)">
+                                {{ saleRuleInfo.set_free_time }}
+                            </FormItem>
                         </div>
 
                         <div v-if="saleRuleInfo.pay_type === 4">
@@ -85,6 +97,10 @@
 
                             <FormItem label="每期费用(元)">
                                 {{ saleRuleInfo.fix_month_rent }}
+                            </FormItem>
+
+                            <FormItem label="免费使用时间(天)">
+                                {{ saleRuleInfo.set_free_time }}
                             </FormItem>
                         </div>
 
@@ -144,9 +160,11 @@ export default {
                 case 1:
                     return '固定租金'
                 case 2:
-                    return '浮动租金'
+                    return '混合租金'
                 case 3:
                     return '节能分享'
+                case 4:
+                    return '浮动租金'
                 default:
                     return '未定义'
             }

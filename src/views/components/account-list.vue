@@ -62,6 +62,15 @@ export default {
                     }
                 },
                 {
+                    title: '账户状态',
+                    key: 'status',
+                    render: (h, params) => {
+                        return (
+                            <span>{ nereus.displayStatus(params.row.status) }</span>
+                        )
+                    }
+                },
+                {
                     title: '操作',
                     key: 'action',
                     width: 150,

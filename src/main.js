@@ -40,6 +40,11 @@ Vue.filter('displayDateTime', function (value) {
     }
 })
 
+Vue.filter('entityStatus', function (value) {
+    if (value === undefined || value === null) return ''
+    return nereus.displayStatus(value)
+})
+
 /* eslint-disable no-new */
 new Vue({
     el: '#app',

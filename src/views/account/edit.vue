@@ -32,6 +32,12 @@
                                     <Option v-for="item in companyList" :value="item.id" :key="item.id">{{ item.name }}</Option>
                                 </Select>
                             </FormItem>
+                            <FormItem label="账户状态">
+                                <i-switch v-model="accountEnabled" size="large">
+                                    <span slot="open">启用</span>
+                                    <span slot="close">禁用</span>
+                                </i-switch>
+                            </FormItem>
 
                             <FormItem>
                                 <Button type="success" @click="handleSubmit('formValidate')">保存</Button>
@@ -68,6 +74,7 @@ export default {
                 role_id: 0,
                 company_id: 0
             },
+            accountEnabled: false,
             roleList: [],
             companyList: [],
             ruleValidate: {
@@ -113,6 +120,7 @@ export default {
             account.details(id).then(res => {
                 if (res.status === 0) {
                     vm.accountInfo = res.admin
+                    vm.accountEnabled = vm.accountInfo.status === 0
                 } else {
                     vm.$Message.error(res.message)
                 }
@@ -167,6 +175,11 @@ export default {
 
             this.$refs[name].validate((valid) => {
                 if (valid) {
+                    if (this.accountEnabled) {
+                        this.accountInfo.status = 0
+                    } else {
+                        this.accountInfo.status = 2
+                    }
                     account.update(this.accountInfo).then(res => {
                         vm.$Message.info(res.message)
                         vm.$router.push({ name: 'account-index' })

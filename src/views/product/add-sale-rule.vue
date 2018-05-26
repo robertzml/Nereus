@@ -17,43 +17,51 @@
 
                         <div  v-if="saleRuleInfo.pay_type === 1">
                             <FormItem label="期望安装费">
-                                <InputNumber :max="5000000" :min="0" :precision="0" v-model="saleRuleInfo.installation_charge" style="width: 100px;"></InputNumber>
+                                <InputNumber :max="5000000" :min="0" :precision="0" v-model="saleRuleInfo.installation_charge" style="width: 200px;"></InputNumber>
                             </FormItem>
 
                             <FormItem label="售价">
-                                <InputNumber :max="5000000" :min="0" :precision="0" v-model="saleRuleInfo.device_deposit" style="width: 100px;"></InputNumber>
+                                <InputNumber :max="5000000" :min="0" :precision="0" v-model="saleRuleInfo.device_deposit" style="width: 200px;"></InputNumber>
+                            </FormItem>
+
+                            <FormItem label="免费使用时间(天)">
+                                <InputNumber :max="1000" :min="0" :precision="0" v-model="saleRuleInfo.set_free_time" style="width: 200px;"></InputNumber>
                             </FormItem>
                         </div>
                        
                         <div v-if="saleRuleInfo.pay_type === 2">
                             <FormItem label="初始金额">
-                                <InputNumber :max="5000000" :min="0" :precision="0" v-model="saleRuleInfo.prepay_rent" style="width: 100px;"></InputNumber>
+                                <InputNumber :max="5000000" :min="0" :precision="0" v-model="saleRuleInfo.prepay_rent" style="width: 200px;"></InputNumber>
                             </FormItem>
 
                             <FormItem label="安装费">
-                                <InputNumber :max="5000000" :min="0" :precision="0" v-model="saleRuleInfo.installation_charge" style="width: 100px;"></InputNumber>
+                                <InputNumber :max="5000000" :min="0" :precision="0" v-model="saleRuleInfo.installation_charge" style="width: 200px;"></InputNumber>
                             </FormItem>
                            
                             <FormItem label="分期数(月)">
-                                <InputNumber :max="24" :min="1" :precision="0" v-model="saleRuleInfo.divided_pay_pers" style="width: 100px;"></InputNumber>
+                                <InputNumber :max="24" :min="1" :precision="0" v-model="saleRuleInfo.divided_pay_pers" style="width: 200px;"></InputNumber>
                             </FormItem>
 
                             <FormItem label="每期费用(元)">
                                 <Input v-model="saleRuleInfo.fix_month_rent"></Input>
                             </FormItem>
+
+                            <FormItem label="免费使用时间(天)">
+                                <InputNumber :max="1000" :min="0" :precision="0" v-model="saleRuleInfo.set_free_time" style="width: 200px;"></InputNumber>
+                            </FormItem>
                         </div>
 
                         <div v-if="saleRuleInfo.pay_type === 3">
                             <FormItem label="初始金额">
-                                <InputNumber :max="5000000" :min="0" :precision="0" v-model="saleRuleInfo.prepay_rent" style="width: 100px;"></InputNumber>
+                                <InputNumber :max="5000000" :min="0" :precision="0" v-model="saleRuleInfo.prepay_rent" style="width: 200px;"></InputNumber>
                             </FormItem>
 
                             <FormItem label="安装费">
-                                <InputNumber :max="5000000" :min="0" :precision="0" v-model="saleRuleInfo.installation_charge" style="width: 100px;"></InputNumber>
+                                <InputNumber :max="5000000" :min="0" :precision="0" v-model="saleRuleInfo.installation_charge" style="width: 200px;"></InputNumber>
                             </FormItem>
 
                             <FormItem label="设备押金">
-                                <InputNumber :max="5000000" :min="0" :precision="0" v-model="saleRuleInfo.device_deposit" style="width: 100px;"></InputNumber>
+                                <InputNumber :max="5000000" :min="0" :precision="0" v-model="saleRuleInfo.device_deposit" style="width: 200px;"></InputNumber>
                             </FormItem>
 
                             <FormItem label="租金类型" prop="charge_type">
@@ -66,22 +74,25 @@
                                 <Input v-model="saleRuleInfo.fix_month_rent"></Input>
                             </FormItem>
                             <FormItem label="节电比例" v-else-if="saleRuleInfo.charge_type === 3">
-                                <InputNumber :max="1" :min="0" :precision="2" :step="0.01" v-model="saleRuleInfo.save_electricity_ratio" style="width: 100px;"></InputNumber>
+                                <InputNumber :max="1" :min="0" :precision="2" :step="0.01" v-model="saleRuleInfo.save_electricity_ratio" style="width: 200px;"></InputNumber>
                             </FormItem>
 
+                            <FormItem label="免费使用时间(天)">
+                                <InputNumber :max="1000" :min="0" :precision="0" v-model="saleRuleInfo.set_free_time" style="width: 200px;"></InputNumber>
+                            </FormItem>
                         </div>
 
                         <div v-if="saleRuleInfo.pay_type === 4">
                             <FormItem label="初始金额">
-                                <InputNumber :max="5000000" :min="0" :precision="0" v-model="saleRuleInfo.prepay_rent" style="width: 100px;"></InputNumber>
+                                <InputNumber :max="5000000" :min="0" :precision="0" v-model="saleRuleInfo.prepay_rent" style="width: 200px;"></InputNumber>
                             </FormItem>
 
                             <FormItem label="安装费">
-                                <InputNumber :max="5000000" :min="0" :precision="0" v-model="saleRuleInfo.installation_charge" style="width: 100px;"></InputNumber>
+                                <InputNumber :max="5000000" :min="0" :precision="0" v-model="saleRuleInfo.installation_charge" style="width: 200px;"></InputNumber>
                             </FormItem>
 
                             <FormItem label="分期数">
-                                <InputNumber :max="24" :min="1" :precision="0" v-model="saleRuleInfo.divided_pay_pers" style="width: 100px;"></InputNumber>
+                                <InputNumber :max="24" :min="1" :precision="0" v-model="saleRuleInfo.divided_pay_pers" style="width: 200px;"></InputNumber>
                             </FormItem>
 
                             <FormItem label="每期时间(月)">
@@ -90,6 +101,10 @@
 
                             <FormItem label="每期费用(元)">
                                 <Input v-model="saleRuleInfo.fix_month_rent"></Input>用逗号分隔费用，如:500,400,300,200,100  数量需与期数一致
+                            </FormItem>
+
+                            <FormItem label="免费使用时间(天)">
+                                <InputNumber :max="1000" :min="0" :precision="0" v-model="saleRuleInfo.set_free_time" style="width: 200px;"></InputNumber>
                             </FormItem>
                         </div>
 
@@ -125,7 +140,8 @@ export default {
                 device_deposit: 0,
                 save_electricity_ratio: 0,
                 fix_month_rent: '',
-                set_time_divided_pay_pers: ''
+                set_time_divided_pay_pers: '',
+                set_free_time: 0
             },
             payType: [
                 {
@@ -146,6 +162,9 @@ export default {
                 {
                     id: 1,
                     label: '固定租金'
+                }, {
+                    id: 4,
+                    label: '浮动租金'
                 }
             ],
             ruleValidate: {

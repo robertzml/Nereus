@@ -52,3 +52,16 @@ export const displayDate = (date) => {
         return moment(date).format('YYYY-MM-DD')
     }
 }
+
+export const displayStatus = (status) => {
+    switch (status) {
+        case 0:
+            return '正常'
+        case 1:
+            return '删除'
+        case 2:
+            return '禁用'
+        default:
+            return ''
+    }
+}

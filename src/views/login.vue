@@ -69,7 +69,7 @@ export default {
                             if (res.status === 0) {
                                 vm.$router.push('/')
                             } else {
-                                alert('用户名密码错误')
+                                alert(res.message)
                             }
                     })
                 }

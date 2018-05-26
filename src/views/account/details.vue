@@ -34,6 +34,12 @@
                             <FormItem label="创建时间">
                                 {{ accountInfo.create_date | displayDateTime }}
                             </FormItem>
+                            <FormItem label="编辑时间">
+                                {{ accountInfo.modify_date | displayDateTime }}
+                            </FormItem>
+                            <FormItem label="账户状态">
+                                {{ accountInfo.status | entityStatus }}
+                            </FormItem>
 
                             <FormItem>
                                 <Button type="primary" @click="toIndex">返回</Button>
