@@ -18,7 +18,7 @@
 
                     <div class="filter-panel">
                         <span>所属公司</span>
-                        <Select v-model="sAgent" style="width:200px" placeholder="选择代理商" clearable>
+                        <Select v-model="sAgent" style="width:200px" placeholder="选择公司" clearable>
                             <Option v-for="item in agentList" :value="item.id" :key="item.id">{{ item.name }}</Option>
                         </Select>
                     </div>

@@ -28,6 +28,14 @@ export default {
                     align: 'center'
                 },
                 {
+                    title: '所属公司',
+                    key: 'company_name'
+                },
+                {
+                    title: '产品名称',
+                    key: 'product_name'
+                },
+                {
                     title: '设备序列号',
                     key: 'serial_number'
                 },

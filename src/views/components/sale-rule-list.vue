@@ -69,6 +69,10 @@ export default {
                     key: 'set_time_divided_pay_pers'
                 },
                 {
+                    title: '免费使用时间(天)',
+                    key: 'set_free_time'
+                },
+                {
                     title: '操作',
                     key: 'action',
                     width: 150,
