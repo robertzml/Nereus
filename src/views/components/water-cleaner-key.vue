@@ -112,7 +112,7 @@ export default {
             if (status === true) {
                 this.intervalId1 = setInterval(() => {
                     this.readKeyStatus()
-                }, 3000)
+                }, 10000)
             } else {
                 clearInterval(this.intervalId1)
             }
