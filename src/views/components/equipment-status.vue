@@ -28,7 +28,7 @@
                         </FormItem>
                        
                         <FormItem label="累计加热时间">
-                            {{ parseInt(realInfo.cummlative_heat_time, 16) }} 分钟
+                            {{ realInfo.cummlative_heat_time }} 分钟
                         </FormItem>
                         <FormItem label="累计使用热水量">
                             {{ realInfo.cummlative_heat_water }} 升

@@ -19,6 +19,7 @@ router.beforeEach((to, from, next) => {
       next()
   } else {
       console.log('main.js check login: ' + store.getters.isLogin)
+      console.log(to)
       if (store.getters.isLogin) {
           next()
       } else {
