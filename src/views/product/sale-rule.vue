@@ -73,6 +73,14 @@
                                 {{ saleRuleInfo.save_electricity_ratio }}
                             </FormItem>
 
+                            <FormItem label="每期时间(月)" v-if="saleRuleInfo.charge_type === 4">
+                                {{ saleRuleInfo.set_time_divided_pay_pers }}
+                            </FormItem>
+
+                            <FormItem label="每期费用(元)" v-if="saleRuleInfo.charge_type === 4">
+                                {{ saleRuleInfo.fix_month_rent }}
+                            </FormItem>
+
                             <FormItem label="免费使用时间(天)">
                                 {{ saleRuleInfo.set_free_time }}
                             </FormItem>

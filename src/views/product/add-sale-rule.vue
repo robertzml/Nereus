@@ -73,6 +73,15 @@
                             <FormItem label="每期费用(元)" v-if="saleRuleInfo.charge_type === 1">
                                 <Input v-model="saleRuleInfo.fix_month_rent"></Input>
                             </FormItem>
+
+                            <FormItem label="每期时间(月)" v-if="saleRuleInfo.charge_type === 4">
+                                <Input v-model="saleRuleInfo.set_time_divided_pay_pers"></Input>用逗号分隔时间，如:12,11,10,9,8
+                            </FormItem>
+
+                            <FormItem label="每期费用(元)" v-if="saleRuleInfo.charge_type === 4">
+                                <Input v-model="saleRuleInfo.fix_month_rent"></Input>用逗号分隔费用，如:500,400,300,200,100
+                            </FormItem>
+
                             <FormItem label="节电比例" v-else-if="saleRuleInfo.charge_type === 3">
                                 <InputNumber :max="1" :min="0" :precision="2" :step="0.01" v-model="saleRuleInfo.save_electricity_ratio" style="width: 200px;"></InputNumber>
                             </FormItem>

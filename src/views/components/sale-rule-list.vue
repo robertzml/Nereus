@@ -125,6 +125,8 @@ export default {
                     return '混合租金'
                 case 3:
                     return '节能分享'
+                case 4:
+                    return '浮动租金'
                 default:
                     return '未定义'
             }
