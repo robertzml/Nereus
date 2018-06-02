@@ -9,8 +9,8 @@
         </div>
         <Modal
             v-model="modal1"
-            title="Common Modal dialog box title">
-            <company-details ref="com1" :company-id="companyId"></company-details>
+            title="厂商信息">
+            <company-details ref="com1" :company-id="companyId" width="600"></company-details>
         </Modal>
     </div>
 </template>
