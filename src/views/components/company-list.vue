@@ -3,22 +3,30 @@
         <Table :data="tableData" :columns="columns" border stripe></Table>
         <div style="margin: 10px;overflow-x: hidden" v-if="showPager">
             <div style="float: right;">
-                <Page :total="itemsCount" :current.sync="currentPage" :page-size="pageSize" show-sizer placement="top" 
-                    @on-change="changePage"
+                <Page :total="itemsCount" :current.sync="currentPage" :page-size="pageSize" :page-size-opts="pageSizeOpt" show-sizer placement="top" 
                     @on-page-size-change="changePageSize"></Page>
             </div>
         </div>
+        <Modal
+            v-model="modal1"
+            title="Common Modal dialog box title">
+            <company-details ref="com1" :company-id="companyId"></company-details>
+        </Modal>
     </div>
 </template>
 
 <script>
 import * as nereus from '../../utility/nereus.js'
+import companyDetails from '../company/components/company-details.vue'
 
 export default {
     name: 'company-list',
     props: {
         itemList: { type: Array, required: true },
         showPager: { type: Boolean, default: true }
+    },
+    components: {
+        companyDetails
     },
     data () {
         return {
@@ -79,29 +87,29 @@ export default {
             pageSize: 10,
             currentPage: 1,
             pageSizeOpt: [5, 10, 20, 30],
-            tableData: this.itemList.slice(0, this.pageSize)
+            modal1: false,
+            companyId: 0
         }
     },
     computed: {
         itemsCount () {
             return this.itemList.length
-        }
-    },
-    watch: {
-        itemList: function (newList) {
-            this.tableData = newList.slice(0, this.pageSize)
+        },
+        tableData () {
+            let temp = this.itemList
+            return temp.slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize)
         }
     },
     methods: {
-        changePage (page) {
-            this.tableData = this.itemList.slice((page - 1) * this.pageSize, page * this.pageSize)
-        },
         changePageSize (pageSize) {
             this.pageSize = pageSize
-            this.tableData = this.itemList.slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize)
         },
         showDetails (item) {
-            this.$router.push({ name: 'company-details', params: { id: item.id } })
+            // this.$router.push({ name: 'company-details', params: { id: item.id } })
+            console.log('item id: ' + item.id)
+            this.companyId = item.id
+            this.$refs.com1.getCompany(item.id)
+            this.modal1 = true
         },
         showEdit (item) {
             this.$router.push({ name: 'company-edit', params: { id: item.id } })

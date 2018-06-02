@@ -76,7 +76,7 @@ export default {
     },
     mounted () {
         this.userName = this.$store.state.user.userName
-        this.$store.commit('UpdateMenu')
+        this.$store.commit('SetMenu')
     }
 }
 </script>

@@ -26,6 +26,12 @@ export const menuRouter = [
         title: '产品管理'
     },
     {
+        name: 'user-menu',
+        path: 'user',
+        icon: 'person',
+        title: '用户管理'
+    },
+    {
         name: 'system-menu',
         path: 'system',
         role: 4,
@@ -58,6 +64,7 @@ export const appRouter = [
         component: Home,
         children: [
             { path: 'index', title: '厂商管理', parent: 'company-menu', role: 8, name: 'company-index', meta: { keepAlive: true }, component: resolve => { require(['@/views/company/index.vue'], resolve) } },
+            { path: 'agent-index', title: '代理商管理', parent: 'company-menu', name: 'company-agent-index', meta: { keepAlive: true }, component: resolve => { require(['@/views/company/agent-index.vue'], resolve) } },
             { path: 'details/:id', title: '厂商信息', name: 'company-details', component: resolve => { require(['@/views/company/details.vue'], resolve) } },
             { path: 'create', title: '厂商添加', name: 'company-create', component: resolve => { require(['@/views/company/create.vue'], resolve) } },
             { path: 'edit/:id', title: '厂商编辑', name: 'company-edit', component: resolve => { require(['@/views/company/edit.vue'], resolve) } }
@@ -126,7 +133,7 @@ export const appRouter = [
         title: '用户管理',
         component: Home,
         children: [
-            { path: 'index', title: '用户管理', parent: 'product-menu', role: 6, name: 'user-index', meta: { keepAlive: true }, component: resolve => { require(['@/views/user/index.vue'], resolve) } },
+            { path: 'index', title: '用户管理', parent: 'user-menu', role: 6, name: 'user-index', meta: { keepAlive: true }, component: resolve => { require(['@/views/user/index.vue'], resolve) } },
             { path: 'details/:id/:code/:aid', title: '用户信息', role: 6, name: 'user-details', component: resolve => { require(['@/views/user/details.vue'], resolve) } }
         ]
     },
@@ -136,7 +143,7 @@ export const appRouter = [
         title: '优惠券管理',
         component: Home,
         children: [
-            { path: 'index', title: '优惠券管理', parent: 'product-menu', role: 6, name: 'coupon-index', meta: { keepAlive: true }, component: resolve => { require(['@/views/coupon/index.vue'], resolve) } },
+            { path: 'index', title: '优惠券管理', parent: 'user-menu', role: 6, name: 'coupon-index', meta: { keepAlive: true }, component: resolve => { require(['@/views/coupon/index.vue'], resolve) } },
             { path: 'create', title: '添加优惠券', name: 'coupon-create', component: resolve => { require(['@/views/coupon/create.vue'], resolve) } },
             { path: 'edit/:id', title: '编辑优惠券', name: 'coupon-edit', component: resolve => { require(['@/views/coupon/edit.vue'], resolve) } }
         ]
