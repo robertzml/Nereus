@@ -4,7 +4,7 @@
             <Card>
                 <p slot="title">
                     <Icon type="grid"></Icon>
-                    编辑厂商信息
+                    新增代理商
                 </p>
 
                 <Row>
@@ -28,16 +28,10 @@
                             <FormItem label="代码">
                                 <Input v-model="companyInfo.code"></Input>
                             </FormItem>
-                            <FormItem label="类型" prop="type" v-if="roleType === 0">
-                                <Select v-model="companyInfo.type" @on-change="selectType">
-                                    <Option v-for="item in typeList" :value="item.value" :key="item.value">{{ item.label }}</Option>
-                                </Select>
+                            <FormItem label="类型">
+                                <Input readonly value="代理商"></Input>
                             </FormItem>
-                            <FormItem label="上级厂商" prop="parent_id" v-if="roleType === 0  && companyInfo.type !== 1">
-                                <Select v-model="companyInfo.parent_id">
-                                    <Option v-for="item in parentList" :value="item.id" :key="item.id">{{ item.name }}</Option>
-                                </Select>
-                            </FormItem>
+                           
                             <FormItem label="备注">
                                 <Input v-model="companyInfo.remark" type="textarea" :rows="4"></Input>
                             </FormItem>
@@ -45,52 +39,38 @@
                             <FormItem>
                                 <Button type="success" @click="handleSubmit('formValidate')">保存</Button>
                                 <Button type="ghost" @click="handleReset('formValidate')" style="margin-left: 8px">重置</Button>
-                                <Button type="primary" @click="toIndex">返回</Button>
+                                <Button type="primary" @click="toIndex" style="margin-left: 8px">返回</Button>
                             </FormItem>
                         </Form>
                     </Col>
                 </Row>
-
-                <br />
-
             </Card>
         </Col>
     </Row>
 </template>
 
 <script>
+/*
+ * 厂商添加代理商页面 
+ */
+
 import company from '@/controllers/company.js'
 
 export default {
-    name: 'company-edit',
+    name: 'company-agent-create',
     data () {
         return {
-            companyId: 0,
             companyInfo: {
-                id: 0,
                 name: '',
                 phone: '',
                 aftersale_phone: '',
-                type: 0,
-                parent_id: '',
+                type: '',
                 contact: '',
                 address: '',
                 code: '',
+                parent_id: '',
                 remark: ''
             },
-            typeList: [
-                {
-                    value: 1,
-                    label: '平台'
-                }, {
-                    value: 2,
-                    label: '厂商'
-                }, {
-                    value: 3,
-                    label: '代理商'
-                }
-            ],
-            parentList: [],
             ruleValidate: {
                 name: [
                     { required: true, message: '名称不能为空', trigger: 'blur' }
@@ -98,55 +78,19 @@ export default {
                 contact: [
                     { required: true, message: '联系人不能为空', trigger: 'blur' }
                 ],
-                type: [
-                    { required: true, message: '请选择类型', type: 'number', trigger: 'change' }
-                ],
                 parent_id: [
-                    { required: true, message: '请选择所属公司', type: 'number', trigger: 'change' }
+                    { required: true, message: '请选择上级厂商', type: 'number', trigger: 'change' }
                 ]
-            },
-            roleType: -1
+            }
         }
     },
     methods: {
         init () {
-            this.roleType = this.$store.state.user.roleType
-            this.companyId = this.$route.params.id
+            let roleId = this.$store.state.user.roleId
+            let companyId = this.$store.state.user.companyId
 
-            this.getCompany(this.companyId)
-            
-            // this.getParentList()
-        },
-
-        selectType (val) {
-            let vm = this
-
-            if (val === 2) {
-                company.listByType(1).then(res => {
-                    vm.parentList = res.entities
-                })
-            } else if (val === 3) {
-                company.listByType(2).then(res => {
-                    vm.parentList = res.entities
-                })
-            }
-        },
-
-        getCompany (id) {
-            let vm = this
-
-            company.details(id).then(res => {
-                vm.companyInfo = res.entity
-            })
-        },
-
-        updateCompany () {
-            let vm = this
-
-            company.update(this.companyInfo).then(res => {
-                vm.$Message.info(res.message)
-                vm.$router.push({ name: 'company-index' })
-            })
+            this.companyInfo.parent_id = companyId
+            this.companyInfo.type = 3
         },
 
         handleSubmit (name) {
@@ -154,9 +98,9 @@ export default {
 
             this.$refs[name].validate((valid) => {
                 if (valid) {
-                    company.update(this.companyInfo).then(res => {
+                    company.create(this.companyInfo).then(res => {
                         vm.$Message.info(res.message)
-                        vm.$router.push({ name: 'company-index' })
+                        vm.$router.push({ name: 'company-agent-index' })
                     })
                 } else {
                     this.$Message.error('输入数据有误')
@@ -169,10 +113,11 @@ export default {
         },
 
         toIndex () {
-            this.$router.push({ name: 'company-index' })
+            this.$router.push({ name: 'company-agent-index' })
         }
     },
     mounted: function () {
+        console.log('router:' + this.$route.params.type)
         this.init()
     }
 }

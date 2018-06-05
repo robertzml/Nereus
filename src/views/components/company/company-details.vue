@@ -41,15 +41,15 @@
 </template>
 
 <script>
-import company from '../../../controllers/company.js'
+import company from '@/controllers/company.js'
 
 export default {
     name: 'company-details',
     props: {
-        companyId: { type: Number, require: true }
     },
     data () {
         return {
+            companyId: 0,
             companyInfo: {},
             parentName: ''
         }
@@ -57,8 +57,8 @@ export default {
     methods: {
         getCompany (id) {
             let vm = this
-            
-            // console.log('company id: ' + this.companyId)
+            this.companyId = id
+           
             company.details(id).then(res => {
                 if (res.status === 0) {
                     vm.companyInfo = res.entity

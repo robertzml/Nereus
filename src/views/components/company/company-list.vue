@@ -10,20 +10,22 @@
         <Modal
             v-model="modal1"
             title="厂商信息">
-            <company-details ref="com1" :company-id="companyId" width="600"></company-details>
+            <company-details ref="com1" width="600"></company-details>
         </Modal>
     </div>
 </template>
 
 <script>
-import * as nereus from '../../utility/nereus.js'
-import companyDetails from '../company/components/company-details.vue'
+import * as nereus from '@/utility/nereus.js'
+import companyDetails from './company-details.vue'
 
 export default {
     name: 'company-list',
     props: {
         itemList: { type: Array, required: true },
-        showPager: { type: Boolean, default: true }
+        showPager: { type: Boolean, default: true },
+        displayEdit: { type: Boolean, default: false },
+        agentView: { type: Boolean, default: false }
     },
     components: {
         companyDetails
@@ -75,10 +77,16 @@ export default {
                     width: 150,
                     align: 'center',
                     render: (h, params) => {
+                        let edit = null
+                        if (this.displayEdit) {
+                            edit = <i-button type="warning" size="small" onClick={ () => { this.showEdit(params.row) } }>编辑</i-button>
+                        } else {
+                            edit = <span></span>
+                        }
                         return (
                         <div>
                             <i-button type="primary" size="small" style="marginRight: 5px" onClick={ () => { this.showDetails(params.row) } }>查看</i-button>
-                            <i-button type="warning" size="small" onClick={ () => { this.showEdit(params.row) } }>编辑</i-button>
+                            { edit }
                         </div>
                         )
                     }
@@ -87,8 +95,7 @@ export default {
             pageSize: 10,
             currentPage: 1,
             pageSizeOpt: [5, 10, 20, 30],
-            modal1: false,
-            companyId: 0
+            modal1: false
         }
     },
     computed: {
@@ -105,14 +112,15 @@ export default {
             this.pageSize = pageSize
         },
         showDetails (item) {
-            // this.$router.push({ name: 'company-details', params: { id: item.id } })
-            console.log('item id: ' + item.id)
-            this.companyId = item.id
             this.$refs.com1.getCompany(item.id)
             this.modal1 = true
         },
         showEdit (item) {
-            this.$router.push({ name: 'company-edit', params: { id: item.id } })
+            if (this.agentView) {
+                this.$router.push({ name: 'company-agent-edit', params: { id: item.id } })
+            } else {
+                this.$router.push({ name: 'company-edit', params: { id: item.id } })
+            }
         }
     }
 }

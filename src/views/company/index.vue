@@ -16,7 +16,7 @@
                         刷新
                     </a>
                     
-                    <company-list :itemList="companyData"></company-list>
+                    <company-list :itemList="companyData" :display-edit="true"></company-list>
                 </Card>
             </Col>
         </Row>
@@ -32,27 +32,7 @@
                         刷新
                     </a>
 
-                    <company-list :itemList="myCompany" :showPager="false"></company-list>
-                </Card>
-            </Col>
-        </Row>
-        <Row v-if="roleType === 2">
-            <Col span="24">
-                <Card>
-                    <p slot="title">
-                        <Icon type="grid"></Icon>
-                        代理商列表
-                    </p>
-                    <a href="#" slot="extra" @click.prevent="showCreateAgent">
-                        <Icon type="plus-round"></Icon>
-                        新增
-                    </a>
-                    <a href="#" slot="extra" @click.prevent="getAgents">
-                        <Icon type="ios-loop-strong"></Icon>
-                        刷新
-                    </a>
-
-                    <company-list :itemList="agentData"></company-list>
+                    <company-list :itemList="myCompany" :showPager="false" :display-edit="canEditMyCompany"></company-list>
                 </Card>
             </Col>
         </Row>
@@ -60,9 +40,9 @@
 </template>
 
 <script>
-import company from '../../controllers/company.js'
-import * as nereus from '../../utility/nereus.js'
-import companyList from '../components/company-list.vue'
+import company from '@/controllers/company.js'
+import * as nereus from '@/utility/nereus.js'
+import companyList from '../components/company/company-list.vue'
 
 export default {
     name: 'company-index',
@@ -74,14 +54,14 @@ export default {
             companyData: [],
             myCompany: [],
             agentData: [],
-            roleType: -1
+            roleType: -1,
+            canEditMyCompany: false
         }
     },
     beforeRouteEnter (to, from, next) {
         if (from.name === 'company-edit' || from.name === 'company-create') {
             next(vm => {
                 vm.getCompanys()
-                vm.getAgents()
             })
         } else {
             next()
@@ -94,9 +74,13 @@ export default {
                 this.getCompanys()
             } else if (this.roleType === 2) {
                 this.getMyCompany()
-                this.getAgents()
             } else if (this.roleType === 3) {
                 this.getMyCompany()
+            }
+
+            let roleId = this.$store.state.user.roleId
+            if (roleId === 5) {
+                this.canEditMyCompany = true
             }
         },
 
@@ -117,16 +101,6 @@ export default {
             
             company.list().then(res => {
                 vm.companyData = res.entities
-            })
-        },
-
-        // 获取代理商
-        getAgents () {
-            let vm = this
-            let companyId = this.$store.state.user.companyId
-
-            company.listByParent(companyId).then(res => {
-                vm.agentData = res.entities
             })
         },
       

@@ -16,7 +16,7 @@
                         刷新
                     </a>
 
-                    <company-list :itemList="agentData"></company-list>
+                    <company-list :itemList="agentData" :display-edit="canEditCompany" :agent-view="true"></company-list>
                 </Card>
             </Col>
         </Row>
@@ -24,9 +24,9 @@
 </template>
 
 <script>
-import company from '../../controllers/company.js'
-import * as nereus from '../../utility/nereus.js'
-import companyList from '../components/company-list.vue'
+import company from '@/controllers/company.js'
+import * as nereus from '@/utility/nereus.js'
+import companyList from '../components/company/company-list.vue'
 
 export default {
     name: 'company-agent-index',
@@ -36,13 +36,13 @@ export default {
     data () {
         return {
             agentData: [],
-            roleType: -1
+            roleType: -1,
+            canEditCompany: false
         }
     },
     beforeRouteEnter (to, from, next) {
-        if (from.name === 'company-edit' || from.name === 'company-create') {
+        if (from.name === 'company-agent-edit' || from.name === 'company-agent-create') {
             next(vm => {
-                vm.getCompanys()
                 vm.getAgents()
             })
         } else {
@@ -53,6 +53,11 @@ export default {
         init () {
             this.roleType = this.$store.state.user.roleType
             this.getAgents()
+
+            let roleId = this.$store.state.user.roleId
+            if (roleId === 5 || roleId === 6) {
+                this.canEditCompany = true
+            }
         },
 
         // 获取代理商
@@ -64,13 +69,9 @@ export default {
                 vm.agentData = res.entities
             })
         },
-      
-        showCreate () {
-            this.$router.push({ name: 'company-create' })
-        },
 
         showCreateAgent () {
-            this.$router.push({ name: 'company-create', params: { type: 1 } })
+            this.$router.push({ name: 'company-agent-create', params: { type: 1 } })
         }
     },
     created: function () {

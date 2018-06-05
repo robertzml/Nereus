@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import company from '../../controllers/company.js'
+import company from '@/controllers/company.js'
 
 export default {
     name: 'company-create',
