@@ -56,10 +56,10 @@
 
 
 <script>
-import account from '../../controllers/account.js'
-import role from '../../controllers/role.js'
-import company from '../../controllers/company.js'
-import * as nereus from '../../utility/nereus.js'
+import account from '@/controllers/account.js'
+import role from '@/controllers/role.js'
+import company from '@/controllers/company.js'
+import * as nereus from '@/utility/nereus.js'
 
 export default {
     name: 'account-create',

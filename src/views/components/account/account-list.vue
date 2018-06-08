@@ -11,14 +11,15 @@
 </template>
 
 <script>
-import * as nereus from '../../utility/nereus.js'
+import * as nereus from '@/utility/nereus.js'
 
 export default {
     name: 'account-list',
     props: {
         itemList: { type: Array, required: true },
         showPager: { type: Boolean, default: true },
-        listType: { type: Number, default: 0 }
+        listType: { type: Number, default: 0 }, // 0:超级管理员编辑  1: 厂商编辑   2:代理商编辑
+        displayEdit: { type: Boolean, default: false }
     },
     data () {
         return {
@@ -76,10 +77,16 @@ export default {
                     width: 150,
                     align: 'center',
                     render: (h, params) => {
+                        let edit = null
+                        if (this.displayEdit) {
+                            edit = <i-button type="warning" size="small" onClick={ () => { this.showEdit(params.row) } }>编辑</i-button>
+                        } else {
+                            edit = <span></span>
+                        }
                         return (
                         <div>
                             <i-button type="primary" size="small" style="marginRight: 5px" onClick={ () => { this.showDetails(params.row) } }>查看</i-button>
-                            <i-button type="warning" size="small" onClick={ () => { this.showEdit(params.row) } }>编辑</i-button>
+                            { edit }
                         </div>
                         )
                     }
@@ -116,7 +123,11 @@ export default {
             this.$router.push({ name: 'account-details', params: { id: item.id } })
         },
         showEdit (item) {
-            this.$router.push({ name: 'account-edit', params: { id: item.id, type: this.listType } })
+            if (this.listType === 0) {
+                this.$router.push({ name: 'account-edit', params: { id: item.id, type: this.listType } })
+            } else if (this.listType === 1) {
+                this.$router.push({ name: 'account-vendor-edit', params: { id: item.id, type: this.listType } })
+            }
         }
     }
 }

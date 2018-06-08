@@ -82,7 +82,9 @@ export const appRouter = [
             { path: 'details/:id', title: '管理员信息', name: 'account-details', component: resolve => { require(['@/views/account/details.vue'], resolve) } },
             { path: 'info', title: '个人中心', name: 'account-info', meta: { keepAlive: true }, component: resolve => { require(['@/views/account/info.vue'], resolve) } },
             { path: 'edit/:id', title: '用户编辑', name: 'account-edit', component: resolve => { require(['@/views/account/edit.vue'], resolve) } },
-            { path: 'change-password', title: '修改密码', name: 'account-change-password', component: resolve => { require(['@/views/account/change-password.vue'], resolve) } }
+            { path: 'change-password', title: '修改密码', name: 'account-change-password', component: resolve => { require(['@/views/account/change-password.vue'], resolve) } },
+            { path: 'vendor-index', title: '厂商管理员', parent: 'company-menu', role: 8, name: 'account-vendor-index', meta: { keepAlive: true }, component: resolve => { require(['@/views/account/vendor-index.vue'], resolve) } },
+            { path: 'vendor-edit/:id', title: '厂商管理员编辑', name: 'account-vendor-edit', component: resolve => { require(['@/views/account/vendor-edit.vue'], resolve) } }
         ]
     },
   

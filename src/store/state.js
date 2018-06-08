@@ -35,7 +35,8 @@ export default {
     viewPrivilege: [
         { name: 'company-index', roles: [1, 2, 3, 4, 5, 6, 7, 8] },
         { name: 'company-agent-index', roles: [5, 6, 7] },
-        { name: 'account-index', roles: [1, 2, 3, 4, 5, 6, 7, 8] },
+        { name: 'account-index', roles: [1, 2, 3, 4, 8] },
+        { name: 'account-vendor-index', roles: [5, 6, 7] },
         { name: 'product-index', roles: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] },
         { name: 'product-type-index', roles: [1, 2, 3] },
         { name: 'role-index', roles: [1] },

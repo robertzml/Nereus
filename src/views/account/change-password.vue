@@ -37,8 +37,8 @@
 
 
 <script>
-import account from '../../controllers/account.js'
-import * as nereus from '../../utility/nereus.js'
+import account from '@/controllers/account.js'
+import * as nereus from '@/utility/nereus.js'
 
 export default {
     name: 'change-password',

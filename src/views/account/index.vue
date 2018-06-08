@@ -72,10 +72,10 @@
 </template>
 
 <script>
-import account from '../../controllers/account.js'
-import * as nereus from '../../utility/nereus.js'
-import accountList from '../components/account-list.vue'
-import company from '../../controllers/company.js'
+import account from '@/controllers/account.js'
+import * as nereus from '@/utility/nereus.js'
+import accountList from '../components/account/account-list.vue'
+import company from '@/controllers/company.js'
 
 export default {
     name: 'account-index',
