@@ -7,11 +7,17 @@
                     @on-page-size-change="changePageSize"></Page>
             </div>
         </div>
+        <Modal
+            v-model="modal1"
+            title="管理员信息">
+            <account-details ref="acc1" width="600"></account-details>
+        </Modal>
     </div>
 </template>
 
 <script>
 import * as nereus from '@/utility/nereus.js'
+import accountDetails from './account-details.vue'
 
 export default {
     name: 'account-list',
@@ -20,6 +26,9 @@ export default {
         showPager: { type: Boolean, default: true },
         listType: { type: Number, default: 0 }, // 0:超级管理员编辑  1: 厂商编辑   2:代理商编辑
         displayEdit: { type: Boolean, default: false }
+    },
+    components: {
+        accountDetails
     },
     data () {
         return {
@@ -94,7 +103,8 @@ export default {
             ],
             pageSize: 10,
             currentPage: 1,
-            pageSizeOpt: [5, 10, 20, 30]
+            pageSizeOpt: [5, 10, 20, 30],
+            modal1: false
         }
     },
     computed: {
@@ -120,7 +130,9 @@ export default {
             this.pageSize = pageSize
         },
         showDetails (item) {
-            this.$router.push({ name: 'account-details', params: { id: item.id } })
+            // this.$router.push({ name: 'account-details', params: { id: item.id } })
+            this.$refs.acc1.getAccount(item.id)
+            this.modal1 = true
         },
         showEdit (item) {
             if (this.listType === 0) {
