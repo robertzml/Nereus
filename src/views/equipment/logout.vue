@@ -23,8 +23,8 @@
 </template>
 
 <script>
-import equipment from '../../controllers/equipment.js'
-import * as nereus from '../../utility/nereus.js'
+import equipment from '@/controllers/equipment.js'
+import * as nereus from '@/utility/nereus.js'
 
 export default {
     name: 'equipment-logout',

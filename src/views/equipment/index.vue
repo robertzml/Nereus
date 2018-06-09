@@ -52,10 +52,10 @@
 </template>
 
 <script>
-import equipment from '../../controllers/equipment.js'
-import equipmentList from '../components/equipment-list.vue'
-import productType from '../../controllers/product-type.js'
-import company from '../../controllers/company.js'
+import equipment from '@/controllers/equipment.js'
+import equipmentList from '../components/equipment/equipment-list.vue'
+import productType from '@/controllers/product-type.js'
+import company from '@/controllers/company.js'
 
 export default {
     name: 'equipment-index',

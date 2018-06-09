@@ -127,11 +127,11 @@
 </template>
 
 <script>
-import equipment from '../../controllers/equipment.js'
-import equipmentStatus from '../components/equipment-status.vue'
-import equipmentKey from '../components/equipment-key.vue'
-import waterCleanerKey from '../components/water-cleaner-key.vue'
-import waterCleanerStatus from '../components/water-cleaner-status.vue'
+import equipment from '@/controllers/equipment.js'
+import equipmentStatus from '../components/equipment/equipment-status.vue'
+import equipmentKey from '../components/equipment/equipment-key.vue'
+import waterCleanerKey from '../components/equipment/water-cleaner-key.vue'
+import waterCleanerStatus from '../components/equipment/water-cleaner-status.vue'
 import moment from 'moment'
 
 export default {

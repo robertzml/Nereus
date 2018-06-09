@@ -73,7 +73,7 @@
 </template>
 
 <script>
-import equipment from '../../controllers/equipment.js'
+import equipment from '@/controllers/equipment.js'
 
 export default {
     name: 'equipment-status',

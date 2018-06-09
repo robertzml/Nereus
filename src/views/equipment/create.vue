@@ -44,9 +44,9 @@
 
 
 <script>
-import product from '../../controllers/product.js'
-import company from '../../controllers/company.js'
-import equipment from '../../controllers/equipment.js'
+import product from '@/controllers/product.js'
+import company from '@/controllers/company.js'
+import equipment from '@/controllers/equipment.js'
 
 export default {
     name: 'equipment-create',

@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import config from '../../utility/config.js'
+import config from '@/utility/config.js'
 
 export default {
     name: 'equipment-upload',
