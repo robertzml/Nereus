@@ -7,7 +7,7 @@
                         <Icon type="grid"></Icon>
                         本公司用户
                     </p>
-                    <a href="#" slot="extra" @click.prevent="toCreateAgent">
+                    <a href="#" slot="extra" @click.prevent="toCreateAgent" v-if="displayCreate">
                         <Icon type="plus-round"></Icon>
                         新增
                     </a>
@@ -27,7 +27,7 @@
                         <Icon type="grid"></Icon>
                         代理商用户
                     </p>
-                    <a href="#" slot="extra" @click.prevent="toCreateAgent">
+                    <a href="#" slot="extra" @click.prevent="toCreateAgent" v-if="displayAgentCreate">
                         <Icon type="plus-round"></Icon>
                         新增
                     </a>
@@ -67,7 +67,9 @@ export default {
             roleType: -1,
             agentList: [],
             sAgent: '',
-            canEditAccount: false
+            canEditAccount: false,
+            displayCreate: false,
+            displayAgentCreate: false
         }
     },
     beforeRouteEnter (to, from, next) {
@@ -97,14 +99,18 @@ export default {
     methods: {
         init () {
             this.roleType = this.$store.state.user.roleType
-        
+            let roleId = this.$store.state.user.roleId
+
             if (this.roleType === 2) {
                 this.getAgentAccounts()
                 this.loadAgents()
+
+                if (roleId === 5 || roleId === 6) {
+                    this.displayAgentCreate = true
+                }
             } else if (this.roleType === 3) {
                 this.getMyAccounts()
-
-                let roleId = this.$store.state.user.roleId
+                
                 if (roleId === 8 || roleId === 9) {
                     this.canEditAccount = true
                     this.displayCreate = true
@@ -170,14 +176,10 @@ export default {
                 })
             }
         },
-        
-        showCreate () {
-            this.$router.push({ name: 'account-create' })
-        },
 
         // 增加代理商用户
         toCreateAgent () {
-            this.$router.push({ name: 'account-create', params: { type: 2 } })
+            this.$router.push({ name: 'account-agent-create' })
         }
     },
     created: function () {

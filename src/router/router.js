@@ -87,6 +87,7 @@ export const appRouter = [
             { path: 'vendor-create', title: '厂商管理员添加', name: 'account-vendor-create', component: resolve => { require(['@/views/account/vendor-create.vue'], resolve) } },
             { path: 'vendor-edit/:id', title: '厂商管理员编辑', name: 'account-vendor-edit', component: resolve => { require(['@/views/account/vendor-edit.vue'], resolve) } },
             { path: 'agent-index', title: '代理商管理员', parent: 'company-menu', role: 8, name: 'account-agent-index', meta: { keepAlive: true }, component: resolve => { require(['@/views/account/agent-index.vue'], resolve) } },
+            { path: 'agent-create', title: '代理商管理员添加', name: 'account-agent-create', component: resolve => { require(['@/views/account/agent-create.vue'], resolve) } },
             { path: 'agent-edit/:id', title: '代理商管理员编辑', name: 'account-agent-edit', component: resolve => { require(['@/views/account/agent-edit.vue'], resolve) } }
         ]
     },

@@ -4,14 +4,20 @@
             <Card>
                 <p slot="title">
                     <Icon type="grid"></Icon>
-                    代理商用户信息
+                    增加代理商管理员
                 </p>
 
                 <Row>
                     <Col span="16" push="4">
                         <Form ref="formValidate" :model="accountInfo" :rules="ruleValidate" :label-width="80">
-                            <FormItem label="用户名">
-                                <Input v-model="accountInfo.user_name" readonly></Input>
+                            <FormItem label="用户名" prop="user_name">
+                                <Input v-model="accountInfo.user_name"></Input>
+                            </FormItem>
+                            <FormItem label="密码" prop="password">
+                                <Input v-model="accountInfo.password" type="password"></Input>
+                            </FormItem>
+                            <FormItem label="密码确认" prop="repassword">
+                                <Input v-model="accountInfo.repassword" type="password"></Input>
                             </FormItem>
                             <FormItem label="姓名">
                                 <Input v-model="accountInfo.name"></Input>
@@ -23,18 +29,18 @@
                                 <Input v-model="accountInfo.email"></Input>
                             </FormItem>
                             <FormItem label="所属角色" prop="role_id">
-                                 <Select v-model="accountInfo.role_id" :disabled="roleType === 3">
+                                 <Select v-model="accountInfo.role_id">
                                     <Option v-for="item in roleList" :value="item.id" :key="item.id">{{ item.name }}</Option>
                                 </Select>
                             </FormItem>
-                            <FormItem label="所属公司" v-if="roleType === 2">
-                                <Input readonly v-model="companyName"></Input>
+
+                            <FormItem label="所属公司" prop="company_id" v-if="roleType === 2">
+                                <Select v-model="accountInfo.company_id">
+                                    <Option v-for="item in companyList" :value="item.id" :key="item.id">{{ item.name }}</Option>
+                                </Select>
                             </FormItem>
-                            <FormItem label="账户状态">
-                                <i-switch v-model="accountEnabled" size="large">
-                                    <span slot="open">启用</span>
-                                    <span slot="close">禁用</span>
-                                </i-switch>
+                            <FormItem label="所属公司" v-if="roleType === 3">
+                                <Input readonly v-model="companyName"></Input>
                             </FormItem>
 
                             <FormItem>
@@ -52,6 +58,7 @@
     </Row>
 </template>
 
+
 <script>
 import account from '@/controllers/account.js'
 import role from '@/controllers/role.js'
@@ -59,55 +66,69 @@ import company from '@/controllers/company.js'
 import * as nereus from '@/utility/nereus.js'
 
 export default {
-    name: 'account-agent-edit',
+    name: 'account-agent-create',
     data () {
+        const validatePass = (rule, value, callback) => {
+            if (value === '') {
+                callback(new Error('请输入密码'))
+            }
+            callback()
+        }
+
+        const validatePassCheck = (rule, value, callback) => {
+            if (value === '') {
+                callback(new Error('请再次输入密码'))
+            } else if (value !== this.accountInfo.password) {
+                callback(new Error('两次输入密码不一致'))
+            } else {
+                callback()
+            }
+        }
+
         return {
-            accountId: 0,
+            roleType: -1,
             accountInfo: {
-                id: 0,
                 user_name: '',
                 name: '',
+                password: '',
+                repassword: '',
                 phone: '',
                 email: '',
                 role_id: 0,
                 company_id: 0
             },
-            accountEnabled: false,
             roleList: [],
+            companyList: [],
             companyName: '',
             ruleValidate: {
+                user_name: [
+                    { required: true, message: '用户名不能为空', trigger: 'blur' }
+                ],
+                password: [
+                    { validator: validatePass, trigger: 'blur' }
+                ],
+                repassword: [
+                    { validator: validatePassCheck, trigger: 'blur' }
+                ],
                 phone: [
                     { required: true, message: '电话不能为空', trigger: 'blur' }
                 ],
                 role_id: [
                     { required: true, message: '请选择角色', type: 'number', trigger: 'change' }
+                ],
+                company_id: [
+                    { required: true, message: '请选择公司', type: 'number', trigger: 'change' }
                 ]
-            },
-            roleType: ''
+            }
         }
     },
     methods: {
         init () {
             this.roleType = this.$store.state.user.roleType
-            this.accountId = this.$route.params.id
-
-            this.getAccount(this.accountId)
+            let roleId = this.$store.state.user.roleId
+          
             this.getRoles()
-        },
-
-        getAccount () {
-            let vm = this
-
-            account.details(this.accountId).then(res => {
-                if (res.status === 0) {
-                    vm.accountInfo = res.admin
-                    vm.accountEnabled = vm.accountInfo.status === 0
-
-                    this.getCompany(vm.accountInfo.company_id)
-                } else {
-                    vm.$Message.error(res.message)
-                }
-            })
+            this.getCompanys()
         },
 
         getRoles () {
@@ -117,17 +138,27 @@ export default {
                 if (vm.roleType === 2) {
                     vm.roleList = res.entities.filter(r => r.type === 3)
                 } else if (vm.roleType === 3) {
-                    vm.roleList = res.entities.filter(r => r.type === 3 && r.role_id !== 8)
+                    vm.roleList = res.entities.filter(r => r.type === 3 && r.id !== 8)
                 }
             })
         },
 
-        getCompany (companyId) {
+        // 获取代理商
+        getCompanys () {
             let vm = this
+            let companyId = this.$store.state.user.companyId
 
-            company.details(companyId).then(res => {
-                vm.companyName = res.entity.name
-            })
+            if (this.roleType === 2) {
+                company.listByParent(companyId).then(res => {
+                    vm.companyList = res.entities
+                })
+            } else if (this.roleType === 3) {
+                vm.accountInfo.company_id = companyId
+
+                company.details(companyId).then(res => {
+                    vm.companyName = res.entity.name
+                })
+            }
         },
 
         handleSubmit (name) {
@@ -135,12 +166,8 @@ export default {
 
             this.$refs[name].validate((valid) => {
                 if (valid) {
-                    if (this.accountEnabled) {
-                        this.accountInfo.status = 0
-                    } else {
-                        this.accountInfo.status = 2
-                    }
-                    account.update(this.accountInfo).then(res => {
+                    delete this.accountInfo.repassword
+                    account.create(this.accountInfo).then(res => {
                         vm.$Message.info(res.message)
                         vm.$router.push({ name: 'account-agent-index' })
                     })
@@ -158,6 +185,17 @@ export default {
         }
     },
     mounted: function () {
+        this.accountInfo = {
+            user_name: '',
+            password: '',
+            repassword: '',
+            name: '',
+            phone: '',
+            email: '',
+            role_id: '',
+            company_id: ''
+        }
+
         this.init()
     }
 }

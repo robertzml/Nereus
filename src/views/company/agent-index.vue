@@ -7,7 +7,7 @@
                         <Icon type="grid"></Icon>
                         代理商列表
                     </p>
-                    <a href="#" slot="extra" @click.prevent="showCreateAgent">
+                    <a href="#" slot="extra" v-if="canEditCompany" @click.prevent="toCreateAgent">
                         <Icon type="plus-round"></Icon>
                         新增
                     </a>
@@ -70,7 +70,7 @@ export default {
             })
         },
 
-        showCreateAgent () {
+        toCreateAgent () {
             this.$router.push({ name: 'company-agent-create', params: { type: 1 } })
         }
     },
