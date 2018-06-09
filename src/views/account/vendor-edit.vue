@@ -45,9 +45,9 @@
 </template>
 
 <script>
-import account from '../../controllers/account.js'
-import role from '../../controllers/role.js'
-import * as nereus from '../../utility/nereus.js'
+import account from '@/controllers/account.js'
+import role from '@/controllers/role.js'
+import * as nereus from '@/utility/nereus.js'
 
 export default {
     name: 'account-vendor-edit',
@@ -76,8 +76,7 @@ export default {
                     { required: true, message: '请选择公司', type: 'number', trigger: 'change' }
                 ]
             },
-            roleType: '',
-            editType: 0
+            roleType: ''
         }
     },
     methods: {

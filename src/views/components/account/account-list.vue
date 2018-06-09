@@ -138,7 +138,9 @@ export default {
             if (this.listType === 0) {
                 this.$router.push({ name: 'account-edit', params: { id: item.id, type: this.listType } })
             } else if (this.listType === 1) {
-                this.$router.push({ name: 'account-vendor-edit', params: { id: item.id, type: this.listType } })
+                this.$router.push({ name: 'account-vendor-edit', params: { id: item.id } })
+            } else if (this.listType === 2) {
+                this.$router.push({ name: 'account-agent-edit', params: { id: item.id } })
             }
         }
     }
