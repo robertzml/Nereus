@@ -63,7 +63,7 @@ export const appRouter = [
         title: '厂商管理',
         component: Home,
         children: [
-            { path: 'index', title: '厂商管理', parent: 'company-menu', role: 8, name: 'company-index', meta: { keepAlive: true }, component: resolve => { require(['@/views/company/index.vue'], resolve) } },
+            { path: 'index', title: '公司管理', parent: 'company-menu', role: 8, name: 'company-index', meta: { keepAlive: true }, component: resolve => { require(['@/views/company/index.vue'], resolve) } },
             { path: 'agent-index', title: '代理商管理', parent: 'company-menu', name: 'company-agent-index', meta: { keepAlive: true }, component: resolve => { require(['@/views/company/agent-index.vue'], resolve) } },
             { path: 'create', title: '厂商添加', name: 'company-create', component: resolve => { require(['@/views/company/create.vue'], resolve) } },
             { path: 'edit/:id', title: '厂商编辑', name: 'company-edit', component: resolve => { require(['@/views/company/edit.vue'], resolve) } },

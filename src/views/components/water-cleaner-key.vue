@@ -28,8 +28,8 @@
                             {{ realInfo.mainboard_serial_number }}
                         </FormItem>
 
-                        <FormItem label="次数">
-                            {{ counter }}
+                        <FormItem label="在线状态">
+                            {{ realInfo.is_online | onlineState }}
                         </FormItem>
                     </Col>
 
@@ -44,6 +44,10 @@
 
                         <FormItem label="日志时间">
                             {{ realInfo.log_time | displayDateTime }}
+                        </FormItem>
+
+                        <FormItem label="次数">
+                            {{ counter }}
                         </FormItem>
                     </Col>
                 </Row>
@@ -79,10 +83,25 @@ export default {
             }
         },
         activateState: function (isActivate) {
-            return isActivate ? '已激活' : '未激活'
+            if (isActivate === '1') {
+                return '已激活'
+            } else {
+                return '未激活'
+            }
         },
         lockState: function (isUnlock) {
-            return isUnlock ? '已解锁' : '未解锁'
+            if (isUnlock === '1') {
+                return '已解锁'
+            } else {
+                return '未解锁'
+            }
+        },
+        onlineState: function (online) {
+            if (online === '1') {
+                return '在线'
+            } else { 
+                return '离线'
+            }
         }
     },
     methods: {

@@ -7,14 +7,14 @@
                         <Icon type="grid"></Icon>
                         用户列表
                     </p>
-                    <a href="#" slot="extra" @click.prevent="getEquipments">
+                    <a href="#" slot="extra" @click.prevent="loadUsers">
                         <Icon type="ios-loop-strong"></Icon>
                         刷新
                     </a>
 
                     <div>
                         <span>代理商：</span>
-                        <Select v-model="selectedAgent" style="width:300px" placeholder="选择代理商" @on-change="selectAgent" clearable>
+                        <Select v-model="selectedAgent" style="width:300px" placeholder="选择代理商" clearable>
                             <Option v-for="item in agentCompany" :value="item.id" :key="item.id">{{ item.name }}</Option>
                         </Select>
                     </div>
@@ -28,9 +28,9 @@
 </template>
 
 <script>
-import company from '../../controllers/company.js'
-import user from '../../controllers/user.js'
-import userList from '../components/user-list.vue'
+import company from '@/controllers/company.js'
+import user from '@/controllers/user.js'
+import userList from '../components/user/user-list.vue'
 
 export default {
     name: 'user-index',
@@ -100,23 +100,6 @@ export default {
                     })
                 }
             })
-        },
-
-        selectAgent (val) {
-            let vm = this
-
-            /*
-            user.listByAgent(val).then(res => {
-                if (res.status === 0) {
-                    vm.userData = res.entities
-                } else {
-                    this.$Notice.error({
-                        title: '获取消费者信息失败',
-                        desc: res.message
-                    })
-                }
-            })
-            */
         }
     },
     created: function () {

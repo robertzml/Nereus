@@ -39,10 +39,10 @@
 </template>
 
 <script>
-import user from '../../controllers/user.js'
-import consumerWalletDetails from '../components/consumer-wallet-details.vue'
-import consumerWalletList from '../components/consumer-wallet-list.vue'
-import consumerWalletSummary from '../components/consumer-wallet-summary.vue'
+import user from '@/controllers/user.js'
+import consumerWalletDetails from '../components/user/consumer-wallet-details.vue'
+import consumerWalletList from '../components/user/consumer-wallet-list.vue'
+import consumerWalletSummary from '../components/user/consumer-wallet-summary.vue'
 import userTrade from '../components/user-trade.vue'
 
 export default {
