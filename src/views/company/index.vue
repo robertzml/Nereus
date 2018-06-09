@@ -100,7 +100,14 @@ export default {
             let vm = this
             
             company.list().then(res => {
-                vm.companyData = res.entities
+                if (res.status === 0) {
+                    vm.companyData = res.entities
+                } else {
+                    this.$Notice.error({
+                        title: '获取厂商信息失败',
+                        desc: res.message
+                    })
+                }
             })
         },
       

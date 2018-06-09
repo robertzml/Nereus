@@ -7,7 +7,7 @@
                         <Icon type="grid"></Icon>
                         本公司用户
                     </p>
-                    <a href="#" slot="extra" @click.prevent="showCreate" v-if="displayCreate">
+                    <a href="#" slot="extra" @click.prevent="toCreate" v-if="displayCreate">
                         <Icon type="plus-round"></Icon>
                         新增
                     </a>
@@ -82,13 +82,16 @@ export default {
                         vm.myAccount = res.entities
                     }
                 } else {
-                    vm.$Message.error(res.message)
+                    this.$Notice.error({
+                        title: '获取管理员信息失败',
+                        desc: res.message
+                    })
                 }
             })
         },
 
-        showCreate () {
-            this.$router.push({ name: 'account-create' })
+        toCreate () {
+            this.$router.push({ name: 'account-vendor-create' })
         }
     },
     created: function () {
