@@ -43,7 +43,7 @@ import user from '@/controllers/user.js'
 import consumerWalletDetails from '../components/user/consumer-wallet-details.vue'
 import consumerWalletList from '../components/user/consumer-wallet-list.vue'
 import consumerWalletSummary from '../components/user/consumer-wallet-summary.vue'
-import userTrade from '../components/user-trade.vue'
+import userTrade from '../components/user/user-trade.vue'
 
 export default {
     name: 'user-details',

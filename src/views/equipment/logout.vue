@@ -85,15 +85,6 @@ export default {
             pageSizeOpt: [5, 10, 20, 30]
         }
     },
-    beforeRouteEnter (to, from, next) {
-        if (from.name === 'equipment-edit' || from.name === 'equipment-create') {
-            next(vm => {
-                vm.getEquipments()
-            })
-        } else {
-            next()
-        }
-    },
     methods: {
         init () {
             this.getEquipments()
@@ -151,6 +142,8 @@ export default {
                         title: '注销成功',
                         desc: res.message
                     })
+
+                    this.getEquipments()
                 } else {
                     this.$Notice.error({
                         title: '注销失败',
@@ -172,6 +165,8 @@ export default {
                         title: '注销已驳回',
                         desc: res.message
                     })
+
+                    this.getEquipments()
                 } else {
                     this.$Notice.error({
                         title: '驳回失败',

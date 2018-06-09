@@ -6,7 +6,7 @@ export default {
             .then(res => {
                 let u = res.data
                 if (u.status === 0) {
-                    if (u.admin.role_id === 7 || u.admin.role_id === 10 || u.admin.role_id === 11) {
+                    if (u.admin.role_id === 9 || u.admin.role_id === 10 || u.admin.role_id === 11) {
                         commit('LOGIN', {
                             login: false,
                             id: 0,

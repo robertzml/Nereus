@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import user from '../../controllers/user.js'
+import user from '@/controllers/user.js'
 
 export default {
     name: 'user-trade',

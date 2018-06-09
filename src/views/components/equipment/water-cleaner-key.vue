@@ -23,13 +23,13 @@
                         <FormItem label="解锁状态">
                             {{ realInfo.is_lock | lockState }}
                         </FormItem>
-                      
-                        <FormItem label="主板序列号">
-                            {{ realInfo.mainboard_serial_number }}
-                        </FormItem>
 
                         <FormItem label="在线状态">
                             {{ realInfo.is_online | onlineState }}
+                        </FormItem>
+
+                          <FormItem label="主板序列号">
+                            {{ realInfo.mainboard_serial_number }}
                         </FormItem>
                     </Col>
 

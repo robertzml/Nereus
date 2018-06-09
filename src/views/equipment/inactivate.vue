@@ -150,6 +150,8 @@ export default {
                         title: '激活成功',
                         desc: res.message
                     })
+
+                    this.getData()
                 } else {
                     this.$Notice.error({
                         title: '激活失败',
@@ -171,6 +173,8 @@ export default {
                         title: '激活已驳回',
                         desc: res.message
                     })
+
+                    this.getData()
                 } else {
                     this.$Notice.error({
                         title: '驳回失败',
