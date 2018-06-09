@@ -8,12 +8,12 @@
 
             <Row>
                 <Col span="12" push="4">
-                    <Form ref="formValidate" :model="saleRuleInfo" :rules="ruleValidate" :label-width="220">
+                    <Form :model="saleRuleInfo" :label-width="220">
                         <FormItem label="付款方式" prop="pay_type">
                             {{ saleRuleInfo.pay_type | payType }}
                         </FormItem>
 
-                        <div  v-if="saleRuleInfo.pay_type === 1">
+                        <div v-if="saleRuleInfo.pay_type === 1">
                             <FormItem label="期望安装费">
                                 {{ saleRuleInfo.installation_charge }}
                             </FormItem>
@@ -109,10 +109,18 @@
 
                             <FormItem label="免费使用时间(天)">
                                 {{ saleRuleInfo.set_free_time }}
-                            </FormItem>
+                            </FormItem>                            
                         </div>
 
+                        <FormItem label="启用状态">
+                            <i-switch v-model="ruleEnabled" size="large">
+                                <span slot="open">启用</span>
+                                <span slot="close">禁用</span>
+                            </i-switch>
+                        </FormItem>
+
                         <FormItem>
+                            <Button type="success" @click="updateEnable">保存</Button>
                             <Button type="primary" @click="toIndex" style="margin-left: 8px">返回</Button>
                         </FormItem>
                     </Form>
@@ -124,7 +132,7 @@
 </template>
 
 <script>
-import product from '../../controllers/product.js'
+import product from '@/controllers/product.js'
 
 export default {
     name: 'sale-rule',
@@ -145,7 +153,8 @@ export default {
                 save_electricity_ratio: 0,
                 fix_month_rent: '',
                 set_time_divided_pay_pers: ''
-            }
+            },
+            ruleEnabled: false
         }
     },
     filters: {
@@ -191,9 +200,36 @@ export default {
                 if (res.status === 0) {
                     vm.saleRuleInfo = res.entity
                     vm.productId = vm.saleRuleInfo.product_id
+
+                    vm.ruleEnabled = vm.saleRuleInfo.status === 0
                 } else {
                     this.$Notice.error({
                         title: '获取销售规则失败',
+                        desc: res.message
+                    })
+                }
+            })
+        },
+
+        updateEnable () {
+            let vm = this
+            let act = {
+                id: this.ruleId,
+                status: 0
+            }
+            if (this.ruleEnabled) {
+                act.status = 0
+            } else {
+                act.status = 2
+            }
+
+            product.updateSaleRuleStatus(act).then(res => {
+                if (res.status === 0) {
+                    vm.$Message.info(res.message)
+                    vm.$router.push({ name: 'product-details', params: { id: vm.productId } })
+                } else {
+                    this.$Notice.error({
+                        title: '更改状态失败',
                         desc: res.message
                     })
                 }

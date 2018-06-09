@@ -36,8 +36,7 @@
 </template>
 
 <script>
-import productType from '../../controllers/product-type.js'
-import _ from 'lodash'
+import productType from '@/controllers/product-type.js'
 
 export default {
     name: 'product-type',

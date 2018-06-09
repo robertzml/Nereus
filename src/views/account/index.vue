@@ -22,7 +22,7 @@
                             <Option v-for="item in agentList" :value="item.id" :key="item.id">{{ item.name }}</Option>
                         </Select>
                     </div>
-                    <account-list :itemList="accountFilterData"></account-list>
+                    <account-list :itemList="accountFilterData" :display-edit="true"></account-list>
                 </Card>
             </Col>
         </Row>

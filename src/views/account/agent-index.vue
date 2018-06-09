@@ -42,7 +42,7 @@
                             <Option v-for="item in agentList" :value="item.id" :key="item.id">{{ item.name }}</Option>
                         </Select>
                     </div>
-                    <account-list :itemList="agentFilterData" :display-edit="true" :list-type="2"></account-list>
+                    <account-list :itemList="agentFilterData" :display-edit="displayAgentCreate" :list-type="2"></account-list>
                 </Card>
             </Col>
         </Row>

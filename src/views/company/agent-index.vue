@@ -55,7 +55,7 @@ export default {
             this.getAgents()
 
             let roleId = this.$store.state.user.roleId
-            if (roleId === 5 || roleId === 6) {
+            if (roleId === 5) {
                 this.canEditCompany = true
             }
         },

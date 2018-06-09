@@ -46,10 +46,10 @@
 </template>
 
 <script>
-import product from '../../controllers/product.js'
+import product from '@/controllers/product.js'
 import productList from '../components/product-list.vue'
-import * as nereus from '../../utility/nereus.js'
-import company from '../../controllers/company.js'
+import * as nereus from '@/utility/nereus.js'
+import company from '@/controllers/company.js'
 
 export default {
     name: 'product-index',

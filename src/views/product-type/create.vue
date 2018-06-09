@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import productType from '../../controllers/product-type.js'
+import productType from '@/controllers/product-type.js'
 
 export default {
     name: 'product-type-create',

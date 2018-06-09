@@ -18,8 +18,7 @@
 </template>
 
 <script>
-import role from '../../controllers/role.js'
-import _ from 'lodash'
+import role from '@/controllers/role.js'
 
 export default {
     name: 'role-index',
@@ -57,15 +56,14 @@ export default {
             role.list().then(res => {
                 vm.items = res.entities
                 vm.itemsCount = vm.items.length
-                vm.tableData = _.slice(vm.items, 0, vm.pageSize)
+                vm.tableData = vm.items.slice(0, vm.pageSize)
             })
         },
         changePage (page) {
-            this.tableData = _.slice(this.items, (page - 1) * this.pageSize, page * this.pageSize)
+            this.tableData = this.items.slice((page - 1) * this.pageSize, page * this.pageSize)
         }
     },
     created: function () {
-        console.log('In role index create function')
         this.getRoles()
     }
 }

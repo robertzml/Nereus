@@ -31,10 +31,10 @@
 
 
 <script>
-import equipment from '../../controllers/equipment.js'
+import equipment from '@/controllers/equipment.js'
 import storeList from '../components/store-list.vue'
-import company from '../../controllers/company.js'
-import product from '../../controllers/product.js'
+import company from '@/controllers/company.js'
+import product from '@/controllers/product.js'
 
 export default {
     name: 'equipment-store',
@@ -49,15 +49,6 @@ export default {
             sCompany: '',
             productList: [],
             sProduct: ''
-        }
-    },
-    beforeRouteEnter (to, from, next) {
-        if (from.name === 'equipment-edit' || from.name === 'equipment-create') {
-            next(vm => {
-                vm.getEquipments()
-            })
-        } else {
-            next()
         }
     },
     computed: {
@@ -148,7 +139,6 @@ export default {
         }
     },
     created: function () {
-        console.log('In equipment index create function')
         this.init()
     }
 }

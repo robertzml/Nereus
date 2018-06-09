@@ -94,5 +94,14 @@ export default {
             .then(res => {
                 return res.data
             })
+    },
+
+    updateSaleRuleStatus (model) {
+        return api._post({
+            url: '/t_product_sale_rule/forbidden',
+            data: model
+        }).then(res => {
+            return res.data
+        })
     }
 }

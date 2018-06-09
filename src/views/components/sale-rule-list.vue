@@ -12,6 +12,8 @@
 </template>
 
 <script>
+import * as nereus from '@/utility/nereus.js'
+
 export default {
     name: 'sale-rule-list',
     props: {
@@ -71,6 +73,15 @@ export default {
                 {
                     title: '免费使用时间(天)',
                     key: 'set_free_time'
+                },
+                {
+                    title: '规则状态',
+                    key: 'status',
+                    render: (h, params) => {
+                        return (
+                            <span>{ nereus.displayStatus(params.row.status) }</span>
+                        )
+                    }
                 },
                 {
                     title: '操作',

@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import account from '../../controllers/account.js'
+import account from '@/controllers/account.js'
 
 export default {
     name: 'account-details',
