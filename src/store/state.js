@@ -15,7 +15,7 @@ export default {
         { roleId: 1, code: 'root' }, 
         { roleId: 2, code: 'platform-admin' }, { roleId: 3, code: 'platform-man' }, { roleId: 4, code: 'platform-fin' }, 
         { roleId: 5, code: 'vendor-admin' }, { roleId: 6, code: 'vendor-man' }, { roleId: 7, code: 'vendor-fin' }, 
-        { roleId: 8, code: 'agent-admin' }, { roleId: 9, code: 'agent-man' }, { roleId: 10, code: 'agent-lab' }
+        { roleId: 8, code: 'agent-admin' }, { roleId: 9, code: 'agent-man' }, { roleId: 10, code: 'agent-lab' }, { roleId: 11, code: 'agent-ins' }
     ],
     /* 角色顶级菜单 */
     roleMenu: [
@@ -25,10 +25,10 @@ export default {
         { roleId: 4, menus: [ 'company-menu', 'product-menu', 'user-menu', 'system-menu' ] },
         { roleId: 5, menus: [ 'company-menu', 'product-menu', 'user-menu' ] },
         { roleId: 6, menus: [ 'company-menu', 'product-menu', 'user-menu' ] },
-        { roleId: 7, menus: [ 'company-menu', 'product-menu', 'user-menu' ] },
+        { roleId: 7, menus: [ 'company-menu', 'product-menu' ] },
         { roleId: 8, menus: [ 'company-menu', 'product-menu', 'user-menu' ] },
         { roleId: 9, menus: [ 'company-menu', 'product-menu', 'user-menu' ] },
-        { roleId: 10, menus: [ 'company-menu', 'product-menu', 'user-menu' ] },
+        { roleId: 10, menus: [ 'company-menu', 'product-menu' ] },
         { roleId: 11, menus: [ 'product-menu', 'user-menu' ] }
     ],
     /* 页面视图权限 */
@@ -42,11 +42,11 @@ export default {
         { name: 'product-type-index', roles: [1, 2, 3] },
         { name: 'role-index', roles: [1] },
         { name: 'equipment-index', roles: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] },
-        { name: 'equipment-inactivate', roles: [1, 2, 3, 4, 5, 6, 7] },
-        { name: 'equipment-logout', roles: [1, 2, 3, 4, 5, 6, 7] },
+        { name: 'equipment-inactivate', roles: [1, 2, 3, 4, 5, 6] },
+        { name: 'equipment-logout', roles: [1, 2, 3, 4, 5, 6] },
         { name: 'equipment-online', roles: [1] },
-        { name: 'equipment-upload', roles: [1, 2, 3, 4, 5, 6, 7] },
-        { name: 'equipment-store', roles: [1, 2, 3, 4, 5, 6, 7] },
+        { name: 'equipment-upload', roles: [1, 2, 3, 4, 5, 6] },
+        { name: 'equipment-store', roles: [1, 2, 3, 4, 5, 6] },
         { name: 'user-index', roles: [1, 2, 3, 4, 5, 6] },
         { name: 'coupon-index', roles: [1, 2, 3, 4, 5, 6] }
     ]
