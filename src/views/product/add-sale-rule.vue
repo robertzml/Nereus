@@ -15,13 +15,13 @@
                             </Select>
                         </FormItem>
 
-                        <div  v-if="saleRuleInfo.pay_type === 1">
+                        <div v-if="saleRuleInfo.pay_type === 1">
                             <FormItem label="期望安装费">
                                 <InputNumber :max="5000000" :min="0" :precision="0" v-model="saleRuleInfo.installation_charge" style="width: 200px;"></InputNumber>
                             </FormItem>
 
                             <FormItem label="售价">
-                                <InputNumber :max="5000000" :min="0" :precision="0" v-model="saleRuleInfo.device_deposit" style="width: 200px;"></InputNumber>
+                                <InputNumber :max="5000000" :min="0" :precision="0" v-model="saleRuleInfo.fix_month_rent" style="width: 200px;"></InputNumber>
                             </FormItem>
 
                             <FormItem label="免费使用时间(天)">
