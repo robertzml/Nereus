@@ -56,6 +56,21 @@ export default {
         })
     },
 
+    // 获取试用设备
+    getTrial (companyId) {
+        if (companyId !== undefined) {
+            return api._get({ url: '/t_equipment_set_free_time/findInfoByCompanyId', params: { company_id: companyId, status: 0 } })
+                .then(res => {
+                    return res.data
+                })
+        } else {
+            return api._get({ url: '/t_equipment_set_free_time/findInfoByCompanyId', params: { status: 0 } })
+                .then(res => {
+                    return res.data
+                })
+        }
+    },
+
     // 获取待激活设备
     getInactivate (companyId) {
         if (companyId !== undefined) {
@@ -182,6 +197,20 @@ export default {
     getStoresByCompany (companyId) {
         return api._get({ url: '/t_store/findStoreEquipmentInfoByConditions', params: { company_id: companyId, sale_status: 0 } })
             .then(res => {
+                return res.data
+            })
+    },
+
+    // 设备转正
+    agreeRealActivateApply (id, serialNumber) {
+        return api._post({
+                url: '/t_equipment/agreeRealActivateApply',
+                data: {
+                    id: id,
+                    apply_state: 3,
+                    serial_number: serialNumber
+                }
+            }).then(res => {
                 return res.data
             })
     }

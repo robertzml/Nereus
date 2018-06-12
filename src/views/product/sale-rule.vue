@@ -19,7 +19,7 @@
                             </FormItem>
 
                             <FormItem label="售价">
-                                {{ saleRuleInfo.device_deposit }}
+                                {{ saleRuleInfo.fix_month_rent }}
                             </FormItem>
 
                             <FormItem label="免费使用时间(天)">

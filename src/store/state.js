@@ -42,6 +42,7 @@ export default {
         { name: 'product-type-index', roles: [1, 2, 3] },
         { name: 'role-index', roles: [1] },
         { name: 'equipment-index', roles: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] },
+        { name: 'equipment-trial', roles: [1, 2, 3, 4, 5, 6, 7, 8] },
         { name: 'equipment-inactivate', roles: [1, 2, 3, 4, 5, 6] },
         { name: 'equipment-logout', roles: [1, 2, 3, 4, 5, 6] },
         { name: 'equipment-online', roles: [1] },

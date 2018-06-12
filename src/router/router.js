@@ -124,6 +124,7 @@ export const appRouter = [
         component: Home,
         children: [
             { path: 'index', title: '设备管理', parent: 'product-menu', role: 15, name: 'equipment-index', meta: { keepAlive: true }, component: resolve => { require(['@/views/equipment/index.vue'], resolve) } },
+            { path: 'trial', title: '试用设备', parent: 'product-menu', name: 'equipment-trial', meta: { keepAlive: true }, component: resolve => { require(['@/views/equipment/trial.vue'], resolve) } },
             { path: 'inactivate', title: '待激活设备', parent: 'product-menu', role: 7, name: 'equipment-inactivate', component: resolve => { require(['@/views/equipment/inactivate.vue'], resolve) } },
             { path: 'logout', title: '待注销设备', parent: 'product-menu', role: 7, name: 'equipment-logout', component: resolve => { require(['@/views/equipment/logout.vue'], resolve) } },
             { path: 'online', title: '在线设备', parent: 'product-menu', role: 1, name: 'equipment-online', component: resolve => { require(['@/views/equipment/online.vue'], resolve) } },
