@@ -14,6 +14,10 @@
                         </FormItem>
 
                         <div v-if="saleRuleInfo.pay_type === 1">
+                            <FormItem label="别名">
+                                {{ saleRuleInfo.another_name }}
+                            </FormItem>
+
                             <FormItem label="期望安装费">
                                 {{ saleRuleInfo.installation_charge }}
                             </FormItem>
@@ -25,9 +29,20 @@
                             <FormItem label="免费使用时间(天)">
                                 {{ saleRuleInfo.set_free_time }}
                             </FormItem>
+
+                            <FormItem label="创建时间">
+                                {{ saleRuleInfo.create_date | displayDateTime }}
+                            </FormItem>
+                            <FormItem label="编辑时间">
+                                {{ saleRuleInfo.modify_date | displayDateTime }}
+                            </FormItem>
                         </div>
                        
                         <div v-if="saleRuleInfo.pay_type === 2">
+                            <FormItem label="别名">
+                                {{ saleRuleInfo.another_name }}
+                            </FormItem>
+
                             <FormItem label="初始金额">
                                 {{ saleRuleInfo.prepay_rent }}
                             </FormItem>
@@ -47,9 +62,20 @@
                             <FormItem label="免费使用时间(天)">
                                 {{ saleRuleInfo.set_free_time }}
                             </FormItem>
+
+                            <FormItem label="创建时间">
+                                {{ saleRuleInfo.create_date | displayDateTime }}
+                            </FormItem>
+                            <FormItem label="编辑时间">
+                                {{ saleRuleInfo.modify_date | displayDateTime }}
+                            </FormItem>
                         </div>
 
                         <div v-if="saleRuleInfo.pay_type === 3">
+                            <FormItem label="别名">
+                                {{ saleRuleInfo.another_name }}
+                            </FormItem>
+
                             <FormItem label="初始金额">
                                 {{ saleRuleInfo.prepay_rent }}
                             </FormItem>
@@ -84,9 +110,20 @@
                             <FormItem label="免费使用时间(天)">
                                 {{ saleRuleInfo.set_free_time }}
                             </FormItem>
+
+                            <FormItem label="创建时间">
+                                {{ saleRuleInfo.create_date | displayDateTime }}
+                            </FormItem>
+                            <FormItem label="编辑时间">
+                                {{ saleRuleInfo.modify_date | displayDateTime }}
+                            </FormItem>
                         </div>
 
                         <div v-if="saleRuleInfo.pay_type === 4">
+                            <FormItem label="别名">
+                                {{ saleRuleInfo.another_name }}
+                            </FormItem>
+
                             <FormItem label="初始金额">
                                {{ saleRuleInfo.prepay_rent }}
                             </FormItem>
@@ -109,7 +146,14 @@
 
                             <FormItem label="免费使用时间(天)">
                                 {{ saleRuleInfo.set_free_time }}
-                            </FormItem>                            
+                            </FormItem>   
+
+                            <FormItem label="创建时间">
+                                {{ saleRuleInfo.create_date | displayDateTime }}
+                            </FormItem>
+                            <FormItem label="编辑时间">
+                                {{ saleRuleInfo.modify_date | displayDateTime }}
+                            </FormItem>                         
                         </div>
 
                         <FormItem label="启用状态">

@@ -16,6 +16,10 @@
                         </FormItem>
 
                         <div v-if="saleRuleInfo.pay_type === 1">
+                            <FormItem label="别名">
+                                <Input v-model="saleRuleInfo.another_name"></Input>
+                            </FormItem>
+
                             <FormItem label="期望安装费">
                                 <InputNumber :max="5000000" :min="0" :precision="0" v-model="saleRuleInfo.installation_charge" style="width: 200px;"></InputNumber>
                             </FormItem>
@@ -30,6 +34,10 @@
                         </div>
                        
                         <div v-if="saleRuleInfo.pay_type === 2">
+                            <FormItem label="别名">
+                                <Input v-model="saleRuleInfo.another_name"></Input>
+                            </FormItem>
+
                             <FormItem label="初始金额">
                                 <InputNumber :max="5000000" :min="0" :precision="0" v-model="saleRuleInfo.prepay_rent" style="width: 200px;"></InputNumber>
                             </FormItem>
@@ -52,6 +60,10 @@
                         </div>
 
                         <div v-if="saleRuleInfo.pay_type === 3">
+                            <FormItem label="别名">
+                                <Input v-model="saleRuleInfo.another_name"></Input>
+                            </FormItem>
+
                             <FormItem label="初始金额">
                                 <InputNumber :max="5000000" :min="0" :precision="0" v-model="saleRuleInfo.prepay_rent" style="width: 200px;"></InputNumber>
                             </FormItem>
@@ -92,6 +104,10 @@
                         </div>
 
                         <div v-if="saleRuleInfo.pay_type === 4">
+                            <FormItem label="别名">
+                                <Input v-model="saleRuleInfo.another_name"></Input>
+                            </FormItem>
+
                             <FormItem label="初始金额">
                                 <InputNumber :max="5000000" :min="0" :precision="0" v-model="saleRuleInfo.prepay_rent" style="width: 200px;"></InputNumber>
                             </FormItem>
@@ -142,13 +158,14 @@ export default {
             saleRuleInfo: {
                 product_id: 0,
                 pay_type: '',
+                another_name: '',
                 divided_pay_pers: 1,
                 charge_type: '',
                 prepay_rent: 0,
                 installation_charge: 0,
                 device_deposit: 0,
                 save_electricity_ratio: 0,
-                fix_month_rent: '',
+                fix_month_rent: 0,
                 set_time_divided_pay_pers: '',
                 set_free_time: 0
             },
