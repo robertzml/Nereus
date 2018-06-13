@@ -35,7 +35,7 @@ export default {
                 },
                 {
                     title: '公司代码',
-                    key: 'company_code'
+                    key: 'code'
                 },
                 {
                     title: '所属代理商',
@@ -86,7 +86,7 @@ export default {
             this.pageSize = pageSize
         },
         showDetails (item) {
-            this.$router.push({ name: 'user-details', params: { id: item.consumer_id, code: item.company_code, aid: item.agent_id } })
+            this.$router.push({ name: 'user-details', params: { id: item.consumer_id, code: item.code, aid: item.agent_id } })
         }
     }
 }

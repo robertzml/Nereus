@@ -11,7 +11,7 @@
                     刷新
                 </a>
 
-                <inactivate-list :item-list="inactivateData"></inactivate-list>
+                <inactivate-list :item-list="inactivateData" @refresh="getData"></inactivate-list>
             </Card>
         </Col>
     </Row>
@@ -67,52 +67,6 @@ export default {
                     }
                 })
             }
-        },
-
-        activate (item) {
-            let act = [{
-                serial_number: item.serial_number,
-                is_activate: 1
-            }]
-       
-            equipment.activation(act).then(res => {
-                if (res.status === 0) {
-                    this.$Notice.success({
-                        title: '激活成功',
-                        desc: res.message
-                    })
-
-                    this.getData()
-                } else {
-                    this.$Notice.error({
-                        title: '激活失败',
-                        desc: res.message
-                    })
-                }
-            })
-        },
-
-        reject (item) {
-            let act = [{
-                serial_number: item.serial_number,
-                is_activate: 0
-            }]
-       
-            equipment.activation(act).then(res => {
-                if (res.status === 0) {
-                    this.$Notice.success({
-                        title: '激活已驳回',
-                        desc: res.message
-                    })
-
-                    this.getData()
-                } else {
-                    this.$Notice.error({
-                        title: '驳回失败',
-                        desc: res.message
-                    })
-                }
-            })
         }
     },
     mounted: function () {

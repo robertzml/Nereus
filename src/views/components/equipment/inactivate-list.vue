@@ -68,10 +68,34 @@ export default {
                     align: 'center',
                     render: (h, params) => {
                         return (
-                            <div>
-                                <i-button type="primary" size="small" style="marginRight: 5px" onClick={ () => { this.activate(params.row) } }>激活</i-button>
-                                <i-button type="warning" size="small" style="marginRight: 5px" onClick={ () => { this.reject(params.row) } }>驳回</i-button>
-                            </div>
+                            h('div', [
+                                h('Poptip', {
+                                    props: {
+                                        title: '是否同意激活',
+                                        confirm: true,
+                                        transfer: true,
+                                        placement: 'top'
+                                    },
+                                    on: {
+                                        'on-ok': () => { this.activate(params.row) }
+                                    }
+                                }, [
+                                    h('Button', { props: { size: 'small', type: 'primary' } }, '激活')
+                                ]),
+                                h('Poptip', {
+                                    props: {
+                                        title: '是否驳回',
+                                        confirm: true,
+                                        transfer: true,
+                                        placement: 'top'
+                                    },
+                                    on: {
+                                        'on-ok': () => { this.reject(params.row) }
+                                    }
+                                }, [
+                                    h('Button', { props: { size: 'small', type: 'warning' } }, '驳回')
+                                ])
+                            ])
                         )
                     }
                 }
@@ -116,7 +140,7 @@ export default {
                         desc: res.message
                     })
 
-                    this.getData()
+                    this.$emit('refresh')
                 } else {
                     this.$Notice.error({
                         title: '激活失败',
@@ -139,7 +163,7 @@ export default {
                         desc: res.message
                     })
 
-                    this.getData()
+                    this.$emit('refresh')
                 } else {
                     this.$Notice.error({
                         title: '驳回失败',

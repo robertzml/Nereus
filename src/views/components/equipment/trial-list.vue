@@ -160,7 +160,7 @@ export default {
         showApplyState (val) {
             switch (val) {
                 case -1:
-                    return '未申请'
+                    return ''
                 case 1:
                     return '申请转正'
                 case 2:
@@ -168,7 +168,7 @@ export default {
             }
         },
         showDetails (item) {
-            this.$router.push({ name: 'equipment-details', params: { id: item.id } })
+            this.$router.push({ name: 'equipment-details', params: { id: item.equipment_id } })
         },
         onOk (item) {
             equipment.agreeRealActivateApply(item.id, item.serial_number).then(res => {
