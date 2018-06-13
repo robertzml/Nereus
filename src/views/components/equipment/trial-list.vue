@@ -89,6 +89,21 @@ export default {
                     }
                 },
                 {
+                    title: '申请状态',
+                    key: 'apply_state',
+                    render: (h, params) => {
+                        let ret = null
+                        if (params.row.apply_state === 1) {
+                            ret = <span style="color: #F00; font-weight:bold;">{ this.showApplyState(params.row.apply_state) }</span>
+                        } else {
+                            ret = <span>{ this.showApplyState(params.row.apply_state) }</span>
+                        }
+                        return (
+                            ret
+                        )
+                    }
+                },
+                {
                     title: '操作',
                     key: 'action',
                     width: 150,
@@ -141,6 +156,16 @@ export default {
         },
         changePageSize (pageSize) {
             this.pageSize = pageSize
+        },
+        showApplyState (val) {
+            switch (val) {
+                case -1:
+                    return '未申请'
+                case 1:
+                    return '申请转正'
+                case 2:
+                    return '申请注销'
+            }
         },
         showDetails (item) {
             this.$router.push({ name: 'equipment-details', params: { id: item.id } })

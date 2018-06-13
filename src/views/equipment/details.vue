@@ -97,6 +97,16 @@
                     </Col>
                 </Row>
             </TabPane>
+            <TabPane label="销售规则">
+                <Card>
+                    <p slot="title">
+                        <Icon type="grid"></Icon>
+                        销售规则信息
+                    </p>
+
+                    <sale-rule-details :sale-rule-info="saleRuleInfo"></sale-rule-details>
+                </Card>
+            </TabPane>
             <TabPane label="设备操作">
                 <Row>
                     <Col span="24">
@@ -128,10 +138,12 @@
 
 <script>
 import equipment from '@/controllers/equipment.js'
+import product from '@/controllers/product.js'
 import equipmentStatus from '../components/equipment/equipment-status.vue'
 import equipmentKey from '../components/equipment/equipment-key.vue'
 import waterCleanerKey from '../components/equipment/water-cleaner-key.vue'
 import waterCleanerStatus from '../components/equipment/water-cleaner-status.vue'
+import saleRuleDetails from '../components/saleRule/sale-rule-details.vue'
 import moment from 'moment'
 
 export default {
@@ -140,12 +152,14 @@ export default {
         equipmentStatus,
         equipmentKey,
         waterCleanerKey,
-        waterCleanerStatus
+        waterCleanerStatus,
+        saleRuleDetails
     },
     data () {
         return {
             equipmentId: 0,
             equipmentInfo: {},
+            saleRuleInfo: {},
             equipmentLock: {
                 deadline: ''
             },
@@ -205,6 +219,8 @@ export default {
                     vm.equipmentInfo = res.entity
                     // vm.getWaterInfo1()
                     // vm.getWaterInfo2()
+
+                    vm.getSaleRuleInfo()
                 } else {
                     this.$Notice.error({
                         title: '获取设备信息失败',
@@ -223,6 +239,21 @@ export default {
         getWaterInfo2 () {
             equipment.getWaterCleanerStatus(this.equipmentInfo.serial_number).then(res => {
                 console.log(res)
+            })
+        },
+
+        getSaleRuleInfo () {
+            let vm = this
+
+            product.findSaleRule(this.equipmentInfo.product_sale_rule_id).then(res => {
+                if (res.status === 0) {
+                    vm.saleRuleInfo = res.entity
+                } else {
+                    this.$Notice.error({
+                        title: '获取销售规则失败',
+                        desc: res.message
+                    })
+                }
             })
         },
 
