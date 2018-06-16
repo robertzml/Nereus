@@ -45,6 +45,16 @@ Vue.filter('entityStatus', function (value) {
     return nereus.displayStatus(value)
 })
 
+Vue.filter('payType', function (value) {
+    if (value === undefined || value === null) return ''
+    return nereus.payType(value)
+})
+
+Vue.filter('chargeType', function (value) {
+    if (value === undefined || value === null) return ''
+    return nereus.chargeType(value)
+})
+
 /* eslint-disable no-new */
 new Vue({
     el: '#app',

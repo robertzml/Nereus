@@ -86,6 +86,14 @@ export default {
         }
     },
 
+    // 获取待激活设备详情
+    getInactivateDetails (id, serailNumber) {
+        return api._get({ url: '/t_equipment_owner_protocol/findDetailedInfoBySerialNumber', params: { serial_number: serailNumber, equipment_owner_protocol_id: id } })
+            .then(res => {
+                return res.data
+            })
+    },
+
     // 获取待注销设备列表
     getLogout (agentCompanyId) {
         if (agentCompanyId !== undefined) {

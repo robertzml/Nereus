@@ -7,18 +7,28 @@
                     @on-page-size-change="changePageSize"></Page>
             </div>
         </div>
+
+        <Modal
+            v-model="modal1"
+            title="设备信息">
+            <inactivate-details ref="mod1" width="800"></inactivate-details>
+        </Modal>
     </div>
 </template>
 
 <script>
 import * as nereus from '@/utility/nereus.js'
 import equipment from '@/controllers/equipment.js'
+import inactivateDetails from './inactivate-details.vue'
 
 export default {
     name: 'inactivate-list',
     props: {
         itemList: { type: Array, required: true },
         showPager: { type: Boolean, default: true }
+    },
+    components: {
+        inactivateDetails
     },
     data () {
         return {
@@ -64,11 +74,12 @@ export default {
                 {
                     title: '操作',
                     key: 'action',
-                    width: 150,
+                    width: 180,
                     align: 'center',
                     render: (h, params) => {
                         return (
                             h('div', [
+                                (<i-button type="primary" size="small" onClick={ () => { this.showDetails(params.row) } }>查看</i-button>),
                                 h('Poptip', {
                                     props: {
                                         title: '是否同意激活',
@@ -80,7 +91,7 @@ export default {
                                         'on-ok': () => { this.activate(params.row) }
                                     }
                                 }, [
-                                    h('Button', { props: { size: 'small', type: 'primary' } }, '激活')
+                                    h('Button', { props: { size: 'small', type: 'success' } }, '激活')
                                 ]),
                                 h('Poptip', {
                                     props: {
@@ -102,7 +113,8 @@ export default {
             ],
             pageSize: 10,
             currentPage: 1,
-            pageSizeOpt: [5, 10, 20, 30]
+            pageSizeOpt: [5, 10, 20, 30],
+            modal1: false
         }
     },
     computed: {
@@ -126,6 +138,11 @@ export default {
         },
         changePageSize (pageSize) {
             this.pageSize = pageSize
+        },
+
+        showDetails (item) {
+            this.$refs.mod1.getInfo(item.id, item.serial_number)
+            this.modal1 = true
         },
         activate (item) {
             let act = [{

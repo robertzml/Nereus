@@ -65,3 +65,35 @@ export const displayStatus = (status) => {
             return ''
     }
 }
+
+// 销售合同类型
+export const payType = (val) => {
+    switch (val) {
+        case 1:
+            return '一次性购买'
+        case 2:
+            return '分期付款'
+        case 3:
+            return '租金'
+        case 4:
+            return '浮动分期'
+        default:
+            return '未定义'
+    }
+}
+
+//  租金类型
+export const chargeType = (val) => {
+    switch (val) {
+        case 1:
+            return '固定租金'
+        case 2:
+            return '混合租金'
+        case 3:
+            return '节能分享'
+        case 4:
+            return '浮动租金'
+        default:
+            return '未定义'
+    }
+}
