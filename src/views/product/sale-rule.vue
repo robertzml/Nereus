@@ -95,7 +95,7 @@
                             <FormItem label="每期费用(元)" v-if="saleRuleInfo.charge_type === 1">
                                 {{ saleRuleInfo.fix_month_rent }}
                             </FormItem>
-                            <FormItem label="节电比例" v-else-if="saleRuleInfo.charge_type === 3">
+                            <FormItem label="分享比例" v-else-if="saleRuleInfo.charge_type === 3">
                                 {{ saleRuleInfo.save_electricity_ratio }}
                             </FormItem>
 

@@ -94,7 +94,7 @@
                                 <Input v-model="saleRuleInfo.fix_month_rent"></Input>用逗号分隔费用，如:500,400,300,200,100
                             </FormItem>
 
-                            <FormItem label="节电比例" v-else-if="saleRuleInfo.charge_type === 3">
+                            <FormItem label="分享比例" v-else-if="saleRuleInfo.charge_type === 3">
                                 <InputNumber :max="1" :min="0" :precision="2" :step="0.01" v-model="saleRuleInfo.save_electricity_ratio" style="width: 200px;"></InputNumber>
                             </FormItem>
 

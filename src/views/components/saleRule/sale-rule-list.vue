@@ -29,6 +29,10 @@ export default {
                     align: 'center'
                 },
                 {
+                    title: '别名',
+                    key: 'another_name'
+                },
+                {
                     title: '付款方式',
                     key: 'pay_type',
                     render: (h, params) => {

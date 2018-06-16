@@ -25,9 +25,6 @@
                             <FormItem label="地址">
                                 <Input v-model="companyInfo.address"></Input>
                             </FormItem>
-                            <FormItem label="代码">
-                                <Input v-model="companyInfo.code"></Input>
-                            </FormItem>
                             <FormItem label="类型">
                                 <Input readonly value="代理商"></Input>
                             </FormItem>

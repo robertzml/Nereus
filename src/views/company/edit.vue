@@ -26,7 +26,7 @@
                                 <Input v-model="companyInfo.address"></Input>
                             </FormItem>
                             <FormItem label="代码">
-                                <Input v-model="companyInfo.code"></Input>
+                                <Input v-model="companyInfo.code" readonly></Input>
                             </FormItem>
                             <FormItem label="类型" prop="type" v-if="roleType === 0">
                                 <Select v-model="companyInfo.type" @on-change="selectType">

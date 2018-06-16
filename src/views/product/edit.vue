@@ -4,7 +4,7 @@
             <Card>
                 <p slot="title">
                     <Icon type="grid"></Icon>
-                    新增产品
+                    编辑产品
                 </p>
 
                 <Row>
