@@ -43,6 +43,9 @@
                                     <Option v-for="item in parentList" :value="item.id" :key="item.id">{{ item.name }}</Option>
                                 </Select>
                             </FormItem>
+                            <FormItem label="简介">
+                                <Input v-model="companyInfo.introduction" type="textarea" :rows="4"></Input>
+                            </FormItem>
                             <FormItem label="备注">
                                 <Input v-model="companyInfo.remark" type="textarea" :rows="4"></Input>
                             </FormItem>
@@ -76,6 +79,7 @@ export default {
                 address: '',
                 code: '',
                 parent_id: '',
+                introduction: '',
                 remark: ''
             },
             parentList: [],

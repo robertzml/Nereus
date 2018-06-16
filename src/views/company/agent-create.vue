@@ -28,7 +28,9 @@
                             <FormItem label="类型">
                                 <Input readonly value="代理商"></Input>
                             </FormItem>
-                           
+                            <FormItem label="简介">
+                                <Input v-model="companyInfo.introduction" type="textarea" :rows="4"></Input>
+                            </FormItem>
                             <FormItem label="备注">
                                 <Input v-model="companyInfo.remark" type="textarea" :rows="4"></Input>
                             </FormItem>
@@ -66,6 +68,7 @@ export default {
                 address: '',
                 code: '',
                 parent_id: '',
+                introduction: '',
                 remark: ''
             },
             ruleValidate: {

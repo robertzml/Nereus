@@ -26,6 +26,9 @@
                 <FormItem label="上级厂商">
                     {{ parentName }}
                 </FormItem>
+                <FormItem label="简介">
+                    {{ companyInfo.introduction }}
+                </FormItem>
                 <FormItem label="创建时间">
                     {{ companyInfo.create_date | displayDateTime }}
                 </FormItem>

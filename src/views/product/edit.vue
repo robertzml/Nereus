@@ -10,14 +10,14 @@
                 <Row>
                     <Col span="16" push="4">
                         <Form ref="formValidate" :model="productInfo" :rules="ruleValidate" :label-width="80">
-                            <FormItem label="产品代码" prop="product_code">
-                                <Input v-model="productInfo.product_code"></Input>
+                            <FormItem label="产品代码">
+                                <Input v-model="productInfo.product_code" readonly></Input>
                             </FormItem>
                             <FormItem label="产品名称" prop="name">
                                 <Input v-model="productInfo.name"></Input>
                             </FormItem>
                             <FormItem label="产品类型" prop="type_id">
-                                <Select v-model="productInfo.type_id">
+                                <Select v-model="productInfo.type_id" disabled>
                                     <Option v-for="item in typeList" :value="item.id" :key="item.id">{{ item.name }}</Option>
                                 </Select>
                             </FormItem>
