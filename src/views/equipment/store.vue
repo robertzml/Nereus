@@ -32,7 +32,7 @@
 
 <script>
 import equipment from '@/controllers/equipment.js'
-import storeList from '../components/store-list.vue'
+import storeList from '../components/equipment/store-list.vue'
 import company from '@/controllers/company.js'
 import product from '@/controllers/product.js'
 

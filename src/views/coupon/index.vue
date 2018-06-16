@@ -31,9 +31,9 @@
 </template>
 
 <script>
-import company from '../../controllers/company.js'
-import coupon from '../../controllers/coupon.js'
-import couponList from '../components/coupon-list.vue'
+import company from '@/controllers/company.js'
+import coupon from '@/controllers/coupon.js'
+import couponList from '../components/coupon/coupon-list.vue'
 
 export default {
     name: 'coupon-index',
@@ -106,7 +106,6 @@ export default {
         }
     },
     created: function () {
-        console.log('In coupon index create function')
         this.init()
     }
 }

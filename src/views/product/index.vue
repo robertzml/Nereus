@@ -47,7 +47,7 @@
 
 <script>
 import product from '@/controllers/product.js'
-import productList from '../components/product-list.vue'
+import productList from '../components/product/product-list.vue'
 import * as nereus from '@/utility/nereus.js'
 import company from '@/controllers/company.js'
 

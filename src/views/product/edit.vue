@@ -54,9 +54,9 @@
 
 
 <script>
-import product from '../../controllers/product.js'
-import productType from '../../controllers/product-type.js'
-import company from '../../controllers/company.js'
+import product from '@/controllers/product.js'
+import productType from '@/controllers/product-type.js'
+import company from '@/controllers/company.js'
 
 export default {
     name: 'product-edit',

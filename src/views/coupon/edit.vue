@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import coupon from '../../controllers/coupon.js'
+import coupon from '@/controllers/coupon.js'
 
 export default {
     name: 'coupon-edit',

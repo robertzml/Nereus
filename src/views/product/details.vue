@@ -77,7 +77,7 @@ import product from '@/controllers/product.js'
 import * as nereus from '@/utility/nereus.js'
 import company from '@/controllers/company.js'
 import saleRuleList from '../components/saleRule/sale-rule-list.vue'
-import productLockSummary from '../components/product-lock-summary.vue'
+import productLockSummary from '../components/product/product-lock-summary.vue'
 
 export default {
     name: 'product-details',

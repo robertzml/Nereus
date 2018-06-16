@@ -46,9 +46,9 @@
 </template>
 
 <script>
-import product from '../../controllers/product.js'
-import productAgent from '../../controllers/product-agent.js'
-import productAgentList from '../components/product-agent-list.vue'
+import product from '@/controllers/product.js'
+import productAgent from '@/controllers/product-agent.js'
+import productAgentList from '../components/product/product-agent-list.vue'
 
 export default {
     name: 'product-agent',
