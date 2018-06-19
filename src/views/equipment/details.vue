@@ -72,6 +72,37 @@
                                 <FormItem label="状态">
                                     {{ equipmentInfo.status | equipmentStatus }}
                                 </FormItem>
+
+                                <FormItem label="消费者名称">
+                                    {{ equipmentInfo.owner_name }}
+                                </FormItem>
+                                <FormItem label="消费者电话">
+                                    {{ equipmentInfo.owner_phone }}
+                                </FormItem>
+                                <FormItem label="管理员名称">
+                                    {{ equipmentInfo.owner_intendant_name }}
+                                </FormItem>
+                                <FormItem label="管理员电话">
+                                    {{ equipmentInfo.owner_intendant_phone }}
+                                </FormItem>
+
+                                <FormItem label="消费者单位">
+                                    {{ equipmentInfo.owner_company_name }}
+                                </FormItem>
+
+                                <FormItem label="安装人名称">
+                                    {{ info.erector_name }}
+                                </FormItem>
+
+                                <FormItem label="安装人电话">
+                                    {{ info.erector_phone }}
+                                </FormItem>
+                                <FormItem label="代理商业务员名称">
+                                    {{ info.agent_account_name }}
+                                </FormItem>
+                                <FormItem label="代理商业务员电话">
+                                    {{ info.agent_account_phone }}
+                                </FormItem>
                             </Col>
                         </Row>
                     </Form>
