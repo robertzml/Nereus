@@ -87,7 +87,7 @@
                             </FormItem>
 
                             <FormItem label="每期时间(月)" v-if="saleRuleInfo.charge_type === 4">
-                                <Input v-model="saleRuleInfo.set_time_divided_pay_pers"></Input>用逗号分隔时间，如:12,11,10,9,8
+                                <Input v-model="saleRuleInfo.set_time_divided_pay_pers"></Input>
                             </FormItem>
 
                             <FormItem label="每期费用(元)" v-if="saleRuleInfo.charge_type === 4">
