@@ -72,6 +72,16 @@
                     </Col>
                 </Row>
             </TabPane>
+            <TabPane label="账单记录">
+                <Card>
+                    <p slot="title">
+                        <Icon type="grid"></Icon>
+                        设备账单
+                    </p>
+
+                    <equipment-bill :item-list="billInfo"></equipment-bill>
+                </Card>
+            </TabPane>
         </Tabs>
     </div>
 </template>
@@ -85,6 +95,7 @@ import equipmentKey from '../components/equipment/equipment-key.vue'
 import waterCleanerKey from '../components/equipment/water-cleaner-key.vue'
 import waterCleanerStatus from '../components/equipment/water-cleaner-status.vue'
 import saleRuleDetails from '../components/saleRule/sale-rule-details.vue'
+import equipmentBill from '../components/equipment/equipment-bill.vue'
 import moment from 'moment'
 
 export default {
@@ -95,13 +106,15 @@ export default {
         equipmentKey,
         waterCleanerKey,
         waterCleanerStatus,
-        saleRuleDetails
+        saleRuleDetails,
+        equipmentBill
     },
     data () {
         return {
             equipmentId: 0,
             equipmentInfo: {},
             saleRuleInfo: {},
+            billInfo: [],
             equipmentLock: {
                 deadline: ''
             },
@@ -163,6 +176,7 @@ export default {
                     // vm.getWaterInfo2()
 
                     vm.getSaleRuleInfo()
+                    vm.getBillInfo()
                 } else {
                     this.$Notice.error({
                         title: '获取设备信息失败',
@@ -193,6 +207,21 @@ export default {
                 } else {
                     this.$Notice.error({
                         title: '获取销售规则失败',
+                        desc: res.message
+                    })
+                }
+            })
+        },
+
+        getBillInfo () {
+            let vm = this
+
+            equipment.getBillList(this.equipmentInfo.serial_number).then(res => {
+                if (res.status === 0) {
+                    vm.billInfo = res.entities
+                } else {
+                    this.$Notice.error({
+                        title: '获取账单记录失败',
                         desc: res.message
                     })
                 }
