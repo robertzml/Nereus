@@ -106,12 +106,12 @@ export default {
                 {
                     title: '操作',
                     key: 'action',
-                    width: 150,
+                    width: 180,
                     align: 'center',
                     render: (h, params) => {
                         return (
                             h('div', [
-                                (<i-button type="primary" size="small" onClick={ () => { this.showDetails(params.row) } }>查看</i-button>),
+                                (<i-button type="primary" size="small" style='margin-right:5px' onClick={ () => { this.showDetails(params.row) } }>查看</i-button>),
                                 h('Poptip', {
                                     props: {
                                         title: '是否同意转正',
@@ -123,7 +123,20 @@ export default {
                                         'on-ok': () => { this.onOk(params.row) }
                                     }
                                 }, [
-                                    h('Button', { props: { size: 'small', type: 'success' } }, '转正')
+                                    h('Button', { props: { size: 'small', type: 'success' }, style: { marginRight: '5px' } }, '转正')
+                                ]),
+                                h('Poptip', {
+                                    props: {
+                                        title: '是否驳回转正',
+                                        confirm: true,
+                                        transfer: true,
+                                        placement: 'top'
+                                    },
+                                    on: {
+                                        'on-ok': () => { this.onReject(params.row) }
+                                    }
+                                }, [
+                                    h('Button', { props: { size: 'small', type: 'warning' } }, '拒绝')
                                 ])
                             ])
                         )
@@ -182,6 +195,25 @@ export default {
                 } else {
                     this.$Notice.error({
                         title: '转正失败',
+                        desc: res.message
+                    })
+
+                    this.$emit('refresh')
+                }
+            })
+        },
+        onReject (item) {
+            equipment.rejectRealActivateApply(item.id, item.serial_number).then(res => {
+                if (res.status === 0) {
+                    this.$Notice.success({
+                        title: '驳回成功',
+                        desc: res.message
+                    })
+
+                    this.$emit('refresh')
+                } else {
+                    this.$Notice.error({
+                        title: '驳回失败',
                         desc: res.message
                     })
 

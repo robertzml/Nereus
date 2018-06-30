@@ -13,12 +13,7 @@
                     <FormItem label="产品代码">
                         {{ equipmentInfo.product_code }}
                     </FormItem>
-                    <FormItem label="厂商名称">
-                        {{ equipmentInfo.vendor_company_name }}
-                    </FormItem>
-                    <FormItem label="代理商名称">
-                        {{ equipmentInfo.agent_company_name }}
-                    </FormItem>
+                   
                     <FormItem label="激活状态">
                         {{ equipmentInfo.is_activate | activateState }}
                     </FormItem>
@@ -58,71 +53,33 @@
                     </FormItem>
                     <FormItem label="地址">
                         {{ equipmentInfo.owner_address_detail }}
-                    </FormItem>                                
-
-                    <FormItem label="消费者名称">
-                        {{ equipmentInfo.owner_name }}
-                    </FormItem>
-                    <FormItem label="消费者电话">
-                        {{ equipmentInfo.owner_phone }}
                     </FormItem>
 
                     <FormItem label="消费者单位">
                         {{ equipmentInfo.owner_company_name }}
                     </FormItem>
-
-                    <FormItem label="管理员名称">
+                    
+                    <FormItem label="第二联系人名称">
                         {{ equipmentInfo.owner_intendant_name }}
                     </FormItem>
-                    <FormItem label="管理员电话">
+                    <FormItem label="第二联系人电话">
                         {{ equipmentInfo.owner_intendant_phone }}
-                    </FormItem>                               
-
-                    <FormItem label="安装人名称">
-                        {{ equipmentInfo.erector_name }}
-                    </FormItem>
-
-                    <FormItem label="安装人电话">
-                        {{ equipmentInfo.erector_phone }}
                     </FormItem>
                 </Col>
 
                 <Col span="8">
-                    <FormItem label="销售类型">
-                        {{ equipmentInfo.pay_type | payType }}
+                    <FormItem label="厂商名称">
+                        {{ equipmentInfo.vendor_company_name }}
                     </FormItem>
-                    <FormItem label="销售别名">
-                        {{ equipmentInfo.another_name }}
-                    </FormItem>
-
-                    <FormItem label="租金类型">
-                        {{ equipmentInfo.charge_type | chargeType }}
-                    </FormItem>
-                    <FormItem label="分期期数">
-                        {{ equipmentInfo.divided_pay_pers }}
-                    </FormItem>
-                    <FormItem label="交费详细">
-                        {{ equipmentInfo.fix_month_rent }}
-                    </FormItem>
-                    <FormItem label="每期时间(月)">
-                        {{ equipmentInfo.set_time_divided_pay_pers }}
-                    </FormItem>
-                    <FormItem label="设备安装费">
-                        {{ equipmentInfo.installation_charge }}
-                    </FormItem>
-                    <FormItem label="设备押金">
-                        {{ equipmentInfo.device_deposit }}
+                    <FormItem label="代理商名称">
+                        {{ equipmentInfo.agent_company_name }}
                     </FormItem>
 
-                    <FormItem label="充值金额">
-                        {{ equipmentInfo.prepay_rent }}
+                    <FormItem label="安装人名称">
+                        {{ equipmentInfo.erector_name }}
                     </FormItem>
-                    <FormItem label="充值优惠券">
-                        {{ equipmentInfo.prepay_coupon }}
-                    </FormItem>
-
-                    <FormItem label="免费天数">
-                        {{ equipmentInfo.set_free_time }}
+                    <FormItem label="安装人电话">
+                        {{ equipmentInfo.erector_phone }}
                     </FormItem>
 
                     <FormItem label="代理商业务员名称">
@@ -135,6 +92,45 @@
                 
             </Row>
         </Form>
+
+        <div v-if="false">
+            <FormItem label="销售类型">
+                {{ equipmentInfo.pay_type | payType }}
+            </FormItem>
+            <FormItem label="销售别名">
+                {{ equipmentInfo.another_name }}
+            </FormItem>
+
+            <FormItem label="租金类型">
+                {{ equipmentInfo.charge_type | chargeType }}
+            </FormItem>
+            <FormItem label="分期期数">
+                {{ equipmentInfo.divided_pay_pers }}
+            </FormItem>
+            <FormItem label="交费详细">
+                {{ equipmentInfo.fix_month_rent }}
+            </FormItem>
+            <FormItem label="每期时间(月)">
+                {{ equipmentInfo.set_time_divided_pay_pers }}
+            </FormItem>
+            <FormItem label="设备安装费">
+                {{ equipmentInfo.installation_charge }}
+            </FormItem>
+            <FormItem label="设备押金">
+                {{ equipmentInfo.device_deposit }}
+            </FormItem>
+
+            <FormItem label="充值金额">
+                {{ equipmentInfo.prepay_rent }}
+            </FormItem>
+            <FormItem label="充值优惠券">
+                {{ equipmentInfo.prepay_coupon }}
+            </FormItem>
+
+            <FormItem label="免费天数">
+                {{ equipmentInfo.set_free_time }}
+            </FormItem>
+        </div>
     </div>
 </template>
 

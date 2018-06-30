@@ -223,6 +223,20 @@ export default {
             })
     },
 
+    // 设备转正驳回
+    rejectRealActivateApply (id, serialNumber) {
+        return api._post({
+                url: '/t_equipment/agreeRealActivateApply',
+                data: {
+                    id: id,
+                    apply_state: 4,
+                    serial_number: serialNumber
+                }
+            }).then(res => {
+                return res.data
+            })
+    },
+
     getBillList (serialNumber) {
         return api._get({ url: '/t_water_heater_equipment_statistics/findBySerialNumber', params: { serial_number: serialNumber } })
             .then(res => {
