@@ -12,11 +12,14 @@
                         刷新
                     </a>
 
-                    <div>
+                    <div class="filter-panel">
                         <span>代理商：</span>
                         <Select v-model="selectedAgent" style="width:300px" placeholder="选择代理商" clearable>
                             <Option v-for="item in agentCompany" :value="item.id" :key="item.id">{{ item.name }}</Option>
                         </Select>
+
+                        <span>搜索</span>
+                        <Input v-model="filterKey" style="width: 200px"></Input>
                     </div>
 
                     <br />
@@ -42,7 +45,8 @@ export default {
             roleType: 0,
             agentCompany: [],
             selectedAgent: '',
-            userData: []
+            userData: [],
+            filterKey: ''
         }
     },
     computed: {
@@ -51,6 +55,15 @@ export default {
 
             if (this.selectedAgent) {
                 temp = temp.filter(r => r.agent_id === this.selectedAgent)
+            }
+
+            var filterKey = this.filterKey && this.filterKey.toLowerCase()
+            if (filterKey) {
+                temp = temp.filter(function (row) {
+                    return Object.keys(row).some(function (key) {
+                        return String(row[key]).toLowerCase().indexOf(filterKey) > -1
+                    })
+                })
             }
 
             return temp
@@ -108,3 +121,13 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.filter-panel {
+    margin-bottom: 10px;
+}
+
+.filter-panel .ivu-select {
+    margin-right: 15px;
+}
+</style>
