@@ -18,7 +18,7 @@
                                 {{ saleRuleInfo.another_name }}
                             </FormItem>
 
-                            <FormItem label="期望安装费">
+                            <FormItem label="安装费">
                                 {{ saleRuleInfo.installation_charge }}
                             </FormItem>
 
@@ -90,6 +90,10 @@
 
                             <FormItem label="租金类型" prop="charge_type">
                                 {{ saleRuleInfo.charge_type | chargeType }}
+                            </FormItem>
+
+                            <FormItem label="首充值(元)" v-if="saleRuleInfo.charge_type === 1 || saleRuleInfo.charge_type === 3">
+                                 {{ saleRuleInfo.prestoring_money }}
                             </FormItem>
 
                             <FormItem label="每期费用(元)" v-if="saleRuleInfo.charge_type === 1">
@@ -191,6 +195,7 @@ export default {
                 pay_type: '',
                 divided_pay_pers: 1,
                 charge_type: '',
+                prestoring_money: 0,
                 prepay_rent: 0,
                 installation_charge: 0,
                 device_deposit: 0,

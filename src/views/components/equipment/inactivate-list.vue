@@ -182,10 +182,10 @@ export default {
         },
 
         reject (item) {
-            let act = [{
+            let act = {
                 serial_number: item.serial_number,
                 is_activate: 0
-            }]
+            }
        
             equipment.activation(act).then(res => {
                 if (res.status === 0) {

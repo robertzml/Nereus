@@ -20,7 +20,7 @@
                                 <Input v-model="saleRuleInfo.another_name"></Input>
                             </FormItem>
 
-                            <FormItem label="期望安装费">
+                            <FormItem label="安装费">
                                 <InputNumber :max="5000000" :min="0" :precision="0" v-model="saleRuleInfo.installation_charge" style="width: 200px;"></InputNumber>
                             </FormItem>
 
@@ -80,6 +80,10 @@
                                 <Select v-model="saleRuleInfo.charge_type">
                                     <Option v-for="item in chargeType" :value="item.id" :key="item.id">{{ item.label }}</Option>
                                 </Select>
+                            </FormItem>
+
+                            <FormItem label="首充值(元)" v-if="saleRuleInfo.charge_type === 1 || saleRuleInfo.charge_type === 3">
+                                <InputNumber :max="1000000" :min="0" :precision="0" v-model="saleRuleInfo.prestoring_money" style="width: 200px;"></InputNumber>
                             </FormItem>
 
                             <FormItem label="每期费用(元)" v-if="saleRuleInfo.charge_type === 1">
@@ -161,6 +165,7 @@ export default {
                 another_name: '',
                 divided_pay_pers: 1,
                 charge_type: '',
+                prestoring_money: 0,
                 prepay_rent: 0,
                 installation_charge: 0,
                 device_deposit: 0,

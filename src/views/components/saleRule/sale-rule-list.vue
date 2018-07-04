@@ -55,15 +55,7 @@ export default {
                     }
                 },
                 {
-                    title: '期望初始金额(元)',
-                    key: 'prepay_rent'
-                },
-                {
-                    title: '期望安装费(元)',
-                    key: 'installation_charge'
-                },
-                {
-                    title: '期望设备押金(元)',
+                    title: '押金(元)',
                     key: 'device_deposit'
                 },
                 {

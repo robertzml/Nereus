@@ -40,6 +40,7 @@
                             </FormItem>
                             <FormItem label="简称">
                                 <Input v-model="companyInfo.remark"></Input>
+                                只能用字母，如拼音首字母，英文缩写
                             </FormItem>
                             <FormItem label="备注">
                                 <Input v-model="companyInfo.introduction" type="textarea" :rows="4"></Input>
