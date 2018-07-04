@@ -40,12 +40,28 @@ export default {
     },
     methods: {
         handleSuccess (res, file) {
-            this.$Message.info(res.message)
+            if (res.status === 0) {
+                this.$Notice.success({
+                    title: '上传成功',
+                    desc: res.message
+                })
+            } else {
+                this.$Notice.error({
+                    title: '上传失败',
+                    duration: 0,
+                    desc: res.message
+                })
+            }
         },
 
         handleError (err, file) {
             console.log(err)
-            this.$Message.error('上传文件失败')
+            this.$Notice.error({
+                title: '上传文件出错',
+                duration: 0,
+                desc: err
+            })
+            // this.$Message.error('上传文件失败')
         }
     }
 }

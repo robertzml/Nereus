@@ -60,7 +60,12 @@ export default {
                 },
                 {
                     title: '激活状态',
-                    key: 'auditing_state'
+                    key: 'auditing_state',
+                    render: (h, params) => {
+                        return (
+                            <span>{ this.auditState(params.row.auditing_state) }</span>
+                        )
+                    }
                 },
                 {
                     title: '申请时间',
@@ -79,7 +84,7 @@ export default {
                     render: (h, params) => {
                         return (
                             h('div', [
-                                (<i-button type="primary" size="small" onClick={ () => { this.showDetails(params.row) } }>查看</i-button>),
+                                (<i-button type="primary" size="small" style='margin-right:5px' onClick={ () => { this.showDetails(params.row) } }>查看</i-button>),
                                 h('Poptip', {
                                     props: {
                                         title: '是否同意激活',
@@ -91,7 +96,7 @@ export default {
                                         'on-ok': () => { this.activate(params.row) }
                                     }
                                 }, [
-                                    h('Button', { props: { size: 'small', type: 'success' } }, '激活')
+                                    h('Button', { props: { size: 'small', type: 'success' }, style: { marginRight: '5px' } }, '激活')
                                 ]),
                                 h('Poptip', {
                                     props: {
@@ -140,15 +145,23 @@ export default {
             this.pageSize = pageSize
         },
 
+        auditState (val) {
+            if (val === 0) {
+                return '未激活'
+            } else if (val === 1) {
+                return '已激活'
+            }
+        },
+
         showDetails (item) {
             this.$refs.mod1.getInfo(item.id, item.serial_number)
             this.modal1 = true
         },
         activate (item) {
-            let act = [{
+            let act = {
                 serial_number: item.serial_number,
                 is_activate: 1
-            }]
+            }
        
             equipment.activation(act).then(res => {
                 if (res.status === 0) {
@@ -161,6 +174,7 @@ export default {
                 } else {
                     this.$Notice.error({
                         title: '激活失败',
+                        duration: 0,
                         desc: res.message
                     })
                 }
@@ -184,6 +198,7 @@ export default {
                 } else {
                     this.$Notice.error({
                         title: '驳回失败',
+                        duration: 0,
                         desc: res.message
                     })
                 }

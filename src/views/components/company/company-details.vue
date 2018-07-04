@@ -26,8 +26,8 @@
                 <FormItem label="上级厂商">
                     {{ parentName }}
                 </FormItem>
-                <FormItem label="简介">
-                    {{ companyInfo.introduction }}
+                <FormItem label="简称">
+                    {{ companyInfo.remark }}
                 </FormItem>
                 <FormItem label="创建时间">
                     {{ companyInfo.create_date | displayDateTime }}
@@ -36,7 +36,7 @@
                     {{ companyInfo.modify_date | displayDateTime }}
                 </FormItem>
                 <FormItem label="备注">
-                    {{ companyInfo.remark }}
+                    {{ companyInfo.introduction }}
                 </FormItem>
             </Form>
         </Col>
