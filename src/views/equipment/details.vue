@@ -82,6 +82,14 @@
                     <equipment-bill :item-list="billInfo"></equipment-bill>
                 </Card>
             </TabPane>
+            <TabPane label="设备统计">
+                <div v-if="equipmentInfo.product_type_code === '1'">
+                    <water-heater-statistic :monthInfo="waterHeaterStatisticMonthInfo"></water-heater-statistic>
+                </div>
+                <div v-else-if="equipmentInfo.product_type_code === '2'">
+                    
+                </div>
+            </TabPane>
         </Tabs>
     </div>
 </template>
@@ -89,6 +97,7 @@
 <script>
 import equipment from '@/controllers/equipment.js'
 import product from '@/controllers/product.js'
+import statistic from '@/controllers/statistic.js'
 import equipmentDetailsView from '../components/equipment/equipment-details-View.vue'
 import equipmentStatus from '../components/equipment/equipment-status.vue'
 import equipmentKey from '../components/equipment/equipment-key.vue'
@@ -96,6 +105,7 @@ import waterCleanerKey from '../components/equipment/water-cleaner-key.vue'
 import waterCleanerStatus from '../components/equipment/water-cleaner-status.vue'
 import saleRuleDetails from '../components/saleRule/sale-rule-details.vue'
 import equipmentBill from '../components/equipment/equipment-bill.vue'
+import waterHeaterStatistic from '../components/statistic/water-heater-statistic.vue'
 import moment from 'moment'
 
 export default {
@@ -107,7 +117,8 @@ export default {
         waterCleanerKey,
         waterCleanerStatus,
         saleRuleDetails,
-        equipmentBill
+        equipmentBill,
+        waterHeaterStatistic
     },
     data () {
         return {
@@ -130,7 +141,8 @@ export default {
                 disabledDate (date) {
                     return date && date.valueOf() < Date.now() - 86400000
                 }
-            }
+            },
+            waterHeaterStatisticMonthInfo: {}
         }
     },
     filters: {
@@ -172,11 +184,12 @@ export default {
             equipment.detailsView(id).then(res => {
                 if (res.status === 0) {
                     vm.equipmentInfo = res.entity
-                    // vm.getWaterInfo1()
-                    // vm.getWaterInfo2()
-
                     vm.getSaleRuleInfo()
                     vm.getBillInfo()
+
+                    if (vm.equipmentInfo.product_type_code === '1') {
+                        vm.getWaterHeaterStatistic()
+                    }
                 } else {
                     this.$Notice.error({
                         title: '获取设备信息失败',
@@ -225,6 +238,22 @@ export default {
                         desc: res.message
                     })
                 }
+            })
+        },
+
+        // 热水器统计信息
+        getWaterHeaterStatistic () {
+            let vm = this
+
+            statistic.getWaterHeaterCurrentMonth(this.equipmentInfo.serial_number).then(res => {
+                if (res.status === 0) {
+                    vm.waterHeaterStatisticMonthInfo = res.entity
+                } else {
+                    this.$Notice.error({
+                        title: '获取月统计失败',
+                        desc: res.message
+                    })
+                }                
             })
         },
 
