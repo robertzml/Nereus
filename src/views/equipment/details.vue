@@ -84,7 +84,7 @@
             </TabPane>
             <TabPane label="设备统计">
                 <div v-if="equipmentInfo.product_type_code === '1'">
-                    <water-heater-statistic :monthInfo="waterHeaterStatisticMonthInfo"></water-heater-statistic>
+                    <water-heater-statistic :month-info="waterHeaterStatisticMonthInfo" :total-info="waterHeaterStatisticTotalInfo" :serial-number="equipmentInfo.serial_number"></water-heater-statistic>
                 </div>
                 <div v-else-if="equipmentInfo.product_type_code === '2'">
                     
@@ -142,7 +142,8 @@ export default {
                     return date && date.valueOf() < Date.now() - 86400000
                 }
             },
-            waterHeaterStatisticMonthInfo: {}
+            waterHeaterStatisticMonthInfo: {},
+            waterHeaterStatisticTotalInfo: {}
         }
     },
     filters: {
@@ -253,7 +254,18 @@ export default {
                         title: '获取月统计失败',
                         desc: res.message
                     })
-                }                
+                }
+            })
+
+            statistic.getWaterHeaterTotal(this.equipmentInfo.serial_number).then(res => {
+                if (res.status === 0) {
+                    vm.waterHeaterStatisticTotalInfo = res.entity
+                } else {
+                    this.$Notice.error({
+                        title: '获取总统计失败',
+                        desc: res.message
+                    })
+                }
             })
         },
 
