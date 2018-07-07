@@ -1,5 +1,5 @@
 <template>
-    <div class="water-heater-statis-list">
+    <div class="water-cleaner-statis-list">
         <Table :data="tableData" :columns="columns" stripe border></Table>
         <div style="margin: 10px;overflow-x: hidden" v-if="showPager">
             <div style="float: right;">
@@ -14,7 +14,7 @@
 import * as nereus from '@/utility/nereus.js'
 
 export default {
-    name: 'water-heater-statis-list',
+    name: 'water-cleaner-statis-list',
     props: {
         itemList: { type: Array, required: true },
         showPager: { type: Boolean, default: true }
@@ -36,14 +36,6 @@ export default {
                     key: 'statistics_heat_water'
                 },
                 {
-                    title: '累计用电量(度)',
-                    key: 'statistics_use_electricity'
-                },
-                {
-                    title: '累计省电量(度)',
-                    key: 'statistics_electricity_saving'
-                },
-                {
                     title: '累计通电时间',
                     key: 'statistics_duration_machine',
                     render: (h, params) => {
@@ -60,32 +52,6 @@ export default {
                             <span>{ this.minutesToHour(params.row.statistics_heat_time) }</span>
                         )
                     }
-                },
-                {
-                    title: '累计综合节电量(度)',
-                    key: 'statistics_comprehensive_electricity_saving'
-                },
-                {
-                    title: '每月综合节能率',
-                    key: 'fractional_energy_saving_comprehensive_each_month',
-                    render: (h, params) => {
-                        return (
-                            <span>{ this.fixDigits(params.row.fractional_energy_saving_comprehensive_each_month) }</span>
-                        )
-                    }
-                },
-                {
-                    title: '每月节能率',
-                    key: 'fractional_energy_saving_each_month',
-                    render: (h, params) => {
-                        return (
-                            <span>{ this.fixDigits(params.row.fractional_energy_saving_each_month) }</span>
-                        )
-                    }
-                },
-                {
-                    title: '每月平均流量(升/每分钟)',
-                    key: 'mean_flow_each_month'
                 }
             ],
             pageSize: 10,

@@ -1,5 +1,5 @@
 <template>
-    <div class="water-heater-statistic">
+    <div class="water-cleaner-statistic">
         <Tabs>
             <TabPane label="累计统计">
                  <Row :gutter="16">
@@ -7,47 +7,30 @@
                         <Card>
                             <p slot="title">
                                 <Icon type="grid"></Icon>
-                                热水器当月统计数据
+                                直饮机当月统计数据
                             </p>
 
                             <Form :model="monthInfo" :label-width="100">
                                 <Row>
-                                    <Col span="12">
+                                    <Col span="12" push="4">
                                         <FormItem label="设备序列号">
                                             {{ monthInfo.serial_number }}
+                                        </FormItem>
+
+                                        <FormItem label="累计计算月份">
+                                            {{ monthInfo.statistics_year_month }}
                                         </FormItem>
 
                                         <FormItem label="累计用水量">
                                             {{ monthInfo.statistics_heat_water }} 升
                                         </FormItem>
 
-                                        <FormItem label="累计用电量">
-                                            {{ monthInfo.statistics_use_electricity }} 度
-                                        </FormItem>
-                                        <FormItem label="累计省电量">
-                                            {{ monthInfo.statistics_electricity_saving }} 度
-                                        </FormItem>
-
                                         <FormItem label="累计通电时间">
                                             {{ monthInfo.statistics_duration_machine | minutesToHour }}
                                         </FormItem>
-                                    </Col>
-                                    <Col span="12">
+
                                         <FormItem label="累计加热时间">
                                             {{ monthInfo.statistics_heat_time | minutesToHour }}
-                                        </FormItem>
-                                        <FormItem label="累计综合节电量">
-                                            {{ monthInfo.statistics_comprehensive_electricity_saving }} 度
-                                        </FormItem>
-
-                                        <FormItem label="每月综合节能率">
-                                            {{ monthInfo.fractional_energy_saving_comprehensive_each_month | fixDigits }}
-                                        </FormItem>
-                                        <FormItem label="每月节能率">
-                                            {{ monthInfo.fractional_energy_saving_each_month | fixDigits }}
-                                        </FormItem>
-                                        <FormItem label="每月平均流量">
-                                            {{ monthInfo.mean_flow_each_month }} (升/每分钟)
                                         </FormItem>
                                     </Col>
                                 </Row>
@@ -59,48 +42,30 @@
                         <Card>
                             <p slot="title">
                                 <Icon type="grid"></Icon>
-                                热水器历史总统计数据
+                                直饮机历史总统计数据
                             </p>
 
                             <Form :model="totalInfo" :label-width="100">
                                 <Row>
-                                    <Col span="12">
+                                    <Col span="12" push="4">
                                         <FormItem label="设备序列号">
                                             {{ totalInfo.serial_number }}
                                         </FormItem>
 
-                                        <FormItem label="累计用水量">
-                                            {{ totalInfo.statistics_heat_water }} 升
+                                        <FormItem label="累计计算月份">
+                                            {{ monthInfo.statistics_year_month }}
                                         </FormItem>
 
-                                        <FormItem label="累计用电量">
-                                            {{ totalInfo.statistics_use_electricity }} 度
-                                        </FormItem>
-                                        <FormItem label="累计省电量">
-                                            {{ totalInfo.statistics_electricity_saving }} 度
-                                        </FormItem>
+                                        <FormItem label="累计用水量">
+                                            {{ totalInfo.statistics_heat_water }} 升
+                                        </FormItem>                                     
 
                                         <FormItem label="累计通电时间">
                                             {{ totalInfo.statistics_duration_machine | minutesToHour }}
                                         </FormItem>
-                                    </Col>
-                                    <Col span="12">
+
                                         <FormItem label="累计加热时间">
-                                            {{ totalInfo.statistics_heat_time | minutesToHour }}
-                                        </FormItem>
-
-                                        <FormItem label="累计综合节电量">
-                                            {{ totalInfo.statistics_comprehensive_electricity_saving }} 度
-                                        </FormItem>
-
-                                        <FormItem label="每月综合节能率">
-                                            {{ totalInfo.fractional_energy_saving_comprehensive_each_month | fixDigits }}
-                                        </FormItem>
-                                        <FormItem label="每月节能率">
-                                            {{ totalInfo.fractional_energy_saving_each_month | fixDigits }}
-                                        </FormItem>
-                                        <FormItem label="每月平均流量">
-                                            {{ totalInfo.mean_flow_each_month }} (升/每分钟)
+                                            {{ monthInfo.statistics_heat_time | minutesToHour }}
                                         </FormItem>
                                     </Col>
                                 </Row>
@@ -119,7 +84,7 @@
                     <Button type="primary" @click="searchRange">查询</Button>
                 </div>
                 
-                <water-heater-statis-list :item-list="rangeInfo"></water-heater-statis-list>
+                <water-cleaner-statis-list :item-list="rangeInfo"></water-cleaner-statis-list>
             </TabPane>
         </Tabs>
     </div>
@@ -127,17 +92,17 @@
 
 <script>
 import statistic from '@/controllers/statistic.js'
-import waterHeaterStatisList from './water-heater-statis-list.vue'
+import waterCleanerStatisList from './water-cleaner-statis-list.vue'
 
 export default {
-    name: 'water-heater-statistic',
+    name: 'water-cleaner-statistic',
     props: {
         serialNumber: { require: true },
         monthInfo: { require: true },
         totalInfo: { require: true }
     },
     components: {
-        waterHeaterStatisList
+        waterCleanerStatisList
     },
     data () {
         return {
@@ -170,7 +135,7 @@ export default {
         searchRange () {
             let vm = this
 
-            statistic.getWaterHeaterRange(this.serialNumber, this.startDate, this.endDate).then(res => {
+            statistic.getWaterCleanerRange(this.serialNumber, this.startDate, this.endDate).then(res => {
                 if (res.status === 0) {
                     vm.rangeInfo = res.entities
                 } else {

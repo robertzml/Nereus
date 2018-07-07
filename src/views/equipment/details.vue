@@ -1,5 +1,11 @@
 <template>
     <div>
+        <Card>
+            <p>
+                <Icon type="ios-cloudy-outline"></Icon><span>设备序列号: </span><span style="margin-right:10px;">{{ equipmentInfo.serial_number }}</span>
+                <Icon type="ios-person"></Icon><span>设备主人: </span><span>{{ equipmentInfo.owner_name }}</span>
+            </p>
+        </Card>
         <Tabs>
             <TabPane label="设备信息">
                 <Card>
@@ -87,7 +93,7 @@
                     <water-heater-statistic :month-info="waterHeaterStatisticMonthInfo" :total-info="waterHeaterStatisticTotalInfo" :serial-number="equipmentInfo.serial_number"></water-heater-statistic>
                 </div>
                 <div v-else-if="equipmentInfo.product_type_code === '2'">
-                    
+                    <water-cleaner-statistic :month-info="waterCleanerStatisticMonthInfo" :total-info="waterCleanerStatisticTotalInfo" :serial-number="equipmentInfo.serial_number"></water-cleaner-statistic>
                 </div>
             </TabPane>
         </Tabs>
@@ -106,6 +112,7 @@ import waterCleanerStatus from '../components/equipment/water-cleaner-status.vue
 import saleRuleDetails from '../components/saleRule/sale-rule-details.vue'
 import equipmentBill from '../components/equipment/equipment-bill.vue'
 import waterHeaterStatistic from '../components/statistic/water-heater-statistic.vue'
+import waterCleanerStatistic from '../components/statistic/water-cleaner-statistic.vue'
 import moment from 'moment'
 
 export default {
@@ -118,7 +125,8 @@ export default {
         waterCleanerStatus,
         saleRuleDetails,
         equipmentBill,
-        waterHeaterStatistic
+        waterHeaterStatistic,
+        waterCleanerStatistic
     },
     data () {
         return {
@@ -143,7 +151,9 @@ export default {
                 }
             },
             waterHeaterStatisticMonthInfo: {},
-            waterHeaterStatisticTotalInfo: {}
+            waterHeaterStatisticTotalInfo: {},
+            waterCleanerStatisticMonthInfo: {},
+            waterCleanerStatisticTotalInfo: {}
         }
     },
     filters: {
@@ -190,6 +200,8 @@ export default {
 
                     if (vm.equipmentInfo.product_type_code === '1') {
                         vm.getWaterHeaterStatistic()
+                    } else if (vm.equipmentInfo.product_type_code === '2') {
+                        vm.getWaterCleanerStatistic()
                     }
                 } else {
                     this.$Notice.error({
@@ -246,7 +258,7 @@ export default {
         getWaterHeaterStatistic () {
             let vm = this
 
-            statistic.getWaterHeaterCurrentMonth(this.equipmentInfo.serial_number).then(res => {
+            statistic.getWaterHeaterCurrent(this.equipmentInfo.serial_number).then(res => {
                 if (res.status === 0) {
                     vm.waterHeaterStatisticMonthInfo = res.entity
                 } else {
@@ -260,6 +272,33 @@ export default {
             statistic.getWaterHeaterTotal(this.equipmentInfo.serial_number).then(res => {
                 if (res.status === 0) {
                     vm.waterHeaterStatisticTotalInfo = res.entity
+                } else {
+                    this.$Notice.error({
+                        title: '获取总统计失败',
+                        desc: res.message
+                    })
+                }
+            })
+        },
+
+        // 直饮机统计信息
+        getWaterCleanerStatistic () {
+            let vm = this
+
+            statistic.getWaterCleanerCurrent(this.equipmentInfo.serial_number).then(res => {
+                if (res.status === 0) {
+                    vm.waterCleanerStatisticMonthInfo = res.entity
+                } else {
+                    this.$Notice.error({
+                        title: '获取月统计失败',
+                        desc: res.message
+                    })
+                }
+            })
+
+            statistic.getWaterCleanerTotal(this.equipmentInfo.serial_number).then(res => {
+                if (res.status === 0) {
+                    vm.waterCleanerStatisticTotalInfo = res.entity
                 } else {
                     this.$Notice.error({
                         title: '获取总统计失败',
