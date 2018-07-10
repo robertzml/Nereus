@@ -48,6 +48,7 @@ export default {
         { name: 'equipment-online', roles: [1] },
         { name: 'equipment-upload', roles: [1, 2, 3, 4, 5, 6] },
         { name: 'equipment-store', roles: [1, 2, 3, 4, 5, 6] },
+        { name: 'equipment-agent-store', roles: [1, 2, 3, 4, 5, 6] },
         { name: 'user-index', roles: [1, 2, 3, 4, 5, 6] },
         { name: 'coupon-index', roles: [1, 2, 3, 4, 5, 6] }
     ]
