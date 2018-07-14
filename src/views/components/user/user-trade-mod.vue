@@ -78,6 +78,7 @@ export default {
                     })
 
                     setTimeout(() => {
+                        this.$emit('refresh')
                         this.showModal = false
                     }, 1000)
                 } else {
