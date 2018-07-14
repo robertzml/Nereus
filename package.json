@@ -13,7 +13,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
-    "iview": "^2.10.1",
+    "iview": "^2.14.3",
     "lodash": "^4.17.5",
     "moment": "^2.21.0",
     "vue": "^2.5.2",
