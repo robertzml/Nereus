@@ -20,10 +20,12 @@
                     <Col span="24">
                         <div class="filter-panel">
                             <Button type="primary" @click="loadWallet">刷新</Button>
+                            <Button type="primary" @click="showTrade">充值</Button>
                         </div>
                         <consumer-wallet-list :itemList="walletData"></consumer-wallet-list>
                     </Col>
                 </Row>
+                <user-trade-mod ref="tradeMod" :phone="phone" :agent-company-id="agentCompanyId"></user-trade-mod>
             </TabPane>
 
             <TabPane label="钱包充值">
@@ -44,6 +46,7 @@ import consumerWalletDetails from '../components/user/consumer-wallet-details.vu
 import consumerWalletList from '../components/user/consumer-wallet-list.vue'
 import consumerWalletSummary from '../components/user/consumer-wallet-summary.vue'
 import userTrade from '../components/user/user-trade.vue'
+import userTradeMod from '../components/user/user-trade-mod.vue'
 
 export default {
     name: 'user-details',
@@ -51,7 +54,8 @@ export default {
         consumerWalletDetails,
         consumerWalletList,
         consumerWalletSummary,
-        userTrade
+        userTrade,
+        userTradeMod
     },
     data () {
         return {
@@ -61,7 +65,8 @@ export default {
             walletData: [],
             walletSummary: {},
             walletDetails: {},
-            phone: ''
+            phone: '',
+            tradeModal: false
         }
     },
     methods: {
@@ -128,6 +133,10 @@ export default {
                     vm.walletSummary = res.entities[0]
                 }
             })
+        },
+
+        showTrade () {
+            this.$refs.tradeMod.show()
         },
 
         toIndex () {
