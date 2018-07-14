@@ -20,31 +20,36 @@
                        
                     </div>
                     
-                    
+                    <agent-store-list :item-list="agentStoreData"></agent-store-list>
                 </Card>
             </Col>
         </Row>
 
         <Modal
             v-model="modal1"
+            :loading="loading"
             title="添加库存信息"
             @on-ok="saveStore">
-            <agent-store-create></agent-store-create>
+            <agent-store-create ref="com1"></agent-store-create>
         </Modal>
     </div>
 </template>
 
 <script>
+import agentStoreList from '../components/equipment/agent-store-list.vue'
 import agentStoreCreate from '../components/equipment/agent-store-create.vue'
 
 export default {
     name: 'agent-store',
     components: {
+        agentStoreList,
         agentStoreCreate
     },
     data () {
         return {
-            modal1: false
+            agentStoreData: [],
+            modal1: false,
+            loading: true
         }
     },
     methods: {
@@ -57,7 +62,25 @@ export default {
         },
 
         saveStore () {
-
+            let r = this.$refs.com1.saveStore()
+            console.log(r)
+            if (r) {
+                this.$Message.success('This is a info tip')
+                this.loading = false
+                this.$Modal.remove()
+                this.$refs.com1.visible = false
+            } else {
+                this.$Message.warning('This is a info tip')
+                this.loading = true
+            }
+            /*
+            setTimeout(() => {
+                this.loading = false
+                this.$nextTick(() => {
+                    this.loading = true
+                })
+            }, 2000)
+            */
         }
     },
     mounted: function () {

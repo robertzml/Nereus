@@ -16,7 +16,12 @@
                 </FormItem>
 
                 <FormItem>
-                    <Button type="success" @click="handleTrade('formTrade')">充值</Button>
+                    <Poptip
+                        confirm
+                        title="是否确认充值?"
+                        @on-ok="handleTrade('formTrade')">
+                        <Button type="success">充值</Button>
+                    </Poptip>
                 </FormItem>
             </Form>
         </Card>
@@ -41,6 +46,9 @@ export default {
         }
     },
     methods: {
+        ok () {
+            this.$Message.info('You click ok')
+        },
         handleTrade (name) {
             console.log('handle')
           
