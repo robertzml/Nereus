@@ -103,5 +103,13 @@ export default {
         }).then(res => {
             return res.data
         })
+    },
+
+    // 获取分成比例列表
+    getShareList (saleRuleId) {
+        return api._get({ url: '/t_product_agent_money_sharing/findByCondition', params: { product_sale_rule_id: saleRuleId } })
+            .then(res => {
+                return res.data
+            })
     }
 }
