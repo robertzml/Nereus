@@ -21,7 +21,6 @@
 import equipment from '@/controllers/equipment.js'
 import * as nereus from '@/utility/nereus.js'
 import inactivateList from '../components/equipment/inactivate-list.vue'
-import _ from 'lodash'
 
 export default {
     name: 'equipment-inactivate',
