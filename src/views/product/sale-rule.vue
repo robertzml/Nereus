@@ -185,12 +185,17 @@
                         <Icon type="grid"></Icon>
                         分成比例
                     </p>
+                    <a href="#" slot="extra" @click.prevent="showCreate" style="margin-right: 5px">
+                        <Icon type="plus-round"></Icon>
+                        新增
+                    </a>
                     <a href="#" slot="extra" @click.prevent="getShareData">
                         <Icon type="ios-loop-strong"></Icon>
                         刷新
                     </a>
 
                     <share-list :item-list="shareData"></share-list>
+                    <share-create-mod :sale-rule-id="ruleId" ref="shareCreateMod" @refresh="getShareData"></share-create-mod>
                 </Card>
             </TabPane>
         </Tabs>
@@ -200,11 +205,13 @@
 <script>
 import product from '@/controllers/product.js'
 import shareList from '../components/saleRule/share-list.vue'
+import shareCreateMod from '../components/saleRule/share-create-mod.vue'
 
 export default {
     name: 'sale-rule',
     components: {
-        shareList
+        shareList,
+        shareCreateMod
     },
     data () {
         return {
@@ -321,6 +328,10 @@ export default {
                     })
                 }
             })
+        },
+
+        showCreate () {
+            this.$refs.shareCreateMod.show()
         },
 
         toIndex () {

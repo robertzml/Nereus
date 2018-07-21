@@ -29,24 +29,24 @@ export default {
                     align: 'center'
                 },
                 {
-                    title: '别名',
-                    key: 'another_name'
+                    title: '厂商名称',
+                    key: 'company_name'
                 },
                 {
-                    title: '押金(元)',
-                    key: 'device_deposit'
+                    title: '代理商名称',
+                    key: 'agent_name'
                 },
                 {
-                    title: '每期费用(元)',
-                    key: 'fix_month_rent'
+                    title: '产品名称',
+                    key: 'product_name'
+                },              
+                {
+                    title: '销售规则名称',
+                    key: 'product_sale_rule_name'
                 },
                 {
-                    title: '每期时间(月)',
-                    key: 'set_time_divided_pay_pers'
-                },
-                {
-                    title: '免费使用时间(天)',
-                    key: 'set_free_time'
+                    title: '代理商分成比例',
+                    key: 'agent_money_sharing_value'
                 },
                 {
                     title: '操作',
@@ -56,7 +56,7 @@ export default {
                     render: (h, params) => {
                         return (
                             <div>
-                                <i-button type="primary" size="small" onClick={ () => { this.showDetails(params.row) } }>查看</i-button>
+                                <i-button type="warning" size="small" onClick={ () => { this.showEdit(params.row) } }>编辑</i-button>
                             </div>
                         )
                     }
@@ -85,6 +85,9 @@ export default {
         changePageSize (pageSize) {
             this.pageSize = pageSize
             this.tableData = this.itemList.slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize)
+        },
+        showEdit (item) {
+
         }
     }
 }

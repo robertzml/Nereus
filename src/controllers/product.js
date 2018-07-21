@@ -111,5 +111,15 @@ export default {
             .then(res => {
                 return res.data
             })
+    },
+
+    // 添加分成比例
+    addShare (model) {
+        return api._post({
+            url: '/t_product_agent_money_sharing/add',
+            data: model
+        }).then(res => {
+            return res.data
+        })
     }
 }
