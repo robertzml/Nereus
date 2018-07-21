@@ -1,6 +1,6 @@
 <template>
     <div class="user-list">
-        <Table :data="tableData" :columns="columns" stripe border></Table>
+        <Table :data="tableData" :columns="columns"></Table>
         <div style="margin: 10px;overflow-x: hidden" v-if="showPager">
             <div style="float: right;">
                 <Page :total="itemsCount" :current.sync="currentPage" :page-size="pageSize" :page-size-opts="pageSizeOpt" show-sizer placement="top" 

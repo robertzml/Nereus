@@ -27,14 +27,6 @@
                 </Row>
                 <user-trade-mod ref="tradeMod" :phone="phone" :agent-company-id="agentCompanyId" @refresh="loadWallet"></user-trade-mod>
             </TabPane>
-
-            <TabPane label="钱包充值">
-                <Row :gutter="16">
-                    <Col span="24">
-                        <user-trade :phone="phone" :agent-company-id="agentCompanyId"></user-trade>
-                    </Col>
-                </Row>
-            </TabPane>
         </Tabs>
        
     </div>
@@ -45,7 +37,6 @@ import user from '@/controllers/user.js'
 import consumerWalletDetails from '../components/user/consumer-wallet-details.vue'
 import consumerWalletList from '../components/user/consumer-wallet-list.vue'
 import consumerWalletSummary from '../components/user/consumer-wallet-summary.vue'
-import userTrade from '../components/user/user-trade.vue'
 import userTradeMod from '../components/user/user-trade-mod.vue'
 
 export default {
@@ -54,7 +45,6 @@ export default {
         consumerWalletDetails,
         consumerWalletList,
         consumerWalletSummary,
-        userTrade,
         userTradeMod
     },
     data () {
