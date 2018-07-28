@@ -37,7 +37,7 @@ export default {
 
     // 获取直饮机总统计
     getWaterCleanerTotal (serialNumber) {
-        return api._get({ url: '/t_water_heater_equipment_statistics/findTotalWaterHeaterEquipmentStatistics', params: { serial_number: serialNumber } })
+        return api._get({ url: '/t_water_cleaner_equipment_statistics/findTotalEquipmentStatistics', params: { serial_number: serialNumber } })
             .then(res => {
                 return res.data
             })

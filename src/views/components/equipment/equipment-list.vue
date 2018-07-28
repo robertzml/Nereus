@@ -83,10 +83,9 @@ export default {
                 {
                     title: '使用截至时间',
                     key: 'device_deadline_date',
+                    sortable: true,
                     render: (h, params) => {
-                        return (
-                            <span>{ nereus.displayDate(params.row.device_deadline_date) }</span>
-                        )
+                        return nereus.displayDate(params.row.device_deadline_date)
                     }
                 },
                 {

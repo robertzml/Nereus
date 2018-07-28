@@ -13,6 +13,10 @@
                 <FormItem label="充值优惠券(元)">
                     <InputNumber :max="5000000" :min="0" :precision="0" v-model="tradeInfo.tradeInCoupon" style="width: 250px;"></InputNumber>
                 </FormItem>
+
+                <FormItem label="备注">
+                    <Input v-model="tradeInfo.remark" style="width: 250px;"></Input>
+                </FormItem>
             </Form>
         </Modal>
     </div>
@@ -31,7 +35,8 @@ export default {
         return {
             tradeInfo: {
                 tradeInMoney: 0,
-                tradeInCoupon: 0
+                tradeInCoupon: 0,
+                remark: ''
             },
             showModal: false,
             loading: true
@@ -41,6 +46,7 @@ export default {
         init () {
             this.tradeInfo.tradeInMoney = 0
             this.tradeInfo.tradeInCoupon = 0
+            this.tradeInfo.remark = ''
         },
         show () {
             this.showModal = true
@@ -58,7 +64,8 @@ export default {
                 equipment_consumer_account_phone: this.phone,
                 agent_company_id: this.agentCompanyId,
                 trade_in_money: this.tradeInfo.tradeInMoney,
-                trade_in_coupon: this.tradeInfo.tradeInCoupon
+                trade_in_coupon: this.tradeInfo.tradeInCoupon,
+                remark: this.tradeInfo.remark
             }
 
             if (this.tradeInfo.tradeInMoney === 0 && this.tradeInfo.tradeInCoupon === 0) {
@@ -69,6 +76,16 @@ export default {
                 })
                 return
             }
+
+            let s = this.tradeInfo.remark
+            if (s.replace(/(^s*)|(s*$)/g, '').length === 0) {
+                this.$Message.warning('请输入备注')
+                this.loading = false
+                this.$nextTick(() => {
+                    this.loading = true
+                })
+                return
+            } 
 
             user.tradeIn(act).then(res => {
                 if (res.status === 0) {
