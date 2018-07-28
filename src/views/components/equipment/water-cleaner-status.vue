@@ -56,7 +56,7 @@
                             {{ realInfo.filter_cartridge_age_4 }} 小时
                         </FormItem>
 
-                        <FormItem label="次数">
+                        <FormItem label="刷新次数">
                             {{ counter }}
                         </FormItem>
                     </Col>

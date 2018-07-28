@@ -46,7 +46,7 @@
                             {{ realInfo.log_time | displayDateTime }}
                         </FormItem>
 
-                        <FormItem label="次数">
+                        <FormItem label="刷新次数">
                             {{ counter }}
                         </FormItem>
                     </Col>

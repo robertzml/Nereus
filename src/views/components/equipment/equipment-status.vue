@@ -34,7 +34,7 @@
                             {{ realInfo.cummlative_heat_water }} 升
                         </FormItem>
 
-                        <FormItem label="次数">
+                        <FormItem label="刷新次数">
                             {{ counter }}
                         </FormItem>
                     </Col>

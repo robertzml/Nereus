@@ -1,6 +1,10 @@
 <template>
     <div class="equipment-list">
-        <Table :data="tableData" :columns="columns" border stripe></Table>
+        <Table :data="tableData" :columns="columns" border stripe>
+            <div slot="footer">
+                <span style="margin-left: 10px;">总数: {{ itemsCount }}</span>
+            </div>
+        </Table>
         <div style="margin: 10px;overflow-x: hidden" v-if="showPager">
             <div style="float: right;">
                 <Page :total="itemsCount" :current.sync="currentPage" :page-size="pageSize" :page-size-opts="pageSizeOpt" show-sizer placement="top" 
