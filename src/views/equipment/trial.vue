@@ -12,6 +12,16 @@
                 </a>
                 
                 <div class="filter-panel">
+                    <span>产品类型</span>
+                    <Select v-model="sProductType" style="width:200px" placeholder="选择产品类型" @on-change="selectProductType" clearable>
+                        <Option v-for="item in productTypeList" :value="item.id" :key="item.id">{{ item.name }}</Option>
+                    </Select>
+
+                    <span>产品名称</span>
+                    <Select v-model="sProduct" style="width:200px" placeholder="选择产品" clearable>
+                        <Option v-for="item in productList" :value="item.id" :key="item.id">{{ item.name }} <span style="float:right;color:#fcc">{{ item.product_code }}</span></Option>
+                    </Select>
+
                     <span>搜索</span>
                     <Input v-model="filterKey" style="width: 200px"></Input>
                 </div>
@@ -26,6 +36,7 @@
 import equipment from '@/controllers/equipment.js'
 import trialList from '../components/equipment/trial-list.vue'
 import productType from '@/controllers/product-type.js'
+import product from '@/controllers/product.js'
 import company from '@/controllers/company.js'
 
 export default {
@@ -38,8 +49,11 @@ export default {
             roleType: 0,
             equipmentData: [],
             productTypeList: [],
+            productList: [],
             companyList: [],
             agentList: [],
+            sProductType: '',
+            sProduct: '',
             filterKey: ''
         }
     },
@@ -55,6 +69,14 @@ export default {
     computed: {
         filterData () {
             let temp = this.equipmentData
+
+            if (this.sProductType) {
+                temp = temp.filter(r => r.product_type_id === this.sProductType)
+            }
+
+            if (this.sProduct) {
+                temp = temp.filter(r => r.product_id === this.sProduct)
+            }
 
             var filterKey = this.filterKey && this.filterKey.toLowerCase()
             if (filterKey) {
@@ -72,7 +94,7 @@ export default {
         init () {
             this.roleType = this.$store.state.user.roleType
             this.getEquipments()
-            // this.loadProductType()
+            this.loadProductType()
             // this.loadAgents()
 
             if (this.roleType === 0 || this.roleType === 1) {
@@ -161,6 +183,26 @@ export default {
             productType.list().then(res => {
                 vm.productTypeList = res.entities
             })
+        },
+
+        selectProductType (val) {
+            this.sProduct = ''
+            if (val === undefined) {
+                this.productList = []
+                return
+            }
+
+            let companyId = this.$store.state.user.companyId
+            let vm = this
+            if (this.roleType === 0 || this.roleType === 1) {
+                product.listByType(val).then(res => {
+                    vm.productList = res.entities
+                })
+            } else {
+                product.listByTypeAndCompany(val, companyId).then(res => {
+                    vm.productList = res.entities
+                })
+            }
         }
     },
     created: function () {

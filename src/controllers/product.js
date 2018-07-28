@@ -34,6 +34,20 @@ export default {
             })
     },
 
+    listByType (productTypeId) {
+        return api._get({ url: '/t_product/findProductByCompanyIdAndProductTypeId', params: { product_type_id: productTypeId } })
+            .then(res => {
+                return res.data
+            })
+    },
+
+    listByTypeAndCompany (productTypeId, companyId) {
+        return api._get({ url: '/t_product/findProductByCompanyIdAndProductTypeId', params: { product_type_id: productTypeId, company_id: companyId } })
+            .then(res => {
+                return res.data
+            })
+    },
+
     getCompanyCode (productId) {
         return api._get({ url: '/t_product/findCompanyCodeByProductId', params: { product_id: productId } })
             .then(res => {

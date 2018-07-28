@@ -13,9 +13,15 @@
                 
                 <div class="filter-panel">
                     <span>产品类型</span>
-                    <Select v-model="sProductType" style="width:200px" placeholder="选择产品类型" clearable>
+                    <Select v-model="sProductType" style="width:200px" placeholder="选择产品类型" @on-change="selectProductType" clearable>
                         <Option v-for="item in productTypeList" :value="item.id" :key="item.id">{{ item.name }}</Option>
                     </Select>
+
+                    <span>产品名称</span>
+                    <Select v-model="sProduct" style="width:200px" placeholder="选择产品" clearable>
+                        <Option v-for="item in productList" :value="item.id" :key="item.id">{{ item.name }} <span style="float:right;color:#fcc">{{ item.product_code }}</span></Option>
+                    </Select>
+
 
                     <span v-if="roleType === 0 || roleType ===1">所属厂商</span>
                     <Select v-if="roleType === 0 || roleType ===1" v-model="sCompany" style="width:200px" placeholder="选择厂商" clearable>
@@ -26,6 +32,8 @@
                     <Select v-model="sAgent" style="width:200px" placeholder="选择代理商" clearable>
                         <Option v-for="item in agentList" :value="item.id" :key="item.id">{{ item.name }}</Option>
                     </Select>
+
+                    <br /><br />
 
                     <span>激活状态</span>
                     <Select v-model="sActivate" style="width:150px" clearable>
@@ -38,8 +46,6 @@
                         <Option value="1">已解锁</Option>
                         <Option value="0">未解锁</Option>
                     </Select>
-
-                    <br /><br />
 
                     <span>搜索</span>
                     <Input v-model="filterKey" style="width: 200px"></Input>
@@ -55,6 +61,7 @@
 import equipment from '@/controllers/equipment.js'
 import equipmentList from '../components/equipment/equipment-list.vue'
 import productType from '@/controllers/product-type.js'
+import product from '@/controllers/product.js'
 import company from '@/controllers/company.js'
 
 export default {
@@ -67,9 +74,11 @@ export default {
             roleType: 0,
             equipmentData: [],
             productTypeList: [],
+            productList: [],
             companyList: [],
             agentList: [],
             sProductType: '',
+            sProduct: '',
             sCompany: '',
             sAgent: '',
             sActivate: '',
@@ -91,6 +100,10 @@ export default {
             let temp = this.equipmentData
             if (this.sProductType) {
                 temp = temp.filter(r => r.type_id === this.sProductType)
+            }
+
+            if (this.sProduct) {
+                temp = temp.filter(r => r.product_id === this.sProduct)
             }
 
             if (this.sCompany) {
@@ -218,6 +231,26 @@ export default {
             productType.list().then(res => {
                 vm.productTypeList = res.entities
             })
+        },
+
+        selectProductType (val) {
+            this.sProduct = ''
+            if (val === undefined) {
+                this.productList = []
+                return
+            }
+
+            let companyId = this.$store.state.user.companyId
+            let vm = this
+            if (this.roleType === 0 || this.roleType === 1) {
+                product.listByType(val).then(res => {
+                    vm.productList = res.entities
+                })
+            } else {
+                product.listByTypeAndCompany(val, companyId).then(res => {
+                    vm.productList = res.entities
+                })
+            }
         }
     },
     created: function () {

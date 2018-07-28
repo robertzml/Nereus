@@ -33,13 +33,13 @@ export default {
                     sortable: true
                 },
                 {
-                    title: '产品名称',
-                    key: 'product_name',
+                    title: '产品类别',
+                    key: 'product_type_name',
                     sortable: true
                 },
                 {
-                    title: '产品类别',
-                    key: 'product_type_name',
+                    title: '产品名称',
+                    key: 'product_name',
                     sortable: true
                 },
                 {
