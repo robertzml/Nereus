@@ -6,7 +6,7 @@
                 直饮机解锁状态
             </p>
 
-            <div slot="extra">
+            <div v-if="false" slot="extra">
                 <i-switch v-model="openReal" @on-change="changeReal">
                     <span slot="open">开</span>
                     <span slot="close">关</span>
@@ -107,7 +107,7 @@ export default {
     methods: {
         init () {
             this.counter = 0
-            this.openReal = false
+            this.openReal = true
         },
 
         // 获取直饮机解锁状态
@@ -139,6 +139,7 @@ export default {
     },
     mounted: function () {
         this.init()
+        this.changeReal(true)
     },
     beforeDestroy: function () {
         clearInterval(this.intervalId1)

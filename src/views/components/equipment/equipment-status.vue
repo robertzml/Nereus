@@ -6,7 +6,7 @@
                 热水器实时状态
             </p>
 
-            <div slot="extra">
+            <div v-if="false" slot="extra">
                 <i-switch v-model="openReal" @on-change="changeReal">
                     <span slot="open">开</span>
                     <span slot="close">关</span>
@@ -84,14 +84,14 @@ export default {
         return {
             counter: 0,
             intervalId1: 0,
-            openReal: false,
+            openReal: true,
             realInfo: {} // 实时状态
         }
     },
     methods: {
         init () {
             this.counter = 0
-            this.openReal = false
+            this.openReal = true
         },
 
         readRealStatus () {
@@ -141,6 +141,7 @@ export default {
     },
     mounted: function () {
         this.init()
+        this.changeReal(true)
     },
     beforeDestroy: function () {
         clearInterval(this.intervalId1)
