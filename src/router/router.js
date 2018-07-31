@@ -156,6 +156,15 @@ export const appRouter = [
             { path: 'create', title: '添加优惠券', name: 'coupon-create', component: resolve => { require(['@/views/coupon/create.vue'], resolve) } },
             { path: 'edit/:id', title: '编辑优惠券', name: 'coupon-edit', component: resolve => { require(['@/views/coupon/edit.vue'], resolve) } }
         ]
+    },
+    {
+        path: '/bill',
+        name: 'bill',
+        title: '账单管理',
+        component: Home,
+        children: [
+            { path: 'index', title: '代理商用户扣款', parent: 'user-menu', role: 6, name: 'bill-agent-deduct-index', meta: { keepAlive: true }, component: resolve => { require(['@/views/bill/agent-deduct-index.vue'], resolve) } }
+        ]
     }
 ]
 

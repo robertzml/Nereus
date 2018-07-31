@@ -16,7 +16,7 @@
                         刷新
                     </a>
 
-                    <account-list :itemList="myAccount" :display-edit="canEditAccount" :show-pager="false" :list-type="1"></account-list>
+                    <account-list :itemList="myAccount" :display-edit="canEditAccount" :show-pager="true" :list-type="1"></account-list>
                 </Card>
             </Col>
         </Row>

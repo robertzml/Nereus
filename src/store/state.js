@@ -50,6 +50,7 @@ export default {
         { name: 'equipment-store', roles: [1, 2, 3, 4, 5, 6] },
         { name: 'equipment-agent-store', roles: [1] },
         { name: 'user-index', roles: [1, 2, 3, 4, 5, 6] },
-        { name: 'coupon-index', roles: [1, 2, 3, 4, 5, 6] }
+        { name: 'coupon-index', roles: [1, 2, 3, 4, 5, 6] },
+        { name: 'bill-agent-deduct-index', roles: [1, 2, 3, 4] }
     ]
 }
