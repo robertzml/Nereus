@@ -16,7 +16,12 @@
                         刷新
                     </a>
 
-                    <account-list :itemList="myAccount" :display-edit="canEditAccount" :show-pager="true" :list-type="1"></account-list>
+                    <div class="filter-panel">
+                        <span>搜索</span>
+                        <Input v-model="filterKey" style="width: 200px"></Input>
+                    </div>
+
+                    <account-list :itemList="vendorFilterData" :display-edit="canEditAccount" :show-pager="true" :list-type="1"></account-list>
                 </Card>
             </Col>
         </Row>
@@ -40,7 +45,8 @@ export default {
             myAccount: [],
             roleType: -1,
             canEditAccount: false,
-            displayCreate: false
+            displayCreate: false,
+            filterKey: ''
         }
     },
     beforeRouteEnter (to, from, next) {
@@ -50,6 +56,22 @@ export default {
             })
         } else {
             next()
+        }
+    },
+    computed: {
+        vendorFilterData () {
+            let temp = this.myAccount
+           
+            var filterKey = this.filterKey && this.filterKey.toLowerCase()
+            if (filterKey) {
+                temp = temp.filter(function (row) {
+                    return Object.keys(row).some(function (key) {
+                        return String(row[key]).toLowerCase().indexOf(filterKey) > -1
+                    })
+                })
+            }
+
+            return temp
         }
     },
     methods: {

@@ -16,6 +16,11 @@
                         刷新
                     </a>
 
+                    <div class="filter-panel">
+                        <span>搜索</span>
+                        <Input v-model="filterKey" style="width: 200px"></Input>
+                    </div>
+
                     <account-list :itemList="myAccount" :display-edit="canEditAccount" :show-pager="false" :list-type="2"></account-list>
                 </Card>
             </Col>
@@ -41,6 +46,9 @@
                         <Select v-model="sAgent" style="width:200px" placeholder="选择代理商" clearable>
                             <Option v-for="item in agentList" :value="item.id" :key="item.id">{{ item.name }}</Option>
                         </Select>
+
+                        <span>搜索</span>
+                        <Input v-model="filterKey" style="width: 200px"></Input>
                     </div>
                     <account-list :itemList="agentFilterData" :display-edit="displayAgentCreate" :list-type="2"></account-list>
                 </Card>
@@ -69,7 +77,8 @@ export default {
             sAgent: '',
             canEditAccount: false,
             displayCreate: false,
-            displayAgentCreate: false
+            displayAgentCreate: false,
+            filterKey: ''
         }
     },
     beforeRouteEnter (to, from, next) {
@@ -91,6 +100,15 @@ export default {
             
             if (this.sAgent) {
                 temp = temp.filter(r => r.company_id === this.sAgent)
+            }
+
+            var filterKey = this.filterKey && this.filterKey.toLowerCase()
+            if (filterKey) {
+                temp = temp.filter(function (row) {
+                    return Object.keys(row).some(function (key) {
+                        return String(row[key]).toLowerCase().indexOf(filterKey) > -1
+                    })
+                })
             }
 
             return temp
