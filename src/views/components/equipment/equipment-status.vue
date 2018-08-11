@@ -27,11 +27,8 @@
                             {{ parseInt(realInfo.hot_water_Input_temp, 16) }} &#8451;
                         </FormItem>
                        
-                        <FormItem label="累计加热时间">
-                            {{ realInfo.cummlative_heat_time }} 分钟
-                        </FormItem>
-                        <FormItem label="累计使用热水量">
-                            {{ realInfo.cummlative_heat_water }} 升
+                        <FormItem label="当前输出功率">
+                            {{ realInfo.output_capacity_factor }} W
                         </FormItem>
 
                         <FormItem label="刷新次数">
@@ -49,16 +46,6 @@
                         </FormItem>
                         <FormItem label="出水流量">
                             {{ parseInt(realInfo.output_flow_rate, 16) * 0.1 }} 升/分钟
-                        </FormItem>
-                        <FormItem label="当前输出功率">
-                            {{ realInfo.output_capacity_factor }} W
-                        </FormItem>
-
-                        <FormItem label="累计使用电量">
-                            {{ realInfo.cummlative_use_electricity / 100 }} 度
-                        </FormItem>
-                        <FormItem label="累计节省电量">
-                            {{ realInfo.cummlative_electricity_saving / 100 }} 度
                         </FormItem>
 
                         <FormItem label="日志时间">
@@ -101,10 +88,7 @@ export default {
             equipment.getRealStatus(this.serial_number).then(res => {
                 if (res.status === 0) {
                     vm.realInfo = res.entities[0]
-                   
-                    vm.realInfo.cummlative_heat_water = vm.transDigit(vm.realInfo.cummlative_heat_water, 8)
-                    vm.realInfo.cummlative_use_electricity = vm.transDigit(vm.realInfo.cummlative_use_electricity, 8)
-                    vm.realInfo.cummlative_electricity_saving = vm.transDigit(vm.realInfo.cummlative_electricity_saving, 8)
+                 
                     vm.realInfo.output_capacity_factor = vm.transDigit(vm.realInfo.output_capacity_factor, 4)
                 } else {
                     this.$Notice.error({

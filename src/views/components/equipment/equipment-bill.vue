@@ -142,6 +142,8 @@ export default {
 
         moneyTradeResult: function (type) {
             switch (type) {
+                case -2:
+                    return '首次交易待处理'
                 case -1:
                     return '不需要交易'
                 case 0:
