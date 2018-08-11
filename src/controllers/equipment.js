@@ -242,5 +242,13 @@ export default {
             .then(res => {
                 return res.data
             })
+    },
+
+    // 直饮机账单记录
+    getWaterCleanerBillList (serialNumber) {
+        return api._get({ url: '/t_water_cleaner_equipment_statistics/findBySerialNumber', params: { serial_number: serialNumber } })
+            .then(res => {
+                return res.data
+            })
     }
 }

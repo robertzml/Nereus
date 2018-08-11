@@ -27,6 +27,16 @@
                 </Row>
                 <user-trade-mod ref="tradeMod" :phone="phone" :agent-company-id="agentCompanyId" @refresh="loadWallet"></user-trade-mod>
             </TabPane>
+            <TabPane label="用户押金">
+                <Card>
+                    <p slot="title">
+                        <Icon type="grid"></Icon>
+                        用户押金
+                    </p>
+
+                    <consumer-deposit-list :item-list="depositData"></consumer-deposit-list>
+                </Card>
+            </TabPane>
         </Tabs>
        
     </div>
@@ -38,6 +48,7 @@ import consumerWalletDetails from '../components/user/consumer-wallet-details.vu
 import consumerWalletList from '../components/user/consumer-wallet-list.vue'
 import consumerWalletSummary from '../components/user/consumer-wallet-summary.vue'
 import userTradeMod from '../components/user/user-trade-mod.vue'
+import consumerDepositList from '../components/user/consumer-deposit-list.vue'
 
 export default {
     name: 'user-details',
@@ -45,7 +56,8 @@ export default {
         consumerWalletDetails,
         consumerWalletList,
         consumerWalletSummary,
-        userTradeMod
+        userTradeMod,
+        consumerDepositList
     },
     data () {
         return {
@@ -53,6 +65,7 @@ export default {
             companyCode: '',
             agentCompanyId: 0,
             walletData: [],
+            depositData: [],
             walletSummary: {},
             walletDetails: {},
             phone: '',
@@ -68,6 +81,7 @@ export default {
             this.loadWalletDetals()
             this.loadWallet()
             this.loadWalletSummary()
+            this.loadDepositData()
         },
 
         loadUserPhone () {
@@ -121,6 +135,21 @@ export default {
             user.findConsumerWalletSum(this.consumerId, this.companyCode).then(res => {
                 if (res.status === 0 && res.entities.length > 0) {
                     vm.walletSummary = res.entities[0]
+                }
+            })
+        },
+
+        loadDepositData () {
+            let vm = this
+
+            user.getDeposit(this.consumerId).then(res => {
+                if (res.status === 0) {
+                    vm.depositData = res.entities
+                } else {
+                    this.$Notice.error({
+                        title: '获取押金记录失败',
+                        desc: res.message
+                    })
                 }
             })
         },

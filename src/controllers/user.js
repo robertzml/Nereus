@@ -55,5 +55,13 @@ export default {
         }).then(res => {
             return res.data
         })
+    },
+
+    // 用户押金
+    getDeposit (consumerId) {
+        return api._get({ url: '/t_company_agent_equipment_finance_trade/findDeviceDepositByConsumerId', params: { consumer_id: consumerId } })
+            .then(res => {
+                return res.data
+            })
     }
 }

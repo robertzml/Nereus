@@ -85,7 +85,12 @@
                         设备账单
                     </p>
 
-                    <equipment-bill :item-list="billInfo"></equipment-bill>
+                    <div v-if="equipmentInfo.product_type_code === '1'">
+                        <equipment-bill :item-list="billInfo"></equipment-bill>
+                    </div>
+                    <div v-else-if="equipmentInfo.product_type_code === '2'">
+                        <water-cleaner-bill :item-list="billInfo"></water-cleaner-bill>
+                    </div>
                 </Card>
             </TabPane>
             <TabPane label="设备统计">
@@ -111,6 +116,7 @@ import waterCleanerKey from '../components/equipment/water-cleaner-key.vue'
 import waterCleanerStatus from '../components/equipment/water-cleaner-status.vue'
 import saleRuleDetails from '../components/saleRule/sale-rule-details.vue'
 import equipmentBill from '../components/equipment/equipment-bill.vue'
+import waterCleanerBill from '../components/equipment/water-cleaner-bill.vue'
 import waterHeaterStatistic from '../components/statistic/water-heater-statistic.vue'
 import waterCleanerStatistic from '../components/statistic/water-cleaner-statistic.vue'
 import moment from 'moment'
@@ -125,6 +131,7 @@ export default {
         waterCleanerStatus,
         saleRuleDetails,
         equipmentBill,
+        waterCleanerBill,
         waterHeaterStatistic,
         waterCleanerStatistic
     },
@@ -196,12 +203,13 @@ export default {
                 if (res.status === 0) {
                     vm.equipmentInfo = res.entity
                     vm.getSaleRuleInfo()
-                    vm.getBillInfo()
 
                     if (vm.equipmentInfo.product_type_code === '1') {
                         vm.getWaterHeaterStatistic()
+                        vm.getBillInfo()
                     } else if (vm.equipmentInfo.product_type_code === '2') {
                         vm.getWaterCleanerStatistic()
+                        vm.getWaterCleanerBillnfo()
                     }
                 } else {
                     this.$Notice.error({
@@ -243,6 +251,21 @@ export default {
             let vm = this
 
             equipment.getBillList(this.equipmentInfo.serial_number).then(res => {
+                if (res.status === 0) {
+                    vm.billInfo = res.entities
+                } else {
+                    this.$Notice.error({
+                        title: '获取账单记录失败',
+                        desc: res.message
+                    })
+                }
+            })
+        },
+
+        getWaterCleanerBillnfo () {
+            let vm = this
+
+            equipment.getWaterCleanerBillList(this.equipmentInfo.serial_number).then(res => {
                 if (res.status === 0) {
                     vm.billInfo = res.entities
                 } else {
