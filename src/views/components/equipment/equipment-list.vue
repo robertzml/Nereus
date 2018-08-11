@@ -63,14 +63,11 @@ export default {
                     key: 'owner_phone'
                 },
                 {
-                    title: '激活状态',
-                    key: 'is_activate',
-                    width: 100,
-                    align: 'center',
+                    title: '设备转正时间',
+                    key: 'statistics_equipment_in_due_form_date',
+                    sortable: true,
                     render: (h, params) => {
-                        return (
-                            <span>{ params.row.is_activate ? '已激活' : '未激活' }</span>
-                        )
+                        return nereus.displayDate(params.row.statistics_equipment_in_due_form_date)
                     }
                 },
                 {

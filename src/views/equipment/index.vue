@@ -35,12 +35,6 @@
 
                     <br /><br />
 
-                    <span>激活状态</span>
-                    <Select v-model="sActivate" style="width:150px" clearable>
-                        <Option value="1">已激活</Option>
-                        <Option value="0">未激活</Option>
-                    </Select>
-
                     <span>解锁状态</span>
                     <Select v-model="sLock" style="width:150px" clearable>
                         <Option value="1">已解锁</Option>
