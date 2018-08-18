@@ -19,12 +19,12 @@ export default {
     ],
     /* 角色顶级菜单 */
     roleMenu: [
-        { roleId: 1, menus: [ 'company-menu', 'product-menu', 'user-menu', 'system-menu' ] },
-        { roleId: 2, menus: [ 'company-menu', 'product-menu', 'user-menu', 'system-menu' ] },
-        { roleId: 3, menus: [ 'company-menu', 'product-menu', 'user-menu', 'system-menu' ] },
-        { roleId: 4, menus: [ 'company-menu', 'product-menu', 'user-menu', 'system-menu' ] },
-        { roleId: 5, menus: [ 'company-menu', 'product-menu', 'user-menu' ] },
-        { roleId: 6, menus: [ 'company-menu', 'product-menu', 'user-menu' ] },
+        { roleId: 1, menus: [ 'company-menu', 'product-menu', 'user-menu', 'bill-menu', 'system-menu' ] },
+        { roleId: 2, menus: [ 'company-menu', 'product-menu', 'user-menu', 'bill-menu', 'system-menu' ] },
+        { roleId: 3, menus: [ 'company-menu', 'product-menu', 'user-menu', 'bill-menu', 'system-menu' ] },
+        { roleId: 4, menus: [ 'company-menu', 'product-menu', 'user-menu', 'bill-menu', 'system-menu' ] },
+        { roleId: 5, menus: [ 'company-menu', 'product-menu', 'user-menu', 'bill-menu' ] },
+        { roleId: 6, menus: [ 'company-menu', 'product-menu', 'user-menu', 'bill-menu' ] },
         { roleId: 7, menus: [ 'company-menu', 'product-menu' ] },
         { roleId: 8, menus: [ 'company-menu', 'product-menu', 'user-menu' ] },
         { roleId: 9, menus: [ 'company-menu', 'product-menu', 'user-menu' ] },
@@ -51,6 +51,7 @@ export default {
         { name: 'equipment-agent-store', roles: [1] },
         { name: 'user-index', roles: [1, 2, 3, 4, 5, 6] },
         { name: 'coupon-index', roles: [1, 2, 3, 4, 5, 6] },
+        { name: 'bill-unpaid', roles: [1, 2, 3, 4] },
         { name: 'bill-agent-deduct-index', roles: [1, 2, 3, 4] }
     ]
 }

@@ -11,6 +11,22 @@ export default {
         }).then(res => {
             return res.data
         })
+    },
+
+    // 获取直饮机待付款信息
+    findWaterCleanerPaymentInfoByCompany (companyId) {
+        return api._get({ url: '/t_water_cleaner_equipment_statistics/findPaymentInfoByCompanyId', params: { company_id: companyId } })
+            .then(res => {
+                return res.data
+            })
+    },
+
+    // 获取热水器待付款信息
+    findWaterHeaterPaymentInfoByCompany (companyId) {
+        return api._get({ url: '/t_water_heater_equipment_statistics/findPaymentInfoByCompanyId', params: { company_id: companyId } })
+            .then(res => {
+                return res.data
+            })
     }
 }
 

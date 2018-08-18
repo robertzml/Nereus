@@ -32,6 +32,12 @@ export const menuRouter = [
         title: '用户管理'
     },
     {
+        name: 'bill-menu',
+        path: 'bill',
+        icon: 'cash',
+        title: '账单管理'
+    },
+    {
         name: 'system-menu',
         path: 'system',
         role: 4,
@@ -163,7 +169,8 @@ export const appRouter = [
         title: '账单管理',
         component: Home,
         children: [
-            { path: 'index', title: '代理商用户扣款', parent: 'user-menu', role: 6, name: 'bill-agent-deduct-index', meta: { keepAlive: true }, component: resolve => { require(['@/views/bill/agent-deduct-index.vue'], resolve) } }
+            { path: 'unpaid', title: '待付款', parent: 'bill-menu', name: 'bill-unpaid', meta: { keepAlive: true }, component: resolve => { require(['@/views/bill/unpaid.vue'], resolve) } },
+            { path: 'agent-deduct', title: '代理商用户扣款', parent: 'bill-menu', role: 6, name: 'bill-agent-deduct-index', meta: { keepAlive: true }, component: resolve => { require(['@/views/bill/agent-deduct-index.vue'], resolve) } }
         ]
     }
 ]
