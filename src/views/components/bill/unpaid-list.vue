@@ -66,6 +66,15 @@ export default {
                             <span>{ this.tradeResult(params.row.money_trade_result) }</span>
                         )
                     }
+                },
+                {
+                    title: '创建时间',
+                    key: 'create_date',
+                    render: (h, params) => {
+                        return (
+                            <span>{ nereus.displayDateTime(params.row.create_date) }</span>
+                        )
+                    }
                 }
             ],
             pageSize: 10,

@@ -26,7 +26,7 @@ export default {
         { roleId: 5, menus: [ 'company-menu', 'product-menu', 'user-menu', 'bill-menu' ] },
         { roleId: 6, menus: [ 'company-menu', 'product-menu', 'user-menu', 'bill-menu' ] },
         { roleId: 7, menus: [ 'company-menu', 'product-menu' ] },
-        { roleId: 8, menus: [ 'company-menu', 'product-menu', 'user-menu' ] },
+        { roleId: 8, menus: [ 'company-menu', 'product-menu', 'user-menu', 'bill-menu' ] },
         { roleId: 9, menus: [ 'company-menu', 'product-menu', 'user-menu' ] },
         { roleId: 10, menus: [ 'company-menu', 'product-menu' ] },
         { roleId: 11, menus: [ 'product-menu', 'user-menu' ] }
@@ -52,6 +52,6 @@ export default {
         { name: 'user-index', roles: [1, 2, 3, 4, 5, 6] },
         { name: 'coupon-index', roles: [1, 2, 3, 4, 5, 6] },
         { name: 'bill-unpaid', roles: [1, 2, 3, 4, 5] },
-        { name: 'bill-agent-deduct-index', roles: [1, 2, 3, 4] }
+        { name: 'bill-agent-deduct-index', roles: [1, 2, 3, 4, 5, 8] }
     ]
 }

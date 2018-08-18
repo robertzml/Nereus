@@ -13,8 +13,8 @@
                     </a>
 
                     <div class="filter-panel">
-                        <span>代理商：</span>
-                        <Select v-model="sAgent" style="width:300px" placeholder="选择代理商">
+                        <span v-if="roleType !== 3">代理商：</span>
+                        <Select v-model="sAgent" style="width:300px" placeholder="选择代理商" v-if="roleType !== 3">
                             <Option v-for="item in agentCompanyList" :value="item.id" :key="item.id">{{ item.name }}</Option>
                         </Select>
 
@@ -70,7 +70,9 @@ export default {
             if (this.roleType === 0 || this.roleType === 1) {
                 this.getAllAgents()
             } else if (this.roleType === 2) {
-                // this.getAgentCompany()
+                this.getAgentCompany()
+            } else if (this.roleType === 3) {
+                this.sAgent = this.$store.state.user.companyId
             }
         },
 
