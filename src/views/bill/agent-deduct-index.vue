@@ -5,7 +5,7 @@
                 <Card>
                     <p slot="title">
                         <Icon type="grid"></Icon>
-                        代理商用户扣款
+                        代理商收益
                     </p>
                     <a href="#" slot="extra" @click.prevent="loadDeduct">
                         <Icon type="ios-loop-strong"></Icon>
@@ -134,6 +134,11 @@ export default {
             bill.findDeductByAgentAndProductType(model).then(res => {
                 if (res.status === 0) {
                     vm.deductData = res.entities
+                } else {
+                    this.$Notice.error({
+                        title: '获取记录失败',
+                        desc: res.message
+                    })
                 }
             })
         }

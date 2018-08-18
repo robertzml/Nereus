@@ -7,7 +7,7 @@
                         <Icon type="grid"></Icon>
                         设备待付款信息
                     </p>
-                    <a href="#" slot="extra" @click.prevent="loadDeduct">
+                    <a href="#" slot="extra" @click.prevent="loadUnpaid">
                         <Icon type="ios-loop-strong"></Icon>
                         刷新
                     </a>

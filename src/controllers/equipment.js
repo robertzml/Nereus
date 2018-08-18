@@ -250,5 +250,15 @@ export default {
             .then(res => {
                 return res.data
             })
+    },
+
+    // 更新设备用户信息
+    updateOwner (model) {
+        return api._post({ 
+            url: '/t_equipment_owner_protocol/updateOwnerNameAndOwnerPhone', 
+            data: model
+        }).then(res => {
+            return res.data
+        })
     }
 }

@@ -54,8 +54,8 @@
                 </Card>
             </TabPane>
             <TabPane label="设备操作">
-                <Row>
-                    <Col span="24">
+                <Row :gutter="16">
+                    <Col span="12">
                         <Card>
                             <p slot="title">
                                 <Icon type="grid"></Icon>
@@ -75,6 +75,10 @@
                             
                             <Button type="primary" @click="inactivate" v-if="equipmentInfo.status === 2">同意注销</Button>
                         </Card>
+                    </Col>
+
+                    <Col span="12">
+                        <update-owner :serial-number="equipmentInfo.serial_number"></update-owner>
                     </Col>
                 </Row>
             </TabPane>
@@ -119,6 +123,7 @@ import equipmentBill from '../components/equipment/equipment-bill.vue'
 import waterCleanerBill from '../components/equipment/water-cleaner-bill.vue'
 import waterHeaterStatistic from '../components/statistic/water-heater-statistic.vue'
 import waterCleanerStatistic from '../components/statistic/water-cleaner-statistic.vue'
+import updateOwner from '../components/equipment/update-owner.vue'
 import moment from 'moment'
 
 export default {
@@ -133,11 +138,13 @@ export default {
         equipmentBill,
         waterCleanerBill,
         waterHeaterStatistic,
-        waterCleanerStatistic
+        waterCleanerStatistic,
+        updateOwner
     },
     data () {
         return {
             equipmentId: 0,
+            roleType: 0,
             equipmentInfo: {},
             saleRuleInfo: {},
             billInfo: [],
@@ -193,6 +200,7 @@ export default {
     methods: {
         init () {
             this.equipmentInfo = {}
+            this.roleType = this.$store.state.user.roleType
             this.equipmentId = this.$route.params.id
             this.getEquipmentInfo(this.equipmentId)
         },
