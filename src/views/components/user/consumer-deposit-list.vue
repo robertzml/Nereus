@@ -47,7 +47,12 @@ export default {
 
                 {
                     title: '销售模式',
-                    key: 'sale_mode'
+                    key: 'sale_mode',
+                    render: (h, params) => {
+                        return (
+                            <span>{ this.showSaleMode(params.row.sale_mode) }</span>
+                        )
+                    }
                 },
                 {
                     title: '交易单号',
@@ -55,7 +60,12 @@ export default {
                 },
                 {
                     title: '付费类型',
-                    key: 'bills_pay_type'
+                    key: 'bills_pay_type',
+                    render: (h, params) => {
+                        return (
+                            <span>{ nereus.paymentType(params.row.bills_pay_type) }</span>
+                        )
+                    }
                 },
                 {
                     title: '是否可用',
@@ -95,18 +105,22 @@ export default {
             this.pageSize = pageSize
         },
 
-        showPaymentType (type) {
-            switch (type) {
-                case 0:
-                    return '微信支付'
+        showSaleMode (val) {
+            switch (val) {
                 case 1:
-                    return '阿里支付'
+                    return '一次性付款'
                 case 2:
-                    return '平台支付'
-                case 3:
-                    return '自动扣款'
+                    return '分期付款'
+                case 31:
+                    return '固定租金'
+                case 32:
+                    return '混合租金'
+                case 33:
+                    return '节能分享'
+                case 34:
+                    return '浮动租金'
                 case 4:
-                    return '用户扣款'
+                    return '浮动分期'
                 default:
                     return ''
             }

@@ -97,3 +97,23 @@ export const chargeType = (val) => {
             return '未定义'
     }
 }
+
+// 付费类型
+export const paymentType = (val) => {
+    switch (val) {
+        case 0:
+            return '微信支付'
+        case 1:
+            return '支付宝支付'
+        case 2:
+            return '平台充值'
+        case 3:
+            return '自动付款'
+        case 4:
+            return '用户付款'
+        case 5:
+            return '平台付款'
+        default:
+            return ''
+    }
+}

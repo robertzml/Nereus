@@ -64,10 +64,10 @@ export default {
                 },
                 {
                     title: '设备转正时间',
-                    key: 'statistics_equipment_in_due_form_date',
+                    key: 'in_due_form_date',
                     sortable: true,
                     render: (h, params) => {
-                        return nereus.displayDate(params.row.statistics_equipment_in_due_form_date)
+                        return nereus.displayDate(params.row.in_due_form_date)
                     }
                 },
                 {

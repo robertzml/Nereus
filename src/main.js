@@ -55,6 +55,11 @@ Vue.filter('chargeType', function (value) {
     return nereus.chargeType(value)
 })
 
+Vue.filter('paymentType', function (value) {
+    if (value === undefined || value === null) return ''
+    return nereus.paymentType(value)
+})
+
 /* eslint-disable no-new */
 new Vue({
     el: '#app',

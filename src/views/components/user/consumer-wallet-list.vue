@@ -69,7 +69,7 @@ export default {
                     key: 'payment',
                     render: (h, params) => {
                         return (
-                            <span>{ this.showPaymentType(params.row.payment) }</span>
+                            <span>{ nereus.paymentType(params.row.payment) }</span>
                         )
                     }
                 },
@@ -99,23 +99,6 @@ export default {
     methods: {
         changePageSize (pageSize) {
             this.pageSize = pageSize
-        },
-
-        showPaymentType (type) {
-            switch (type) {
-                case 0:
-                    return '微信支付'
-                case 1:
-                    return '阿里支付'
-                case 2:
-                    return '平台支付'
-                case 3:
-                    return '自动扣款'
-                case 4:
-                    return '用户扣款'
-                default:
-                    return ''
-            }
         }
     }
 }
