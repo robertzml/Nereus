@@ -14,20 +14,18 @@
 
                     <div class="filter-panel">
                         <span v-if="roleType === 0 || roleType === 1">厂商：</span>
-                        <Select v-model="sCompany" style="width:300px" placeholder="选择厂商" v-if="roleType === 0 || roleType === 1">
+                        <Select v-model="sCompany" style="width:300px" placeholder="选择厂商" v-if="roleType === 0 || roleType === 1" clearable>
                             <Option v-for="item in companyList" :value="item.id" :key="item.id">{{ item.name }}</Option>
                         </Select>                        
 
                         <span>选择产品类型: </span>
-                        <Select v-model="sProductType" style="width:300px" placeholder="选择产品类型">
+                        <Select v-model="sProductType" style="width:300px" placeholder="选择产品类型" clearable>
                             <Option v-for="item in productTypeList" :value="item.id" :key="item.id">{{ item.name }}</Option>
                         </Select>
-
-                        <Button type="primary" @click="loadUnpaid">查询</Button>
                     </div>
 
                     <br />
-                    <unpaid-list :item-list="unpaidData"></unpaid-list>
+                    <unpaid-list :item-list="filterData"></unpaid-list>
                    
                 </Card>
             </Col>
@@ -57,16 +55,43 @@ export default {
             unpaidData: []
         }
     },
+    computed: {
+        filterData () {
+            let temp = this.unpaidData
+
+            if (this.sCompany && this.sCompany !== 0) {
+                temp = temp.filter(r => r.company_id === this.sCompany)
+            }
+
+            if (this.sProductType && this.sProductType !== 0) {
+                temp = temp.filter(r => r.type_id === this.sProductType)
+            }
+
+            var filterKey = this.filterKey && this.filterKey.toLowerCase()
+            if (filterKey) {
+                temp = temp.filter(function (row) {
+                    return Object.keys(row).some(function (key) {
+                        return String(row[key]).toLowerCase().indexOf(filterKey) > -1
+                    })
+                })
+            }
+
+            return temp
+        }
+    },
     methods: {
         init () {
             this.roleType = this.$store.state.user.roleType
-            
-            this.getProductType()
+                       
             if (this.roleType === 0 || this.roleType === 1) {
+                this.loadUnpaid()
+
                 this.getCompanys()
-            } else if (this.roleType === 2) {
-                this.sCompany = this.$store.state.user.companyId
+            } else if (this.roleType === 2 || this.roleType === 3) {
+                this.loadUnpaid()
             }
+
+             this.getProductType()
         },
 
         getCompanys () {
@@ -86,24 +111,10 @@ export default {
         },
 
         loadUnpaid () {
-            if (this.sCompany === 0) {
-                this.$Message.warning({
-                    content: '请选择厂商',
-                    duration: 2
-                })
-                return
-            }
-            if (this.sProductType === 0) {
-                this.$Message.warning({
-                    content: '请选择产品类型',
-                    duration: 2
-                })
-                return
-            }
-
             let vm = this
-            if (this.sProductType === 1) {
-                bill.findWaterHeaterPaymentInfoByCompany(this.sCompany).then(res => {
+
+            if (this.roleType === 0 || this.roleType === 1) {
+                bill.findPaymentInfo().then(res => {
                     if (res.status === 0) {
                         vm.unpaidData = res.entities
                     } else {
@@ -113,8 +124,10 @@ export default {
                         })
                     }
                 })
-            } else if (this.sProductType === 2) {
-                bill.findWaterCleanerPaymentInfoByCompany(this.sCompany).then(res => {
+            } else if (this.roleType === 2) {
+                let companyId = this.$store.state.user.companyId
+
+                bill.findPaymentInfoByCompany(companyId).then(res => {
                     if (res.status === 0) {
                         vm.unpaidData = res.entities
                     } else {
@@ -124,13 +137,21 @@ export default {
                         })
                     }
                 })
-            } else {
-                this.$Notice.error({
-                    title: '无该类型产品'
+            } else if (this.roleType === 3) {
+                let companyId = this.$store.state.user.companyId
+
+                bill.findPaymentInfoByAgent(companyId).then(res => {
+                    if (res.status === 0) {
+                        vm.unpaidData = res.entities
+                    } else {
+                        this.$Notice.error({
+                            title: '获取记录失败',
+                            desc: res.message
+                        })
+                    }
                 })
             }
         }
-
     },
     created: function () {
         this.init()

@@ -27,6 +27,28 @@ export default {
             .then(res => {
                 return res.data
             })
+    },
+
+    // 获取设备待付款信息
+    findPaymentInfo () {
+        return api._get({ url: '/t_company_agent_equipment_finance_trade/findPaymentInfoByCompanyId' })
+            .then(res => {
+                return res.data
+            })
+    },
+
+    findPaymentInfoByCompany (companyId) {
+        return api._get({ url: '/t_company_agent_equipment_finance_trade/findPaymentInfoByCompanyId', params: { company_id: companyId } })
+            .then(res => {
+                return res.data
+            })
+    },
+
+    findPaymentInfoByAgent (agentId) {
+        return api._get({ url: '/t_company_agent_equipment_finance_trade/findPaymentInfoByCompanyId', params: { agent_id: agentId } })
+            .then(res => {
+                return res.data
+            })
     }
 }
 

@@ -1,6 +1,10 @@
 <template>
     <div class="unpaid-list">
-        <Table :data="tableData" :columns="columns" stripe border></Table>
+        <Table :data="tableData" :columns="columns" stripe border>
+            <div slot="footer" class="footer">
+                <span>待付款合计：{{ totalMoney }} 元</span>
+            </div>
+        </Table>
         <div style="margin: 10px;overflow-x: hidden" v-if="showPager">
             <div style="float: right;">
                 <Page :total="itemsCount" :current.sync="currentPage" :page-size="pageSize" :page-size-opts="pageSizeOpt" show-sizer placement="top" 
@@ -79,7 +83,8 @@ export default {
             ],
             pageSize: 10,
             currentPage: 1,
-            pageSizeOpt: [5, 10, 20, 30]
+            pageSizeOpt: [5, 10, 20, 30],
+            sumFee: 0
         }
     },
     computed: {
@@ -89,6 +94,13 @@ export default {
         tableData () {
             let temp = this.itemList
             return temp.slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize)
+        },
+        totalMoney () {
+            let total = 0
+            this.itemList.forEach(element => {
+                total += element.money_to_consumer
+            })
+            return total
         }
     },
     methods: {
@@ -113,3 +125,9 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.footer span{
+    margin-left: 20px;
+}
+</style>
