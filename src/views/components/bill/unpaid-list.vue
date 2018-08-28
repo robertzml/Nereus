@@ -48,6 +48,10 @@ export default {
                     key: 'company_name'
                 },
                 {
+                    title: '代理商名称',
+                    key: 'agent_name'
+                },
+                {
                     title: '产品名称',
                     key: 'product_name'
                 },

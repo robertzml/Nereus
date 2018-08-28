@@ -6,11 +6,11 @@
                 更改设备用户信息
             </p>
 
-            <Form :model="ownerInfo" :label-width="80">
-                <FormItem label="新用户名" prop="product_code">
+            <Form :model="ownerInfo" :label-width="100">
+                <FormItem label="新设备主人姓名" prop="product_code">
                     <Input v-model="ownerInfo.owner_name"></Input>
                 </FormItem>
-                <FormItem label="新用户电话" prop="name">
+                <FormItem label="新设备主人电话" prop="name">
                     <Input v-model="ownerInfo.owner_phone"></Input>
                 </FormItem>
 
