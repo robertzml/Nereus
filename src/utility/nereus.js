@@ -113,6 +113,8 @@ export const paymentType = (val) => {
             return '用户付款'
         case 5:
             return '平台付款'
+        case 6:
+            return '平台红冲'
         default:
             return ''
     }

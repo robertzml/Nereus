@@ -29,6 +29,7 @@ export default {
     name: 'user-deduct-trade-mod',
     props: {
         phone: { type: String, required: true },
+        companyId: { type: Number, required: true },
         agentCompanyId: { type: Number, required: true }
     },
     data () {
@@ -63,6 +64,7 @@ export default {
         handleTrade (name) {
             let act = {
                 equipment_consumer_account_phone: this.phone,
+                produce_company_id: this.companyId,
                 agent_company_id: this.agentCompanyId,
                 trade_in_money: this.tradeInfo.tradeInMoney,
                 trade_in_coupon: this.tradeInfo.tradeInCoupon,

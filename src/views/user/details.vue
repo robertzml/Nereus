@@ -27,7 +27,7 @@
                     </Col>
                 </Row>
                 <user-trade-mod ref="tradeMod" :phone="phone" :agent-company-id="agentCompanyId" @refresh="loadWallet"></user-trade-mod>
-                <user-deduct-trade-mod ref="deductTradeMod" :phone="phone" :agent-company-id="agentCompanyId" @refresh="loadWallet"></user-deduct-trade-mod>
+                <user-deduct-trade-mod ref="deductTradeMod" :phone="phone" :agent-company-id="agentCompanyId" :company-id="companyId" @refresh="loadWallet"></user-deduct-trade-mod>
             </TabPane>
             <TabPane label="用户押金">
                 <Card>
@@ -67,6 +67,7 @@ export default {
         return {
             consumerId: '',
             companyCode: '',
+            companyId: 0,
             agentCompanyId: 0,
             walletData: [],
             depositData: [],
@@ -81,6 +82,7 @@ export default {
             this.consumerId = this.$route.params.id
             this.companyCode = this.$route.params.code
             this.agentCompanyId = this.$route.params.aid
+            this.companyId = this.$store.state.user.companyId
             this.loadUserPhone()
             this.loadWalletDetals()
             this.loadWallet()

@@ -19,8 +19,13 @@
                         </Select>                        
 
                         <span>选择产品类型: </span>
-                        <Select v-model="sProductType" style="width:300px" placeholder="选择产品类型" clearable>
+                        <Select v-model="sProductType" style="width:300px" placeholder="选择产品类型" @on-change="selectProductType" clearable>
                             <Option v-for="item in productTypeList" :value="item.id" :key="item.id">{{ item.name }}</Option>
+                        </Select>
+
+                        <span>产品名称</span>
+                        <Select v-model="sProduct" style="width:200px" placeholder="选择产品" clearable>
+                            <Option v-for="item in productList" :value="item.id" :key="item.id">{{ item.name }} <span style="float:right;color:#fcc">{{ item.product_code }}</span></Option>
                         </Select>
                     </div>
 
@@ -38,6 +43,7 @@
 import company from '@/controllers/company.js'
 import bill from '@/controllers/bill.js'
 import productType from '@/controllers/product-type.js'
+import product from '@/controllers/product.js'
 import unpaidList from '../components/bill/unpaid-list.vue'
 
 export default {
@@ -49,9 +55,11 @@ export default {
         return {
             roleType: 0,
             productTypeList: [],
+            productList: [],
             companyList: [],
             sCompany: 0,
             sProductType: 0,
+            sProduct: 0,
             unpaidData: []
         }
     },
@@ -65,6 +73,10 @@ export default {
 
             if (this.sProductType && this.sProductType !== 0) {
                 temp = temp.filter(r => r.type_id === this.sProductType)
+            }
+
+            if (this.sProduct && this.sProduct !== 9) {
+                temp = temp.filter(r => r.product_id === this.sProduct)
             }
 
             var filterKey = this.filterKey && this.filterKey.toLowerCase()
@@ -108,6 +120,26 @@ export default {
             productType.list().then(res => {
                 vm.productTypeList = res.entities
             })
+        },
+
+        selectProductType (val) {
+            this.sProduct = 0
+            if (val === undefined) {
+                this.productList = []
+                return
+            }
+
+            let companyId = this.$store.state.user.companyId
+            let vm = this
+            if (this.roleType === 0 || this.roleType === 1) {
+                product.listByType(val).then(res => {
+                    vm.productList = res.entities
+                })
+            } else {
+                product.listByTypeAndCompany(val, companyId).then(res => {
+                    vm.productList = res.entities
+                })
+            }
         },
 
         loadUnpaid () {
