@@ -63,5 +63,15 @@ export default {
             .then(res => {
                 return res.data
             })
+    },
+
+    // 用户红冲
+    deductTrade (model) {
+        return api._post({ 
+            url: '/t_company_agent_equipment_finance_trade/deductTochargeWalletByPlatformAndPhone',
+            data: model
+        }).then(res => {
+            return res.data
+        })
     }
 }

@@ -21,11 +21,13 @@
                         <div class="filter-panel">
                             <Button type="primary" @click="loadWallet">刷新</Button>
                             <Button type="primary" @click="showTrade">充值</Button>
+                            <Button type="primary" @click="showDeductTrade">红冲</Button>
                         </div>
                         <consumer-wallet-list :itemList="walletData"></consumer-wallet-list>
                     </Col>
                 </Row>
                 <user-trade-mod ref="tradeMod" :phone="phone" :agent-company-id="agentCompanyId" @refresh="loadWallet"></user-trade-mod>
+                <user-deduct-trade-mod ref="deductTradeMod" :phone="phone" :agent-company-id="agentCompanyId" @refresh="loadWallet"></user-deduct-trade-mod>
             </TabPane>
             <TabPane label="用户押金">
                 <Card>
@@ -48,6 +50,7 @@ import consumerWalletDetails from '../components/user/consumer-wallet-details.vu
 import consumerWalletList from '../components/user/consumer-wallet-list.vue'
 import consumerWalletSummary from '../components/user/consumer-wallet-summary.vue'
 import userTradeMod from '../components/user/user-trade-mod.vue'
+import userDeductTradeMod from '../components/user/user-deduct-trade-mod.vue'
 import consumerDepositList from '../components/user/consumer-deposit-list.vue'
 
 export default {
@@ -57,6 +60,7 @@ export default {
         consumerWalletList,
         consumerWalletSummary,
         userTradeMod,
+        userDeductTradeMod,
         consumerDepositList
     },
     data () {
@@ -156,6 +160,10 @@ export default {
 
         showTrade () {
             this.$refs.tradeMod.show()
+        },
+
+        showDeductTrade () {
+            this.$refs.deductTradeMod.show()
         },
 
         toIndex () {

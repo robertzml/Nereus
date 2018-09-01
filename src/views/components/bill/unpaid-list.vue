@@ -2,6 +2,7 @@
     <div class="unpaid-list">
         <Table :data="tableData" :columns="columns" stripe border>
             <div slot="footer" class="footer">
+                <span style="margin-right:20px;">共 {{ itemsCount }} 台待付款设备</span>
                 <span>待付款合计：{{ totalMoney }} 元</span>
             </div>
         </Table>
@@ -57,7 +58,11 @@ export default {
                 },
                 {
                     title: '消费者需付款金额',
-                    key: 'money_to_consumer'
+                    key: 'money_to_consumer',
+                    sortable: true,
+                    render: (h, params) => (
+                        params.row.money_to_consumer.toFixed(2)
+                    )
                 },
                 {
                     title: '设备停机时间',
@@ -104,7 +109,7 @@ export default {
             this.itemList.forEach(element => {
                 total += element.money_to_consumer
             })
-            return total
+            return total.toFixed(2)
         }
     },
     methods: {
