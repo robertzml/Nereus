@@ -60,6 +60,16 @@ Vue.filter('paymentType', function (value) {
     return nereus.paymentType(value)
 })
 
+Vue.filter('moneyType', function (value) {
+    if (value === undefined || value === null) return ''
+    return nereus.moneyType(value)
+})
+
+Vue.filter('moneyTradeResult', function (value) {
+    if (value === undefined || value === null) return ''
+    return nereus.moneyTradeResult(value)
+})
+
 /* eslint-disable no-new */
 new Vue({
     el: '#app',

@@ -48,11 +48,11 @@ export default {
                     key: 'agent_company_name'
                 },
                 {
-                    title: '消费者姓名',
+                    title: '设备主人',
                     key: 'owner_name'
                 },
                 {
-                    title: '消费者公司名称',
+                    title: '设备主人公司',
                     key: 'owner_company_name'
                 },
                 {

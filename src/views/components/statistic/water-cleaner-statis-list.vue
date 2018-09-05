@@ -52,6 +52,24 @@ export default {
                             <span>{ this.minutesToHour(params.row.statistics_heat_time) }</span>
                         )
                     }
+                },
+                {
+                    title: '交易种类',
+                    key: 'money_type',
+                    render: (h, params) => {
+                        return (
+                            <span>{ nereus.moneyType(params.row.money_type) }</span>
+                        )
+                    }
+                },
+                {
+                    title: '交易结果',
+                    key: 'money_trade_result',
+                    render: (h, params) => {
+                        return (
+                            <span>{ nereus.moneyTradeResult(params.row.money_trade_result) }</span>
+                        )
+                    }
                 }
             ],
             pageSize: 10,

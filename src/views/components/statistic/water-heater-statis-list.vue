@@ -86,6 +86,24 @@ export default {
                 {
                     title: '每月平均流量(升/每分钟)',
                     key: 'mean_flow_each_month'
+                },
+                {
+                    title: '交易种类',
+                    key: 'money_type',
+                    render: (h, params) => {
+                        return (
+                            <span>{ nereus.moneyType(params.row.money_type) }</span>
+                        )
+                    }
+                },
+                {
+                    title: '交易结果',
+                    key: 'money_trade_result',
+                    render: (h, params) => {
+                        return (
+                            <span>{ nereus.moneyTradeResult(params.row.money_trade_result) }</span>
+                        )
+                    }
                 }
             ],
             pageSize: 10,

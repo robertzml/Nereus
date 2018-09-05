@@ -119,3 +119,43 @@ export const paymentType = (val) => {
             return ''
     }
 }
+
+// 交易种类
+export const moneyType = (val) => {
+    switch (val) {
+        case -2:
+            return '注销期间数据'
+        case -1:
+            return '免费期'
+        case 1:
+            return '一次性付款'
+        case 2:
+            return '分期付款'
+        case 31:
+            return '固定租金'
+        case 32:
+            return '混合租金'
+        case 33:
+            return '节能分享'
+        case 34:
+            return '浮动租金'
+        case 4:
+            return '浮动分期'
+    }
+}
+
+//  交易结果
+export const moneyTradeResult = (val) => {
+    switch (val) {
+        case -2:
+            return '免费期待交易'
+        case -1:
+            return '不需要交易'
+        case 0:
+            return '交易待处理'
+        case 1:
+            return '交易成功'
+        case 2:
+            return '交易失败'
+    }
+}

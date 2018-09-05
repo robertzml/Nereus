@@ -6,7 +6,7 @@
                 热水器解锁状态
             </p>
 
-            <div v-if="false" slot="extra">
+            <div slot="extra">
                 <i-switch v-model="openReal" @on-change="changeReal">
                     <span slot="open">开</span>
                     <span slot="close">关</span>
