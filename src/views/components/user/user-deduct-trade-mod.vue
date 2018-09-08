@@ -7,11 +7,11 @@
                 </FormItem>
 
                 <FormItem label="充值金额(元)">
-                    <InputNumber :min="-5000000" :max="0" :precision="0" v-model="tradeInfo.tradeInMoney" style="width: 250px;"></InputNumber>
+                    <InputNumber :min="0" :max="5000000" :precision="0" v-model="tradeInfo.tradeInMoney" style="width: 250px;"></InputNumber>
                 </FormItem>
                 
                 <FormItem label="充值优惠券(元)">
-                    <InputNumber :min="-5000000" :max="0" :precision="0" v-model="tradeInfo.tradeInCoupon" style="width: 250px;"></InputNumber>
+                    <InputNumber :min="0" :max="5000000" :precision="0" v-model="tradeInfo.tradeInCoupon" style="width: 250px;"></InputNumber>
                 </FormItem>
 
                 <FormItem label="备注">
@@ -66,8 +66,8 @@ export default {
                 equipment_consumer_account_phone: this.phone,
                 produce_company_id: this.companyId,
                 agent_company_id: this.agentCompanyId,
-                trade_in_money: this.tradeInfo.tradeInMoney,
-                trade_in_coupon: this.tradeInfo.tradeInCoupon,
+                trade_in_money: -this.tradeInfo.tradeInMoney,
+                trade_in_coupon: -this.tradeInfo.tradeInCoupon,
                 remark: this.tradeInfo.remark
             }
 
