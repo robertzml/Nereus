@@ -58,6 +58,13 @@ export default {
                     }
                 },
                 {
+                    title: '付款时间',
+                    key: 'date_of_money_trade_result',
+                    return: (h, params) => {
+                        nereus.displayDate(params.row.date_of_money_trade_result)
+                    }
+                },
+                {
                     title: '累计数据截至日期',
                     key: 'statistics_log_date',
                     render: (h, params) => {
