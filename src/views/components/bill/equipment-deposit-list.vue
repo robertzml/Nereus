@@ -1,6 +1,11 @@
 <template>
     <div class="equipment-deposit-list">
-        <Table :data="tableData" :columns="columns" stripe border></Table>
+        <Table :data="tableData" :columns="columns" stripe border>
+            <div slot="footer" class="footer">
+                <span style="margin-right:20px;">共 {{ itemsCount }} 条押金记录</span>
+                <span>押金合计：{{ totalMoney }} 元</span>
+            </div>
+        </Table>
         <div style="margin: 10px;overflow-x: hidden" v-if="showPager">
             <div style="float: right;">
                 <Page :total="itemsCount" :current.sync="currentPage" :page-size="pageSize" :page-size-opts="pageSizeOpt" show-sizer placement="top" 
@@ -11,6 +16,8 @@
 </template>
 
 <script>
+import * as nereus from '@/utility/nereus.js'
+
 export default {
     name: 'equipment-deposit-list',
     props: {
@@ -28,6 +35,35 @@ export default {
                 {
                     title: '设备序列号',
                     key: 'serial_number'
+                },
+                {
+                    title: '设备用户名称',
+                    key: 'consumer_name'
+                },
+                {
+                    title: '代理商公司名称',
+                    key: 'agent_company_name'
+                },
+                {
+                    title: '设备押金',
+                    key: 'equipment_deposit'
+                },                
+                {
+                    title: '押金支付人',
+                    key: 'pay_equipment_deposit_account_name'
+                },
+                {
+                    title: '押金支付方式',
+                    key: 'pay_equipment_deposit_type_name'
+                },
+                {
+                    title: '押金支付时间',
+                    key: 'pay_equipment_deposit_date',
+                    render: (h, params) => {
+                        return (
+                            <span>{ nereus.displayDateTime(params.row.pay_equipment_deposit_date) }</span>
+                        )
+                    }
                 }
             ],
             pageSize: 10,
@@ -42,6 +78,13 @@ export default {
         tableData () {
             let temp = this.itemList
             return temp.slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize)
+        },
+        totalMoney () {
+            let total = 0
+            this.itemList.forEach(element => {
+                total += element.equipment_deposit
+            })
+            return total.toFixed(2)
         }
     },
     methods: {
@@ -51,3 +94,9 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.footer span{
+    margin-left: 20px;
+}
+</style>
