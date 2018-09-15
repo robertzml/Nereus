@@ -52,8 +52,8 @@ export default {
     },
 
     // 设备押金明细
-    getEquipmentDeposit (companyId, startTime, endTime) {
-        return api._get({ url: '/t_agent_account_new_equipment/findInfoOfEquipmentDeposit', params: { product_company_id: companyId, start_time: startTime, end_time: endTime } })
+    getEquipmentDeposit (companyId, startTime, endTime, typeId) {
+        return api._get({ url: '/t_agent_account_new_equipment/findInfoOfEquipmentDeposit', params: { product_company_id: companyId, start_time: startTime, end_time: endTime, type_id: typeId } })
             .then(res => {
                 return res.data
             })

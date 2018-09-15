@@ -22,10 +22,12 @@ export default {
     name: 'equipment-deposit-list',
     props: {
         itemList: { type: Array, required: true },
-        showPager: { type: Boolean, default: true }
+        showPager: { type: Boolean, default: true },
+        type: { type: Number }
     },
     data () {
         return {
+            fieldAccountTitle: ['', '押金支付人', '缴费人账号', '退还人员姓名'],
             columns: [
                 {
                     type: 'index',

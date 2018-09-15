@@ -1,36 +1,44 @@
 <template>
     <div id="equipment-deposit">
-        <Row>
-            <Col span="24">
-                <Card>
-                    <p slot="title">
-                        <Icon type="grid"></Icon>
-                        设备押金
-                    </p>
-                    <a href="#" slot="extra" @click.prevent="loadDeposit">
-                        <Icon type="ios-loop-strong"></Icon>
-                        刷新
-                    </a>
+        <Card>
+            <p slot="title">
+                <Icon type="grid"></Icon>
+                设备押金
+            </p>
+            <a href="#" slot="extra" @click.prevent="loadDeposit">
+                <Icon type="ios-loop-strong"></Icon>
+                刷新
+            </a>
 
-                    <div class="filter-panel">
-                        <span v-if="roleType !== 2">厂商：</span>
-                        <Select v-model="sVendor" style="width:300px" placeholder="选择厂商" v-if="roleType !== 2">
-                            <Option v-for="item in vendorCompanyList" :value="item.id" :key="item.id">{{ item.name }}</Option>
-                        </Select>
+            <div class="filter-panel">
+                <span v-if="roleType !== 2">厂商：</span>
+                <Select v-model="sVendor" style="width:300px" placeholder="选择厂商" v-if="roleType !== 2">
+                    <Option v-for="item in vendorCompanyList" :value="item.id" :key="item.id">{{ item.name }}</Option>
+                </Select>
 
-                        <DatePicker type="date" placement="bottom-end" placeholder="选择起始日期" style="width: 200px" v-model="startTime"></DatePicker>
+                <DatePicker type="date" placement="bottom-end" placeholder="选择起始日期" style="width: 200px" v-model="startTime"></DatePicker>
 
-                        <DatePicker type="date" placement="bottom-end" placeholder="选择结束日期" style="width: 200px" v-model="endTime"></DatePicker>
+                <DatePicker type="date" placement="bottom-end" placeholder="选择结束日期" style="width: 200px" v-model="endTime"></DatePicker>
 
-                        <Button type="primary" @click="loadDeposit">查询</Button>
-                    </div>
+                <Button type="primary" @click="loadDeposit">查询</Button>
+            </div>
+            
+            <br />
 
-                    <br />
+            <Tabs>
+                <TabPane label="线上付款">                   
                     
-                    <equipment-deposit-list :item-list="depositData"></equipment-deposit-list>
-                </Card>
-            </Col>
-        </Row>
+                </TabPane>
+
+                <TabPane label="线下付款">
+                    <equipment-deposit-list :item-list="depositData2" v-bind:type="2"></equipment-deposit-list>
+                </TabPane>
+
+                <TabPane label="退还金额">
+
+                </TabPane>
+            </Tabs>
+        </Card>
     </div>
 </template>
 
@@ -51,7 +59,10 @@ export default {
             vendorCompanyList: [],
             productTypeList: [],
             sVendor: 0,
-            depositData: []
+            startTime: '',
+            endTime: '',
+            depositData1: [],
+            depositData2: []
         }
     },
     methods: {
@@ -101,9 +112,9 @@ export default {
           
             let vm = this           
 
-            bill.getEquipmentDeposit(this.sVendor, this.startTime, this.endTime).then(res => {
+            bill.getEquipmentDeposit(this.sVendor, this.startTime, this.endTime, 2).then(res => {
                 if (res.status === 0) {
-                    vm.depositData = res.entities
+                    vm.depositData2 = res.entities
                 } else {
                     this.$Notice.error({
                         title: '获取记录失败',

@@ -171,6 +171,7 @@ export const appRouter = [
         children: [
             { path: 'unpaid', title: '待付款设备', parent: 'bill-menu', name: 'bill-unpaid', meta: { keepAlive: true }, component: resolve => { require(['@/views/bill/unpaid.vue'], resolve) } },
             { path: 'equipment-deposit', title: '押金统计', parent: 'bill-menu', name: 'bill-equipment-deposit', meta: { keepAlive: true }, component: resolve => { require(['@/views/bill/equipment-deposit.vue'], resolve) } },
+            { path: 'company-revenue', title: '工厂收益', parent: 'bill-menu', name: 'bill-company-revenue', meta: { keepAlive: true }, component: resolve => { require(['@/views/bill/company-revenue.vue'], resolve) } },
             { path: 'agent-deduct', title: '代理商收益', parent: 'bill-menu', role: 6, name: 'bill-agent-deduct-index', meta: { keepAlive: true }, component: resolve => { require(['@/views/bill/agent-deduct-index.vue'], resolve) } }
         ]
     }
