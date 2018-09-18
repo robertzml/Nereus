@@ -28,47 +28,8 @@ export default {
     data () {
         return {
             fieldAccountTitle: ['', '押金支付人', '缴费人账号', '退还人员姓名'],
-            columns: [
-                {
-                    type: 'index',
-                    width: 60,
-                    align: 'center'
-                },
-                {
-                    title: '设备序列号',
-                    key: 'serial_number'
-                },
-                {
-                    title: '设备用户名称',
-                    key: 'consumer_name'
-                },
-                {
-                    title: '代理商公司名称',
-                    key: 'agent_company_name'
-                },
-                {
-                    title: '设备押金',
-                    key: 'equipment_deposit'
-                },                
-                {
-                    title: '押金支付人',
-                    key: 'pay_equipment_deposit_account_name'
-                },
-                {
-                    title: '押金支付方式',
-                    key: 'pay_equipment_deposit_type_name'
-                },
-                {
-                    title: '押金支付时间',
-                    key: 'pay_equipment_deposit_date',
-                    render: (h, params) => {
-                        return (
-                            <span>{ nereus.displayDateTime(params.row.pay_equipment_deposit_date) }</span>
-                        )
-                    }
-                }
-            ],
             pageSize: 10,
+            columns: [],
             currentPage: 1,
             pageSizeOpt: [5, 10, 20, 30]
         }
@@ -92,6 +53,190 @@ export default {
     methods: {
         changePageSize (pageSize) {
             this.pageSize = pageSize
+        },
+        depositStatus (status) {
+            if (status === 0) {
+                return '未退还'
+            } else if (status === 1) {
+                return '已退还'
+            }
+        }
+    },
+    created: function () {
+        if (this.type === 1) {
+            this.columns = [
+                {
+                    type: 'index',
+                    width: 60,
+                    align: 'center'
+                },
+                {
+                    title: '设备序列号',
+                    key: 'serial_number'
+                },
+                {
+                    title: '设备用户名称',
+                    key: 'consumer_name'
+                },
+                {
+                    title: '代理商公司名称',
+                    key: 'agent_company_name'
+                },
+                {
+                    title: '押金账单交易号',
+                    key: 'pay_equipment_deposit_out_trade_no'
+                },
+                {
+                    title: '押金支付人名称',
+                    key: 'pay_equipment_deposit_online_account_name'
+                },
+                {
+                    title: '押金支付人电话号码',
+                    key: 'pay_equipment_deposit_online_account_phone'
+                },
+                {
+                    title: '设备押金',
+                    key: 'equipment_deposit'
+                },                
+                {
+                    title: '押金状态',
+                    key: 'pay_equipment_deposit_status',
+                    render: (h, params) => {
+                        return (
+                            this.depositStatus(params.row.pay_equipment_deposit_status)
+                        )
+                    }
+                },
+                {
+                    title: '押金支付方式',
+                    key: 'pay_equipment_deposit_type_name'
+                },
+                {
+                    title: '押金支付时间',
+                    key: 'pay_equipment_deposit_date',
+                    render: (h, params) => {
+                        return (
+                            <span>{ nereus.displayDateTime(params.row.pay_equipment_deposit_date) }</span>
+                        )
+                    }
+                }
+            ]
+        } else if (this.type === 2) {
+            this.columns = [
+                {
+                    type: 'index',
+                    width: 60,
+                    align: 'center'
+                },
+                {
+                    title: '设备序列号',
+                    key: 'serial_number'
+                },
+                {
+                    title: '设备用户名称',
+                    key: 'consumer_name'
+                },
+                {
+                    title: '代理商公司名称',
+                    key: 'agent_company_name'
+                },
+                {
+                    title: '押金账单交易号',
+                    key: 'pay_equipment_deposit_out_trade_no'
+                },
+                {
+                    title: '押金支付人名称',
+                    key: 'pay_equipment_deposit_unline_account_name'
+                },
+                {
+                    title: '押金支付人电话号码',
+                    key: 'pay_equipment_deposit_unline_account_phone'
+                },
+                {
+                    title: '设备押金',
+                    key: 'equipment_deposit'
+                },                
+                {
+                    title: '押金状态',
+                    key: 'pay_equipment_deposit_status',
+                    render: (h, params) => {
+                        return (
+                            this.depositStatus(params.row.pay_equipment_deposit_status)
+                        )
+                    }
+                },
+                {
+                    title: '押金支付方式',
+                    key: 'pay_equipment_deposit_type_name'
+                },
+                {
+                    title: '押金支付时间',
+                    key: 'pay_equipment_deposit_date',
+                    render: (h, params) => {
+                        return (
+                            <span>{ nereus.displayDateTime(params.row.pay_equipment_deposit_date) }</span>
+                        )
+                    }
+                }
+            ]
+        } else if (this.type === 3) {
+            this.columns = [
+                {
+                    type: 'index',
+                    width: 60,
+                    align: 'center'
+                },
+                {
+                    title: '设备序列号',
+                    key: 'serial_number'
+                },
+                {
+                    title: '设备用户名称',
+                    key: 'consumer_name'
+                },
+                {
+                    title: '代理商公司名称',
+                    key: 'agent_company_name'
+                },
+                {
+                    title: '押金账单交易号',
+                    key: 'pay_equipment_deposit_out_trade_no'
+                },
+                {
+                    title: '押金支付人名称',
+                    key: 'pay_equipment_deposit_unline_account_name'
+                },
+                {
+                    title: '押金支付人电话号码',
+                    key: 'pay_equipment_deposit_unline_account_phone'
+                },
+                {
+                    title: '设备押金',
+                    key: 'equipment_deposit'
+                },                
+                {
+                    title: '押金状态',
+                    key: 'pay_equipment_deposit_status',
+                    render: (h, params) => {
+                        return (
+                            this.depositStatus(params.row.pay_equipment_deposit_status)
+                        )
+                    }
+                },
+                {
+                    title: '押金支付方式',
+                    key: 'pay_equipment_deposit_type_name'
+                },
+                {
+                    title: '押金支付时间',
+                    key: 'pay_equipment_deposit_date',
+                    render: (h, params) => {
+                        return (
+                            <span>{ nereus.displayDateTime(params.row.pay_equipment_deposit_date) }</span>
+                        )
+                    }
+                }
+            ]
         }
     }
 }

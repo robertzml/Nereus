@@ -27,7 +27,7 @@
 
             <Tabs>
                 <TabPane label="线上付款">                   
-                    
+                    <equipment-deposit-list :item-list="depositData1" v-bind:type="1"></equipment-deposit-list>
                 </TabPane>
 
                 <TabPane label="线下付款">
@@ -35,7 +35,7 @@
                 </TabPane>
 
                 <TabPane label="退还金额">
-
+                    <equipment-deposit-list :item-list="depositData3" v-bind:type="3"></equipment-deposit-list>
                 </TabPane>
             </Tabs>
         </Card>
@@ -62,7 +62,8 @@ export default {
             startTime: '',
             endTime: '',
             depositData1: [],
-            depositData2: []
+            depositData2: [],
+            depositData3: []
         }
     },
     methods: {
@@ -112,9 +113,31 @@ export default {
           
             let vm = this           
 
+            bill.getEquipmentDeposit(this.sVendor, this.startTime, this.endTime, 1).then(res => {
+                if (res.status === 0) {
+                    vm.depositData1 = res.entities
+                } else {
+                    this.$Notice.error({
+                        title: '获取记录失败',
+                        desc: res.message
+                    })
+                }
+            })
+
             bill.getEquipmentDeposit(this.sVendor, this.startTime, this.endTime, 2).then(res => {
                 if (res.status === 0) {
                     vm.depositData2 = res.entities
+                } else {
+                    this.$Notice.error({
+                        title: '获取记录失败',
+                        desc: res.message
+                    })
+                }
+            })
+
+            bill.getEquipmentDeposit(this.sVendor, this.startTime, this.endTime, 3).then(res => {
+                if (res.status === 0) {
+                    vm.depositData3 = res.entities
                 } else {
                     this.$Notice.error({
                         title: '获取记录失败',
