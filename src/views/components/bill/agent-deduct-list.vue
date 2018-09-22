@@ -1,7 +1,12 @@
 <template>
     <div class="agent-deduct-list">
-        <Table :data="tableData" :columns="columns" stripe border></Table>
+        <Table :data="tableData" :columns="columns" ref="table" stripe border></Table>
         <div style="margin: 10px;overflow-x: hidden" v-if="showPager">
+            <div>
+                <Button type="primary" size="large" @click="exportData(1)"><Icon type="ios-download-outline"></Icon> 导出数据</Button>
+                <Button type="primary" size="large" @click="exportData(2)"><Icon type="ios-download-outline"></Icon> 导出数据2</Button>
+                <Button type="primary" size="large" @click="exportData(3)"><Icon type="ios-download-outline"></Icon> 导出数据3</Button>
+            </div>
             <div style="float: right;">
                 <Page :total="itemsCount" :current.sync="currentPage" :page-size="pageSize" :page-size-opts="pageSizeOpt" show-sizer placement="top" 
                     @on-page-size-change="changePageSize"></Page>
@@ -58,7 +63,7 @@ export default {
                 {
                     title: '扣款结果',
                     key: 'money_trade_result',
-                     render: (h, params) => {
+                    render: (h, params) => {
                         return (
                             <span>{ this.tradeResult(params.row.money_trade_result) }</span>
                         )
@@ -98,6 +103,32 @@ export default {
                 return '扣款成功'
             } else {
                 return '扣款失败'
+            }
+        },
+
+        exportData (type) {
+            if (type === 1) {
+                this.$refs.table.exportCsv({
+                    filename: '导出数据1'
+                })
+            } else if (type === 2) {
+                this.$refs.table.exportCsv({
+                    filename: '导出数据2',
+                    original: false
+                })
+            } else if (type === 3) {
+                let temp = JSON.parse(JSON.stringify(this.itemList))
+               
+                temp.forEach(element => {
+                        element.money_trade_result = this.tradeResult(element.money_trade_result)
+                        element.create_date = nereus.displayDateTime(element.create_date)
+                    })
+
+                this.$refs.table.exportCsv({
+                    filename: '导出数据3',
+                    columns: this.columns,
+                    data: temp
+                })
             }
         }
     }

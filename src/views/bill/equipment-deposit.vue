@@ -3,7 +3,7 @@
         <Card>
             <p slot="title">
                 <Icon type="grid"></Icon>
-                设备押金
+                押金统计
             </p>
             <a href="#" slot="extra" @click.prevent="loadDeposit">
                 <Icon type="ios-loop-strong"></Icon>

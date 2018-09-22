@@ -45,7 +45,7 @@
                             {{ parseInt(realInfo.outlet_water_temp, 16) }} &#8451;
                         </FormItem>
                         <FormItem label="出水流量">
-                            {{ parseInt(realInfo.output_flow_rate, 16) * 0.1 }} 升/分钟
+                            {{ (parseInt(realInfo.output_flow_rate, 16) * 0.1).toFixed(2) }} 升/分钟
                         </FormItem>
 
                         <FormItem label="日志时间">

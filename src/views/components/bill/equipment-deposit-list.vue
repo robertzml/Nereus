@@ -27,7 +27,6 @@ export default {
     },
     data () {
         return {
-            fieldAccountTitle: ['', '押金支付人', '缴费人账号', '退还人员姓名'],
             pageSize: 10,
             columns: [],
             currentPage: 1,
@@ -71,33 +70,37 @@ export default {
                     align: 'center'
                 },
                 {
+                    title: '账单序号',
+                    key: 'pay_equipment_deposit_out_trade_no'
+                },
+                {
                     title: '设备序列号',
                     key: 'serial_number'
                 },
                 {
-                    title: '设备用户名称',
+                    title: '产品名称',
+                    key: 'product_name'
+                },
+                {
+                    title: '设备主人帐号',
                     key: 'consumer_name'
+                },
+                {
+                    title: '设备主人',
+                    key: 'owner_name'
+                },
+                {
+                    title: '设备主人电话',
+                    key: 'consumer_phone'
                 },
                 {
                     title: '代理商公司名称',
                     key: 'agent_company_name'
                 },
                 {
-                    title: '押金账单交易号',
-                    key: 'pay_equipment_deposit_out_trade_no'
-                },
-                {
-                    title: '押金支付人名称',
-                    key: 'pay_equipment_deposit_online_account_name'
-                },
-                {
-                    title: '押金支付人电话号码',
-                    key: 'pay_equipment_deposit_online_account_phone'
-                },
-                {
                     title: '设备押金',
                     key: 'equipment_deposit'
-                },                
+                },  
                 {
                     title: '押金状态',
                     key: 'pay_equipment_deposit_status',
@@ -106,6 +109,14 @@ export default {
                             this.depositStatus(params.row.pay_equipment_deposit_status)
                         )
                     }
+                },                
+                {
+                    title: '押金支付人名称',
+                    key: 'pay_equipment_deposit_online_account_name'
+                },
+                {
+                    title: '押金支付人电话号码',
+                    key: 'pay_equipment_deposit_online_account_phone'
                 },
                 {
                     title: '押金支付方式',
@@ -119,6 +130,10 @@ export default {
                             <span>{ nereus.displayDateTime(params.row.pay_equipment_deposit_date) }</span>
                         )
                     }
+                },
+                {
+                    title: '审核人员',
+                    key: 'operater_name'
                 }
             ]
         } else if (this.type === 2) {
@@ -129,28 +144,32 @@ export default {
                     align: 'center'
                 },
                 {
+                    title: '账单序号',
+                    key: 'pay_equipment_deposit_out_trade_no'
+                },
+                {
                     title: '设备序列号',
                     key: 'serial_number'
                 },
                 {
-                    title: '设备用户名称',
+                    title: '产品名称',
+                    key: 'product_name'
+                },
+                {
+                    title: '设备主人帐号',
                     key: 'consumer_name'
+                },
+                {
+                    title: '设备主人',
+                    key: 'owner_name'
+                },
+                {
+                    title: '设备主人电话',
+                    key: 'consumer_phone'
                 },
                 {
                     title: '代理商公司名称',
                     key: 'agent_company_name'
-                },
-                {
-                    title: '押金账单交易号',
-                    key: 'pay_equipment_deposit_out_trade_no'
-                },
-                {
-                    title: '押金支付人名称',
-                    key: 'pay_equipment_deposit_unline_account_name'
-                },
-                {
-                    title: '押金支付人电话号码',
-                    key: 'pay_equipment_deposit_unline_account_phone'
                 },
                 {
                     title: '设备押金',
@@ -166,6 +185,15 @@ export default {
                     }
                 },
                 {
+                    title: '代收费人姓名',
+                    key: 'pay_equipment_deposit_unline_account_name'
+                },
+                {
+                    title: '代收费人电话',
+                    key: 'pay_equipment_deposit_unline_account_phone'
+                },
+                
+                {
                     title: '押金支付方式',
                     key: 'pay_equipment_deposit_type_name'
                 },
@@ -177,6 +205,10 @@ export default {
                             <span>{ nereus.displayDateTime(params.row.pay_equipment_deposit_date) }</span>
                         )
                     }
+                },
+                {
+                    title: '审核人员',
+                    key: 'operater_name'
                 }
             ]
         } else if (this.type === 3) {
@@ -187,8 +219,16 @@ export default {
                     align: 'center'
                 },
                 {
+                    title: '账单序号',
+                    key: 'pay_equipment_deposit_out_trade_no'
+                },
+                {
                     title: '设备序列号',
                     key: 'serial_number'
+                },
+                {
+                    title: '产品名称',
+                    key: 'product_name'
                 },
                 {
                     title: '设备用户名称',
@@ -197,10 +237,6 @@ export default {
                 {
                     title: '代理商公司名称',
                     key: 'agent_company_name'
-                },
-                {
-                    title: '押金账单交易号',
-                    key: 'pay_equipment_deposit_out_trade_no'
                 },
                 {
                     title: '押金支付人名称',
@@ -235,6 +271,10 @@ export default {
                             <span>{ nereus.displayDateTime(params.row.pay_equipment_deposit_date) }</span>
                         )
                     }
+                },
+                {
+                    title: '审核人员',
+                    key: 'operater_name'
                 }
             ]
         }

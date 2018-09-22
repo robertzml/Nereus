@@ -51,10 +51,10 @@ export default {
                 },
                 {
                     title: '申请时间',
-                    key: 'create_date',
+                    key: 'apply_inactivate_date',
                     render: (h, params) => {
                         return (
-                            <span>{ nereus.displayDateTime(params.row.create_date) }</span>
+                            <span>{ nereus.displayDateTime(params.row.apply_inactivate_date) }</span>
                         )
                     }
                 },
