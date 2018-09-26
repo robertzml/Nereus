@@ -2,7 +2,7 @@
     <div class="equipment-list">
         <Table :data="tableData" :columns="columns" border stripe>
             <div slot="footer">
-                <span style="margin-left: 10px;">总数: {{ itemsCount }}</span>
+                <span style="margin-left: 10px;">设备总数: {{ itemsCount }} 台</span>
             </div>
         </Table>
         <div style="margin: 10px;overflow-x: hidden" v-if="showPager">

@@ -3,9 +3,7 @@
         <Table :data="tableData" :columns="columns" ref="table" stripe border></Table>
         <div style="margin: 10px;overflow-x: hidden" v-if="showPager">
             <div>
-                <Button type="primary" size="large" @click="exportData(1)"><Icon type="ios-download-outline"></Icon> 导出数据</Button>
-                <Button type="primary" size="large" @click="exportData(2)"><Icon type="ios-download-outline"></Icon> 导出数据2</Button>
-                <Button type="primary" size="large" @click="exportData(3)"><Icon type="ios-download-outline"></Icon> 导出数据3</Button>
+                <Button type="primary" size="large" @click="exportData(3)"><Icon type="ios-download-outline"></Icon> 导出数据</Button>
             </div>
             <div style="float: right;">
                 <Page :total="itemsCount" :current.sync="currentPage" :page-size="pageSize" :page-size-opts="pageSizeOpt" show-sizer placement="top" 
@@ -16,6 +14,7 @@
 </template>
 
 <script>
+/* 代理商收益表格 */
 import * as nereus from '@/utility/nereus.js'
 
 export default {
@@ -107,16 +106,7 @@ export default {
         },
 
         exportData (type) {
-            if (type === 1) {
-                this.$refs.table.exportCsv({
-                    filename: '导出数据1'
-                })
-            } else if (type === 2) {
-                this.$refs.table.exportCsv({
-                    filename: '导出数据2',
-                    original: false
-                })
-            } else if (type === 3) {
+            if (type === 3) {
                 let temp = JSON.parse(JSON.stringify(this.itemList))
                
                 temp.forEach(element => {
@@ -125,7 +115,7 @@ export default {
                     })
 
                 this.$refs.table.exportCsv({
-                    filename: '导出数据3',
+                    filename: '导出数据',
                     columns: this.columns,
                     data: temp
                 })

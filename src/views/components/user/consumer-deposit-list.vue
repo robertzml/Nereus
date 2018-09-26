@@ -1,6 +1,11 @@
 <template>
     <div class="consumer-deposit-list">
-        <Table :data="tableData" :columns="columns" stripe border></Table>
+        <Table :data="tableData" :columns="columns" stripe border>
+            <div slot="footer">
+                <span style="margin-left: 10px;">设备押金合计: {{ totalDeposit }} 元</span>
+                <span style="margin-left: 10px;">设备预付款合计: {{ totalPrepay }} 元</span>
+            </div>
+        </Table>
         <div style="margin: 10px;overflow-x: hidden" v-if="showPager">
             <div style="float: right;">
                 <Page :total="itemsCount" :current.sync="currentPage" :page-size="pageSize" :page-size-opts="pageSizeOpt" show-sizer placement="top" 
@@ -12,6 +17,7 @@
 
 
 <script>
+/* 用户押金表格 */
 import * as nereus from '@/utility/nereus.js'
 
 export default {
@@ -98,6 +104,20 @@ export default {
         tableData () {
             let temp = this.itemList
             return temp.slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize)
+        },
+        totalDeposit () {
+            let total = 0
+            this.itemList.forEach(element => {
+                total += element.device_deposit
+            })
+            return total.toFixed(2)
+        },
+        totalPrepay () {
+            let total = 0
+            this.itemList.forEach(element => {
+                total += element.device_prepay_bills
+            })
+            return total.toFixed(2)
         }
     },
     methods: {
