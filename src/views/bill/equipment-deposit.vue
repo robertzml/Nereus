@@ -111,7 +111,7 @@ export default {
                 return
             }
           
-            let vm = this           
+            let vm = this
 
             bill.getEquipmentDeposit(this.sVendor, this.startTime, this.endTime, 1).then(res => {
                 if (res.status === 0) {

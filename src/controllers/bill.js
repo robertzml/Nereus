@@ -57,6 +57,14 @@ export default {
             .then(res => {
                 return res.data
             })
+    },
+
+    // 厂商收益
+    getCompanyIncome (companyId, startTime, endTime) {
+        return api._get({ url: '/t_agent_account_month_income_detail/findInfoOfIncomeDetail', params: { product_company_id: companyId, start_time: startTime, end_time: endTime } })
+            .then(res => {
+                return res.data
+            })
     }
 }
 
