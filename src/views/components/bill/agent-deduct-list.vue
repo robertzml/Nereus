@@ -70,10 +70,10 @@ export default {
                 },
                 {
                     title: '扣款时间',
-                    key: 'create_date',
+                    key: 'date_of_money_trade_result',
                     render: (h, params) => {
                         return (
-                            <span>{ nereus.displayDateTime(params.row.create_date) }</span>
+                            <span>{ nereus.displayDateTime(params.row.date_of_money_trade_result) }</span>
                         )
                     }
                 }
@@ -110,9 +110,9 @@ export default {
                 let temp = JSON.parse(JSON.stringify(this.itemList))
                
                 temp.forEach(element => {
-                        element.money_trade_result = this.tradeResult(element.money_trade_result)
-                        element.create_date = nereus.displayDateTime(element.create_date)
-                    })
+                    element.money_trade_result = this.tradeResult(element.money_trade_result)
+                    element.date_of_money_trade_result = nereus.displayDateTime(element.date_of_money_trade_result)
+                })
 
                 this.$refs.table.exportCsv({
                     filename: '导出数据',

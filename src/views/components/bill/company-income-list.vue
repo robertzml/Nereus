@@ -6,6 +6,9 @@
             </div>
         </Table>
         <div style="margin: 10px;overflow-x: hidden" v-if="showPager">
+            <div>
+                <Button type="primary" size="large" @click="exportData()"><Icon type="ios-download-outline"></Icon> 导出数据</Button>
+            </div>
             <div style="float: right;">
                 <Page :total="itemsCount" :current.sync="currentPage" :page-size="pageSize" :page-size-opts="pageSizeOpt" show-sizer placement="top" 
                     @on-page-size-change="changePageSize"></Page>
@@ -15,6 +18,7 @@
 </template>
 
 <script>
+/** 工厂收益列表 */
 import * as nereus from '@/utility/nereus.js'
 
 export default {
@@ -145,6 +149,23 @@ export default {
     methods: {
         changePageSize (pageSize) {
             this.pageSize = pageSize
+        },
+
+        exportData () {
+            let temp = JSON.parse(JSON.stringify(this.itemList))
+            
+            temp.forEach(element => {
+                element.statistics_number_of_periods_start = nereus.displayDateTime(element.statistics_number_of_periods_start)
+                element.statistics_number_of_periods_end = nereus.displayDateTime(element.statistics_number_of_periods_end)
+                element.product_charge_money_type = nereus.moneyType(element.product_charge_money_type)
+                element.statistics_date = nereus.displayDateTime(element.statistics_date)
+            })
+
+            this.$refs.table.exportCsv({
+                filename: '导出数据',
+                columns: this.columns,
+                data: temp
+            })
         }
     }
 }

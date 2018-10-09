@@ -1,12 +1,15 @@
 <template>
     <div class="unpaid-list">
-        <Table :data="tableData" :columns="columns" stripe border>
+        <Table :data="tableData" :columns="columns" ref="table" stripe border>
             <div slot="footer" class="footer">
                 <span style="margin-right:20px;">共 {{ itemsCount }} 台待付款设备</span>
                 <span>待付款合计：{{ totalMoney }} 元</span>
             </div>
         </Table>
         <div style="margin: 10px;overflow-x: hidden" v-if="showPager">
+            <div>
+                <Button type="primary" size="large" @click="exportData()"><Icon type="ios-download-outline"></Icon> 导出数据</Button>
+            </div>
             <div style="float: right;">
                 <Page :total="itemsCount" :current.sync="currentPage" :page-size="pageSize" :page-size-opts="pageSizeOpt" show-sizer placement="top" 
                     @on-page-size-change="changePageSize"></Page>
@@ -130,6 +133,23 @@ export default {
                 case 2:
                     return '交易失败'
             }
+        },
+
+        exportData () {
+            let temp = JSON.parse(JSON.stringify(this.itemList))
+            
+            temp.forEach(element => {
+                element.money_to_consumer = element.money_to_consumer.toFixed(2)
+                element.device_deadline_date = nereus.displayDate(element.device_deadline_date)
+                element.money_trade_result = this.tradeResult(element.money_trade_result)
+                element.create_date = nereus.displayDateTime(element.create_date)
+            })
+
+            this.$refs.table.exportCsv({
+                filename: '导出数据',
+                columns: this.columns,
+                data: temp
+            })
         }
     }
 }

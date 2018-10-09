@@ -1,12 +1,15 @@
 <template>
     <div class="equipment-deposit-list">
-        <Table :data="tableData" :columns="columns" stripe border>
+        <Table :data="tableData" :columns="columns" ref="table" stripe border>
             <div slot="footer" class="footer">
                 <span style="margin-right:20px;">共 {{ itemsCount }} 条押金记录</span>
                 <span>押金合计：{{ totalMoney }} 元</span>
             </div>
         </Table>
         <div style="margin: 10px;overflow-x: hidden" v-if="showPager">
+            <div>
+                <Button type="primary" size="large" @click="exportData()"><Icon type="ios-download-outline"></Icon> 导出数据</Button>
+            </div>
             <div style="float: right;">
                 <Page :total="itemsCount" :current.sync="currentPage" :page-size="pageSize" :page-size-opts="pageSizeOpt" show-sizer placement="top" 
                     @on-page-size-change="changePageSize"></Page>
@@ -59,6 +62,20 @@ export default {
             } else if (status === 1) {
                 return '已退还'
             }
+        },
+        exportData () {
+            let temp = JSON.parse(JSON.stringify(this.itemList))
+            
+            temp.forEach(element => {
+                element.pay_equipment_deposit_status = this.depositStatus(element.pay_equipment_deposit_status)
+                element.pay_equipment_deposit_date = nereus.displayDateTime(element.pay_equipment_deposit_date)
+            })
+
+            this.$refs.table.exportCsv({
+                filename: '导出数据',
+                columns: this.columns,
+                data: temp
+            })
         }
     },
     created: function () {
