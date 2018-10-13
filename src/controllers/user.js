@@ -73,5 +73,13 @@ export default {
         }).then(res => {
             return res.data
         })
+    },
+
+    // 消费者钱包信息详情
+    findConsumerBillByOutTradeNo (tradeNumber) {
+        return api._get({ url: '/t_company_agent_equipment_finance_trade/findConsumerBillByOutTradeNo', params: { out_trade_no: tradeNumber } })
+            .then(res => {
+                return res.data
+            })
     }
 }
