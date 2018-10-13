@@ -10,7 +10,7 @@
                 刷新
             </a>
 
-            <div class="filter-panel">
+            <div class="filter-panel" style="margin-bottom:15px;">
                 <span v-if="roleType !== 2">厂商：</span>
                 <Select v-model="sVendor" style="width:300px" placeholder="选择厂商" v-if="roleType !== 2">
                     <Option v-for="item in vendorCompanyList" :value="item.id" :key="item.id">{{ item.name }}</Option>
@@ -22,10 +22,20 @@
 
                 <Button type="primary" @click="loadRevenue">查询</Button>
             </div>
+            <div class="filter-panel">
+                <h3>筛选</h3>
+                <span>产品名称</span>
+                <Select v-model="sProduct" style="width:200px" placeholder="选择产品" clearable>
+                    <Option v-for="item in productList" :value="item.id" :key="item.id">{{ item.name }}</Option>
+                </Select>
+
+                <span>搜索</span>
+                <Input v-model="filterKey" style="width: 200px"></Input>
+            </div>
 
             <br />
 
-            <company-income-list :item-list="revenueData"></company-income-list>
+            <company-income-list :item-list="filterData"></company-income-list>
         </Card>
            
     </div>
@@ -35,6 +45,7 @@
 /** 厂商收益 */
 import company from '@/controllers/company.js'
 import bill from '@/controllers/bill.js'
+import product from '@/controllers/product.js'
 import companyIncomeList from '../components/bill/company-income-list.vue'
 
 export default {
@@ -49,7 +60,29 @@ export default {
             sVendor: 0,
             startTime: '',
             endTime: '',
-            revenueData: []
+            revenueData: [],
+            productList: [],
+            sProduct: '',
+            filterKey: ''
+        }
+    },
+    computed: {
+        filterData () {
+            let temp = this.revenueData
+
+            if (this.sProduct) {
+                temp = temp.filter(r => r.product_id === this.sProduct)
+            }
+
+            var filterKey = this.filterKey && this.filterKey.toLowerCase()
+            if (filterKey) {
+                temp = temp.filter(function (row) {
+                    return Object.keys(row).some(function (key) {
+                        return String(row[key]).toLowerCase().indexOf(filterKey) > -1
+                    })
+                })
+            }
+            return temp
         }
     },
     methods: {
@@ -68,6 +101,16 @@ export default {
 
             company.list().then(res => {
                 vm.vendorCompanyList = res.entities.filter(r => r.type === 2)
+            })
+        },
+
+        loadProducts (companyId) {
+            let vm = this
+
+            product.listByCompanyView(companyId).then(res => {
+                if (res.status === 0) {
+                    vm.productList = res.entities
+                }
             })
         },
 
@@ -100,6 +143,8 @@ export default {
                     })
                 }
             })
+
+            this.loadProducts(this.sVendor)
         }
     },
     mounted: function () {
@@ -107,3 +152,6 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+</style>

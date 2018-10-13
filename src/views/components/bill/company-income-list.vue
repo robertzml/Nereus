@@ -42,6 +42,10 @@ export default {
                     key: 'serial_number'
                 },
                 {
+                    title: '产品名称',
+                    key: 'product_name'
+                },
+                {
                     title: '设备主人',
                     key: 'consumer_name'
                 },
