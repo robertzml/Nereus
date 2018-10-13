@@ -27,6 +27,9 @@
                         <Select v-model="sProduct" style="width:200px" placeholder="选择产品" clearable>
                             <Option v-for="item in productList" :value="item.id" :key="item.id">{{ item.name }} <span style="float:right;color:#fcc">{{ item.product_code }}</span></Option>
                         </Select>
+
+                        <span>搜索</span>
+                        <Input v-model="filterKey" style="width: 200px"></Input>
                     </div>
 
                     <br />
@@ -60,7 +63,8 @@ export default {
             sCompany: 0,
             sProductType: 0,
             sProduct: 0,
-            unpaidData: []
+            unpaidData: [],
+            filterKey: ''
         }
     },
     computed: {

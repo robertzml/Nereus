@@ -7,11 +7,11 @@
                 </FormItem>
 
                 <FormItem label="充值金额(元)">
-                    <InputNumber :min="0" :max="5000000" :precision="0" v-model="tradeInfo.tradeInMoney" style="width: 250px;"></InputNumber>
+                    <InputNumber :min="0" :max="5000000" :precision="2" v-model="tradeInfo.tradeInMoney" style="width: 250px;"></InputNumber>
                 </FormItem>
                 
                 <FormItem label="充值优惠券(元)">
-                    <InputNumber :min="0" :max="5000000" :precision="0" v-model="tradeInfo.tradeInCoupon" style="width: 250px;"></InputNumber>
+                    <InputNumber :min="0" :max="5000000" :precision="2" v-model="tradeInfo.tradeInCoupon" style="width: 250px;"></InputNumber>
                 </FormItem>
 
                 <FormItem label="备注">

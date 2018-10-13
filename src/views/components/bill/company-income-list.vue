@@ -2,7 +2,9 @@
     <div class="company-income-list">
         <Table :data="tableData" :columns="columns" ref="table" stripe border>
             <div slot="footer" class="footer">
-                <span style="margin-left:20px;">共 {{ itemsCount }} 条收益记录</span>
+                <span style="margin-left:20px;margin-right:20px;">共 {{ itemsCount }} 条收益记录</span>
+                <span style="margin-right:20px;">应收款合计 {{ totalDue }} 元</span>
+                <span style="margin-right:20px;">实收款合计 {{ totalReal }} 元</span>
             </div>
         </Table>
         <div style="margin: 10px;overflow-x: hidden" v-if="showPager">
@@ -144,6 +146,20 @@ export default {
         tableData () {
             let temp = this.itemList
             return temp.slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize)
+        },
+        totalDue () {
+            let total = 0
+            this.itemList.forEach(element => {
+                total += element.accrued_revenues
+            })
+            return total.toFixed(2)
+        },
+        totalReal () {
+            let total = 0
+            this.itemList.forEach(element => {
+                total += element.actual_income
+            })
+            return total.toFixed(2)
         }
     },
     methods: {
