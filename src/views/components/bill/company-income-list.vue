@@ -35,31 +35,38 @@ export default {
                 {
                     type: 'index',
                     width: 60,
-                    align: 'center'
+                    align: 'center',
+                    fixed: 'left'
                 },
                 {
                     title: '设备序列号',
-                    key: 'serial_number'
+                    key: 'serial_number',
+                    width: 100
                 },
                 {
                     title: '产品名称',
-                    key: 'product_name'
+                    key: 'product_name',
+                    width: 150
                 },
                 {
                     title: '设备主人',
-                    key: 'consumer_name'
+                    key: 'consumer_name',
+                    width: 100
                 },
                 {
                     title: '设备主人电话',
-                    key: 'consumer_phone'
+                    key: 'consumer_phone',
+                    width: 120
                 },
                 {
                     title: '账单序列号',
-                    key: 'actual_income_trade_no'
+                    key: 'actual_income_trade_no',
+                    width: 200
                 },
                 {
                     title: '期数',
-                    key: 'statistics_number_of_periods'
+                    key: 'statistics_number_of_periods',
+                    width: 80
                 },
                 {
                     title: '账期起始时间',
@@ -68,7 +75,8 @@ export default {
                         return (
                             <span>{ nereus.displayDateTime(params.row.statistics_number_of_periods_start) }</span>
                         )
-                    }
+                    },
+                    width: 100
                 },
                 {
                     title: '账期截止时间',
@@ -77,7 +85,8 @@ export default {
                         return (
                             <span>{ nereus.displayDateTime(params.row.statistics_number_of_periods_end) }</span>
                         )
-                    }
+                    },
+                    width: 100
                 },
                 {
                     title: '销售方式',
@@ -86,47 +95,58 @@ export default {
                         return (
                             <span>{ nereus.moneyType(params.row.product_charge_money_type) }</span>
                         )
-                    }
+                    },
+                    width: 100
                 },
                 {
                     title: '销售方式别名',
-                    key: 'product_sale_rule_name'
+                    key: 'product_sale_rule_name',
+                    width: 100
                 },
                 {
                     title: '支付人姓名',
-                    key: 'actual_income_trade_account_name'
+                    key: 'actual_income_trade_account_name',
+                    width: 100
                 },
                 {
                     title: '支付人电话',
-                    key: 'actual_income_trade_account_phone'
+                    key: 'actual_income_trade_account_phone',
+                    width: 120
                 },
                 {
                     title: '应收款金额',
-                    key: 'accrued_revenues'
+                    key: 'accrued_revenues',
+                    width: 100
                 },
                 {
                     title: '使用优惠券(元)',
-                    key: 'actual_coupon'
+                    key: 'actual_coupon',
+                    width: 100
                 },
                 {
                     title: '实际收款金额',
-                    key: 'actual_income'
+                    key: 'actual_income',
+                    width: 100
                 },
                 {
                     title: '代理商应收款金额',
-                    key: 'agent_accrued_revenues'
+                    key: 'agent_accrued_revenues',
+                    width: 100
                 },
                 {
                     title: '代理商实际分成金额',
-                    key: 'agent_actual_income'
+                    key: 'agent_actual_income',
+                    width: 100
                 },
                 {
                     title: '死账(元)',
-                    key: 'bad_debt'
+                    key: 'bad_debt',
+                    width: 80
                 },
                 {
                     title: '交易结果',
-                    key: 'income_status'
+                    key: 'income_status',
+                    width: 100
                 },               
                 {
                     title: '缴费日期',
@@ -135,7 +155,8 @@ export default {
                         return (
                             <span>{ nereus.displayDateTime(params.row.statistics_date) }</span>
                         )
-                    }
+                    },
+                    width: 100
                 }
             ],
             pageSize: 10,

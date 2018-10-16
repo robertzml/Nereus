@@ -65,6 +65,14 @@ export default {
             .then(res => {
                 return res.data
             })
+    },
+
+    // 厂商充值统计
+    getCompanyRecharge (companyId, startTime, endTime, status) {
+        return api._get({ url: '/t_company_agent_equipment_finance_trade/findRechargeStatisticsByCompanyId', params: { company_id: companyId, start_time: startTime, end_time: endTime, recharge_status: status } })
+            .then(res => {
+                return res.data
+            })
     }
 }
 

@@ -3,7 +3,7 @@
         <Card>
             <p slot="title">
                 <Icon type="grid"></Icon>
-                工厂收益
+                厂商充值
             </p>
             <a href="#" slot="extra" @click.prevent="loadRevenue">
                 <Icon type="ios-loop-strong"></Icon>
@@ -24,10 +24,6 @@
             </div>
             <div class="filter-panel">
                 <h3>筛选</h3>
-                <span>产品名称</span>
-                <Select v-model="sProduct" style="width:200px" placeholder="选择产品" clearable>
-                    <Option v-for="item in productList" :value="item.id" :key="item.id">{{ item.name }}</Option>
-                </Select>
 
                 <span>搜索</span>
                 <Input v-model="filterKey" style="width: 200px"></Input>
@@ -35,23 +31,24 @@
 
             <br />
 
-            <company-income-list :item-list="filterData"></company-income-list>
+            <company-recharge-list :item-list="filterData"></company-recharge-list>
         </Card>
            
     </div>
 </template>
 
+
 <script>
-/** 厂商收益 */
+/** 厂商充值 */
 import company from '@/controllers/company.js'
 import bill from '@/controllers/bill.js'
 import product from '@/controllers/product.js'
-import companyIncomeList from '../components/bill/company-income-list.vue'
+import companyRechargeList from '../components/bill/company-recharge-list.vue'
 
 export default {
-    name: 'company-revenue',
+    name: 'company-recharge',
     components: {
-        companyIncomeList
+        companyRechargeList
     },
     data () {
         return {
@@ -60,7 +57,7 @@ export default {
             sVendor: 0,
             startTime: '',
             endTime: '',
-            revenueData: [],
+            rechargeData: [],
             productList: [],
             sProduct: '',
             filterKey: ''
@@ -68,7 +65,7 @@ export default {
     },
     computed: {
         filterData () {
-            let temp = this.revenueData
+            let temp = this.rechargeData
 
             if (this.sProduct) {
                 temp = temp.filter(r => r.product_id === this.sProduct)
@@ -110,16 +107,6 @@ export default {
             })
         },
 
-        loadProducts (companyId) {
-            let vm = this
-
-            product.listByCompanyView(companyId).then(res => {
-                if (res.status === 0) {
-                    vm.productList = res.entities
-                }
-            })
-        },
-
         loadRevenue () {
             if (this.sVendor === 0) {
                 this.$Message.warning({
@@ -139,9 +126,9 @@ export default {
           
             let vm = this
 
-            bill.getCompanyIncome(this.sVendor, this.startTime, this.endTime, 1).then(res => {
+            bill.getCompanyRecharge(this.sVendor, this.startTime, this.endTime, 1).then(res => {
                 if (res.status === 0) {
-                    vm.revenueData = res.entities
+                    vm.rechargeData = res.entities
                 } else {
                     this.$Notice.error({
                         title: '获取记录失败',
@@ -149,8 +136,6 @@ export default {
                     })
                 }
             })
-
-            this.loadProducts(this.sVendor)
         }
     },
     mounted: function () {
