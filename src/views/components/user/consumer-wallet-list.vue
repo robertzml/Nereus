@@ -9,8 +9,9 @@
         </div>
         <Modal
             v-model="modal1"
+            width="800"
             title="钱包信息详情">
-            <consumer-bill-details  ref="bill1" width="600"></consumer-bill-details>
+            <consumer-bill-details  ref="bill1"></consumer-bill-details>
         </Modal>
     </div>
 </template>

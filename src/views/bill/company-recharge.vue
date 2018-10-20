@@ -1,5 +1,5 @@
 <template>
-    <div id="company-revenue">
+    <div id="company-recharge">
         <Card>
             <p slot="title">
                 <Icon type="grid"></Icon>

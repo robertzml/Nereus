@@ -109,6 +109,14 @@ export default {
         }
     },
 
+    // 获取待注销设备详情
+    getLogoutDetails (serialNumber) {
+        return api._get({ url: '/t_equipment_inactivate_apply/webfindInfoOfApplyInactivateBySerialNumber', params: { serial_number: serialNumber } })
+            .then(res => {
+                return res.data
+            })
+    },
+
     // 获取设备服务器设备列表
     getOnline () {
         return api._get({ url: '/device/t_equipment_key_status/findAll' })

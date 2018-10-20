@@ -70,19 +70,7 @@ export default {
                     render: (h, params) => {
                         return (
                             h('div', [
-                                h('Poptip', {
-                                    props: {
-                                        title: '是否确认注销',
-                                        confirm: true,
-                                        transfer: true,
-                                        placement: 'top'
-                                    },
-                                    on: {
-                                        'on-ok': () => { this.agree(params.row) }
-                                    }
-                                }, [
-                                    h('Button', { props: { size: 'small', type: 'success' }, style: { marginRight: '5px' } }, '注销')
-                                ]),
+                                (<i-button type="primary" size="small" style='margin-right:5px' onClick={ () => { this.showDetails(params.row) } }>查看</i-button>),
                                 h('Poptip', {
                                     props: {
                                         title: '是否驳回',
@@ -129,27 +117,8 @@ export default {
             this.pageSize = pageSize
         },
 
-        agree (item) {
-            let act = [{
-                serial_number: item.serial_number,
-                apply_state: 1
-            }]
-       
-            equipment.inactivate(act).then(res => {
-                if (res.status === 0) {
-                    this.$Notice.success({
-                        title: '注销成功',
-                        desc: res.message
-                    })
-
-                    this.$emit('refresh')
-                } else {
-                    this.$Notice.error({
-                        title: '注销失败',
-                        desc: res.message
-                    })
-                }
-            })
+        showDetails (item) {
+            this.$router.push({ name: 'equipment-logout-details', params: { serialNumber: item.serial_number } })
         },
 
         reject (item) {
@@ -174,9 +143,6 @@ export default {
                 }
             })
         }
-       
-
-        
     }
 }
 </script>

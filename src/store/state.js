@@ -45,6 +45,7 @@ export default {
         { name: 'equipment-trial', roles: [1, 2, 3, 4, 5, 6, 7, 8] },
         { name: 'equipment-inactivate', roles: [1, 2, 3, 4, 5, 6] },
         { name: 'equipment-logout', roles: [1, 2, 3, 4, 5, 6] },
+        { name: 'equipment-logout-details', roles: [1, 2, 3, 4, 5, 6] },
         { name: 'equipment-online', roles: [1] },
         { name: 'equipment-upload', roles: [1, 2, 3, 4, 5, 6] },
         { name: 'equipment-store', roles: [1, 2, 3, 4, 5, 6] },
