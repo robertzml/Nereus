@@ -145,7 +145,8 @@ export default {
                 } else {
                     this.$Notice.error({
                         title: '获取记录失败',
-                        desc: res.message
+                        desc: res.message,
+                        duration: 5
                     })
                 }
             })

@@ -41,7 +41,7 @@ export default {
                 {
                     title: '设备序列号',
                     key: 'serial_number',
-                    width: 100
+                    width: 150
                 },
                 {
                     title: '产品名称',
@@ -156,12 +156,17 @@ export default {
                             <span>{ nereus.displayDateTime(params.row.statistics_date) }</span>
                         )
                     },
-                    width: 100
+                    width: 120
                 }
             ],
             pageSize: 10,
             currentPage: 1,
             pageSizeOpt: [5, 10, 20, 30]
+        }
+    },
+    watch: {
+        itemList: function (val) {
+            this.currentPage = 1
         }
     },
     computed: {

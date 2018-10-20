@@ -36,6 +36,11 @@ export default {
             pageSizeOpt: [5, 10, 20, 30]
         }
     },
+    watch: {
+        itemList: function (val) {
+            this.currentPage = 1
+        }
+    },
     computed: {
         itemsCount () {
             return this.itemList.length

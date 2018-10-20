@@ -9,8 +9,9 @@
         </div>
         <Modal
             v-model="modal1"
-            title="管理员信息">
-            <account-details ref="acc1" width="600"></account-details>
+            title="管理员信息"
+            width="600">
+            <account-details ref="acc1"></account-details>
         </Modal>
     </div>
 </template>

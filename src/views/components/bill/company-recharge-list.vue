@@ -45,17 +45,17 @@ export default {
                 {
                     title: '交易单号',
                     key: 'out_trade_no',
-                    width: 250
+                    width: 260
                 },
                 {
                     title: '设备主人账号',
                     key: 'user_name',
-                    width: 120
+                    width: 150
                 },
                 {
                     title: '设备主人电话号码',
                     key: 'phone',
-                    width: 200
+                    width: 150
                 },
                 {
                     title: '钱包id',
@@ -95,12 +95,17 @@ export default {
                 {
                     title: '充值描述',
                     key: 'transferred_description',
-                    width: 300
+                    width: 200
                 }
             ],
             pageSize: 10,
             currentPage: 1,
             pageSizeOpt: [5, 10, 20, 30]
+        }
+    },
+    watch: {
+        itemList: function (val) {
+            this.currentPage = 1
         }
     },
     computed: {
