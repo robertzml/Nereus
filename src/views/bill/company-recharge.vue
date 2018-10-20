@@ -20,6 +20,9 @@
 
                 <DatePicker type="date" placement="bottom-end" placeholder="选择结束日期" style="width: 200px" v-model="endTime" :clearable="false"></DatePicker>
 
+                <Select v-model="sRechargeType" style="width:200px">
+                    <Option v-for="item in rechargeTypeList" :value="item.id" :key="item.id">{{ item.name }}</Option>
+                </Select>
                 <Button type="primary" @click="loadRevenue">查询</Button>
             </div>
             <div class="filter-panel">
@@ -60,7 +63,13 @@ export default {
             rechargeData: [],
             productList: [],
             sProduct: '',
-            filterKey: ''
+            filterKey: '',
+            sRechargeType: 0,
+            rechargeTypeList: [
+                { id: -1, name: '红冲' },
+                { id: 0, name: '线上充值' },
+                { id: 1, name: '线下充值' }
+            ]
         }
     },
     computed: {
@@ -126,7 +135,7 @@ export default {
           
             let vm = this
 
-            bill.getCompanyRecharge(this.sVendor, this.startTime, this.endTime, 1).then(res => {
+            bill.getCompanyRecharge(this.sVendor, this.startTime, this.endTime, this.sRechargeType).then(res => {
                 if (res.status === 0) {
                     vm.rechargeData = res.entities
                 } else {

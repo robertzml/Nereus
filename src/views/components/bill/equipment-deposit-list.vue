@@ -256,11 +256,11 @@ export default {
                     key: 'agent_company_name'
                 },
                 {
-                    title: '押金支付人名称',
+                    title: '押金退还申请人名称',
                     key: 'pay_equipment_deposit_unline_account_name'
                 },
                 {
-                    title: '押金支付人电话号码',
+                    title: '押金退还申请人电话号码',
                     key: 'pay_equipment_deposit_unline_account_phone'
                 },
                 {

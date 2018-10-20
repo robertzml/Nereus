@@ -65,6 +65,12 @@ export default {
     methods: {
         init () {
             this.roleType = this.$store.state.user.roleType
+            this.endTime = new Date()
+
+            let year = this.endTime.getFullYear()
+            let month = this.endTime.getMonth()
+
+            this.startTime = new Date(year, month, 1)
 
             this.getProductType()
             if (this.roleType === 0 || this.roleType === 1) {
