@@ -74,7 +74,7 @@
                     :transfer='true'
                     placement='top'
                     @on-ok="agree">
-                    <Button type='warning'>注销</Button>
+                    <Button type='warning' :loading="loading">注销</Button>
                 </Poptip>
             </p>
         </Card>
@@ -96,6 +96,7 @@ export default {
             is_enough_money: 0,
             equipment_deposit: 0,
             consumer_wallet: {},
+            loading: false,
             billData: [],
             columns: [
                 {
@@ -171,10 +172,12 @@ export default {
         },
 
         agree () {
+            let vm = this
             let act = [{
                 serial_number: this.serialNumber,
                 apply_state: 1
             }]
+            this.loading = true
        
             equipment.inactivate(act).then(res => {
                 if (res.status === 0) {
@@ -183,6 +186,7 @@ export default {
                         desc: res.message,
                         duration: 5
                     })
+                    vm.loading = false
 
                     this.$router.push({ name: 'equipment-logout' })
                 } else {
@@ -191,6 +195,7 @@ export default {
                         desc: res.message,
                         duration: 5
                     })
+                    vm.loading = false
                 }
             })
         }
