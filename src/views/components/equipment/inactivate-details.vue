@@ -1,14 +1,17 @@
 <template>
     <Row>
         <Col span="24">
-            <Form :model="info" :label-width="80">
+            <Form :model="info" :label-width="120">
                 <Row>
-                    <Col span="12">
+                    <Col span="8">
                         <FormItem label="消费者名称">
                             {{ info.owner_name }}
                         </FormItem>
                         <FormItem label="消费者电话">
                             {{ info.owner_phone }}
+                        </FormItem>
+                        <FormItem label="消费者单位">
+                            {{ info.owner_company_name }}
                         </FormItem>
                         <FormItem label="管理员名称">
                             {{ info.owner_intendant_name }}
@@ -16,9 +19,7 @@
                         <FormItem label="管理员电话">
                             {{ info.owner_intendant_phone }}
                         </FormItem>
-                        <FormItem label="消费者单位">
-                            {{ info.owner_company_name }}
-                        </FormItem>
+                        
                         <FormItem label="省">
                             {{ info.owner_address_province }}
                         </FormItem>
@@ -31,6 +32,12 @@
 
                         <FormItem label="详细地址">
                             {{ info.owner_address_detail }}
+                        </FormItem>
+                    </Col>
+                    
+                    <Col span="8">
+                        <FormItem label="序列号">
+                            {{ info.serial_number }}
                         </FormItem>
 
                         <FormItem label="安装人名称">
@@ -46,13 +53,13 @@
                         <FormItem label="代理商业务员电话">
                             {{ info.agent_account_phone }}
                         </FormItem>
+                        
+                        <FormItem label="创建时间">
+                            {{ info.create_date | displayDateTime }}
+                        </FormItem>
                     </Col>
 
-                    <Col span="12">
-                        <FormItem label="序列号">
-                            {{ info.serial_number }}
-                        </FormItem>
-
+                    <Col span="8">
                         <FormItem label="销售类型">
                             {{ info.pay_type | payType }}
                         </FormItem>
@@ -83,10 +90,6 @@
                         </FormItem>
                         <FormItem label="充值优惠券">
                             {{ info.prepay_coupon }}
-                        </FormItem>
-
-                        <FormItem label="创建时间">
-                            {{ info.create_date | displayDateTime }}
                         </FormItem>
                     </Col>
                 </Row>

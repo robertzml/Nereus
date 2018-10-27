@@ -3,7 +3,6 @@
         <Table :data="tableData" :columns="columns" stripe border>
             <div slot="footer">
                 <span style="margin-left: 10px;">设备押金合计: {{ totalDeposit }} 元</span>
-                <span style="margin-left: 10px;">设备预付款合计: {{ totalPrepay }} 元</span>
             </div>
         </Table>
         <div style="margin: 10px;overflow-x: hidden" v-if="showPager">
@@ -36,49 +35,44 @@ export default {
                 },
                 {
                     title: '设备序列号',
-                    key: 'serialnumber'
+                    key: 'serial_number'
                 },
                 {
-                    title: '钱包ID',
-                    key: 'wallet_id'
+                    title: '押金账单交易号',
+                    key: 'pay_equipment_deposit_out_trade_no'
                 },
                 {
-                    title: '设备押金(元)',
-                    key: 'device_deposit'
+                    title: '正式激活/注销设备',
+                    key: 'add_or_delete_equipment'
                 },
                 {
-                    title: '设备预付款(元)',
-                    key: 'device_prepay_bills'
-                },
-
-                {
-                    title: '销售模式',
-                    key: 'sale_mode',
-                    render: (h, params) => {
-                        return (
-                            <span>{ this.showSaleMode(params.row.sale_mode) }</span>
-                        )
-                    }
+                    title: '设备支付押金/退出押金(元)',
+                    key: 'add_or_delete_equipment_deposit'
                 },
                 {
-                    title: '交易单号',
-                    key: 'wx_out_trade_no'
+                    title: '押金支付方式名称',
+                    key: 'pay_equipment_deposit_type_name'
                 },
+               
                 {
                     title: '付费类型',
-                    key: 'bills_pay_type',
+                    key: 'product_charge_money_type',
                     render: (h, params) => {
                         return (
-                            <span>{ nereus.paymentType(params.row.bills_pay_type) }</span>
+                            <span>{ nereus.moneyType(params.row.product_charge_money_type) }</span>
                         )
                     }
                 },
                 {
-                    title: '是否可用',
-                    key: 'availabe',
+                    title: '押金状态',
+                    key: 'pay_equipment_deposit_status'
+                },
+                {
+                    title: '激活设备时间',
+                    key: 'pay_equipment_deposit_date',
                     render: (h, params) => {
                         return (
-                            <span>{ this.showAvailabe(params.row.availabe) }</span>
+                            <span>{ nereus.displayDateTime(params.row.pay_equipment_deposit_date) }</span>
                         )
                     }
                 },
@@ -108,14 +102,7 @@ export default {
         totalDeposit () {
             let total = 0
             this.itemList.forEach(element => {
-                total += element.device_deposit
-            })
-            return total.toFixed(2)
-        },
-        totalPrepay () {
-            let total = 0
-            this.itemList.forEach(element => {
-                total += element.device_prepay_bills
+                total += element.add_or_delete_equipment_deposit
             })
             return total.toFixed(2)
         }

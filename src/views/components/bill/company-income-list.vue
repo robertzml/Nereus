@@ -146,6 +146,11 @@ export default {
                 {
                     title: '交易结果',
                     key: 'income_status',
+                    render: (h, params) => {
+                        return (
+                            this.incomeStatus(params.row.income_status)
+                        )
+                    },
                     width: 100
                 },               
                 {
@@ -195,6 +200,15 @@ export default {
     methods: {
         changePageSize (pageSize) {
             this.pageSize = pageSize
+        },
+
+        incomeStatus (val) {
+            switch (val) {
+                case 0:
+                    return '交易成功'
+                default:
+                    return '未知'
+            }
         },
 
         exportData () {

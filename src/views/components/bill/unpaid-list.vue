@@ -122,12 +122,14 @@ export default {
 
         tradeResult (val) {
             switch (val) {
+                case -3:
+                    return '不需要调整锁定时间的待交易处理'
                 case -2:
                     return '设备正式激活时的待交易处理'
                 case -1:
                     return '不需要交易'
                 case 0:
-                    return '交易待处理'
+                    return '需要调整锁定时间的待交易处理'
                 case 1:
                     return '交易成功'
                 case 2:

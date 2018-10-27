@@ -38,15 +38,15 @@
                             {{ consumer_wallet.waller_coupon }}
                         </FormItem>
 
-                        <FormItem label="扣款后退还押金金额(若为负数则表示死账金额)">
+                        <FormItem label="扣款后退还押金金额(若为负数则表示死账金额)" class='imp' style="font-weight: bold; color: #F00;">
                             {{ return_equipment_deposit }}
                         </FormItem>
                         <FormItem label="总应付金额">
                             {{ equipment_total_unpaid_bill }}
                         </FormItem>
 
-                        <FormItem label="是否够扣款状态">
-                            {{ is_enough_money }}
+                        <FormItem label="是否够扣款状态" style="font-weight: bold; color: #F00;">
+                            {{ is_enough_money === 1 ? '是' : '否' }}
                         </FormItem>
 
                         <FormItem label="设备押金">
@@ -205,3 +205,9 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.imp .ivu-form-item-label {
+    color: #FF0000;
+}
+</style>

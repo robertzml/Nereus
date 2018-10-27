@@ -14,8 +14,8 @@
 
         <Modal
             v-model="modal1"
-            title="设备信息">
-            <inactivate-details ref="mod1" width="800"></inactivate-details>
+            title="设备信息" width="800">
+            <inactivate-details ref="mod1"></inactivate-details>
         </Modal>
     </div>
 </template>
