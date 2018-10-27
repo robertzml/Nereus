@@ -26,16 +26,28 @@
             <br />
 
             <Tabs>
-                <TabPane label="线上付款">                   
-                    <equipment-deposit-list :item-list="depositData1" v-bind:type="1"></equipment-deposit-list>
+                <TabPane label="线上付款">
+                    <div class="filter-panel">
+                        <span>搜索</span>
+                        <Input v-model="filterKey1" style="width: 200px"></Input>
+                    </div>
+                    <equipment-deposit-list :item-list="filterData1" v-bind:type="1"></equipment-deposit-list>
                 </TabPane>
 
                 <TabPane label="线下付款">
-                    <equipment-deposit-list :item-list="depositData2" v-bind:type="2"></equipment-deposit-list>
+                    <div class="filter-panel">
+                        <span>搜索</span>
+                        <Input v-model="filterKey2" style="width: 200px"></Input>
+                    </div>
+                    <equipment-deposit-list :item-list="filterData2" v-bind:type="2"></equipment-deposit-list>
                 </TabPane>
 
                 <TabPane label="退还金额">
-                    <equipment-deposit-list :item-list="depositData3" v-bind:type="3"></equipment-deposit-list>
+                    <div class="filter-panel">
+                        <span>搜索</span>
+                        <Input v-model="filterKey3" style="width: 200px"></Input>
+                    </div>
+                    <equipment-deposit-list :item-list="filterData3" v-bind:type="3"></equipment-deposit-list>
                 </TabPane>
             </Tabs>
         </Card>
@@ -61,9 +73,55 @@ export default {
             sVendor: 0,
             startTime: '',
             endTime: '',
+            filterKey1: '',
+            filterKey2: '',
+            filterKey3: '',
             depositData1: [],
             depositData2: [],
             depositData3: []
+        }
+    },
+    computed: {
+        filterData1 () {
+            let temp = this.depositData1
+
+            let filterKey1 = this.filterKey1 && this.filterKey1.toLowerCase()
+            if (filterKey1) {
+                temp = temp.filter(function (row) {
+                    return Object.keys(row).some(function (key) {
+                        return String(row[key]).toLowerCase().indexOf(filterKey1) > -1
+                    })
+                })
+            }
+            return temp
+        },
+
+        filterData2 () {
+            let temp = this.depositData2
+
+            let filterKey2 = this.filterKey2 && this.filterKey2.toLowerCase()
+            if (filterKey2) {
+                temp = temp.filter(function (row) {
+                    return Object.keys(row).some(function (key) {
+                        return String(row[key]).toLowerCase().indexOf(filterKey2) > -1
+                    })
+                })
+            }
+            return temp
+        },
+
+        filterData3 () {
+            let temp = this.depositData3
+
+            let filterKey3 = this.filterKey3 && this.filterKey3.toLowerCase()
+            if (filterKey3) {
+                temp = temp.filter(function (row) {
+                    return Object.keys(row).some(function (key) {
+                        return String(row[key]).toLowerCase().indexOf(filterKey3) > -1
+                    })
+                })
+            }
+            return temp
         }
     },
     methods: {
@@ -161,3 +219,9 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.filter-panel {
+    margin-bottom: 15px;
+}
+</style>

@@ -1,6 +1,11 @@
 <template>
     <div class="agent-deduct-list">
-        <Table :data="tableData" :columns="columns" ref="table" stripe border></Table>
+        <Table :data="tableData" :columns="columns" ref="table" stripe border>
+            <div slot="footer" class="footer">
+                <span style="margin-left:20px;margin-right:20px;">共 {{ itemsCount }} 条收益记录</span>
+                <span style="margin-right:20px;">代理商应得金额合计 {{ totalAmount }} 元</span>
+            </div>
+        </Table>
         <div style="margin: 10px;overflow-x: hidden" v-if="showPager">
             <div>
                 <Button type="primary" size="large" @click="exportData(3)"><Icon type="ios-download-outline"></Icon> 导出数据</Button>
@@ -95,6 +100,13 @@ export default {
         tableData () {
             let temp = this.itemList
             return temp.slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize)
+        },
+        totalAmount () {
+            let total = 0
+            this.itemList.forEach(element => {
+                total += element.money_to_agent
+            })
+            return total.toFixed(2)
         }
     },
     methods: {

@@ -30,9 +30,16 @@
                         <Button type="primary" @click="loadDeduct">查询</Button>
                     </div>
 
+                    <div class="filter-panel">
+                        <h3>筛选</h3>
+
+                        <span>搜索</span>
+                        <Input v-model="filterKey" style="width: 200px"></Input>
+                    </div>
+
                     <br />
 
-                    <agent-deduct-list :item-list="deductData"></agent-deduct-list>
+                    <agent-deduct-list :item-list="filterData"></agent-deduct-list>
                 </Card>
             </Col>
         </Row>
@@ -59,7 +66,23 @@ export default {
             sProductType: 0,
             startTime: '',
             endTime: '',
+            filterKey: '',
             deductData: []
+        }
+    },
+    computed: {
+        filterData () {
+            let temp = this.deductData
+
+            let filterKey = this.filterKey && this.filterKey.toLowerCase()
+            if (filterKey) {
+                temp = temp.filter(function (row) {
+                    return Object.keys(row).some(function (key) {
+                        return String(row[key]).toLowerCase().indexOf(filterKey) > -1
+                    })
+                })
+            }
+            return temp
         }
     },
     methods: {
