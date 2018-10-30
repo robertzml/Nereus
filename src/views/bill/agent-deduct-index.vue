@@ -13,14 +13,9 @@
                     </a>
 
                     <div class="filter-panel">
-                        <span v-if="roleType !== 3">代理商：</span>
-                        <Select v-model="sAgent" style="width:300px" placeholder="选择代理商" v-if="roleType !== 3">
-                            <Option v-for="item in agentCompanyList" :value="item.id" :key="item.id">{{ item.name }}</Option>
-                        </Select>
-
-                        <span>选择产品类型: </span>
-                        <Select v-model="sProductType" style="width:300px" placeholder="选择产品类型">
-                            <Option v-for="item in productTypeList" :value="item.id" :key="item.id">{{ item.name }}</Option>
+                        <span v-if="roleType === 0 || roleType === 1">厂商：</span>
+                        <Select v-model="sCompany" style="width:300px" placeholder="选择厂商" v-if="roleType === 0 || roleType === 1">
+                            <Option v-for="item in companyList" :value="item.id" :key="item.id">{{ item.name }}</Option>
                         </Select>
 
                         <DatePicker type="date" placement="bottom-end" placeholder="选择起始日期" style="width: 200px" v-model="startTime"></DatePicker>
@@ -32,6 +27,11 @@
 
                     <div class="filter-panel">
                         <h3>筛选</h3>
+
+                        <span>选择产品类型: </span>
+                        <Select v-model="sProductType" style="width:300px" placeholder="选择产品类型">
+                            <Option v-for="item in productTypeList" :value="item.id" :key="item.id">{{ item.name }}</Option>
+                        </Select>
 
                         <span>搜索</span>
                         <Input v-model="filterKey" style="width: 200px"></Input>
@@ -60,8 +60,10 @@ export default {
     data () {
         return {
             roleType: 0,
+            companyList: [],
             productTypeList: [],
             agentCompanyList: [],
+            sCompany: 0,
             sAgent: 0,
             sProductType: 0,
             startTime: '',
@@ -97,11 +99,11 @@ export default {
 
             this.getProductType()
             if (this.roleType === 0 || this.roleType === 1) {
-                this.getAllAgents()
+                this.getCompanys()
             } else if (this.roleType === 2) {
-                this.getAgentCompany()
+                this.sCompany = this.$store.state.user.companyId
             } else if (this.roleType === 3) {
-                this.sAgent = this.$store.state.user.companyId
+                // this.sAgent = this.$store.state.user.companyId
             }
         },
 
@@ -110,6 +112,14 @@ export default {
 
             productType.list().then(res => {
                 vm.productTypeList = res.entities
+            })
+        },
+
+        getCompanys () {
+            let vm = this
+
+            company.list().then(res => {
+                vm.companyList = res.entities
             })
         },
 
@@ -132,20 +142,14 @@ export default {
         },
    
         loadDeduct () {
-            if (this.sAgent === 0) {
+            if (this.sCompany === 0) {
                 this.$Message.warning({
-                    content: '请选择代理商',
+                    content: '请选择厂商',
                     duration: 2
                 })
                 return
             }
-            if (this.sProductType === 0) {
-                this.$Message.warning({
-                    content: '请选择产品类型',
-                    duration: 2
-                })
-                return
-            }
+           
             if (this.startTime === '' || this.endTime === '') {
                  this.$Message.warning({
                     content: '请选择日期',
@@ -156,8 +160,7 @@ export default {
           
             let vm = this
             var model = {
-                agent_id: this.sAgent,
-                product_type_id: this.sProductType,
+                product_company_id: this.sCompany,
                 start_time: this.startTime,
                 end_time: this.endTime
             }

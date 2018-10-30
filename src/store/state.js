@@ -55,7 +55,7 @@ export default {
         { name: 'bill-unpaid', roles: [1, 2, 3, 4, 5, 8] },
         { name: 'bill-equipment-deposit', roles: [1, 2, 3, 4, 5] },
         { name: 'bill-company-revenue', roles: [1, 2, 3, 4, 5] },
-        { name: 'bill-agent-deduct-index', roles: [1, 2, 3, 4, 5, 8] },
+        { name: 'bill-agent-deduct-index', roles: [1, 2, 3, 4, 5] },
         { name: 'bill-company-recharge', roles: [1, 2, 3, 4, 5] }
     ]
 }

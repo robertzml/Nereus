@@ -60,8 +60,10 @@ export default {
                 {
                     title: '付款时间',
                     key: 'date_of_money_trade_result',
-                    return: (h, params) => {
-                        nereus.displayDate(params.row.date_of_money_trade_result)
+                    render: (h, params) => {
+                        return (
+                            nereus.displayDateTime(params.row.date_of_money_trade_result)
+                        )
                     }
                 },
                 {

@@ -41,13 +41,27 @@ export default {
                     key: 'serial_number'
                 },
                 {
-                    title: '消费者姓名',
-                    key: 'owner_name'
+                    title: '产品名称',
+                    key: 'product_name'
                 },
                 {
-                    title: '消费者电话',
-                    key: 'owner_phone'
+                    title: '设备主人注册名称',
+                    key: 'consumer_user_name'
                 },
+                {
+                    title: '设备主人电话',
+                    key: 'consumer_phone'
+                },
+                {
+                    title: '代理商名称',
+                    key: 't_agent_company_name'
+                },
+                {
+                    title: '代理商业务员名称',
+                    key: 'agent_account_name'
+                },
+                
+               
                 {
                     title: '应扣款金额(包含优惠券)',
                     key: 'money_to_consumer'
@@ -57,6 +71,11 @@ export default {
                     key: 'money_to_consumer_result'
                 },
                 {
+                    title: '代理商实际收益(不包含优惠券)',
+                    key: 'money_to_agent_result'
+                },
+               
+                {
                     title: '代理商分成比例',
                     key: 'money_to_agent_ratio'
                 },
@@ -65,11 +84,15 @@ export default {
                     key: 'money_to_agent'
                 },
                 {
-                    title: '扣款结果',
-                    key: 'money_trade_result',
+                    title: '死账',
+                    key: 'bad_debt'
+                },
+                {
+                    title: '产生收益时间',
+                    key: 'create_date',
                     render: (h, params) => {
                         return (
-                            <span>{ this.tradeResult(params.row.money_trade_result) }</span>
+                            <span>{ nereus.displayDateTime(params.row.create_date) }</span>
                         )
                     }
                 },
@@ -114,20 +137,11 @@ export default {
             this.pageSize = pageSize
         },
 
-        tradeResult (val) {
-            if (val === 1) {
-                return '扣款成功'
-            } else {
-                return '扣款失败'
-            }
-        },
-
         exportData (type) {
             if (type === 3) {
                 let temp = JSON.parse(JSON.stringify(this.itemList))
                
                 temp.forEach(element => {
-                    element.money_trade_result = this.tradeResult(element.money_trade_result)
                     element.date_of_money_trade_result = nereus.displayDateTime(element.date_of_money_trade_result)
                 })
 
