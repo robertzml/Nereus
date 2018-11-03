@@ -49,6 +49,14 @@ export default {
                 {
                     title: '型号规格',
                     key: 'product_specification'
+                },
+                {
+                    title: '操作',
+                    render: (h, params) => {
+                        return (
+                            <i-button type="primary" size="small" style="marginRight: 5px" onClick={ () => { this.showDetails(params.row) } }>查看</i-button>
+                        )
+                    }
                 }
             ],
             pageSize: 10,
@@ -74,7 +82,10 @@ export default {
         changePageSize (pageSize) {
             this.pageSize = pageSize
             this.tableData = this.itemList.slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize)
-        }
+        },
+        showDetails (item) {
+            this.$router.push({ name: 'product-agent-details', params: { id: item.id } })
+        }        
     }
 }
 </script>
