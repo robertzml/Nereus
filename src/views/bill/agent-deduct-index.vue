@@ -18,9 +18,9 @@
                             <Option v-for="item in companyList" :value="item.id" :key="item.id">{{ item.name }}</Option>
                         </Select>
 
-                        <DatePicker type="date" placement="bottom-end" placeholder="选择起始日期" style="width: 200px" v-model="startTime"></DatePicker>
+                        <DatePicker type="date" placement="bottom-end" placeholder="选择起始日期" style="width: 200px" v-model="startTime" :clearable="false"></DatePicker>
 
-                        <DatePicker type="date" placement="bottom-end" placeholder="选择结束日期" style="width: 200px" v-model="endTime"></DatePicker>
+                        <DatePicker type="date" placement="bottom-end" placeholder="选择结束日期" style="width: 200px" v-model="endTime" :clearable="false"></DatePicker>
 
                         <Button type="primary" @click="loadDeduct">查询</Button>
                     </div>
@@ -29,7 +29,7 @@
                         <h3>筛选</h3>
 
                         <span>选择产品类型: </span>
-                        <Select v-model="sProductType" style="width:300px" placeholder="选择产品类型">
+                        <Select v-model="sProductType" style="width:300px" placeholder="选择产品类型" clearable>
                             <Option v-for="item in productTypeList" :value="item.id" :key="item.id">{{ item.name }}</Option>
                         </Select>
 

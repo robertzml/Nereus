@@ -4,6 +4,7 @@
             <div slot="footer" class="footer">
                 <span style="margin-left:20px;margin-right:20px;">共 {{ itemsCount }} 条收益记录</span>
                 <span style="margin-right:20px;">代理商应得金额合计 {{ totalAmount }} 元</span>
+                <span style="margin-right:20px;">代理商实际收益合计 {{ realAmount }} 元</span>
             </div>
         </Table>
         <div style="margin: 10px;overflow-x: hidden" v-if="showPager">
@@ -60,8 +61,6 @@ export default {
                     title: '代理商业务员名称',
                     key: 'agent_account_name'
                 },
-                
-               
                 {
                     title: '应扣款金额(包含优惠券)',
                     key: 'money_to_consumer'
@@ -71,17 +70,16 @@ export default {
                     key: 'money_to_consumer_result'
                 },
                 {
+                    title: '代理商应获得的金额',
+                    key: 'money_to_agent'
+                },
+                {
                     title: '代理商实际收益(不包含优惠券)',
                     key: 'money_to_agent_result'
                 },
-               
                 {
                     title: '代理商分成比例',
                     key: 'money_to_agent_ratio'
-                },
-                {
-                    title: '代理商应获得的金额',
-                    key: 'money_to_agent'
                 },
                 {
                     title: '死账',
@@ -130,6 +128,13 @@ export default {
                 total += element.money_to_agent
             })
             return total.toFixed(2)
+        },
+        realAmount () {
+            let total = 0
+            this.itemList.forEach(element => {
+                total += element.money_to_agent_result
+            })
+            return total.toFixed(2)
         }
     },
     methods: {
@@ -142,6 +147,7 @@ export default {
                 let temp = JSON.parse(JSON.stringify(this.itemList))
                
                 temp.forEach(element => {
+                    element.create_date = nereus.displayDateTime(element.create_date)
                     element.date_of_money_trade_result = nereus.displayDateTime(element.date_of_money_trade_result)
                 })
 
