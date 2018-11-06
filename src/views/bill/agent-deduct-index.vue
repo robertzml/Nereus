@@ -33,6 +33,11 @@
                             <Option v-for="item in productTypeList" :value="item.id" :key="item.id">{{ item.name }}</Option>
                         </Select>
 
+                        <span>代理商</span>
+                        <Select v-model="sAgent" style="width:300px" placeholder="选择代理商" clearable>
+                            <Option v-for="item in agentCompanyList" :value="item.id" :key="item.id">{{ item.name }}</Option>
+                        </Select>
+
                         <span>搜索</span>
                         <Input v-model="filterKey" style="width: 200px"></Input>
                     </div>
@@ -80,6 +85,10 @@ export default {
                 temp = temp.filter(r => r.product_type_id === this.sProductType)
             }
 
+            if (this.sAgent) {
+                temp = temp.filter(r => r.agent_company_id === this.sAgent)
+            }
+
             let filterKey = this.filterKey && this.filterKey.toLowerCase()
             if (filterKey) {
                 temp = temp.filter(function (row) {
@@ -104,8 +113,10 @@ export default {
             this.getProductType()
             if (this.roleType === 0 || this.roleType === 1) {
                 this.getCompanys()
+                this.getAllAgents()
             } else if (this.roleType === 2) {
                 this.sCompany = this.$store.state.user.companyId
+                this.getAgentCompany()
             } else if (this.roleType === 3) {
                 // this.sAgent = this.$store.state.user.companyId
             }
