@@ -10,7 +10,7 @@
                     <Icon type="plus-round"></Icon>
                     新增
                 </a>
-                <a href="#" slot="extra" @click.prevent="getShareData">
+                <a href="#" slot="extra" @click.prevent="">
                     <Icon type="ios-loop-strong"></Icon>
                     刷新
                 </a>
@@ -74,7 +74,7 @@ export default {
         },
 
         showCreate () {
-            this.$refs.shareCreateMod.show()
+            // this.$refs.shareCreateMod.show()
         }
     },
     mounted: function () {

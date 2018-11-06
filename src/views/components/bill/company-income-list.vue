@@ -206,6 +206,8 @@ export default {
             switch (val) {
                 case 0:
                     return '交易成功'
+                case 2:
+                    return '死账'
                 default:
                     return '未知'
             }

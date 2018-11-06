@@ -76,6 +76,10 @@ export default {
         filterData () {
             let temp = this.deductData
 
+            if (this.sProductType) {
+                temp = temp.filter(r => r.product_type_id === this.sProductType)
+            }
+
             let filterKey = this.filterKey && this.filterKey.toLowerCase()
             if (filterKey) {
                 temp = temp.filter(function (row) {
@@ -165,7 +169,7 @@ export default {
                 end_time: this.endTime
             }
 
-            bill.findDeductByAgentAndProductType(model).then(res => {
+            bill.findAgentIncome(model).then(res => {
                 if (res.status === 0) {
                     vm.deductData = res.entities
                 } else {

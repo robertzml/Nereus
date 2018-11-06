@@ -13,6 +13,16 @@ export default {
         })
     },
 
+    // 获取代理商收益
+    findAgentIncome (model) {
+        return api._post({ 
+            url: '/t_agent_account_month_income_detail/findInfoOfIncomeDetail', 
+            data: model
+        }).then(res => {
+            return res.data
+        })
+    },
+
     // 获取直饮机待付款信息
     findWaterCleanerPaymentInfoByCompany (companyId) {
         return api._get({ url: '/t_water_cleaner_equipment_statistics/findPaymentInfoByCompanyId', params: { company_id: companyId } })

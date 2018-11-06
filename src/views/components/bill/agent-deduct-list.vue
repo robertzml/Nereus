@@ -3,8 +3,8 @@
         <Table :data="tableData" :columns="columns" ref="table" stripe border>
             <div slot="footer" class="footer">
                 <span style="margin-left:20px;margin-right:20px;">共 {{ itemsCount }} 条收益记录</span>
-                <span style="margin-right:20px;">代理商应得金额合计 {{ totalAmount }} 元</span>
-                <span style="margin-right:20px;">代理商实际收益合计 {{ realAmount }} 元</span>
+                <span style="margin-right:20px;">代理商应收款合计 {{ totalAmount }} 元</span>
+                <span style="margin-right:20px;">代理商实际分成合计 {{ realAmount }} 元</span>
             </div>
         </Table>
         <div style="margin: 10px;overflow-x: hidden" v-if="showPager">
@@ -39,67 +39,141 @@ export default {
                 },
                 {
                     title: '设备序列号',
-                    key: 'serial_number'
+                    key: 'serial_number',
+                    width: 100
+                },
+                {
+                    title: '产品类别',
+                    key: 't_product_type_name',
+                    width: 100
                 },
                 {
                     title: '产品名称',
-                    key: 'product_name'
+                    key: 'product_name',
+                    width: 100
                 },
                 {
-                    title: '设备主人注册名称',
-                    key: 'consumer_user_name'
+                    title: '代理商公司名称',
+                    key: 'agent_company_name',
+                    width: 150
+                },
+                {
+                    title: '设备主人姓名',
+                    key: 'consumer_name',
+                    width: 120
                 },
                 {
                     title: '设备主人电话',
-                    key: 'consumer_phone'
+                    key: 'consumer_phone',
+                    width: 120
                 },
                 {
-                    title: '代理商名称',
-                    key: 't_agent_company_name'
+                    title: '账单序列号',
+                    key: 'actual_income_trade_no',
+                    width: 200
                 },
                 {
-                    title: '代理商业务员名称',
-                    key: 'agent_account_name'
+                    title: '期数',
+                    key: 'statistics_number_of_periods',
+                    width: 60
                 },
                 {
-                    title: '应扣款金额(包含优惠券)',
-                    key: 'money_to_consumer'
-                },
-                {
-                    title: '实际扣款金额(不包含使用的优惠券)',
-                    key: 'money_to_consumer_result'
-                },
-                {
-                    title: '代理商应获得的金额',
-                    key: 'money_to_agent'
-                },
-                {
-                    title: '代理商实际收益(不包含优惠券)',
-                    key: 'money_to_agent_result'
-                },
-                {
-                    title: '代理商分成比例',
-                    key: 'money_to_agent_ratio'
-                },
-                {
-                    title: '死账',
-                    key: 'bad_debt'
-                },
-                {
-                    title: '产生收益时间',
-                    key: 'create_date',
+                    title: '销售方式',
+                    key: 'product_charge_money_type',
+                    width: 100,
                     render: (h, params) => {
                         return (
-                            <span>{ nereus.displayDateTime(params.row.create_date) }</span>
+                            <span>{ nereus.moneyType(params.row.product_charge_money_type) }</span>
                         )
                     }
                 },
                 {
-                    title: '扣款时间',
-                    key: 'date_of_money_trade_result',
+                    title: '销售方式昵称',
+                    key: 'product_sale_rule_name',
+                    width: 100
+                },
+                {
+                    title: '账期起始时间',
+                    key: 'statistics_number_of_periods_start',
+                    width: 100,
                     render: (h, params) => {
                         return (
-                            <span>{ nereus.displayDateTime(params.row.date_of_money_trade_result) }</span>
+                            <span>{ nereus.displayDateTime(params.row.statistics_number_of_periods_start) }</span>
+                        )
+                    }
+                },
+                {
+                    title: '账期截止时间',
+                    key: 'statistics_number_of_periods_end',
+                    width: 100,
+                    render: (h, params) => {
+                        return (
+                            <span>{ nereus.displayDateTime(params.row.statistics_number_of_periods_end) }</span>
+                        )
+                    }
+                },
+                {
+                    title: '应收款金额',
+                    key: 'accrued_revenues',
+                    width: 100
+                },
+                {
+                    title: '代理商应收款金额',
+                    key: 'agent_accrued_revenues',
+                    width: 100
+                },
+                {
+                    title: '使用优惠券(元)',
+                    key: 'actual_coupon',
+                    width: 100
+                },
+                {
+                    title: '实际收款金额',
+                    key: 'actual_income',
+                    width: 100
+                },
+                {
+                    title: '代理商实际分成金额',
+                    key: 'agent_actual_income',
+                    width: 100
+                },
+                {
+                    title: '死账(元)',
+                    key: 'bad_debt',
+                    width: 100
+                },
+                {
+                    title: '分成比例',
+                    key: 'agent_ratio',
+                    width: 100
+                },
+                {
+                    title: '交易结果',
+                    key: 'income_status',
+                    width: 100,
+                    render: (h, params) => {
+                        return (
+                            <span>{ this.incomeStatus(params.row.income_status) }</span>
+                        )
+                    }
+                },
+                {
+                    title: '支付人姓名',
+                    key: 'actual_income_trade_account_name',
+                    width: 120
+                },
+                {
+                    title: '支付人电话',
+                    key: 'actual_income_trade_account_phone',
+                    width: 120
+                },                
+                {
+                    title: '缴费日期',
+                    key: 'statistics_date',
+                    width: 100,
+                    render: (h, params) => {
+                        return (
+                            <span>{ nereus.displayDateTime(params.row.statistics_date) }</span>
                         )
                     }
                 }
@@ -125,14 +199,14 @@ export default {
         totalAmount () {
             let total = 0
             this.itemList.forEach(element => {
-                total += element.money_to_agent
+                total += element.agent_accrued_revenues
             })
             return total.toFixed(2)
         },
         realAmount () {
             let total = 0
             this.itemList.forEach(element => {
-                total += element.money_to_agent_result
+                total += element.agent_actual_income
             })
             return total.toFixed(2)
         }
@@ -142,13 +216,27 @@ export default {
             this.pageSize = pageSize
         },
 
+        incomeStatus (val) {
+            switch (val) {
+                case 0:
+                    return '交易成功'
+                case 2:
+                    return '死账'
+                default:
+                    return '未知'
+            }
+        },
+
         exportData (type) {
             if (type === 3) {
                 let temp = JSON.parse(JSON.stringify(this.itemList))
                
                 temp.forEach(element => {
-                    element.create_date = nereus.displayDateTime(element.create_date)
-                    element.date_of_money_trade_result = nereus.displayDateTime(element.date_of_money_trade_result)
+                    element.product_charge_money_type = nereus.moneyType(element.product_charge_money_type)
+                    element.income_status = this.incomeStatus(element.income_status)
+                    element.statistics_number_of_periods_start = nereus.displayDateTime(element.statistics_number_of_periods_start)
+                    element.statistics_number_of_periods_end = nereus.displayDateTime(element.statistics_number_of_periods_end)
+                    element.statistics_date = nereus.displayDateTime(element.statistics_date)
                 })
 
                 this.$refs.table.exportCsv({

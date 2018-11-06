@@ -40,6 +40,10 @@ export default {
                     key: 'serial_number'
                 },
                 {
+                    title: '账期',
+                    key: 'statistics_year_month'
+                },
+                {
                     title: '消费者姓名',
                     key: 'owner_name'
                 },
@@ -58,6 +62,15 @@ export default {
                 {
                     title: '产品名称',
                     key: 'product_name'
+                },
+                {
+                    title: '销售类型',
+                    key: 'money_type',
+                    render: (h, params) => {
+                        return (
+                            <span>{ nereus.moneyType(params.row.money_type) }</span>
+                        )
+                    }
                 },
                 {
                     title: '消费者需付款金额',
@@ -91,6 +104,10 @@ export default {
                             <span>{ nereus.displayDateTime(params.row.create_date) }</span>
                         )
                     }
+                },
+                {
+                    title: '备注',
+                    key: 'remark'
                 }
             ],
             pageSize: 10,
