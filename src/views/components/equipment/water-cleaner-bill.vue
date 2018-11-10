@@ -41,10 +41,10 @@ export default {
                 },
                 {
                     title: '交费种类',
-                    key: 'money_tpye',
+                    key: 'money_type',
                     render: (h, params) => {
                         return (
-                            <span>{ this.moneyType(params.row.money_tpye) }</span>
+                            <span>{ this.moneyType(params.row.money_type) }</span>
                         )
                     }
                 },

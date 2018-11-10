@@ -138,8 +138,13 @@ export default {
             }
           
             let vm = this
+            var model = {
+                product_company_id: this.sVendor,
+                start_time: this.startTime,
+                end_time: this.endTime
+            }
 
-            bill.getCompanyIncome(this.sVendor, this.startTime, this.endTime, 1).then(res => {
+            bill.getCompanyIncome(model).then(res => {
                 if (res.status === 0) {
                     vm.revenueData = res.entities
                 } else {

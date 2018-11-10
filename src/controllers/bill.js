@@ -70,11 +70,13 @@ export default {
     },
 
     // 厂商收益
-    getCompanyIncome (companyId, startTime, endTime) {
-        return api._get({ url: '/t_agent_account_month_income_detail/findInfoOfIncomeDetail', params: { product_company_id: companyId, start_time: startTime, end_time: endTime } })
-            .then(res => {
-                return res.data
-            })
+    getCompanyIncome (model) {
+        return api._post({ 
+            url: '/t_agent_account_month_income_detail/findInfoOfIncomeDetail', 
+            data: model
+        }).then(res => {
+            return res.data
+        })
     },
 
     // 厂商充值统计

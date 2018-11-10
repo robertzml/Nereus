@@ -135,7 +135,7 @@ export default {
     methods: {
         init () {
             this.roleType = this.$store.state.user.roleType
-            this.getEquipments()
+            // this.getEquipments()
             this.loadProductType()
             this.loadAgents()
 
@@ -248,8 +248,11 @@ export default {
         }
     },
     created: function () {
-        console.log('In equipment index create function')
         this.init()
+    },
+    activated: function () {
+        console.log('in activated')
+        this.getEquipments()
     }
 }
 </script>
