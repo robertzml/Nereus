@@ -3,7 +3,7 @@
         <Card>
             <p slot="title">
                 <Icon type="grid"></Icon>
-                厂商充值
+                充值统计
             </p>
             <a href="#" slot="extra" @click.prevent="loadRevenue">
                 <Icon type="ios-loop-strong"></Icon>

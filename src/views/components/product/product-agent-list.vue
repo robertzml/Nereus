@@ -27,20 +27,20 @@ export default {
                     align: 'center'
                 },
                 {
-                    title: '生产厂商',
-                    key: 'vendor_company_name'
-                },
-                {
-                    title: '代理厂商',
-                    key: 'agent_company_name'
-                },
-                {
                     title: '产品代码',
                     key: 'product_code'
                 },
                 {
                     title: '产品名称',
                     key: 'product_name'
+                },
+                {
+                    title: '生产厂商',
+                    key: 'vendor_company_name'
+                },
+                {
+                    title: '代理厂商',
+                    key: 'agent_company_name'
                 },
                 {
                     title: '产品类型名称',

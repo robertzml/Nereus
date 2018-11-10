@@ -11,10 +11,16 @@
                         <Icon type="ios-loop-strong"></Icon>
                         刷新
                     </a>
+
+                    <p>代理商: {{ agentCompany.name }}</p>
+
+                    <br />
+
                     <product-agent-list :item-list="productData"></product-agent-list>
 
-                    <br /><hr /><br />
+                    <br />
                     <Button type="primary" @click="toIndex" style="margin-left: 8px">返回</Button>
+                    <Button type="success" style="margin-left: 8px">增加代理产品</Button>
                 </Card>
             </Col>
         </Row>
@@ -46,6 +52,7 @@
 </template>
 
 <script>
+import company from '@/controllers/company.js'
 import product from '@/controllers/product.js'
 import productAgent from '@/controllers/product-agent.js'
 import productAgentList from '../components/product/product-agent-list.vue'
@@ -57,6 +64,7 @@ export default {
     },
     data () {
         return {
+            agentCompany: {},
             vendorCompanyId: '',
             agentCompanyId: '',
             productData: [],
@@ -76,8 +84,16 @@ export default {
     methods: {
         init () {
             this.vendorCompanyId = this.$store.state.user.companyId
+            this.getAgentCompany()
             this.getAgentProducts()
             this.getProducts(this.vendorCompanyId)
+        },
+
+        getAgentCompany () {
+            let vm = this
+            company.details(this.agentCompanyId).then(res => {
+                vm.agentCompany = res.entity
+            })
         },
 
         getAgentProducts () {
