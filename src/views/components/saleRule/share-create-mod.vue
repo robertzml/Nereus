@@ -39,6 +39,7 @@ export default {
                 sale_rule_id: 0,
                 wealth_sharing: 0
             },
+            roleType: 0,
             showModal: false,
             loading: true,
             saleRuleName: '',
@@ -52,6 +53,7 @@ export default {
     },
     methods: {
         init () {
+            this.roleType = this.$store.state.user.roleType
             this.shareInfo.agent_id = null
             this.shareInfo.sale_rule_id = this.saleRuleId
             this.shareInfo.wealth_sharing = 0
