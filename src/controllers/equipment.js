@@ -268,5 +268,13 @@ export default {
         }).then(res => {
             return res.data
         })
+    },
+
+    // 获取历史设备
+    getHistory (consumerPhone) {
+        return api._get({ url: '/t_equipment_inactivate_log/findInfoByOwnerPhone', params: { consumer_phone: consumerPhone } })
+            .then(res => {
+                return res.data
+            })
     }
 }

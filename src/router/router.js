@@ -141,7 +141,8 @@ export const appRouter = [
             { path: 'edit/:id', title: '', name: 'equipment-edit', component: resolve => { require(['@/views/equipment/edit.vue'], resolve) } },
             { path: 'upload', title: '上传设备信息', parent: 'product-menu', role: 7, name: 'equipment-upload', component: resolve => { require(['@/views/equipment/upload.vue'], resolve) } },
             { path: 'store', title: '库存列表', parent: 'product-menu', role: 7, name: 'equipment-store', component: resolve => { require(['@/views/equipment/store.vue'], resolve) } },
-            { path: 'agent-store', title: '代理商库存', parent: 'product-menu', name: 'equipment-agent-store', component: resolve => { require(['@/views/equipment/agent-store.vue'], resolve) } }
+            { path: 'agent-store', title: '代理商库存', parent: 'product-menu', name: 'equipment-agent-store', component: resolve => { require(['@/views/equipment/agent-store.vue'], resolve) } },
+            { path: 'history', title: '历史设备', parent: 'product-menu', name: 'equipment-history', component: resolve => { require(['@/views/equipment/history.vue'], resolve) } }
         ]
     },
     {
