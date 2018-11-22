@@ -276,5 +276,21 @@ export default {
             .then(res => {
                 return res.data
             })
+    },
+
+    // 获取热水器历史统计数据
+    getHotWaterHistoryStatistic (serialNumber, startTime, endTime) {
+        return api._get({ url: '/t_water_heater_equipment_statistics/findInactivateEquipmentStatisticsbySerialNumber', params: { serial_number: serialNumber, start_time: startTime, end_time: endTime } })
+            .then(res => {
+                return res.data
+            })
+    },
+
+    // 获取直饮机历史统计数据
+    getWaterCleanerHistoryStatistic (serialNumber, startTime, endTime) {
+        return api._get({ url: '/t_water_cleaner_equipment_statistics/findInactivateEquipmentStatisticsbySerialNumber', params: { serial_number: serialNumber, start_time: startTime, end_time: endTime } })
+            .then(res => {
+                return res.data
+            })
     }
 }

@@ -14,13 +14,15 @@
         <Modal
             v-model="modal1"
             title="设备历史数据"
-            width="600">
+            width="1600">
+            <history-details-mod ref="com1"></history-details-mod>
         </Modal>
     </div>
 </template>
 
 <script>
 import * as nereus from '@/utility/nereus.js'
+import historyDetailsMod from './history-details-mod.vue'
 
 export default {
     name: 'history-list',
@@ -28,7 +30,10 @@ export default {
         itemList: { type: Array, required: true },
         showPager: { type: Boolean, default: true }
     },
-     data () {
+    components: {
+        historyDetailsMod
+    },
+    data () {
         return {
             columns: [
                 {
@@ -150,7 +155,7 @@ export default {
             this.pageSize = pageSize
         },
         showDetails (item) {
-            // this.$refs.com1.getCompany(item.id)
+            this.$refs.com1.getInfo(item.product_type_id, item.serial_number, item.activate_date, item.inactivate_date)
             this.modal1 = true
         }
     }
