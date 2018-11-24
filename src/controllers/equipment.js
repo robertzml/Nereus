@@ -292,5 +292,21 @@ export default {
             .then(res => {
                 return res.data
             })
+    },
+
+    // 获取热水器实时数据
+    getWaterHeaterRealByCompany (companyId) {
+        return api._get({ url: '/device/t_equipment_commonController/getEquipmentStatusRealTimeByCompanyID', params: { company_id: companyId } })
+            .then(res => {
+                return res.data
+            })
+    },
+
+    // 获取直饮机实时数据
+    getWaterCleanerRealByCompany (companyId) {
+        return api._get({ url: '/deviceOfWaterCleaner/t_equipment_commonController/getEquipmentStatusRealTimeByCompanyID', params: { company_id: companyId } })
+            .then(res => {
+                return res.data
+            })
     }
 }
