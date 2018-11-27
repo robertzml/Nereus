@@ -21,10 +21,10 @@
                         </FormItem>
 
                         <FormItem label="冷水进水温度">
-                            {{ parseInt(realInfo.cold_water_Input_temp, 16) }} &#8451;
+                            {{ realInfo.cold_water_Input_temp }} &#8451;
                         </FormItem>
                         <FormItem label="热水进水温度">
-                            {{ parseInt(realInfo.hot_water_Input_temp, 16) }} &#8451;
+                            {{ realInfo.hot_water_Input_temp }} &#8451;
                         </FormItem>
                        
                         <FormItem label="当前输出功率">
@@ -38,14 +38,14 @@
 
                     <Col span="10">
                         <FormItem label="设定温度">
-                            {{ parseInt(realInfo.setting_temp, 16) }} &#8451;
+                            {{ realInfo.setting_temp }} &#8451;
                         </FormItem>
 
                         <FormItem label="出水温度">
-                            {{ parseInt(realInfo.outlet_water_temp, 16) }} &#8451;
+                            {{ realInfo.outlet_water_temp }} &#8451;
                         </FormItem>
                         <FormItem label="出水流量">
-                            {{ (parseInt(realInfo.output_flow_rate, 16) * 0.1).toFixed(2) }} 升/分钟
+                            {{ (realInfo.output_flow_rate * 0.1).toFixed(2) }} 升/分钟
                         </FormItem>
 
                         <FormItem label="日志时间">
@@ -88,8 +88,6 @@ export default {
             equipment.getRealStatus(this.serial_number).then(res => {
                 if (res.status === 0) {
                     vm.realInfo = res.entities[0]
-                 
-                    vm.realInfo.output_capacity_factor = vm.transDigit(vm.realInfo.output_capacity_factor, 4)
                 } else {
                     this.$Notice.error({
                         title: '获取实时状态出错',

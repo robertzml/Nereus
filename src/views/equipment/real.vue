@@ -18,10 +18,12 @@
                             <Option v-for="item in productTypeList" :value="item.id" :key="item.id">{{ item.name }}</Option>
                         </Select>
 
+                        <div v-if="this.roleType === 0 || this.roleType === 1">
                         <span>所属厂商</span>
                         <Select v-model="sCompany" style="width:200px" placeholder="选择厂商">
                             <Option v-for="item in companyList" :value="item.id" :key="item.id">{{ item.name }}</Option>
                         </Select>
+                        </div>
 
                         <Button type="primary" @click="search">查询</Button>
                     </div>
@@ -61,6 +63,7 @@ export default {
                 { id: 1, name: '热水器' },
                 { id: 2, name: '直饮机' }
             ],
+            roleType: 0,
             companyList: [],
             sProductType: 0,
             sCompany: 0,
@@ -107,7 +110,13 @@ export default {
     },
     methods: {
         init () {
-            this.loadCompanys()
+            this.roleType = this.$store.state.user.roleType
+
+            if (this.roleType === 0 || this.roleType === 1) {
+                this.loadCompanys()
+            } else {
+                this.sCompany = this.$store.state.user.companyId
+            }
         },
 
         loadCompanys () {

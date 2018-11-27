@@ -21,15 +21,15 @@
                         </FormItem>
 
                         <FormItem label="热水进水温度">
-                            {{ parseInt(realInfo.hot_water_Input_temp, 16) }} &#8451;
+                            {{ realInfo.hot_water_Input_temp }} &#8451;
                         </FormItem>
 
                         <FormItem label="设定温度">
-                            {{ parseInt(realInfo.setting_temp, 16) }} &#8451;
+                            {{ realInfo.setting_temp }} &#8451;
                         </FormItem>
 
                         <FormItem label="出水温度">
-                            {{ parseInt(realInfo.outlet_water_temp, 16) }} &#8451;
+                            {{ realInfo.outlet_water_temp }} &#8451;
                         </FormItem>
 
                         <FormItem label="童锁">
@@ -75,15 +75,15 @@
                         </FormItem>
 
                         <FormItem label="出水流量">
-                            {{ (parseInt(realInfo.output_flow_rate, 16) * 0.1).toFixed(2) }} 升/分钟
+                            {{ (realInfo.output_flow_rate * 0.01).toFixed(2) }} 升/分钟
                         </FormItem>
 
                         <FormItem label="原水tds">
-                            {{ parseInt(realInfo.raw_water_tds, 16) }}
+                            {{ realInfo.raw_water_tds }}
                         </FormItem>
 
                         <FormItem label="净水tds">
-                            {{ parseInt(realInfo.pure_water_tds, 16) }}
+                            {{ realInfo.pure_water_tds }}
                         </FormItem>
 
                          <FormItem label="1号滤芯（PP棉）使用时间">
@@ -162,20 +162,6 @@ export default {
             equipment.getWaterCleanerStatus(this.serial_number).then(res => {
                 if (res.status === 0) {
                     vm.realInfo = res.entities[0]
-
-                    vm.realInfo.curr_water_yield = vm.transDigit(vm.realInfo.curr_water_yield, 4)
-                    vm.realInfo.set_water_yield = vm.transDigit(vm.realInfo.set_water_yield, 4)
-                    vm.realInfo.output_capacity_factor = vm.transDigit(vm.realInfo.output_capacity_factor, 4)
-
-                    vm.realInfo.filter_cartridge_age_1 = vm.transDigit(vm.realInfo.filter_cartridge_age_1, 4)
-                    vm.realInfo.filter_cartridge_age_2 = vm.transDigit(vm.realInfo.filter_cartridge_age_2, 4)
-                    vm.realInfo.filter_cartridge_age_3 = vm.transDigit(vm.realInfo.filter_cartridge_age_3, 4)
-                    vm.realInfo.filter_cartridge_age_4 = vm.transDigit(vm.realInfo.filter_cartridge_age_4, 4)
-
-                    vm.realInfo.filter_cartridge_used_time_1 = vm.transDigit(vm.realInfo.filter_cartridge_used_time_1, 4)
-                    vm.realInfo.filter_cartridge_used_time_2 = vm.transDigit(vm.realInfo.filter_cartridge_used_time_2, 4)
-                    vm.realInfo.filter_cartridge_used_time_3 = vm.transDigit(vm.realInfo.filter_cartridge_used_time_3, 4)
-                    vm.realInfo.filter_cartridge_used_time_4 = vm.transDigit(vm.realInfo.filter_cartridge_used_time_4, 4)
                 } else {
                     this.$Notice.error({
                         title: '获取实时状态出错',
