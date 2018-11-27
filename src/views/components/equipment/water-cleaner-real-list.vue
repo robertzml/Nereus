@@ -1,5 +1,5 @@
 <template>
-    <div class="water-heater-real-list">
+    <div class="water-cleaner-real-list">
         <Table :data="tableData" :columns="columns" stripe border></Table>
         <div style="margin: 10px;overflow-x: hidden" v-if="showPager">
             <div style="float: right;">
@@ -14,7 +14,7 @@
 import * as nereus from '@/utility/nereus.js'
 
 export default {
-    name: 'water-heater-statis-list',
+    name: 'water-cleaner-real-list',
     props: {
         itemList: { type: Array, required: true },
         showPager: { type: Boolean, default: true }
@@ -69,11 +69,6 @@ export default {
                     width: 100
                 },
                 {
-                    title: '冷水进水温度',
-                    key: 'cold_water_Input_temp',
-                    width: 100
-                },
-                {
                     title: '热水进水温度',
                     key: 'hot_water_Input_temp',
                     width: 100
@@ -114,16 +109,6 @@ export default {
                     width: 100
                 },
                 {
-                    title: '清洗开关',
-                    key: 'clean_control',
-                    width: 100,
-                    render: (h, params) => {
-                        return (
-                            this.cleanControl(params.row.clean_control)
-                        )
-                    }
-                },
-                {
                     title: '设备允许使用时间',
                     key: 'setting_allow_usetime',
                     width: 100,
@@ -142,6 +127,86 @@ export default {
                             nereus.displayDateTime(params.row.active_time)
                         )
                     }
+                },
+                {
+                    title: '纯水TDS',
+                    key: 'pure_water_tds',
+                    width: 100
+                },
+                {
+                    title: '原水TDS',
+                    key: 'raw_water_tds',
+                    width: 100
+                },
+                {
+                    title: '滤芯1寿命',
+                    key: 'filter_cartridge_age_1',
+                    width: 100
+                },
+                {
+                    title: '滤芯2寿命',
+                    key: 'filter_cartridge_age_2',
+                    width: 100
+                },
+                {
+                    title: '滤芯3寿命',
+                    key: 'filter_cartridge_age_3',
+                    width: 100
+                },
+                {
+                    title: '滤芯4寿命',
+                    key: 'filter_cartridge_age_4',
+                    width: 100
+                },
+                {
+                    title: '滤芯1使用时间',
+                    key: 'filter_cartridge_used_time_1',
+                    width: 100
+                },
+                {
+                    title: '滤芯2使用时间',
+                    key: 'filter_cartridge_used_time_2',
+                    width: 100
+                },
+                {
+                    title: '滤芯3使用时间',
+                    key: 'filter_cartridge_used_time_3',
+                    width: 100
+                },
+                {
+                    title: '滤芯4使用时间',
+                    key: 'filter_cartridge_used_time_4',
+                    width: 100
+                },
+                {
+                    title: '童锁',
+                    key: 'child_lock',
+                    width: 80,
+                    render: (h, params) => {
+                        return (
+                            this.childLock(params.row.child_lock)
+                        )
+                    }
+                },
+                {
+                    title: '设置模式',
+                    key: 'stop_start_cold_hot',
+                    width: 100,
+                    render: (h, params) => {
+                        return (
+                            this.setState(params.row.stop_start_cold_hot)
+                        )
+                    }
+                },
+                {
+                    title: '当前出水量',
+                    key: 'curr_water_yield',
+                    width: 100
+                },
+                {
+                    title: '设置出水量',
+                    key: 'set_water_yield',
+                    width: 100
                 },
                 {
                     title: '离线/在线',
@@ -169,7 +234,7 @@ export default {
             pageSizeOpt: [5, 10, 20, 30]
         }
     },
-    watch: {
+     watch: {
         itemList: function (val) {
             this.currentPage = 1
         }
@@ -220,13 +285,24 @@ export default {
             }
         },
 
-        cleanControl (val) {
+        childLock (val) {
             if (val === '0') {
-                return '非清洗状态'
+                return '关闭'
             } else if (val === '1') {
-                return '清洗状态'
+                return '开启'
+            }
+        },
+
+        setState (val) {
+            if (val === '0') {
+                return '停止'
+            } else if (val === '1') {
+                return '启动凉水'
+            } else if (val === '2') {
+                return '启动开水'
             }
         }
-    }
+    }  
 }
 </script>
+

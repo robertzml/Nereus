@@ -26,11 +26,16 @@
                         <Button type="primary" @click="search">查询</Button>
                     </div>
 
+                    <div class="filter-panel">
+                        <span>搜索</span>
+                        <Input v-model="filterKey" style="width: 200px"></Input>
+                    </div>
+
                     <div v-if="this.sProductType === 1">
-                        <water-heater-real-list :item-list="realData"></water-heater-real-list>
+                        <water-heater-real-list :item-list="waterHeaterfilterData"></water-heater-real-list>
                     </div>
                     <div v-else-if="this.sProductType === 2">
-
+                        <water-cleaner-real-list :item-list="waterCleanerFilterData"></water-cleaner-real-list>
                     </div>
                 </Card>
             </Col>
@@ -42,11 +47,13 @@
 import company from '@/controllers/company.js'
 import equipment from '@/controllers/equipment.js'
 import waterHeaterRealList from '../components/equipment/water-heater-real-list.vue'
+import waterCleanerRealList from '../components/equipment/water-cleaner-real-list.vue'
 
 export default {
     name: 'equipment-real',
     components: {
-        waterHeaterRealList
+        waterHeaterRealList,
+        waterCleanerRealList
     },
     data () {
         return {
@@ -57,8 +64,46 @@ export default {
             companyList: [],
             sProductType: 0,
             sCompany: 0,
-            realData: []
+            waterHeaterData: [],
+            waterCleanerData: [],
+            filterKey: ''
         }
+    },
+    computed: {
+        waterHeaterfilterData () {
+            let temp = this.waterHeaterData
+
+            if (this.sProductType !== 1) {
+                return temp
+            }
+            
+            let filterKey = this.filterKey && this.filterKey.toLowerCase()
+            if (filterKey) {
+                temp = temp.filter(function (row) {
+                    return Object.keys(row).some(function (key) {
+                        return String(row[key]).toLowerCase().indexOf(filterKey) > -1
+                    })
+                })
+            }
+            return temp
+        },
+        waterCleanerfilterData () {
+            let temp = this.waterCleanerData
+
+            if (this.sProductType !== 2) {
+                return temp
+            }
+            
+            let filterKey = this.filterKey && this.filterKey.toLowerCase()
+            if (filterKey) {
+                temp = temp.filter(function (row) {
+                    return Object.keys(row).some(function (key) {
+                        return String(row[key]).toLowerCase().indexOf(filterKey) > -1
+                    })
+                })
+            }
+            return temp
+        }        
     },
     methods: {
         init () {
@@ -98,17 +143,32 @@ export default {
             }
 
             let vm = this
-            equipment.getWaterHeaterRealByCompany(this.sCompany).then(res => {
-                if (res.status === 0) {
-                    vm.realData = res.entities
-                } else {
-                    this.$Notice.error({
-                        title: '获取记录失败',
-                        desc: res.message,
-                        duration: 5
-                    })
-                }
-            })
+
+            if (this.sProductType === 1) {
+                equipment.getWaterHeaterRealByCompany(this.sCompany).then(res => {
+                    if (res.status === 0) {
+                        vm.waterHeaterData = res.entities
+                    } else {
+                        this.$Notice.error({
+                            title: '获取记录失败',
+                            desc: res.message,
+                            duration: 5
+                        })
+                    }
+                })
+            } else if (this.sProductType === 2) {
+                equipment.getWaterCleanerRealByCompany(this.sCompany).then(res => {
+                    if (res.status === 0) {
+                        vm.waterCleanerData = res.entities
+                    } else {
+                        this.$Notice.error({
+                            title: '获取记录失败',
+                            desc: res.message,
+                            duration: 5
+                        })
+                    }
+                })
+            }
         }
     },
     mounted: function () {
@@ -116,3 +176,9 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.filter-panel {
+    margin-bottom: 15px;
+}
+</style>
