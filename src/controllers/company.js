@@ -55,5 +55,15 @@ export default {
         }).then(res => {
             return res.data
         })
+    },
+
+    // 增加协议
+    addAgreement (model) {
+        return api._post({ 
+            url: '/t_apply_protocol_template_from_platform/add', 
+            data: model
+        }).then(res => {
+            return res.data
+        })
     }
 }

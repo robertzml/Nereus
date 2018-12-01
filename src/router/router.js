@@ -74,7 +74,8 @@ export const appRouter = [
             { path: 'create', title: '厂商添加', name: 'company-create', component: resolve => { require(['@/views/company/create.vue'], resolve) } },
             { path: 'edit/:id', title: '厂商编辑', name: 'company-edit', component: resolve => { require(['@/views/company/edit.vue'], resolve) } },
             { path: 'agent-create', title: '代理商添加', name: 'company-agent-create', component: resolve => { require(['@/views/company/agent-create.vue'], resolve) } },
-            { path: 'agent-edit/:id', title: '代理商编辑', name: 'company-agent-edit', component: resolve => { require(['@/views/company/agent-edit.vue'], resolve) } }
+            { path: 'agent-edit/:id', title: '代理商编辑', name: 'company-agent-edit', component: resolve => { require(['@/views/company/agent-edit.vue'], resolve) } },
+            { path: 'agreement', title: '协议管理', name: 'agreement-index', parent: 'company-menu', component: resolve => { require(['@/views/company/agreement.vue'], resolve) } }
         ]
     },
     {
