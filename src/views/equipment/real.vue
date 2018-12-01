@@ -17,18 +17,21 @@
                         <Select v-model="sProductType" style="width:200px" placeholder="选择产品类型">
                             <Option v-for="item in productTypeList" :value="item.id" :key="item.id">{{ item.name }}</Option>
                         </Select>
-
-                        <div v-if="this.roleType === 0 || this.roleType === 1">
-                        <span>所属厂商</span>
-                        <Select v-model="sCompany" style="width:200px" placeholder="选择厂商">
+                        
+                        <span v-if="this.roleType === 0 || this.roleType === 1">所属厂商</span>
+                        <Select v-if="this.roleType === 0 || this.roleType === 1" v-model="sCompany" style="width:200px" placeholder="选择厂商">
                             <Option v-for="item in companyList" :value="item.id" :key="item.id">{{ item.name }}</Option>
                         </Select>
-                        </div>
 
                         <Button type="primary" @click="search">查询</Button>
                     </div>
 
                     <div class="filter-panel">
+                        <span>在线状态: </span>
+                        <Select v-model="sPower" style="width:200px" placeholder="选择在线状态" clearable>
+                            <Option v-for="item in powerList" :value="item.id" :key="item.id">{{ item.name }}</Option>
+                        </Select>
+
                         <span>搜索</span>
                         <Input v-model="filterKey" style="width: 200px"></Input>
                     </div>
@@ -69,7 +72,12 @@ export default {
             sCompany: 0,
             waterHeaterData: [],
             waterCleanerData: [],
-            filterKey: ''
+            filterKey: '',
+            powerList: [
+                { id: '0', name: '关机' },
+                { id: '1', name: '开机' }
+            ],
+            sPower: 0
         }
     },
     computed: {
@@ -78,6 +86,10 @@ export default {
 
             if (this.sProductType !== 1) {
                 return temp
+            }
+
+            if (this.sPower) {
+                temp = temp.filter(r => r.power === this.sPower)
             }
             
             let filterKey = this.filterKey && this.filterKey.toLowerCase()
@@ -95,6 +107,10 @@ export default {
 
             if (this.sProductType !== 2) {
                 return temp
+            }
+
+            if (this.sPower !== -1) {
+                temp = temp.filter(r => r.power === this.sPower)
             }
             
             let filterKey = this.filterKey && this.filterKey.toLowerCase()
