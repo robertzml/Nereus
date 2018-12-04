@@ -57,6 +57,22 @@ export default {
         })
     },
 
+    // 获取平台协议模版
+    findAllAgreement () {
+        return api._get({ url: '/t_apply_protocol_template_from_platform/findAll' })
+            .then(res => {
+                return res.data
+            })
+    },
+
+    // 获取协议
+    findAgreementById (id) {
+        return api._get({ url: '/t_apply_protocol_template_from_platform/findOne', params: { id: id } })
+            .then(res => {
+                return res.data
+            })
+    },
+
     // 增加协议
     addAgreement (model) {
         return api._post({ 
