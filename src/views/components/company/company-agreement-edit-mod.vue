@@ -1,6 +1,6 @@
 <template>
-    <div class="company-agreement-derive-mod">
-        <Modal v-model="showModal" :loading="loading" title="生成厂商协议"  @on-visible-change="changeVisible" @on-ok="submit()" width="800">
+    <div class="company-agreement-edit-mod">
+        <Modal v-model="showModal" :loading="loading" title="编辑厂商协议"  @on-visible-change="changeVisible" @on-ok="submit()" width="800">
             <Form ref="formTrade" :model="agreementInfo" :label-width="150">
                 <FormItem label="名称">
                     <Input v-model="agreementInfo.name"  style="width: 300px;"></Input>
@@ -26,22 +26,21 @@
                 </FormItem>
             </Form>
 
-            <div ref="editor" style="text-align:left"></div>
+             <div ref="editor" style="text-align:left"></div>
         </Modal>
     </div>
 </template>
 
 <script>
-// 派生厂商协议
 import E from 'wangeditor'
 import company from '@/controllers/company.js'
 import product from '@/controllers/product.js'
 
 export default {
-    name: 'company-agreement-derive-mod',
+    name: 'company-agreement-edit-mod',
     data () {
         return {
-            parentId: 0,
+            id: 0,
             companyId: 0,
             agreementInfo: {
                 name: '',
@@ -69,7 +68,6 @@ export default {
     methods: {
         init () {
             this.companyId = this.$store.state.user.companyId
-
             this.getProducts()
 
             this.editor = new E(this.$refs.editor)
@@ -77,14 +75,14 @@ export default {
                 this.editorContent = html
             }
             this.editor.create()
-            
-            this.getAgreement(this.parentId)
+
+            this.getAgreement(this.id)
         },
 
         getAgreement (id) {
             let vm = this
 
-            company.findAgreementById(id).then(res => {
+            company.findCompanyAgreementById(id).then(res => {
                 if (res.status === 0) {
                     vm.agreementInfo = res.entity
                     vm.editor.txt.html(res.entity.apply_protocol_template)
@@ -103,8 +101,8 @@ export default {
             })
         },
 
-        show (parentId) {
-            this.parentId = parentId
+        show (id) {
+            this.id = id
             this.showModal = true
         },
         changeVisible (val) {
@@ -117,9 +115,8 @@ export default {
         },
         submit () {
             let act = {
+                id: this.agreementInfo.id,
                 name: this.agreementInfo.name,
-                money_type: this.agreementInfo.money_type,
-                product_id: this.agreementInfo.product_id,
                 remark: this.agreementInfo.remark,
                 apply_protocol_template: this.editorContent
             }
@@ -132,17 +129,8 @@ export default {
                 })
                 return
             }
-
-            if (act.money_type === 0 || act.product_id === 0) {
-                this.$Message.warning('请选择销售类型和产品类型')
-                this.loading = false
-                this.$nextTick(() => {
-                    this.loading = true
-                })
-                return
-            }
             
-            company.addCompanyAgreement(act).then(res => {
+            company.editAgreement(act).then(res => {
                 if (res.status === 0) {
                     this.$Notice.success({
                         title: '编辑成功',

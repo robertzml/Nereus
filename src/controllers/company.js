@@ -116,5 +116,15 @@ export default {
         }).then(res => {
             return res.data
         })
+    },
+
+    // 编辑厂商协议
+    editCompanyAgreement (model) {
+        return api._post({ 
+            url: '/t_apply_protocol_template_from_company/update', 
+            data: model
+        }).then(res => {
+            return res.data
+        })
     }
 }

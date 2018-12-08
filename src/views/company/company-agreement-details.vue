@@ -12,7 +12,7 @@
                             {{ agreementInfo.name }}
                         </FormItem>
                         <FormItem label="产品名称">
-                            {{ agreementInfo.t_product_name }}
+                            {{ agreementInfo.product_name }}
                         </FormItem>
                         <FormItem label="销售类型">
                             {{ agreementInfo.money_type | moneyType }}
@@ -48,18 +48,18 @@
             </div>
         </Card>
        
-        <agreement-edit-mod ref="agreementMod" @refresh="getAgreement"></agreement-edit-mod>
+        <company-agreement-edit-mod ref="agreementMod" @refresh="getAgreement"></company-agreement-edit-mod>
     </div>
 </template>
 
 <script>
 import company from '@/controllers/company.js'
-import agreementEditMod from '../components/company/agreement-edit-mod.vue'
+import companyAgreementEditMod from '../components/company/company-agreement-edit-mod.vue'
 
 export default {
     name: 'company-agreement-details',
     components: {
-        agreementEditMod
+        companyAgreementEditMod
     },
     data () {
         return {
