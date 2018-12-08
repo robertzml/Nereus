@@ -130,7 +130,7 @@ export const moneyType = (val) => {
         case 1:
             return '一次性付款'
         case 2:
-            return '分期付款'
+            return '固定分期'
         case 31:
             return '固定租金'
         case 32:

@@ -3,7 +3,7 @@
         <Card>
             <p slot="title">
                 <Icon type="grid"></Icon>
-                标准协议
+                平台协议
             </p>
             <Form :model="agreementInfo" :label-width="80">
                 <Row>
@@ -28,7 +28,8 @@
 
             <br />
             <Button type="primary" @click="toIndex" style="margin-left: 8px">返回</Button>
-            <Button type="warning" @click="showEdit" style="margin-left: 8px">编辑</Button>
+            <Button type="warning" v-if="this.roleType === 0 || this.roleType === 1" @click="showEdit" style="margin-left: 8px">编辑</Button>
+            <Button type="success" @click="toIndex" style="margin-left: 8px">生成厂商协议</Button>
         </Card>
 
         <br />
@@ -58,11 +59,13 @@ export default {
     data () {
         return {
             agreementId: 0,
-            agreementInfo: {}
+            agreementInfo: {},
+            roleType: 0
         }
     },
     methods: {
         init () {
+            this.roleType = this.$store.state.user.roleType
             this.getAgreement()
         },
 

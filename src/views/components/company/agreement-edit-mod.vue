@@ -97,28 +97,53 @@ export default {
                 return
             }
 
-            company.editAgreement(act).then(res => {
-                if (res.status === 0) {
-                    this.$Notice.success({
-                        title: '编辑成功',
-                        desc: res.message
-                    })
+            if (this.id === 0) {
+                company.addAgreement(act).then(res => {
+                    if (res.status === 0) {
+                        this.$Notice.success({
+                            title: '编辑成功',
+                            desc: res.message
+                        })
 
-                    setTimeout(() => {
-                        this.$emit('refresh')
-                        this.showModal = false
-                    }, 1000)
-                } else {
-                    this.$Notice.error({
-                        title: '编辑失败',
-                        desc: res.message
-                    })
-                    this.loading = false
-                    this.$nextTick(() => {
-                        this.loading = true
-                    })
-                }
-            })
+                        setTimeout(() => {
+                            this.$emit('refresh')
+                            this.showModal = false
+                        }, 1000)
+                    } else {
+                        this.$Notice.error({
+                            title: '编辑失败',
+                            desc: res.message
+                        })
+                        this.loading = false
+                        this.$nextTick(() => {
+                            this.loading = true
+                        })
+                    }
+                })
+            } else {
+                company.editAgreement(act).then(res => {
+                    if (res.status === 0) {
+                        this.$Notice.success({
+                            title: '编辑成功',
+                            desc: res.message
+                        })
+
+                        setTimeout(() => {
+                            this.$emit('refresh')
+                            this.showModal = false
+                        }, 1000)
+                    } else {
+                        this.$Notice.error({
+                            title: '编辑失败',
+                            desc: res.message
+                        })
+                        this.loading = false
+                        this.$nextTick(() => {
+                            this.loading = true
+                        })
+                    }
+                })
+            }
         }
     }
 }
