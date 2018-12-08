@@ -1,5 +1,5 @@
 <template>
-    <div class="agreement-list">
+    <div class="company-agreement-list">
         <Table :data="tableData" :columns="columns" border stripe></Table>
         <div style="margin: 10px;overflow-x: hidden" v-if="showPager">
             <div style="float: right;">
@@ -14,7 +14,7 @@
 import * as nereus from '@/utility/nereus.js'
 
 export default {
-    name: 'agreement-list',
+    name: 'company-agreement-list',
     props: {
         itemList: { type: Array, required: true },
         showPager: { type: Boolean, default: true }
@@ -30,6 +30,23 @@ export default {
                 {
                     title: '名称',
                     key: 'name'
+                },
+                {
+                    title: '公司名称',
+                    key: 't_company_name'
+                },
+                {
+                    title: '销售类型',
+                    key: 'money_type',
+                    render: (h, params) => {
+                        return (
+                            <span>{ nereus.moneyType(params.row.money_type) }</span>
+                        )
+                    }
+                },
+                {
+                    title: '产品名称',
+                    key: 't_product_name'
                 },
                 {
                     title: '备注',
@@ -89,7 +106,7 @@ export default {
             this.pageSize = pageSize
         },
         showDetails (item) {
-            this.$router.push({ name: 'agreement-details', params: { id: item.id } })
+            this.$router.push({ name: 'company-agreement-details', params: { id: item.id } })
         }
     }
 }

@@ -1,9 +1,9 @@
 <template>
-    <div class="agreement-details">
+    <div class="company-agreement-details">
         <Card>
             <p slot="title">
                 <Icon type="grid"></Icon>
-                平台协议
+                厂商协议
             </p>
             <Form :model="agreementInfo" :label-width="80">
                 <Row>
@@ -11,11 +11,17 @@
                         <FormItem label="名称">
                             {{ agreementInfo.name }}
                         </FormItem>
-                        <FormItem label="备注">
-                            {{ agreementInfo.remark }}
+                        <FormItem label="产品名称">
+                            {{ agreementInfo.t_product_name }}
+                        </FormItem>
+                        <FormItem label="销售类型">
+                            {{ agreementInfo.money_type | moneyType }}
                         </FormItem>
                     </Col>
                     <Col span="10" push="2">
+                        <FormItem label="备注">
+                            {{ agreementInfo.remark }}
+                        </FormItem>
                         <FormItem label="创建时间">
                             {{ agreementInfo.create_date | displayDateTime }}
                         </FormItem>
@@ -28,8 +34,7 @@
 
             <br />
             <Button type="primary" @click="toIndex" style="margin-left: 8px">返回</Button>
-            <Button type="warning" v-if="this.roleType === 0 || this.roleType === 1" @click="showEdit" style="margin-left: 8px">编辑</Button>
-            <Button type="success" @click="showCompanyDerive" style="margin-left: 8px">生成厂商协议</Button>
+            <Button type="warning" v-if="this.roleType === 2" @click="showEdit" style="margin-left: 8px">编辑</Button>
         </Card>
 
         <br />
@@ -44,20 +49,17 @@
         </Card>
        
         <agreement-edit-mod ref="agreementMod" @refresh="getAgreement"></agreement-edit-mod>
-        <company-agreement-derive-mod ref="companyAgreementMod"></company-agreement-derive-mod>
     </div>
 </template>
 
 <script>
 import company from '@/controllers/company.js'
 import agreementEditMod from '../components/company/agreement-edit-mod.vue'
-import companyAgreementDeriveMod from '../components/company/company-agreement-derive-mod.vue'
 
 export default {
-    name: 'agreement-details',
+    name: 'company-agreement-details',
     components: {
-        agreementEditMod,
-        companyAgreementDeriveMod
+        agreementEditMod
     },
     data () {
         return {
@@ -75,7 +77,7 @@ export default {
         getAgreement () {
             let vm = this
            
-            company.findAgreementById(this.agreementId).then(res => {
+            company.findCompanyAgreementById(this.agreementId).then(res => {
                 if (res.status === 0) {
                     vm.agreementInfo = res.entity
                 } else {
@@ -93,10 +95,6 @@ export default {
 
         showEdit () {
             this.$refs.agreementMod.show(this.agreementId)
-        },
-
-        showCompanyDerive () {
-            this.$refs.companyAgreementMod.show(this.agreementId)
         }
     },
     mounted: function () {

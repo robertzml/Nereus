@@ -38,10 +38,6 @@ export default {
     },
     methods: {
         init () {
-            this.agreementInfo.tradeInMoney = 0
-            this.agreementInfo.tradeInCoupon = 0
-            this.agreementInfo.remark = ''
-
             this.editor = new E(this.$refs.editor)
             this.editor.customConfig.onchange = (html) => {
                 this.editorContent = html
@@ -50,6 +46,9 @@ export default {
 
             if (this.id !== 0) {
                 this.getAgreement(this.id)
+            } else {
+                this.agreementInfo.name = ''
+                this.agreementInfo.remark = ''
             }
         },
 

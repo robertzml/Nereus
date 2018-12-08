@@ -91,5 +91,30 @@ export default {
         }).then(res => {
             return res.data
         })
+    },
+
+    // 获取厂商协议
+    findCompanyAgreement () {
+        return api._get({ url: '/t_apply_protocol_template_from_company/findAll' })
+            .then(res => {
+                return res.data
+            })
+    },
+
+    findCompanyAgreementById (id) {
+        return api._get({ url: '/t_apply_protocol_template_from_company/findOne', params: { id: id } })
+            .then(res => {
+                return res.data
+            })
+    },
+
+    // 增加厂商协议
+    addCompanyAgreement (model) {
+        return api._post({ 
+            url: '/t_apply_protocol_template_from_company/add', 
+            data: model
+        }).then(res => {
+            return res.data
+        })
     }
 }
