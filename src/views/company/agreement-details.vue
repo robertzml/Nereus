@@ -28,6 +28,7 @@
 
             <br />
             <Button type="primary" @click="toIndex" style="margin-left: 8px">返回</Button>
+            <Button type="warning" @click="showEdit" style="margin-left: 8px">编辑</Button>
         </Card>
 
         <br />
@@ -41,15 +42,18 @@
             </div>
         </Card>
        
+        <agreement-edit-mod ref="agreementMod" @refresh="getAgreement"></agreement-edit-mod>
     </div>
 </template>
 
 <script>
 import company from '@/controllers/company.js'
+import agreementEditMod from '../components/company/agreement-edit-mod.vue'
 
 export default {
     name: 'agreement-details',
-    props: {
+    components: {
+        agreementEditMod
     },
     data () {
         return {
@@ -59,14 +63,13 @@ export default {
     },
     methods: {
         init () {
-            this.getAgreement(this.agreementId)
+            this.getAgreement()
         },
 
-        getAgreement (id) {
+        getAgreement () {
             let vm = this
-            this.agreementId = id
            
-            company.findAgreementById(id).then(res => {
+            company.findAgreementById(this.agreementId).then(res => {
                 if (res.status === 0) {
                     vm.agreementInfo = res.entity
                 } else {
@@ -80,6 +83,10 @@ export default {
 
         toIndex () {
             this.$router.push({ name: 'agreement-index' })
+        },
+
+        showEdit () {
+            this.$refs.agreementMod.show(this.agreementId)
         }
     },
     mounted: function () {

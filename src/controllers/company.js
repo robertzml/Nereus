@@ -81,5 +81,15 @@ export default {
         }).then(res => {
             return res.data
         })
+    },
+
+    // 编辑协议
+    editAgreement (model) {
+        return api._post({ 
+            url: '/t_apply_protocol_template_from_platform/update', 
+            data: model
+        }).then(res => {
+            return res.data
+        })
     }
 }
