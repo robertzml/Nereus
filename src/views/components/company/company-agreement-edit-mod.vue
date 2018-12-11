@@ -85,6 +85,7 @@ export default {
             company.findCompanyAgreementById(id).then(res => {
                 if (res.status === 0) {
                     vm.agreementInfo = res.entity
+                    vm.editorContent = res.entity.apply_protocol_template
                     vm.editor.txt.html(res.entity.apply_protocol_template)
                 } else {
                     this.$Notice.error({
@@ -130,7 +131,7 @@ export default {
                 return
             }
             
-            company.editAgreement(act).then(res => {
+            company.editCompanyAgreement(act).then(res => {
                 if (res.status === 0) {
                     this.$Notice.success({
                         title: '编辑成功',

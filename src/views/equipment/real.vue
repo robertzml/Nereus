@@ -40,7 +40,7 @@
                         <water-heater-real-list :item-list="waterHeaterfilterData"></water-heater-real-list>
                     </div>
                     <div v-else-if="this.sProductType === 2">
-                        <water-cleaner-real-list :item-list="waterCleanerFilterData"></water-cleaner-real-list>
+                        <water-cleaner-real-list :item-list="waterCleanerfilterData"></water-cleaner-real-list>
                     </div>
                 </Card>
             </Col>
@@ -122,7 +122,7 @@ export default {
                 })
             }
             return temp
-        }        
+        }
     },
     methods: {
         init () {
