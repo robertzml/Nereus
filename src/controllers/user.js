@@ -87,5 +87,31 @@ export default {
             .then(res => {
                 return res.data
             })
+    },
+
+    // 查看申请更换设备主人电话号码列表
+    getApplyUpdatePhoneList (companyId) {
+        return api._get({ url: '/t_equipment_owner_protocol/findTApplyUpdatePhone', params: { company_id: companyId } })
+            .then(res => {
+                return res.data
+            }) 
+    },
+
+    // 修改用户电话
+    updateOwnerPhone (model) {
+        return api._post({ 
+            url: '/t_equipment_owner_protocol/updateOwnerPhone',
+            data: model
+        }).then(res => {
+            return res.data
+        })
+    },
+
+    // 查看用户协议
+    findUserAgreement (companyId) {
+        return api._get({ url: '/t_equipment_owner_apply_protocol/findInfoByCompanyId', params: { company_id: companyId } })
+            .then(res => {
+                return res.data
+            }) 
     }
 }

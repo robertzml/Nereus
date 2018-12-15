@@ -156,7 +156,9 @@ export const appRouter = [
         component: Home,
         children: [
             { path: 'index', title: '用户管理', parent: 'user-menu', role: 6, name: 'user-index', meta: { keepAlive: true }, component: resolve => { require(['@/views/user/index.vue'], resolve) } },
-            { path: 'details/:id/:code/:aid', title: '用户信息', role: 6, name: 'user-details', component: resolve => { require(['@/views/user/details.vue'], resolve) } }
+            { path: 'details/:id/:code/:aid', title: '用户信息', role: 6, name: 'user-details', component: resolve => { require(['@/views/user/details.vue'], resolve) } },
+            { path: 'agreement', title: '用户协议', parent: 'user-menu', name: 'user-agreement', meta: { keepAlive: true }, component: resolve => { require(['@/views/user/agreement.vue'], resolve) } },
+            { path: 'apply', title: '申请信息', parent: 'user-menu', name: 'user-apply', meta: { keepAlive: true }, component: resolve => { require(['@/views/user/apply.vue'], resolve) } }
         ]
     },
     {
