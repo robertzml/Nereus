@@ -1,6 +1,10 @@
 <template>
-    <div class="agreement-edit-mod">
-        <Modal v-model="showModal" :loading="loading" title="编辑协议"  @on-visible-change="changeVisible" :mask-closable="false" @on-ok="submit()" width="800">
+    <div class="agreement-create">
+        <Card>
+            <p slot="title">
+                <Icon type="grid"></Icon>
+                平台协议
+            </p>
             <Form ref="formTrade" :model="agreementInfo" :label-width="150">
                 <FormItem label="名称">
                     <Input v-model="agreementInfo.name"  style="width: 300px;"></Input>
@@ -9,19 +13,35 @@
                 <FormItem label="备注">
                     <Input v-model="agreementInfo.remark" style="width: 300px;"></Input>
                 </FormItem>
-                
-                <div ref="editor" style="text-align:left"></div>
+
+                <quill-editor v-model="content"
+                    ref="myQuillEditor"
+                    :options="editorOption">
+                </quill-editor>
+                <div id="editor-wrapper"></div>
+
+                <FormItem>
+                    <Button type="success">保存</Button>
+                    <Button type="primary">返回</Button>
+                </FormItem>
             </Form>
-        </Modal>
+        </Card>
     </div>
 </template>
 
 <script>
-import E from 'wangeditor'
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+import { quillEditor } from 'vue-quill-editor'
+
 import company from '@/controllers/company.js'
 
 export default {
-    name: 'agreement-edit-mod',
+    name: 'agreement-create',
+    components: {
+        quillEditor
+    },
     data () {
         return {
             id: 0,
@@ -30,10 +50,33 @@ export default {
                 remark: '',
                 apply_protocol_template: ''
             },
-            editor: null,
-            editorContent: '',
+            content: '<p>example content</p>',
+            editorOption: {
+                bounds: '#editor-container',
+                scrollingContainer: '#editor-container',
+                modules: {
+                    toolbar: [
+                        ['bold', 'italic', 'underline', 'strike'],
+                        ['blockquote', 'code-block'],
+                        [{ 'header': 1 }, { 'header': 2 }],
+                        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                        [{ 'script': 'sub' }, { 'script': 'super' }],
+                        [{ 'indent': '-1' }, { 'indent': '+1' }],
+                        [{ 'size': ['small', false, 'large', 'huge'] }],
+                        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+                        [{ 'font': [] }],
+                        [{ 'color': [] }, { 'background': [] }],
+                        [{ 'align': [] }],
+                        ['clean']
+                    ]}
+            },
             showModal: false,
             loading: true
+        }
+    },
+    computed: {
+        editor () {
+            return this.$refs.myQuillEditor.quill
         }
     },
     methods: {
@@ -44,14 +87,6 @@ export default {
                 this.agreementInfo.name = ''
                 this.agreementInfo.remark = ''
             }
-        },
-
-        initEditor () {
-            this.editor = new E(this.$refs.editor)
-            this.editor.customConfig.onchange = (html) => {
-                this.editorContent = html
-            }
-            this.editor.create()
         },
 
         getAgreement (id) {
@@ -148,7 +183,14 @@ export default {
         }
     },
     mounted: function () {
-        this.initEditor()
+        console.log('this is my editor, example 2', this.editor)
     }
 }
 </script>
+
+<style scoped>
+#editor-wrapper {
+    height: 300px;
+    overflow-y: auto;
+}
+</style>

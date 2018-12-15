@@ -39,6 +39,7 @@ export default {
         { name: 'account-vendor-index', roles: [5, 6, 7] },
         { name: 'account-agent-index', roles: [5, 6, 7, 8, 9] },
         { name: 'agreement-index', roles: [1, 2, 3, 4, 5] },
+        { name: 'agreement-push', roles: [1, 2, 3, 4] },
         { name: 'product-index', roles: [1, 2, 3, 4, 5, 6] },
         { name: 'product-type-index', roles: [1, 2, 3] },
         { name: 'role-index', roles: [1] },

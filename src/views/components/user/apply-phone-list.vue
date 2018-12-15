@@ -105,13 +105,13 @@ export default {
         },
 
         audit (item) {
-             let act = [{
+             let act = {
                 new_owner_phone: item.new_phone,
                 old_owner_phone: item.old_phone,
                 apply_id: item.apply_id,
                 consumer_id: item.consumer_id,
                 company_code: item.company_code
-            }]
+            }
 
             user.updateOwnerPhone(act).then(res => {
                 if (res.status === 0) {

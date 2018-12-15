@@ -1,6 +1,6 @@
 <template>
     <div class="company-agreement-edit-mod">
-        <Modal v-model="showModal" :loading="loading" title="编辑厂商协议"  @on-visible-change="changeVisible" @on-ok="submit()" width="800">
+        <Modal v-model="showModal" :loading="loading" title="编辑厂商协议"  @on-visible-change="changeVisible" :mask-closable="false" @on-ok="submit()" width="800">
             <Form ref="formTrade" :model="agreementInfo" :label-width="150">
                 <FormItem label="名称">
                     <Input v-model="agreementInfo.name"  style="width: 300px;"></Input>

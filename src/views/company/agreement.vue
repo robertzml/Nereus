@@ -94,6 +94,7 @@ export default {
 
         showCreate () {
             this.$refs.addMod.show(0)
+            // this.$router.push({ name: 'agreement-create' })
         }
     },
     mounted () {
