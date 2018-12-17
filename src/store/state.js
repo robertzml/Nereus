@@ -56,6 +56,7 @@ export default {
         { name: 'equipment-real', roles: [1, 2, 3, 4, 5] },
         { name: 'user-index', roles: [1, 2, 3, 4, 5, 6] },
         { name: 'user-agreement', roles: [1, 2, 3, 4, 5, 6, 8] },
+        { name: 'user-agreement-details', roles: [1, 2, 3, 4, 5, 6, 8] },
         { name: 'user-apply', roles: [1, 2, 3, 4, 5] },
         { name: 'coupon-index', roles: [1, 2, 3, 4, 5, 6] },
         { name: 'bill-unpaid', roles: [1, 2, 3, 4, 5, 8] },

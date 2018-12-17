@@ -5,7 +5,7 @@
                 <Icon type="grid"></Icon>
                 用户协议
             </p>
-            <a href="#" slot="extra" @click.prevent="loadUsers">
+            <a href="#" slot="extra" @click.prevent="getAgreementList">
                 <Icon type="ios-loop-strong"></Icon>
                 刷新
             </a>
@@ -14,6 +14,11 @@
                 <span>厂商</span>
                 <Select v-model="sCompany" style="width:300px" placeholder="厂商">
                     <Option v-for="item in companyList" :value="item.id" :key="item.id">{{ item.name }}</Option>
+                </Select>
+
+                <span>状态</span>
+                <Select v-model="sStatus" style="width:300px" placeholder="状态">
+                    <Option v-for="item in statusList" :value="item.id" :key="item.id">{{ item.name }}</Option>
                 </Select>
 
                 <Button type="primary" @click="getAgreementList">查询</Button>
@@ -38,6 +43,12 @@ export default {
         return {
             sCompany: 0,
             companyList: [],
+            sStatus: 0,
+            statusList: [
+                { id: 0, name: '正常' },
+                { id: 1, name: '删除' },
+                { id: 3, name: '隐藏' }
+            ],
             agreementData: []
         }
     },
@@ -64,7 +75,7 @@ export default {
             }
 
             let vm = this
-            user.findUserAgreement(this.sCompany).then(res => {
+            user.findUserAgreement(this.sCompany, this.sStatus).then(res => {
                 if (res.status === 0) {
                     vm.agreementData = res.entities
                 } else {

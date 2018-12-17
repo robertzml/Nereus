@@ -108,8 +108,15 @@ export default {
     },
 
     // 查看用户协议
-    findUserAgreement (companyId) {
-        return api._get({ url: '/t_equipment_owner_apply_protocol/findInfoByCompanyId', params: { company_id: companyId } })
+    findUserAgreement (companyId, status) {
+        return api._get({ url: '/t_equipment_owner_apply_protocol/findInfoByCompanyId', params: { company_id: companyId, status: status } })
+            .then(res => {
+                return res.data
+            }) 
+    },
+
+    findUserAgreementInfo (id) {
+        return api._get({ url: '/t_equipment_owner_apply_protocol/findContentById', params: { id: id } })
             .then(res => {
                 return res.data
             }) 

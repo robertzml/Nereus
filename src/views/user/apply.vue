@@ -5,14 +5,14 @@
                 <Card>
                     <p slot="title">
                         <Icon type="grid"></Icon>
-                        申请更换设备主人电话列表
+                        更改账号绑定电话申请
                     </p>
-                    <a href="#" slot="extra" @click.prevent="loadUsers">
+                    <a href="#" slot="extra" @click.prevent="getApplyList">
                         <Icon type="ios-loop-strong"></Icon>
                         刷新
                     </a>
 
-                     <div class="filter-panel" style="margin-bottom:15px;">
+                     <div class="filter-panel" style="margin-bottom:15px;" v-if="this.roleType === 0 || this.roleType === 1">
                         <span>厂商</span>
                         <Select v-model="sCompany" style="width:300px" placeholder="厂商">
                             <Option v-for="item in companyList" :value="item.id" :key="item.id">{{ item.name }}</Option>
@@ -42,6 +42,7 @@ export default {
     },
     data () {
         return {
+            roleType: 0,
             sCompany: 0,
             companyList: [],
             applyData: []
@@ -49,7 +50,13 @@ export default {
     },
     methods: {
         init () {
-            this.getCompanys()
+            this.roleType = this.$store.state.user.roleType
+            if (this.roleType === 0 || this.roleType === 1) {
+                this.getCompanys()
+            } else if (this.roleType === 2) {
+                this.sCompany = this.$store.state.user.companyId
+                this.getApplyList()
+            }
         },
 
         getCompanys () {

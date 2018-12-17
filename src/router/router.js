@@ -159,6 +159,7 @@ export const appRouter = [
             { path: 'index', title: '用户管理', parent: 'user-menu', role: 6, name: 'user-index', meta: { keepAlive: true }, component: resolve => { require(['@/views/user/index.vue'], resolve) } },
             { path: 'details/:id/:code/:aid', title: '用户信息', role: 6, name: 'user-details', component: resolve => { require(['@/views/user/details.vue'], resolve) } },
             { path: 'agreement', title: '用户协议', parent: 'user-menu', name: 'user-agreement', meta: { keepAlive: true }, component: resolve => { require(['@/views/user/agreement.vue'], resolve) } },
+            { path: 'agreement-details', title: '用户协议信息', name: 'user-agreement-details', meta: { keepAlive: true }, component: resolve => { require(['@/views/user/agreement-details.vue'], resolve) } },
             { path: 'apply', title: '申请信息', parent: 'user-menu', name: 'user-apply', meta: { keepAlive: true }, component: resolve => { require(['@/views/user/apply.vue'], resolve) } }
         ]
     },

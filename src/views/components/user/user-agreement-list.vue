@@ -36,6 +36,10 @@ export default {
                     key: 'real_user_name'
                 },
                 {
+                    title: '用户app注册电话号码',
+                    key: 'consumer_phone'
+                },
+                {
                     title: '代理公司名称',
                     key: 'agent_company_name'
                 },
@@ -64,16 +68,31 @@ export default {
                     key: 'owner_address_detail'
                 },
                 {
-                    title: '代理商是否同意',
-                    key: 'agent_operatier_is_agree'
+                    title: '厂商是否同意',
+                    key: 'company_operatier_is_agree',
+                    render: (h, params) => {
+                        return (
+                            this.isAgree(params.row.company_operatier_is_agree)
+                        )
+                    }
                 },
                 {
-                    title: '厂商是否同意',
-                    key: 'company_operatier_is_agree'
+                    title: '代理商是否同意',
+                    key: 'agent_operatier_is_agree',
+                    render: (h, params) => {
+                        return (
+                            this.isAgree(params.row.agent_operatier_is_agree)
+                        )
+                    }
                 },
                 {
                     title: '设备是否安装成功',
-                    key: 'equipment_install_is_success'
+                    key: 'equipment_install_is_success',
+                    render: (h, params) => {
+                        return (
+                            this.isAgree(params.row.equipment_install_is_success)
+                        )
+                    }
                 },
                 {
                     title: '创建日期',
@@ -117,8 +136,16 @@ export default {
             this.pageSize = pageSize
         },
 
+        isAgree (val) {
+            if (val === 0) {
+                return '否'
+            } else {
+                return '是'
+            }
+        },
+
         showDetails (item) {
-            
+             this.$router.push({ name: 'user-agreement-details', params: { id: item.id } })
         }
     }
 }
