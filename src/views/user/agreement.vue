@@ -11,8 +11,8 @@
             </a>
 
             <div class="filter-panel">
-                <span>厂商</span>
-                <Select v-model="sCompany" style="width:300px" placeholder="厂商">
+                <span v-if="this.roleType === 0 || this.roleType === 1">厂商</span>
+                <Select v-model="sCompany" style="width:300px" placeholder="厂商" v-if="this.roleType === 0 || this.roleType === 1">
                     <Option v-for="item in companyList" :value="item.id" :key="item.id">{{ item.name }}</Option>
                 </Select>
 
@@ -41,6 +41,7 @@ export default {
     },
     data () {
         return {
+            roleType: 0,
             sCompany: 0,
             companyList: [],
             sStatus: 0,
@@ -54,7 +55,14 @@ export default {
     },
     methods: {
         init () {
-            this.getCompanys()
+            this.roleType = this.$store.state.user.roleType
+
+            if (this.roleType === 0 || this.roleType === 1) {
+                this.getCompanys()
+            } else if (this.roleType === 2) {
+                this.sCompany = this.$store.state.user.companyId
+                this.getAgreementList()
+            }
         },
 
         getCompanys () {

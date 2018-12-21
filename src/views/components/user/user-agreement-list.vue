@@ -138,9 +138,13 @@ export default {
 
         isAgree (val) {
             if (val === 0) {
-                return '否'
+                return '待确认'
+            } else if (val === 1) {
+                return '同意'
+            } else if (val === -1) {
+                return '不同意'
             } else {
-                return '是'
+                return ''
             }
         },
 

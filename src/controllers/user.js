@@ -120,5 +120,15 @@ export default {
             .then(res => {
                 return res.data
             }) 
+    },
+
+    // 确认设备安装
+    equipmentIsInstall (model) {
+        return api._post({ 
+            url: '/t_equipment_owner_apply_protocol/equipmentIsInstall',
+            data: model
+        }).then(res => {
+            return res.data
+        })
     }
 }
