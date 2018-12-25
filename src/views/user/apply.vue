@@ -12,7 +12,7 @@
                         刷新
                     </a>
 
-                     <div class="filter-panel" style="margin-bottom:15px;" v-if="this.roleType === 0 || this.roleType === 1">
+                    <div class="filter-panel" style="margin-bottom:15px;" v-if="this.roleType === 0 || this.roleType === 1">
                         <span>厂商</span>
                         <Select v-model="sCompany" style="width:300px" placeholder="厂商">
                             <Option v-for="item in companyList" :value="item.id" :key="item.id">{{ item.name }}</Option>

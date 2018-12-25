@@ -126,5 +126,13 @@ export default {
         }).then(res => {
             return res.data
         })
+    },
+
+    // 获取公司下代理公司代理区域
+    getDistrictList (companyId) {
+        return api._get({ url: '/t_agent_district_setting/findAgentDistrict', params: { company_id: companyId } })
+            .then(res => {
+                return res.data
+            })
     }
 }

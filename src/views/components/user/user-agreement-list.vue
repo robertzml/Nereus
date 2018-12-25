@@ -149,7 +149,7 @@ export default {
         },
 
         showDetails (item) {
-             this.$router.push({ name: 'user-agreement-details', params: { id: item.id } })
+            this.$router.push({ name: 'user-agreement-details', params: { id: item.id } })
         }
     }
 }

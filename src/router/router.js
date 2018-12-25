@@ -78,7 +78,8 @@ export const appRouter = [
             { path: 'agreement', title: '协议管理', name: 'agreement-index', parent: 'company-menu', component: resolve => { require(['@/views/company/agreement.vue'], resolve) } },
             { path: 'agreement-create', title: '添加协议', name: 'agreement-create', component: resolve => { require(['@/views/company/agreement-create.vue'], resolve) } },
             { path: 'agreement-details/:id', title: '协议信息', name: 'agreement-details', component: resolve => { require(['@/views/company/agreement-details.vue'], resolve) } },
-            { path: 'company-agreement-details/:id', title: '协议信息', name: 'company-agreement-details', component: resolve => { require(['@/views/company/company-agreement-details.vue'], resolve) } }
+            { path: 'company-agreement-details/:id', title: '协议信息', name: 'company-agreement-details', component: resolve => { require(['@/views/company/company-agreement-details.vue'], resolve) } },
+            { path: 'district', title: '代理商区域', name: 'district-index', parent: 'company-menu', component: resolve => { require(['@/views/company/district.vue'], resolve) } }
         ]
     },
     {
