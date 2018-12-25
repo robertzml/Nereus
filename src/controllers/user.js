@@ -130,5 +130,15 @@ export default {
         }).then(res => {
             return res.data
         })
+    },
+
+    // 审核设备
+    equipmentAgreeApply (model) {
+        return api._post({ 
+            url: '/t_equipment_owner_apply_protocol/agreeApply',
+            data: model
+        }).then(res => {
+            return res.data
+        })
     }
 }

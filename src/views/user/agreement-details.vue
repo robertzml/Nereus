@@ -88,7 +88,9 @@
             <br />
             <Button type="primary" @click="toIndex" style="margin-left: 8px">返回</Button>
 
-            <Button type="success" @click="showInstallMod" style="margin-left: 8px">安装确认</Button>
+            <Button type="success" v-if="agreementInfo.equipment_install_is_success === 0" @click="showInstallMod" style="margin-left: 8px">安装确认</Button>
+
+            <Button type="success" v-if="agreementInfo.company_operatier_is_agree === 0" @click="showCompanyMod" style="margin-left: 8px">厂商确认</Button>
         </Card>
 
         <br />
@@ -105,6 +107,7 @@
         <Modal
             v-model="modal1"
             title="是否确认安装"
+            :loading="loading"
             @on-ok="confirmInstall"
             >
             <Form :model="installInfo" :label-width="150">
@@ -117,6 +120,26 @@
             
                 <FormItem label="备注">
                     <Input v-model="installInfo.remark" style="width: 250px;"></Input>
+                </FormItem>
+            </Form>
+        </Modal>
+
+        <Modal
+            v-model="modal2"
+            title="厂商是否同意"
+            :loading="loading2"
+            @on-ok="confirmCompany"
+            >
+            <Form :model="companyConfirmInfo" :label-width="150">
+                <FormItem label="审核情况">
+                    <RadioGroup v-model="companyConfirmInfo.success">
+                        <Radio :label="1">同意</Radio>
+                        <Radio :label="-1">不同意</Radio>
+                    </RadioGroup>
+                </FormItem>
+            
+                <FormItem label="备注">
+                    <Input v-model="companyConfirmInfo.remark" style="width: 250px;"></Input>
                 </FormItem>
             </Form>
         </Modal>
@@ -136,8 +159,14 @@ export default {
             agreementInfo: {},
             roleType: 0,
             modal1: false,
+            modal2: false,
             loading: true,
+            loading2: true,
             installInfo: {
+                success: 1,
+                remark: ''
+            },
+            companyConfirmInfo: {
                 success: 1,
                 remark: ''
             }
@@ -197,6 +226,10 @@ export default {
             this.modal1 = true
         },
 
+        showCompanyMod () {
+            this.modal2 = true
+        },
+
         confirmInstall () {
             let act = {
                 id: this.agreementId,
@@ -223,6 +256,37 @@ export default {
                     this.loading = false
                     this.$nextTick(() => {
                         this.loading = true
+                    })
+                }
+            })
+        },
+
+        confirmCompany () {
+            let act = {
+                id: this.agreementId,
+                company_operatier_is_agree: this.companyConfirmInfo.success,
+                company_operation_remark: this.companyConfirmInfo.remark
+            }
+
+            user.equipmentAgreeApply(act).then(res => {
+                if (res.status === 0) {
+                    this.$Notice.success({
+                        title: '确认成功',
+                        desc: res.message
+                    })
+
+                    setTimeout(() => {
+                        this.getAgreement()
+                        this.modal2 = false
+                    }, 1000)
+                } else {
+                    this.$Notice.error({
+                        title: '确认失败',
+                        desc: res.message
+                    })
+                    this.loading2 = false
+                    this.$nextTick(() => {
+                        this.loading2 = true
                     })
                 }
             })
