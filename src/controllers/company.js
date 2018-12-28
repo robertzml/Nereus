@@ -134,5 +134,45 @@ export default {
             .then(res => {
                 return res.data
             })
+    },
+
+    findProvince () {
+        return api._get({ url: '/t_agent_district_setting/findProvince' })
+            .then(res => {
+                return res.data
+            })
+    },
+
+    findCity (provinceId) {
+        return api._get({ url: '/t_agent_district_setting/findCity', params: { province_id: provinceId } })
+            .then(res => {
+                return res.data
+            })
+    },
+
+    findDistrict (cityId) {
+        return api._get({ url: '/t_agent_district_setting/findDistrict', params: { city_id: cityId } })
+            .then(res => {
+                return res.data
+            })
+    },
+
+    // 添加代理商代理区域
+    addAgentDistrict (model) {
+        return api._post({ 
+            url: '/t_agent_district_setting/add', 
+            data: model
+        }).then(res => {
+            return res.data
+        })
+    },
+
+    cancelAgentDistrict (model) {
+        return api._post({ 
+            url: '/t_agent_district_setting/cancel', 
+            data: model
+        }).then(res => {
+            return res.data
+        })
     }
 }

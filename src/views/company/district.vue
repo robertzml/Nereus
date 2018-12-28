@@ -26,7 +26,7 @@
             <agent-district-list :item-list="districtData"></agent-district-list>
         </Card>
 
-        <agent-district-create-mod ref="districtMod"></agent-district-create-mod>
+        <agent-district-create-mod ref="districtMod" @refresh="getDistrictList"></agent-district-create-mod>
     </div>
 </template>
 

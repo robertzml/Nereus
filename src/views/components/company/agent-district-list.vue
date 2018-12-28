@@ -14,6 +14,7 @@
 <script>
 /* 代理商代理区域表格 */
 import * as nereus from '@/utility/nereus.js'
+import company from '@/controllers/company.js'
 
 export default {
     name: 'agent-district-list',
@@ -56,9 +57,21 @@ export default {
                     align: 'center',
                     render: (h, params) => {
                         return (
-                            <div>
-                                <i-button type="primary" size="small" onClick={ () => { this.showDetails(params.row) } }>查看</i-button>
-                            </div>
+                            h('div', [
+                                h('Poptip', {
+                                    props: {
+                                        title: '是否取消代理',
+                                        confirm: true,
+                                        transfer: true,
+                                        placement: 'top'
+                                    },
+                                    on: {
+                                        'on-ok': () => { this.cancelAgent(params.row) }
+                                    }
+                                }, [
+                                    h('Button', { props: { size: 'small', type: 'warning' }, style: { marginRight: '5px' } }, '取消代理')
+                                ])
+                            ])
                         )
                     }
                 }
@@ -82,8 +95,28 @@ export default {
             this.pageSize = pageSize
         },
 
-        showDetails (item) {
-            // this.$router.push({ name: 'user-agreement-details', params: { id: item.id } })
+        cancelAgent (item) {
+            let act = {
+                id: item.id,
+                remark: '1'
+            }
+
+            company.cancelAgentDistrict(act).then(res => {
+                if (res.status === 0) {
+                    this.$Notice.success({
+                        title: '取消成功',
+                        desc: res.message
+                    })
+
+                    this.$emit('refresh')
+                } else {
+                    this.$Notice.error({
+                        title: '取消失败',
+                        duration: 0,
+                        desc: res.message
+                    })
+                }
+            })
         }
     }
 }
