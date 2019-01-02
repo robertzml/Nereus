@@ -8,6 +8,8 @@
                     @on-page-size-change="changePageSize"></Page>
             </div>
         </div>
+
+        <agent-district-cancel-mod ref="districtMod" @refresh="getDistrictList"></agent-district-cancel-mod>
     </div>
 </template>
 
@@ -15,12 +17,16 @@
 /* 代理商代理区域表格 */
 import * as nereus from '@/utility/nereus.js'
 import company from '@/controllers/company.js'
+import agentDistrictCancelMod from './agent-district-cancel-mod.vue'
 
 export default {
     name: 'agent-district-list',
     props: {
         itemList: { type: Array, required: true },
         showPager: { type: Boolean, default: true }
+    },
+    components: {
+        agentDistrictCancelMod
     },
     data () {
         return {
@@ -57,21 +63,9 @@ export default {
                     align: 'center',
                     render: (h, params) => {
                         return (
-                            h('div', [
-                                h('Poptip', {
-                                    props: {
-                                        title: '是否取消代理',
-                                        confirm: true,
-                                        transfer: true,
-                                        placement: 'top'
-                                    },
-                                    on: {
-                                        'on-ok': () => { this.cancelAgent(params.row) }
-                                    }
-                                }, [
-                                    h('Button', { props: { size: 'small', type: 'warning' }, style: { marginRight: '5px' } }, '取消代理')
-                                ])
-                            ])
+                            <div>
+                                <i-button type="warning" size="small" onClick={ () => { this.showCancel(params.row) } }>取消</i-button>
+                            </div>
                         )
                     }
                 }
@@ -93,6 +87,14 @@ export default {
     methods: {
         changePageSize (pageSize) {
             this.pageSize = pageSize
+        },
+
+        getDistrictList () {
+            this.$emit('refresh')
+        },
+
+        showCancel (item) {
+            this.$refs.districtMod.show(item.id)
         },
 
         cancelAgent (item) {

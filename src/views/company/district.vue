@@ -23,7 +23,7 @@
                 <Button type="primary" @click="getDistrictList">查询</Button>
             </div>
 
-            <agent-district-list :item-list="districtData"></agent-district-list>
+            <agent-district-list :item-list="districtData" @refresh="getDistrictList"></agent-district-list>
         </Card>
 
         <agent-district-create-mod ref="districtMod" @refresh="getDistrictList"></agent-district-create-mod>
