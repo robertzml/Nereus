@@ -9,7 +9,7 @@
                 <Icon type="ios-loop-strong"></Icon>
                 刷新
             </a>
-            <a href="#" v-if="this.roleType === 0 || this.roleType === 1" slot="extra" @click.prevent="showCreate">
+            <a href="#" v-if="this.roleType === 0 || this.roleType === 1 || this.roleType === 2" slot="extra" @click.prevent="showCreate">
                 <Icon type="plus-round"></Icon>
                 新增
             </a>
