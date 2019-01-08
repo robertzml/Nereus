@@ -9,8 +9,14 @@
                 </FormItem>
 
                 <FormItem label="产品" prop="product_id">
-                    <Select v-model="districtInfo.product_id" style="width:300px">
+                    <Select v-model="districtInfo.product_id" style="width:300px" @on-change="selectProduct">
                         <Option v-for="item in productList" :value="item.id" :key="item.id">{{ item.name }}</Option>
+                    </Select>
+                </FormItem>
+
+                <FormItem label="销售规则" prop="product_sale_rule_id">
+                    <Select v-model="districtInfo.product_sale_rule_id" style="width:300px">
+                        <Option v-for="item in saleRuleList" :value="item.id" :key="item.id">{{ item.another_name }}</Option>
                     </Select>
                 </FormItem>
 
@@ -48,12 +54,14 @@ export default {
             districtInfo: {
                 agent_company_id: 0,
                 product_id: 0,
+                product_sale_rule_id: 0,
                 province_id: 0,
                 city_id: 0,
                 district_id: 0
             },
             agentCompanyList: [],
             productList: [],
+            saleRuleList: [],
             provinceList: [],
             districtList: [],
             cityList: [],
@@ -65,6 +73,7 @@ export default {
         init () {
             this.districtInfo.agent_company_id = 0
             this.districtInfo.product_id = 0
+            this.districtInfo.product_sale_rule_id = 0
             this.districtInfo.province_id = 0
             this.districtInfo.city_id = 0
             this.districtInfo.district_id = 0
@@ -113,6 +122,13 @@ export default {
             })
         },
 
+        selectProduct (val) {
+            let vm = this
+            product.getSaleRules(val).then(res => {
+                vm.saleRuleList = res.entities
+            })
+        },
+
         selectProvince (val) {
             let vm = this
             company.findCity(val).then(res => {
@@ -136,10 +152,10 @@ export default {
             let act = {
                 district_id: this.districtInfo.district_id,
                 agent_company_id: this.districtInfo.agent_company_id,
-                product_id: this.districtInfo.product_id
+                product_sale_rule_id: this.districtInfo.product_sale_rule_id
             }
 
-            if (act.agent_company_id === 0 || act.product_id === 0 || act.district_id === 0) {
+            if (act.agent_company_id === 0 || act.product_sale_rule_id === 0 || act.district_id === 0) {
                 this.$Message.warning('请选择信息')
                 this.loading = false
                 this.$nextTick(() => {

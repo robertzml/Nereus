@@ -57,6 +57,10 @@ export default {
                     key: 'product_name'
                 },
                 {
+                    title: '销售规则别名',
+                    key: 'another_name'
+                },
+                {
                     title: '操作',
                     key: 'action',
                     width: 150,
