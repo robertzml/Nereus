@@ -33,7 +33,7 @@
                 </FormItem>
 
                 <FormItem label="区" prop="district_id">
-                    <Select v-model="districtInfo.district_id" style="width:300px">
+                    <Select v-model="districtInfo.district_id" multiple style="width:300px">
                         <Option v-for="item in districtList" :value="item.district_id" :key="item.district_id">{{ item.district_name }}</Option>
                     </Select>
                 </FormItem>
@@ -57,7 +57,7 @@ export default {
                 product_sale_rule_id: 0,
                 province_id: 0,
                 city_id: 0,
-                district_id: 0
+                district_id: []
             },
             agentCompanyList: [],
             productList: [],
@@ -76,7 +76,7 @@ export default {
             this.districtInfo.product_sale_rule_id = 0
             this.districtInfo.province_id = 0
             this.districtInfo.city_id = 0
-            this.districtInfo.district_id = 0
+            this.districtInfo.district_id = []
 
             if (this.companyId !== 0) {
                 this.getAgentCompanys()
@@ -155,7 +155,7 @@ export default {
                 product_sale_rule_id: this.districtInfo.product_sale_rule_id
             }
 
-            if (act.agent_company_id === 0 || act.product_sale_rule_id === 0 || act.district_id === 0) {
+            if (act.agent_company_id === 0 || act.product_sale_rule_id === 0 || act.district_id.length === 0) {
                 this.$Message.warning('请选择信息')
                 this.loading = false
                 this.$nextTick(() => {
