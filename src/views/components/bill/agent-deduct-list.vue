@@ -3,6 +3,8 @@
         <Table :data="tableData" :columns="columns" ref="table" stripe border>
             <div slot="footer" class="footer">
                 <span style="margin-left:20px;margin-right:20px;">共 {{ itemsCount }} 条收益记录</span>
+                <span style="margin-right:20px;">设备总应收款合计 {{ accruedAmount }} 元</span>
+                <span style="margin-right:20px;">设备实际收款合计 {{ actualAmount }} 元</span>
                 <span style="margin-right:20px;">代理商应收款合计 {{ totalAmount }} 元</span>
                 <span style="margin-right:20px;">代理商实际分成合计 {{ realAmount }} 元</span>
             </div>
@@ -207,6 +209,20 @@ export default {
             let total = 0
             this.itemList.forEach(element => {
                 total += element.agent_actual_income
+            })
+            return total.toFixed(2)
+        },
+        actualAmount () {
+            let total = 0
+            this.itemList.forEach(element => {
+                total += element.actual_income
+            })
+            return total.toFixed(2)
+        },
+        accruedAmount () {
+            let total = 0
+            this.itemList.forEach(element => {
+                total += element.accrued_revenues
             })
             return total.toFixed(2)
         }
