@@ -29,8 +29,13 @@
                         <h3>筛选</h3>
 
                         <span>选择产品类型: </span>
-                        <Select v-model="sProductType" style="width:300px" placeholder="选择产品类型" clearable>
+                        <Select v-model="sProductType" style="width:200px" @on-change="selectProductType" placeholder="选择产品类型" clearable>
                             <Option v-for="item in productTypeList" :value="item.id" :key="item.id">{{ item.name }}</Option>
+                        </Select>
+
+                        <span>产品名称: </span>
+                        <Select v-model="sProduct" style="width:300px" placeholder="选择产品" clearable>
+                            <Option v-for="item in productList" :value="item.id" :key="item.id">{{ item.name }} <span style="float:right;color:#fcc">{{ item.product_code }}</span></Option>
                         </Select>
 
                         <span>代理商</span>
@@ -55,6 +60,7 @@
 import company from '@/controllers/company.js'
 import bill from '@/controllers/bill.js'
 import productType from '@/controllers/product-type.js'
+import product from '@/controllers/product.js'
 import agentDeductList from '../components/bill/agent-deduct-list.vue'
 
 export default {
@@ -67,10 +73,12 @@ export default {
             roleType: 0,
             companyList: [],
             productTypeList: [],
+            productList: [],
             agentCompanyList: [],
             sCompany: 0,
             sAgent: 0,
             sProductType: 0,
+            sProduct: 0,
             startTime: '',
             endTime: '',
             filterKey: '',
@@ -83,6 +91,9 @@ export default {
 
             if (this.sProductType) {
                 temp = temp.filter(r => r.product_type_id === this.sProductType)
+            }
+            if (this.sProduct) {
+                temp = temp.filter(r => r.product_id === this.sProduct)
             }
 
             if (this.sAgent) {
@@ -154,6 +165,26 @@ export default {
             company.listAgentAndSelf(companyId).then(res => {
                 vm.agentCompanyList = res.entities
             })
+        },
+
+        selectProductType (val) {
+            this.sProduct = 0
+            if (val === undefined) {
+                this.productList = []
+                return
+            }
+
+            let companyId = this.$store.state.user.companyId
+            let vm = this
+            if (this.roleType === 0 || this.roleType === 1) {
+                product.listByType(val).then(res => {
+                    vm.productList = res.entities
+                })
+            } else {
+                product.listByTypeAndCompany(val, companyId).then(res => {
+                    vm.productList = res.entities
+                })
+            }
         },
    
         loadDeduct () {

@@ -179,7 +179,7 @@
                 </Card>
             </TabPane>
 
-            <TabPane label="分成比例">
+            <TabPane label="">
                 <Card>
                     <p slot="title">
                         <Icon type="grid"></Icon>

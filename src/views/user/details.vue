@@ -39,19 +39,30 @@
                     <consumer-deposit-list :item-list="depositData"></consumer-deposit-list>
                 </Card>
             </TabPane>
+            <TabPane label="历史设备">
+                <Card>
+                    <p slot="title">
+                        <Icon type="grid"></Icon>
+                        历史设备
+                    </p>
+
+                    <history-list :item-list="historyData"></history-list>
+                </Card>
+            </TabPane>
         </Tabs>
-       
     </div>
 </template>
 
 <script>
 import user from '@/controllers/user.js'
+import equipment from '@/controllers/equipment.js'
 import consumerWalletDetails from '../components/user/consumer-wallet-details.vue'
 import consumerWalletList from '../components/user/consumer-wallet-list.vue'
 import consumerWalletSummary from '../components/user/consumer-wallet-summary.vue'
 import userTradeMod from '../components/user/user-trade-mod.vue'
 import userDeductTradeMod from '../components/user/user-deduct-trade-mod.vue'
 import consumerDepositList from '../components/user/consumer-deposit-list.vue'
+import historyList from '../components/equipment/history-list.vue'
 
 export default {
     name: 'user-details',
@@ -61,7 +72,8 @@ export default {
         consumerWalletSummary,
         userTradeMod,
         userDeductTradeMod,
-        consumerDepositList
+        consumerDepositList,
+        historyList
     },
     data () {
         return {
@@ -71,6 +83,7 @@ export default {
             agentCompanyId: 0,
             walletData: [],
             depositData: [],
+            historyData: [],
             walletSummary: {},
             walletDetails: {},
             phone: '',
@@ -96,6 +109,8 @@ export default {
             user.findConsumerPhone(this.consumerId).then(res => {
                 if (res.status === 0) {
                     vm.phone = res.entity.phone
+
+                    this.loadHistoryData()
                 } else {
                     this.$Notice.error({
                         title: '获取用户电话失败',
@@ -155,6 +170,29 @@ export default {
                     this.$Notice.error({
                         title: '获取押金记录失败',
                         desc: res.message
+                    })
+                }
+            })
+        },
+
+        loadHistoryData () {
+            if (this.phone === '') {
+                this.$Notice.error({
+                    title: '无手机号',
+                    desc: '无手机号'
+                })
+                return
+            }
+
+            let vm = this
+            equipment.getHistory(this.phone).then(res => {
+                if (res.status === 0) {
+                    vm.historyData = res.entities
+                } else {
+                    this.$Notice.error({
+                        title: '获取记录失败',
+                        desc: res.message,
+                        duration: 5
                     })
                 }
             })
