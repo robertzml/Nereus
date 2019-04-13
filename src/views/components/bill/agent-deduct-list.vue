@@ -1,15 +1,20 @@
 <template>
     <div class="agent-deduct-list">
         <Table :data="tableData" :columns="columns" ref="table" stripe border>
-            <div slot="footer" class="footer">
+        </Table>
+        <div style="margin: 10px;overflow-x: hidden" v-if="showPager">
+            <div>
+                <span style="margin-left:20px;">{{ additionalText }}</span>
+                <br />
+
                 <span style="margin-left:20px;margin-right:20px;">共 {{ itemsCount }} 条收益记录</span>
                 <span style="margin-right:20px;">设备总应收款合计 {{ accruedAmount }} 元</span>
                 <span style="margin-right:20px;">设备实际收款合计 {{ actualAmount }} 元</span>
                 <span style="margin-right:20px;">代理商应收款合计 {{ totalAmount }} 元</span>
                 <span style="margin-right:20px;">代理商实际分成合计 {{ realAmount }} 元</span>
+
+                <br />
             </div>
-        </Table>
-        <div style="margin: 10px;overflow-x: hidden" v-if="showPager">
             <div>
                 <Button type="primary" size="large" @click="exportData(3)"><Icon type="ios-download-outline"></Icon> 导出数据</Button>
             </div>
@@ -29,7 +34,8 @@ export default {
     name: 'agent-deduct-list',
     props: {
         itemList: { type: Array, required: true },
-        showPager: { type: Boolean, default: true }
+        showPager: { type: Boolean, default: true },
+        additionalText: { type: String, default: '' }
     },
     data () {
         return {

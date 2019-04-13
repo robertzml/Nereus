@@ -49,7 +49,7 @@
 
                     <br />
 
-                    <agent-deduct-list :item-list="filterData"></agent-deduct-list>
+                    <agent-deduct-list :item-list="filterData" :additionalText="filterText"></agent-deduct-list>
                 </Card>
             </Col>
         </Row>
@@ -109,6 +109,28 @@ export default {
                 })
             }
             return temp
+        },
+        filterText () {
+            let text = ''
+
+            if (this.sProductType) {
+                let type = this.productTypeList.find(r => r.id === this.sProductType)
+                text += '产品类型: ' + type.name
+            }
+            if (this.sProduct) {
+                let product = this.productList.find(r => r.id === this.sProduct)
+                text += '      产品名称: ' + product.name
+            }
+            if (this.sAgent) {
+                let agent = this.agentCompanyList.find(r => r.id === this.sAgent)
+                text += '      代理商： ' + agent.name
+            }
+
+            if (this.filterKey) {
+                text += '      搜索条件： ' + this.filterKey
+            }
+
+            return text
         }
     },
     methods: {
