@@ -28,6 +28,18 @@
                     </Form>
                     <p class="login-tip">输入用户名和密码</p>
                 </div>
+
+                <Modal
+                    v-model="modal1"
+                    title="请输入验证码"
+                    :width="400"
+                    @on-ok="inputVerifyCode"
+                    >
+                    <p>
+                        <span>{{ codeTip }}</span>
+                        <Input v-model="verifyCode" placeholder="请输入验证码" style="width: 300px"></Input>
+                    </p>
+                </Modal>
             </Card>
         </div>
     </div>
@@ -45,6 +57,9 @@ export default {
                 userName: '',
                 password: ''
             },
+            modal1: false,
+            codeTip: '',
+            verifyCode: '',
             rules: {
                 userName: [
                     { required: true, message: '账号不能为空', trigger: 'blur' }
@@ -68,11 +83,36 @@ export default {
                             console.log('login status:' + res.status)
                             if (res.status === 0) {
                                 vm.$router.push('/')
+                            } else if (res.status === 3) {
+                                vm.codeTip = res.message
+                                vm.modal1 = true
                             } else {
                                 alert(res.message)
                             }
                     })
                 }
+            })
+        },
+
+        inputVerifyCode () {
+            if (this.verifyCode === '') {
+                alert('请输入验证码')
+            }
+            
+            let vm = this
+            
+            this.login({ user_name: this.form.userName, password: this.form.password, verifyCode: this.verifyCode })
+                .then(res => {
+                    console.log('login status:' + res.status)
+                    if (res.status === 0) {
+                        vm.$router.push('/')
+                    } else if (res.status === 5) {
+                        alert(res.message)
+                        vm.modal1 = true
+                    } else {
+                        vm.modal1 = false
+                        alert(res.message)
+                    }
             })
         }
     }

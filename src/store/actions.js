@@ -15,7 +15,7 @@ export default {
                             roleType: '',
                             companyId: '' 
                         })
-                        res.data.status = 3
+                        res.data.status = 4
                     } else {
                         commit('LOGIN', {
                             login: true,
