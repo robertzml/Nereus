@@ -135,5 +135,13 @@ export default {
         }).then(res => {
             return res.data
         })
+    },
+
+    // 获取产品及分成比例
+    getProductAgentShare (agentId) {
+        return api._get({ url: '/t_product_agent_money_sharing/findInfoByCondition', params: { agent_id: agentId } })
+            .then(res => {
+                return res.data
+            })
     }
 }
