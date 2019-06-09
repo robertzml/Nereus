@@ -26,7 +26,7 @@
                         <consumer-wallet-list :itemList="walletData"></consumer-wallet-list>
                     </Col>
                 </Row>
-                <user-trade-mod ref="tradeMod" :phone="phone" :agent-company-id="agentCompanyId" @refresh="loadWallet"></user-trade-mod>
+                <user-trade-mod ref="tradeMod" :phone="phone" :company-code="companyCode" @refresh="loadWallet"></user-trade-mod>
                 <user-deduct-trade-mod ref="deductTradeMod" :phone="phone" :agent-company-id="agentCompanyId" :company-id="companyId" @refresh="loadWallet"></user-deduct-trade-mod>
             </TabPane>
             <TabPane label="用户押金">

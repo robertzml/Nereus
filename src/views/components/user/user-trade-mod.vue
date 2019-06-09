@@ -29,7 +29,7 @@ export default {
     name: 'user-trade-mod',
     props: {
         phone: { type: String, required: true },
-        agentCompanyId: { type: Number, required: true }
+        companyCode: { type: Number, required: true }
     },
     data () {
         return {
@@ -62,7 +62,7 @@ export default {
         handleTrade (name) {
             let act = {
                 equipment_consumer_account_phone: this.phone,
-                agent_company_id: this.agentCompanyId,
+                company_code: this.companyCode,
                 trade_in_money: this.tradeInfo.tradeInMoney,
                 trade_in_coupon: this.tradeInfo.tradeInCoupon,
                 remark: this.tradeInfo.remark

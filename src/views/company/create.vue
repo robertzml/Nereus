@@ -16,13 +16,13 @@
                             <FormItem label="联系人" prop="contact">
                                 <Input v-model="companyInfo.contact"></Input>
                             </FormItem>
-                            <FormItem label="电话">
+                            <FormItem label="电话" prop="phone">
                                 <Input v-model="companyInfo.phone"></Input>
                             </FormItem>
                             <FormItem label="售后电话">
                                 <Input v-model="companyInfo.aftersale_phone"></Input>
                             </FormItem>
-                            <FormItem label="地址">
+                            <FormItem label="地址" prop="address">
                                 <Input v-model="companyInfo.address"></Input>
                             </FormItem>
                             <FormItem label="代码">
@@ -38,17 +38,20 @@
                                     <Option v-for="item in typeList" :value="item.value" :key="item.value">{{ item.label }}</Option>
                                 </Select>
                             </FormItem>
-                            <FormItem label="上级厂商" prop="parent_id" v-if="createType === 0 && companyInfo.type !== 1">
-                                <Select v-model="companyInfo.parent_id">
+                            <FormItem label="上级厂商" prop="company_parent_id" v-if="createType === 0 && companyInfo.type !== 1">
+                                <Select v-model="companyInfo.company_parent_id">
                                     <Option v-for="item in parentList" :value="item.id" :key="item.id">{{ item.name }}</Option>
                                 </Select>
                             </FormItem>
                             <FormItem label="简称">
-                                <Input v-model="companyInfo.remark"></Input>
+                                <Input v-model="companyInfo.company_abbreviation"></Input>
                                 只能用字母，如拼音首字母，英文缩写
                             </FormItem>
-                            <FormItem label="备注">
+                            <FormItem label="公司介绍">
                                 <Input v-model="companyInfo.introduction" type="textarea" :rows="4"></Input>
+                            </FormItem>
+                            <FormItem label="备注">
+                                <Input v-model="companyInfo.remark" type="textarea" :rows="4"></Input>
                             </FormItem>
 
                             <FormItem>
@@ -79,9 +82,10 @@ export default {
                 contact: '',
                 address: '',
                 code: '',
-                parent_id: '',
+                company_parent_id: '',
                 introduction: '',
-                remark: ''
+                remark: '',
+                company_abbreviation: ''
             },
             parentList: [],
             typeList: [
@@ -103,10 +107,16 @@ export default {
                 contact: [
                     { required: true, message: '联系人不能为空', trigger: 'blur' }
                 ],
+                phone: [
+                    { required: true, message: '电话不能为空', trigger: 'blur' }
+                ],
+                address: [
+                    { required: true, message: '地址不能为空', trigger: 'blur' }
+                ],
                 type: [
                     { required: true, message: '请选择类型', type: 'number', trigger: 'change' }
                 ],
-                parent_id: [
+                company_parent_id: [
                     { required: true, message: '请选择上级厂商', type: 'number', trigger: 'change' }
                 ]
             },
@@ -149,10 +159,10 @@ export default {
             this.$refs[name].validate((valid) => {
                 if (valid) {
                     if (this.createType === 1) {
-                        this.companyInfo.parent_id = this.$store.state.user.companyId
+                        this.companyInfo.company_parent_id = this.$store.state.user.companyId
                     }
                     if (this.companyInfo.type === 1) {
-                        this.companyInfo.parent_id = 0
+                        this.companyInfo.company_parent_id = 0
                     }
 
                     company.create(this.companyInfo).then(res => {
