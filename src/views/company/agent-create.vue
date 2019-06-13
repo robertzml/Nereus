@@ -16,7 +16,7 @@
                             <FormItem label="联系人" prop="contact">
                                 <Input v-model="companyInfo.contact"></Input>
                             </FormItem>
-                            <FormItem label="电话">
+                            <FormItem label="电话" prop="phone">
                                 <Input v-model="companyInfo.phone"></Input>
                             </FormItem>
                             <FormItem label="售后电话">
@@ -28,12 +28,18 @@
                             <FormItem label="类型">
                                 <Input readonly value="代理商"></Input>
                             </FormItem>
+                            <FormItem label="代码">
+                                <Input v-model="companyInfo.code"></Input>
+                            </FormItem>
                             <FormItem label="简称">
-                                <Input v-model="companyInfo.remark"></Input>
+                                <Input v-model="companyInfo.company_abbreviation"></Input>
                                 只能用字母，如拼音首字母，英文缩写
                             </FormItem>
-                            <FormItem label="备注">
+                            <FormItem label="公司介绍">
                                 <Input v-model="companyInfo.introduction" type="textarea" :rows="4"></Input>
+                            </FormItem>
+                            <FormItem label="备注">
+                                <Input v-model="companyInfo.remark" type="textarea" :rows="4"></Input>
                             </FormItem>
 
                             <FormItem>
@@ -79,6 +85,9 @@ export default {
                 contact: [
                     { required: true, message: '联系人不能为空', trigger: 'blur' }
                 ],
+                phone: [
+                    { required: true, message: '电话不能为空', trigger: 'blur' }
+                ],
                 parent_id: [
                     { required: true, message: '请选择上级厂商', type: 'number', trigger: 'change' }
                 ]
@@ -90,7 +99,7 @@ export default {
             let roleId = this.$store.state.user.roleId
             let companyId = this.$store.state.user.companyId
 
-            this.companyInfo.parent_id = companyId
+            this.companyInfo.company_parent_id = companyId
             this.companyInfo.type = 3
         },
 

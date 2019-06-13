@@ -28,12 +28,18 @@
                             <FormItem label="类型">
                                 <Input readonly value="代理商"></Input>
                             </FormItem>
+                            <FormItem label="代码">
+                                <Input v-model="companyInfo.code"></Input>
+                            </FormItem>
                             <FormItem label="简称">
-                                <Input v-model="companyInfo.remark"></Input>
+                                <Input v-model="companyInfo.company_abbreviation"></Input>
                                 只能用字母，如拼音首字母，英文缩写
                             </FormItem>
-                            <FormItem label="备注">
+                            <FormItem label="公司介绍">
                                 <Input v-model="companyInfo.introduction" type="textarea" :rows="4"></Input>
+                            </FormItem>
+                            <FormItem label="备注">
+                                <Input v-model="companyInfo.remark" type="textarea" :rows="4"></Input>
                             </FormItem>
 
                             <FormItem>
