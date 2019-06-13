@@ -292,6 +292,7 @@ export default {
             statistic.getWaterHeaterCurrent(this.equipmentInfo.serial_number).then(res => {
                 if (res.status === 0) {
                     vm.waterHeaterStatisticMonthInfo = res.entity
+                    vm.waterHeaterStatisticTotalInfo = res.entity_of_total
                 } else {
                     this.$Notice.error({
                         title: '获取月统计失败',
@@ -300,6 +301,7 @@ export default {
                 }
             })
 
+            /*
             statistic.getWaterHeaterTotal(this.equipmentInfo.serial_number).then(res => {
                 if (res.status === 0) {
                     vm.waterHeaterStatisticTotalInfo = res.entity
@@ -310,6 +312,7 @@ export default {
                     })
                 }
             })
+            */
         },
 
         // 直饮机统计信息

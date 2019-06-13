@@ -65,7 +65,12 @@ export default {
                 },
                 {
                     title: '押金状态',
-                    key: 'pay_equipment_deposit_status'
+                    key: 'pay_equipment_deposit_status',
+                    render: (h, params) => {
+                        return (
+                            <span>{ this.showDepositStatus(params.row.pay_equipment_deposit_status) }</span>
+                        )
+                    }
                 },
                 {
                     title: '激活设备时间',
@@ -139,6 +144,17 @@ export default {
                     return '可用'
                 case 1:
                     return '不可用'
+            }
+        },
+
+        showDepositStatus (val) {
+            switch (val) {
+                case 0:
+                    return '押金未退'
+                case 1:
+                    return '押金已退'
+                default:
+                    return ''
             }
         }
     }

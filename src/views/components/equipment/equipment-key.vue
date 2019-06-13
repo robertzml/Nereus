@@ -17,33 +17,33 @@
                 <Row>
                     <Col span="10" push="2">
                         <FormItem label="激活状态">
-                            {{ realInfo.is_activation | activateState }}
+                            {{ realInfo.Active | activateState }}
                         </FormItem>
 
                         <FormItem label="解锁状态">
-                            {{ realInfo.is_lock | lockState }}
+                            {{ realInfo.Lock | lockState }}
                         </FormItem>
 
                         <FormItem label="在线状态">
-                            {{ realInfo.is_online | onlineState }}
+                            {{ realInfo.IsOnline | onlineState }}
                         </FormItem>
                       
                         <FormItem label="主板序列号">
-                            {{ realInfo.mainboard_serial_number }}
+                            {{ realInfo.MainboardSerialnumber }}
                         </FormItem>
                     </Col>
 
                     <Col span="10">
                         <FormItem label="激活日期">
-                            {{ realInfo.active_time | displayDateTime }}
+                            {{ realInfo.ActiveTime | displayDateTime }}
                         </FormItem>
 
                         <FormItem label="使用截止日期">
-                            {{ realInfo.device_deadline_date | displayDateTime }}
+                            {{ realInfo.SettingAllowUsedTime | displayDateTime }}
                         </FormItem>
 
                         <FormItem label="日志时间">
-                            {{ realInfo.log_time | displayDateTime }}
+                            {{ realInfo.LogTime | displayDateTime }}
                         </FormItem>
 
                         <FormItem label="刷新次数">

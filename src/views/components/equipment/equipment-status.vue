@@ -17,18 +17,18 @@
                 <Row>
                     <Col span="10" push="2">
                         <FormItem label="开关机状态">
-                            {{ realInfo.power == 1 ? '开机' : '关机' }}
+                            {{ realInfo.Power == 1 ? '开机' : '关机' }}
                         </FormItem>
 
                         <FormItem label="冷水进水温度">
-                            {{ realInfo.cold_water_Input_temp }} &#8451;
+                            {{ realInfo.ColdWaterInputTemp }} &#8451;
                         </FormItem>
                         <FormItem label="热水进水温度">
-                            {{ realInfo.hot_water_Input_temp }} &#8451;
+                            {{ realInfo.HotWaterInputTemp }} &#8451;
                         </FormItem>
                        
                         <FormItem label="当前输出功率">
-                            {{ realInfo.output_capacity_factor }} W
+                            {{ realInfo.OutputCapacityFactor }} W
                         </FormItem>
 
                         <FormItem label="刷新次数">
@@ -38,18 +38,18 @@
 
                     <Col span="10">
                         <FormItem label="设定温度">
-                            {{ realInfo.setting_temp }} &#8451;
+                            {{ realInfo.SettingTemp }} &#8451;
                         </FormItem>
 
                         <FormItem label="出水温度">
-                            {{ realInfo.outlet_water_temp }} &#8451;
+                            {{ realInfo.OutletWaterTemp }} &#8451;
                         </FormItem>
                         <FormItem label="出水流量">
-                            {{ (realInfo.output_flow_rate * 0.1).toFixed(2) }} 升/分钟
+                            {{ realInfo.OutputFlowRate }} 升/分钟
                         </FormItem>
 
                         <FormItem label="日志时间">
-                            {{ realInfo.log_time | displayDateTime }}
+                            {{ realInfo.LogTime | displayDateTime }}
                         </FormItem>
                     </Col>
                 </Row>

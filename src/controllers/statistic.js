@@ -12,7 +12,7 @@ export default {
     },
 
     // 获取热水器总统计
-    getWaterHeaterTotal (serialNumber) {
+    getWaterHeaterTotal (serialNumber) {        
         return api._get({ url: '/t_water_heater_equipment_statistics/findTotalWaterHeaterEquipmentStatistics', params: { serial_number: serialNumber } })
             .then(res => {
                 return res.data
