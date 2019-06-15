@@ -23,7 +23,20 @@
                 <Button type="primary" @click="getDistrictList">查询</Button>
             </div>
 
-            <agent-district-list :item-list="districtData" @refresh="getDistrictList"></agent-district-list>
+            <div class="filter-panel" style="margin-bottom:15px;">
+                <h3>筛选</h3>
+                <span>省</span>
+                <Select v-model="sProvince" style="width:200px" placeholder="选择省份" @on-change="selectProvince" clearable>
+                    <Option v-for="item in provinceList" :value="item.province_id" :key="item.province_id">{{ item.province_name }}</Option>
+                </Select>
+
+                <span>省</span>
+                <Select v-model="sCity" style="width:200px" placeholder="选择城市" clearable>
+                    <Option v-for="item in cityList" :value="item.city_id" :key="item.city_id">{{ item.city_name }}</Option>
+                </Select>
+            </div>
+
+            <agent-district-list :item-list="filterData" @refresh="getDistrictList"></agent-district-list>
         </Card>
 
         <agent-district-create-mod ref="districtMod" @refresh="getDistrictList"></agent-district-create-mod>
@@ -46,7 +59,35 @@ export default {
             roleType: 0,
             sCompany: 0,
             companyList: [],
-            districtData: []
+            districtData: [],
+            provinceList: [],
+            cityList: [],
+            sProvince: '',
+            sCity: ''
+        }
+    },
+    computed: {
+        filterData () {
+            let temp = this.districtData
+
+            if (this.sProvince) {
+                temp = temp.filter(r => r.province_id === this.sProvince)
+            }
+
+            if (this.sCity) {
+                temp = temp.filter(r => r.city_id === this.sCity)
+            }
+            /*
+            var filterKey = this.filterKey && this.filterKey.toLowerCase()
+            if (filterKey) {
+                temp = temp.filter(function (row) {
+                    return Object.keys(row).some(function (key) {
+                        return String(row[key]).toLowerCase().indexOf(filterKey) > -1
+                    })
+                })
+            }
+            */
+            return temp
         }
     },
     methods: {
@@ -58,6 +99,8 @@ export default {
                 this.sCompany = this.$store.state.user.companyId
                 this.getDistrictList()
             }
+
+            this.getProvinces()
         },
 
         getCompanys () {
@@ -74,6 +117,22 @@ export default {
             }
 
             this.$refs.districtMod.show(this.sCompany)
+        },
+
+        getProvinces () {
+            let vm = this
+            company.findProvince().then(res => {
+                vm.provinceList = res.entities
+            })
+        },
+
+        selectProvince (val) {
+            let vm = this
+            company.findCity(val).then(res => {
+                vm.cityList = res.entities
+
+                vm.sCity = 0
+            })
         },
 
         getDistrictList () {
