@@ -22,6 +22,25 @@
                         <Option v-for="item in productList" :value="item.id" :key="item.id">{{ item.name }} <span style="float:right;color:#fcc">{{ item.product_code }}</span></Option>
                     </Select>
 
+                    <span v-if="roleType === 0 || roleType ===1">所属厂商</span>
+                    <Select v-if="roleType === 0 || roleType ===1" v-model="sCompany" style="width:300px" placeholder="选择厂商" clearable>
+                        <Option v-for="item in companyList" :value="item.id" :key="item.id">{{ item.name }}</Option>
+                    </Select>
+
+                    <span>所属代理商</span>
+                    <Select v-model="sAgent" style="width:300px" placeholder="选择代理商" clearable>
+                        <Option v-for="item in agentList" :value="item.id" :key="item.id">{{ item.name }}</Option>
+                    </Select>
+
+                    <br /><br />
+
+                    <span>解锁状态</span>
+                    <Select v-model="sLock" style="width:150px" clearable>
+                        <Option value="1">已解锁</Option>
+                        <Option value="0">未解锁</Option>
+                    </Select>
+
+
                     <span>搜索</span>
                     <Input v-model="filterKey" style="width: 200px"></Input>
                 </div>
@@ -54,6 +73,9 @@ export default {
             agentList: [],
             sProductType: '',
             sProduct: '',
+            sCompany: '',
+            sAgent: '',
+            sLock: '',
             filterKey: ''
         }
     },
@@ -78,6 +100,20 @@ export default {
                 temp = temp.filter(r => r.product_id === this.sProduct)
             }
 
+            if (this.sCompany) {
+                temp = temp.filter(r => r.company_id === this.sCompany)
+            }
+
+            if (this.sAgent) {
+                temp = temp.filter(r => r.agent_id === this.sAgent)
+            }
+
+            if (this.sLock === '1') {
+                temp = temp.filter(r => r.is_unlock === true)
+            } else if (this.sLock === '0') {
+                temp = temp.filter(r => r.is_unlock === false)
+            }
+
             var filterKey = this.filterKey && this.filterKey.toLowerCase()
             if (filterKey) {
                 temp = temp.filter(function (row) {
@@ -95,10 +131,10 @@ export default {
             this.roleType = this.$store.state.user.roleType
             this.getEquipments()
             this.loadProductType()
-            // this.loadAgents()
+            this.loadAgents()
 
             if (this.roleType === 0 || this.roleType === 1) {
-                // this.loadCompanys()
+                this.loadCompanys()
             }
         },
 
