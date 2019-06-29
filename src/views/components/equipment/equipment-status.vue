@@ -45,7 +45,7 @@
                             {{ realInfo.OutletWaterTemp }} &#8451;
                         </FormItem>
                         <FormItem label="出水流量">
-                            {{ realInfo.OutputFlowRate }} 升/分钟
+                            {{ realInfo.OutputFlowRate / 10 }} 升/分钟
                         </FormItem>
 
                         <FormItem label="日志时间">
