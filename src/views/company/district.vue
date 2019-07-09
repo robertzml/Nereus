@@ -30,9 +30,14 @@
                     <Option v-for="item in provinceList" :value="item.province_id" :key="item.province_id">{{ item.province_name }}</Option>
                 </Select>
 
-                <span>省</span>
-                <Select v-model="sCity" style="width:200px" placeholder="选择城市" clearable>
+                <span>市</span>
+                <Select v-model="sCity" style="width:200px" placeholder="选择城市" @on-change="selectCity" clearable>
                     <Option v-for="item in cityList" :value="item.city_id" :key="item.city_id">{{ item.city_name }}</Option>
+                </Select>
+
+                <span>区</span>
+                <Select v-model="sDistrict" style="width:200px" placeholder="选择区" clearable>
+                    <Option v-for="item in districtList" :value="item.district_id" :key="item.district_id">{{ item.district_name }}</Option>
                 </Select>
             </div>
 
@@ -62,8 +67,10 @@ export default {
             districtData: [],
             provinceList: [],
             cityList: [],
+            districtList: [],
             sProvince: '',
-            sCity: ''
+            sCity: '',
+            sDistrict: ''
         }
     },
     computed: {
@@ -76,6 +83,10 @@ export default {
 
             if (this.sCity) {
                 temp = temp.filter(r => r.city_id === this.sCity)
+            }
+
+            if (this.sDistrict) {
+                temp = temp.filter(r => r.district_id === this.sDistrict)
             }
             /*
             var filterKey = this.filterKey && this.filterKey.toLowerCase()
@@ -132,6 +143,15 @@ export default {
                 vm.cityList = res.entities
 
                 vm.sCity = 0
+            })
+        },
+
+        selectCity (val) {
+            let vm = this
+            company.findDistrict(val).then(res => {
+                vm.districtList = res.entities
+
+                vm.sDistrict = 0
             })
         },
 

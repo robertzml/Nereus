@@ -35,7 +35,7 @@
                         <router-view v-if="!$route.meta.keepAlive"></router-view>
                     </Content>
                     <Footer class="layout-footer-center" :style="{marginLeft: sidebarWidth + 'px'}">
-                        2016-2019 &copy; 江苏省当家
+                        2016-2019 &copy; 江苏省当家物联网科技有限公司
                     </Footer>
                 </Layout>
             </Layout>

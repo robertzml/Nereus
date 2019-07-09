@@ -37,7 +37,7 @@
                     >
                     <p>
                         <span>{{ codeTip }}</span>
-                        <Input v-model="verifyCode" placeholder="请输入验证码" style="width: 300px"></Input>
+                        <Input v-model="verifyCode" placeholder="请输入验证码" style="width: 300px" @keyup.enter.native="inputVerifyCode()"></Input>
                     </p>
                 </Modal>
             </Card>
