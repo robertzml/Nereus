@@ -1,11 +1,14 @@
 <template>
     <div class="history-list">
-        <Table :data="tableData" :columns="columns" border stripe>
+        <Table :data="tableData" :columns="columns" ref="table" border stripe>
             <div slot="footer">
                 <span style="margin-left: 10px;">设备总数: {{ itemsCount }} 台</span>
             </div>
         </Table>
         <div style="margin: 10px;overflow-x: hidden" v-if="showPager">
+            <div>
+                <Button type="primary" size="large" @click="exportData()"><Icon type="ios-download-outline"></Icon> 导出数据</Button>
+            </div>
             <div style="float: right;">
                 <Page :total="itemsCount" :current.sync="currentPage" :page-size="pageSize" :page-size-opts="pageSizeOpt" show-sizer placement="top" 
                     @on-page-size-change="changePageSize"></Page>
@@ -157,6 +160,24 @@ export default {
         showDetails (item) {
             this.$refs.com1.getInfo(item.product_type_id, item.serial_number, item.activate_date, item.inactivate_date)
             this.modal1 = true
+        },
+
+        exportData () {
+            let temp = JSON.parse(JSON.stringify(this.itemList))
+            
+            temp.forEach(element => {
+                element.activate_date = nereus.displayDateTime(element.activate_date)
+                element.in_due_form_date = nereus.displayDateTime(element.in_due_form_date)
+                element.statistics_equipment_in_due_form_date = nereus.displayDateTime(element.statistics_equipment_in_due_form_date)
+                element.inactivate_date = nereus.displayDateTime(element.inactivate_date)
+                element.create_date = nereus.displayDateTime(element.create_date)
+            })
+
+            this.$refs.table.exportCsv({
+                filename: '导出数据',
+                columns: this.columns,
+                data: temp
+            })
         }
     }
 }

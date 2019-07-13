@@ -39,6 +39,14 @@
                 <Select v-model="sDistrict" style="width:200px" placeholder="选择区" clearable>
                     <Option v-for="item in districtList" :value="item.district_id" :key="item.district_id">{{ item.district_name }}</Option>
                 </Select>
+
+                <span>代理商</span>
+                <Select v-model="sAgent" style="width:250px" placeholder="选择代理商" clearable>
+                    <Option v-for="item in agentCompanyList" :value="item.id" :key="item.id">{{ item.name }}</Option>
+                </Select>
+
+                <span>搜索</span>
+                <Input v-model="filterKey" style="width: 200px"></Input>
             </div>
 
             <agent-district-list :item-list="filterData" @refresh="getDistrictList"></agent-district-list>
@@ -68,9 +76,12 @@ export default {
             provinceList: [],
             cityList: [],
             districtList: [],
+            agentCompanyList: [],
             sProvince: '',
             sCity: '',
-            sDistrict: ''
+            sDistrict: '',
+            sAgent: '',
+            filterKey: ''
         }
     },
     computed: {
@@ -88,7 +99,11 @@ export default {
             if (this.sDistrict) {
                 temp = temp.filter(r => r.district_id === this.sDistrict)
             }
-            /*
+
+            if (this.sAgent) {
+                temp = temp.filter(r => r.agent_company_id === this.sAgent)
+            }
+
             var filterKey = this.filterKey && this.filterKey.toLowerCase()
             if (filterKey) {
                 temp = temp.filter(function (row) {
@@ -97,7 +112,7 @@ export default {
                     })
                 })
             }
-            */
+
             return temp
         }
     },
@@ -106,9 +121,11 @@ export default {
             this.roleType = this.$store.state.user.roleType
             if (this.roleType === 0 || this.roleType === 1) {
                 this.getCompanys()
+                this.getAllAgents()
             } else if (this.roleType === 2) {
                 this.sCompany = this.$store.state.user.companyId
                 this.getDistrictList()
+                this.getAgentCompany()
             }
 
             this.getProvinces()
@@ -119,6 +136,24 @@ export default {
 
             company.listByType(2).then(res => {
                 vm.companyList = res.entities
+            })
+        },
+
+        getAllAgents () {
+            let vm = this
+
+            company.list().then(res => {
+                vm.agentCompanyList = res.entities.filter(r => r.type !== 1)
+            })
+        },
+
+        // 获取下属代理商
+        getAgentCompany () {
+            let vm = this
+            let companyId = this.$store.state.user.companyId
+
+            company.listAgentAndSelf(companyId).then(res => {
+                vm.agentCompanyList = res.entities
             })
         },
 

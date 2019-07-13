@@ -1,8 +1,11 @@
 <template>
     <div class="agent-district-list">
-        <Table :data="tableData" :columns="columns" stripe border>
+        <Table :data="tableData" :columns="columns" ref="table" stripe border>
         </Table>
         <div style="margin: 10px;overflow-x: hidden" v-if="showPager">
+            <div>
+                <Button type="primary" size="large" @click="exportData()"><Icon type="ios-download-outline"></Icon> 导出数据</Button>
+            </div>
             <div style="float: right;">
                 <Page :total="itemsCount" :current.sync="currentPage" :page-size="pageSize" :page-size-opts="pageSizeOpt" show-sizer placement="top" 
                     @on-page-size-change="changePageSize"></Page>
@@ -122,6 +125,16 @@ export default {
                         desc: res.message
                     })
                 }
+            })
+        },
+
+        exportData () {
+            let temp = JSON.parse(JSON.stringify(this.itemList))
+
+            this.$refs.table.exportCsv({
+                filename: '导出数据',
+                columns: this.columns,
+                data: temp
             })
         }
     }

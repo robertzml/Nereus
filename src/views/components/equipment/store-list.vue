@@ -1,11 +1,14 @@
 <template>
     <div class="store-list">
-        <Table :data="tableData" :columns="columns" stripe border>
+        <Table :data="tableData" :columns="columns" ref="table" stripe border>
             <div slot="footer">
                 <span style="margin-left: 10px;">库存设备总数: {{ itemsCount }} 台</span>
             </div>
         </Table>
         <div style="margin: 10px;overflow-x: hidden" v-if="showPager">
+            <div>
+                <Button type="primary" size="large" @click="exportData()"><Icon type="ios-download-outline"></Icon> 导出数据</Button>
+            </div>
             <div style="float: right;">
                 <Page :total="itemsCount" :current.sync="currentPage" :page-size="pageSize" :page-size-opts="pageSizeOpt" show-sizer placement="top" 
                     @on-page-size-change="changePageSize"></Page>
@@ -98,6 +101,22 @@ export default {
             } else {
                 return '未知'
             }
+        },
+
+        exportData () {
+            let temp = JSON.parse(JSON.stringify(this.itemList))
+            
+            temp.forEach(element => {
+                element.sale_status = this.saleStatus(element.sale_status)
+                element.create_date = nereus.displayDateTime(element.create_date)
+                element.update_date = nereus.displayDateTime(element.update_date)
+            })
+
+            this.$refs.table.exportCsv({
+                filename: '导出数据',
+                columns: this.columns,
+                data: temp
+            })
         }
     }
 }

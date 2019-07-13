@@ -271,6 +271,14 @@ export default {
     },
 
     // 获取历史设备
+    getHistoryBySerialNumber (serialNumber) {
+        return api._get({ url: '/t_equipment_inactivate_log/findInfoBySerialNumber', params: { serial_number: serialNumber } })
+            .then(res => {
+                return res.data
+            })
+    },
+
+    // 获取历史设备
     getHistory (consumerPhone) {
         return api._get({ url: '/t_equipment_inactivate_log/findInfoByOwnerPhone', params: { consumer_phone: consumerPhone } })
             .then(res => {

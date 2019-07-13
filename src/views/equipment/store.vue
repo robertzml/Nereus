@@ -21,6 +21,9 @@
                     <Select v-model="sProduct" style="width:200px" placeholder="选择产品" clearable>
                         <Option v-for="item in productList" :value="item.id" :key="item.id">{{ item.name }}</Option>
                     </Select>
+
+                    <span>搜索</span>
+                    <Input v-model="filterKey" style="width: 200px"></Input>
                 </div>
 
                 <store-list :item-list="filterData"></store-list>
@@ -48,7 +51,8 @@ export default {
             companyList: [],
             sCompany: '',
             productList: [],
-            sProduct: ''
+            sProduct: '',
+            filterKey: ''
         }
     },
     computed: {
@@ -63,6 +67,14 @@ export default {
                 temp = temp.filter(r => r.product_id === this.sProduct)
             }
 
+            var filterKey = this.filterKey && this.filterKey.toLowerCase()
+            if (filterKey) {
+                temp = temp.filter(function (row) {
+                    return Object.keys(row).some(function (key) {
+                        return String(row[key]).toLowerCase().indexOf(filterKey) > -1
+                    })
+                })
+            }
             return temp
         }
     },

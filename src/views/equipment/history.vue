@@ -17,6 +17,11 @@
                         <Input v-model="consumerPhone" style="width: 200px"></Input>
 
                         <Button type="primary" @click="search">查询</Button>
+
+                        <span style="margin-left: 20px;">设备序列号：</span>
+                        <Input v-model="serialNumber" style="width: 200px"></Input>
+
+                        <Button type="primary" @click="search2">查询</Button>
                     </div>
                     
                     <history-list :item-list="equipmentData"></history-list>
@@ -38,6 +43,7 @@ export default {
     data () {
         return {
             consumerPhone: '',
+            serialNumber: '',
             equipmentData: []
         }
     },
@@ -56,6 +62,29 @@ export default {
 
             let vm = this
             equipment.getHistory(this.consumerPhone).then(res => {
+                if (res.status === 0) {
+                    vm.equipmentData = res.entities
+                } else {
+                    this.$Notice.error({
+                        title: '获取记录失败',
+                        desc: res.message,
+                        duration: 5
+                    })
+                }
+            })
+        },
+
+        search2 () {
+            if (this.serialNumber === '') {
+                this.$Message.warning({
+                    content: '请输入设备序列号',
+                    duration: 2
+                })
+                return
+            }
+
+            let vm = this
+            equipment.getHistoryBySerialNumber(this.serialNumber).then(res => {
                 if (res.status === 0) {
                     vm.equipmentData = res.entities
                 } else {
