@@ -93,6 +93,30 @@ export default {
             .then(res => {
                 return res.data
             })
+    },
+
+    getEquipmentStatus (type, productTypeIds) {
+        if (type === 1) {
+            return api._get({ url: '/t_equipment_owner_protocol/webGetDeadLineTimeEquipmentStatusRealTimeByProductType', params: { product_type_ids: productTypeIds } })
+                .then(res => {
+                    return res.data
+                })
+        } else if (type === 2) {
+            return api._get({ url: '/t_equipment_owner_protocol/webGetOnlineEquipmentStatusRealTimeByProductType', params: { product_type_ids: productTypeIds } })
+                .then(res => {
+                    return res.data
+                })
+        } else if (type === 3) {
+            return api._get({ url: '/t_equipment_owner_protocol/webGetMaintainEquipmentStatusRealTimeByProductType', params: { product_type_ids: productTypeIds } })
+                .then(res => {
+                    return res.data
+                })
+        } else if (type === 4) {
+            return api._get({ url: '/t_equipment_owner_protocol/webGetAlarmEquipmentStatusRealTimeByProductType', params: { product_type_ids: productTypeIds } })
+                .then(res => {
+                    return res.data
+                })
+        }
     }
 }
 
