@@ -85,6 +85,14 @@ export default {
             .then(res => {
                 return res.data
             })
+    },
+
+    // 厂商账单
+    getWaterheaterBill (companyId, startTime, endTime) {
+        return api._get({ url: '/t_water_heater_equipment_statistics/findWaterHeaterBill', params: { company_id: companyId, start_time: startTime, end_time: endTime } })
+            .then(res => {
+                return res.data
+            })
     }
 }
 
