@@ -21,7 +21,17 @@
                 <Button type="primary" @click="loadBill">查询</Button>
             </div>
 
-            <water-heater-bill-list :itemList="billData"></water-heater-bill-list>
+            <div class="filter-panel" style="margin-bottom:15px;">
+                <h3>筛选</h3>
+             
+                <span>代理商</span>
+                <Select v-model="sAgent" style="width:300px" placeholder="选择代理商" clearable>
+                    <Option v-for="item in agentCompanyList" :value="item.id" :key="item.id">{{ item.name }}</Option>
+                </Select>
+
+            </div>
+
+            <water-heater-bill-list :itemList="filterData"></water-heater-bill-list>
 
         </Card>
     </div>
@@ -44,6 +54,8 @@ export default {
         return {
             roleType: 0,
             vendorCompanyList: [],
+            agentCompanyList: [],
+            sAgent: '',
             sVendor: 0,
             month: '',
             billData: [],
@@ -56,6 +68,10 @@ export default {
 
             if (this.sProduct) {
                 temp = temp.filter(r => r.product_id === this.sProduct)
+            }
+
+            if (this.sAgent) {
+                temp = temp.filter(r => r.agent_id === this.sAgent)
             }
 
             var filterKey = this.filterKey && this.filterKey.toLowerCase()
@@ -77,8 +93,10 @@ export default {
 
             if (this.roleType === 0 || this.roleType === 1) {
                 this.getCompanys()
+                this.getAllAgents()
             } else if (this.roleType === 2) {
                 this.sVendor = this.$store.state.user.companyId
+                this.getAgentCompany()
             }
         },
 
@@ -87,6 +105,24 @@ export default {
 
             company.list().then(res => {
                 vm.vendorCompanyList = res.entities.filter(r => r.type === 2)
+            })
+        },
+
+        getAllAgents () {
+            let vm = this
+
+            company.list().then(res => {
+                vm.agentCompanyList = res.entities.filter(r => r.type !== 1)
+            })
+        },
+
+        // 获取下属代理商
+        getAgentCompany () {
+            let vm = this
+            let companyId = this.$store.state.user.companyId
+
+            company.listAgentAndSelf(companyId).then(res => {
+                vm.agentCompanyList = res.entities
             })
         },
 

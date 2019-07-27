@@ -6,6 +6,11 @@
             </div>
         </Table>
         <div style="margin: 10px;overflow-x: hidden" v-if="showPager">
+             <div>
+                <span style="margin-left:20px;margin-right:20px;">共 {{ itemsCount }} 条收益记录</span>
+                <span style="margin-right:20px;">需付款金额合计 {{ totalAmount }} 元</span>
+                <br />
+            </div>
             <div>
                 <Button type="primary" size="large" @click="exportData()"><Icon type="ios-download-outline"></Icon> 导出数据</Button>
             </div>
@@ -259,6 +264,13 @@ export default {
         tableData () {
             let temp = this.itemList
             return temp.slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize)
+        },
+        totalAmount () {
+            let total = 0
+            this.itemList.forEach(element => {
+                total += element.money_to_consumer
+            })
+            return total.toFixed(2)
         }
     },
     methods: {

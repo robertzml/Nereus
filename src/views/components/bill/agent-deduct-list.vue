@@ -8,11 +8,10 @@
                 <br />
 
                 <span style="margin-left:20px;margin-right:20px;">共 {{ itemsCount }} 条收益记录</span>
-                <span style="margin-right:20px;">设备总应收款合计 {{ accruedAmount }} 元</span>
                 <span style="margin-right:20px;">设备实际收款合计 {{ actualAmount }} 元</span>
-                <span style="margin-right:20px;">代理商应收款合计 {{ totalAmount }} 元</span>
-                <span style="margin-right:20px;">代理商实际分成合计 {{ realAmount }} 元</span>
-
+                <!--<span style="margin-right:20px;">代理商实际分成合计 {{ realAmount }} 元</span>-->
+                <span style="margin-right:20px;">优惠券合计 {{ totalCoupon }} 元</span>
+                <span style="margin-right:20px;">死账合计 {{ badTotal }} 元</span>
                 <br />
             </div>
             <div>
@@ -121,16 +120,6 @@ export default {
                     }
                 },
                 {
-                    title: '应收款金额',
-                    key: 'accrued_revenues',
-                    width: 100
-                },
-                {
-                    title: '代理商应收款金额',
-                    key: 'agent_accrued_revenues',
-                    width: 100
-                },
-                {
                     title: '使用优惠券(元)',
                     key: 'actual_coupon',
                     width: 100
@@ -151,8 +140,8 @@ export default {
                     width: 100
                 },
                 {
-                    title: '分成比例',
-                    key: 'agent_ratio',
+                    title: '总分成比例',
+                    key: 'total_agent_ratio',
                     width: 100
                 },
                 {
@@ -204,13 +193,6 @@ export default {
             let temp = this.itemList
             return temp.slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize)
         },
-        totalAmount () {
-            let total = 0
-            this.itemList.forEach(element => {
-                total += element.agent_accrued_revenues
-            })
-            return total.toFixed(2)
-        },
         realAmount () {
             let total = 0
             this.itemList.forEach(element => {
@@ -225,10 +207,17 @@ export default {
             })
             return total.toFixed(2)
         },
-        accruedAmount () {
+        totalCoupon () {
             let total = 0
             this.itemList.forEach(element => {
-                total += element.accrued_revenues
+                total += element.actual_coupon
+            })
+            return total.toFixed(2)
+        },
+        badTotal () {
+            let total = 0
+            this.itemList.forEach(element => {
+                total += element.bad_debt
             })
             return total.toFixed(2)
         }
