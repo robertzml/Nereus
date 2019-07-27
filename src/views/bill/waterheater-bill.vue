@@ -16,9 +16,7 @@
                     <Option v-for="item in vendorCompanyList" :value="item.id" :key="item.id">{{ item.name }}</Option>
                 </Select>
 
-                <DatePicker type="date" placement="bottom-end" placeholder="选择起始日期" style="width: 200px" v-model="startTime" :clearable="false"></DatePicker>
-
-                <DatePicker type="date" placement="bottom-end" placeholder="选择结束日期" style="width: 200px" v-model="endTime" :clearable="false"></DatePicker>
+                <DatePicker type="month" placement="bottom-end" placeholder="选择月份" style="width: 200px" v-model="month" :clearable="false"></DatePicker>               
                
                 <Button type="primary" @click="loadBill">查询</Button>
             </div>
@@ -47,8 +45,7 @@ export default {
             roleType: 0,
             vendorCompanyList: [],
             sVendor: 0,
-            startTime: '',
-            endTime: '',
+            month: '',
             billData: [],
             filterKey: ''
         }
@@ -75,12 +72,8 @@ export default {
     methods: {
          init () {
             this.roleType = this.$store.state.user.roleType
-            this.endTime = new Date()
 
-            let year = this.endTime.getFullYear()
-            let month = this.endTime.getMonth()
-
-            this.startTime = new Date(year, month, 1)
+            this.month = new Date()
 
             if (this.roleType === 0 || this.roleType === 1) {
                 this.getCompanys()
@@ -106,17 +99,17 @@ export default {
                 return
             }
            
-            if (this.startTime === '' || this.endTime === '') {
+            if (this.month === '') {
                  this.$Message.warning({
                     content: '请选择日期',
                     duration: 2
                 })
                 return
             }
-          
+            
             let vm = this
            
-            bill.getWaterheaterBill(this.sVendor, this.startTime, this.endTime).then(res => {
+            bill.getWaterheaterBill(this.sVendor, this.month).then(res => {
                 if (res.status === 0) {
                     vm.billData = res.entities
                 } else {
@@ -126,7 +119,7 @@ export default {
                         duration: 5
                     })
                 }
-            })            
+            })
         }
     },
     mounted: function () {

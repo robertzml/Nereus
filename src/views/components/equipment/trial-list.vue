@@ -1,11 +1,14 @@
 <template>
     <div class="equipment-list">
-        <Table :data="tableData" :columns="columns" border stripe>
+        <Table :data="tableData" :columns="columns" ref="table" border stripe>
             <div slot="footer">
                 <span style="margin-left: 10px;">试用设备总数: {{ itemsCount }} 台</span>
             </div>
         </Table>
         <div style="margin: 10px;overflow-x: hidden" v-if="showPager">
+            <div>
+                <Button type="primary" size="large" @click="exportData()"><Icon type="ios-download-outline"></Icon> 导出数据</Button>
+            </div>
             <div style="float: right;">
                 <Page :total="itemsCount" :current.sync="currentPage" :page-size="pageSize" :page-size-opts="pageSizeOpt" show-sizer placement="top" 
                     @on-page-size-change="changePageSize"></Page>
@@ -228,6 +231,21 @@ export default {
 
                     this.$emit('refresh')
                 }
+            })
+        },
+
+        exportData () {
+            let temp = JSON.parse(JSON.stringify(this.itemList))
+            
+            temp.forEach(element => {
+                element.set_free_time_date = nereus.displayDateTime(element.set_free_time_date)
+                element.apply_state = this.showApplyState(element.apply_state)
+            })
+
+            this.$refs.table.exportCsv({
+                filename: '导出数据',
+                columns: this.columns,
+                data: temp
             })
         }
     }
