@@ -74,6 +74,14 @@ export default {
                     }
                 },
                 {
+                    title: '激活时间',
+                    key: 'activate_date',
+                    sortable: true,
+                    render: (h, params) => {
+                        return nereus.displayDate(params.row.activate_date)
+                    }
+                },
+                {
                     title: '解锁状态',
                     key: 'is_unlock',
                     width: 100,
@@ -90,6 +98,20 @@ export default {
                     sortable: true,
                     render: (h, params) => {
                         return nereus.displayDate(params.row.device_deadline_date)
+                    }
+                },
+                {
+                    title: '是否更换设备',
+                    key: 'is_change_equipment',
+                    render: (h, params) => {
+                        return this.isChange(params.row.is_change_equipment)
+                    }
+                },
+                {
+                    title: '更换时间',
+                    key: 'change_time',
+                    render: (h, params) => {
+                        return nereus.displayDate(params.row.change_time)
                     }
                 },
                 {
@@ -141,6 +163,14 @@ export default {
             return val ? '已解锁' : '未解锁'
         },
 
+        isChange (val) {
+            if (val === 1) {
+                return '是'
+            } else {
+                return '否'
+            }
+        },
+
         exportData () {
             let temp = JSON.parse(JSON.stringify(this.itemList))
             
@@ -148,6 +178,9 @@ export default {
                 element.in_due_form_date = nereus.displayDateTime(element.in_due_form_date)
                 element.is_unlock = this.isUnlock(element.is_unlock)
                 element.device_deadline_date = nereus.displayDate(element.device_deadline_date)
+                element.activate_date = nereus.displayDate(element.activate_date)
+                element.is_change_equipment = this.isChange(element.is_change_equipment)
+                element.change_time = nereus.displayDate(element.change_time)
             })
 
             this.$refs.table.exportCsv({

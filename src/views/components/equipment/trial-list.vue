@@ -67,27 +67,6 @@ export default {
                     key: 'owner_phone'
                 },
                 {
-                    title: '申请者姓名',
-                    key: 'apply_account_name'
-                },
-                {
-                    title: '申请代充值金额',
-                    key: 'apply_prepay_rent'
-                },
-                {
-                    title: '申请设备安装费',
-                    key: 'apply_installation_charge'
-                },
-                {
-                    title: '申请代充值优惠券',
-                    key: 'apply_prepay_coupon'
-                },
-               
-                {
-                    title: '申请设备押金',
-                    key: 'apply_device_deposit'
-                },
-                {
                     title: '免费试用日期(天)',
                     key: 'set_free_time'
                 },
@@ -98,6 +77,36 @@ export default {
                         return (
                             <span>{ nereus.displayDate(params.row.set_free_time_date) }</span>
                         )
+                    }
+                },
+                {
+                    title: '激活时间',
+                    key: 'activate_date',
+                    sortable: true,
+                    render: (h, params) => {
+                        return nereus.displayDate(params.row.activate_date)
+                    }
+                },
+                {
+                    title: '使用截至时间',
+                    key: 'device_deadline_date',
+                    sortable: true,
+                    render: (h, params) => {
+                        return nereus.displayDate(params.row.device_deadline_date)
+                    }
+                },
+                {
+                    title: '是否更换设备',
+                    key: 'is_change_equipment',
+                    render: (h, params) => {
+                        return this.isChange(params.row.is_change_equipment)
+                    }
+                },
+                {
+                    title: '更换时间',
+                    key: 'change_time',
+                    render: (h, params) => {
+                        return nereus.displayDate(params.row.change_time)
                     }
                 },
                 {
@@ -234,12 +243,25 @@ export default {
             })
         },
 
+        isChange (val) {
+            if (val === 1) {
+                return '是'
+            } else {
+                return '否'
+            }
+        },
+
         exportData () {
             let temp = JSON.parse(JSON.stringify(this.itemList))
             
             temp.forEach(element => {
                 element.set_free_time_date = nereus.displayDateTime(element.set_free_time_date)
                 element.apply_state = this.showApplyState(element.apply_state)
+
+                element.activate_date = nereus.displayDate(element.activate_date)
+                element.device_deadline_date = nereus.displayDateTime(element.device_deadline_date)
+                element.is_change_equipment = this.isChange(element.is_change_equipment)
+                element.change_time = nereus.displayDate(element.change_time)
             })
 
             this.$refs.table.exportCsv({

@@ -59,12 +59,12 @@ export default {
     // 获取试用设备
     getTrial (companyId) {
         if (companyId !== undefined) {
-            return api._get({ url: '/t_equipment_set_free_time/findInfoByCompanyId', params: { company_id: companyId, status: 0 } })
+            return api._get({ url: '/t_equipment_set_free_time/findInfoByCompanyId', params: { company_id: companyId } })
                 .then(res => {
                     return res.data
                 })
         } else {
-            return api._get({ url: '/t_equipment_set_free_time/findInfoByCompanyId', params: { status: 0 } })
+            return api._get({ url: '/t_equipment_set_free_time/findInfoByCompanyId' })
                 .then(res => {
                     return res.data
                 })
@@ -271,16 +271,8 @@ export default {
     },
 
     // 获取历史设备
-    getHistoryBySerialNumber (serialNumber) {
-        return api._get({ url: '/t_equipment_inactivate_log/findInfoBySerialNumber', params: { serial_number: serialNumber } })
-            .then(res => {
-                return res.data
-            })
-    },
-
-    // 获取历史设备
-    getHistory (consumerPhone) {
-        return api._get({ url: '/t_equipment_inactivate_log/findInfoByOwnerPhone', params: { consumer_phone: consumerPhone } })
+    getHistory (serialNumber) {
+        return api._get({ url: '/t_equipment_inactivate_log/webFindInfoByInfo', params: { serial_number: serialNumber } })
             .then(res => {
                 return res.data
             })

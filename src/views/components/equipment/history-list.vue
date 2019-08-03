@@ -51,74 +51,234 @@ export default {
                     width: 150
                 },
                 {
-                    title: '产品名称',
-                    key: 'product_id_name',
-                    width: 130
-                },
-                {
-                    title: '设备用户电话',
-                    key: 'consumer_phone',
-                    width: 115
-                },
-                {
-                    title: '设备用户账号名称',
-                    key: 'consumer_user_name',
-                    width: 100
-                },
-                {
                     title: '设备设置激活时间',
                     key: 'activate_date',
+                    width: 150,
                     render: (h, params) => {
                         return (
                             nereus.displayDateTime(params.row.activate_date)
                         )
-                    },
-                    width: 160
+                    }
                 },
                 {
-                    title: '设备转正日期节点',
+                    title: '设备转正日期',
                     key: 'in_due_form_date',
+                    width: 150,
                     render: (h, params) => {
                         return (
                             nereus.displayDateTime(params.row.in_due_form_date)
                         )
-                    },
-                    width: 160
+                    }
                 },
                 {
                     title: '设备正式开始计算账单节点',
                     key: 'statistics_equipment_in_due_form_date',
+                    width: 150,
                     render: (h, params) => {
                         return (
                             nereus.displayDateTime(params.row.statistics_equipment_in_due_form_date)
                         )
-                    },
-                    width: 160
+                    }
                 },
                 {
                     title: '设备注销时间',
                     key: 'inactivate_date',
+                    width: 150,
                     render: (h, params) => {
                         return (
                             nereus.displayDateTime(params.row.inactivate_date)
                         )
-                    },
-                    width: 160
+                    }
                 },
                 {
                     title: '创建日志时间',
-                    key: 'create_date',
+                    key: 't_equipment_inactivate_log_create_date',
+                    width: 150,
                     render: (h, params) => {
                         return (
-                            nereus.displayDateTime(params.row.create_date)
+                            nereus.displayDateTime(params.row.t_equipment_inactivate_log_create_date)
                         )
-                    },
-                    width: 160
+                    }
+                },
+                {
+                    title: '状态',
+                    key: 'status',
+                    width: 150,
+                    render: (h, params) => {
+                        return (
+                            this.showStatus(params.row.status)
+                        )
+                    }
+                },
+                {
+                    title: '累计用热水量升',
+                    key: 'cummlative_heat_water',
+                    width: 150
+                },
+                {
+                    title: '累计用电量度',
+                    key: 'cummlative_use_electricity',
+                    width: 150
+                },
+                {
+                    title: '累计省电量度',
+                    key: 'cummlative_electricity_saving',
+                    width: 150
+                },
+                {
+                    title: '累计通电时间分',
+                    key: 'cummlative_duration_machine',
+                    width: 150
+                },
+                {
+                    title: '累计工作时间分',
+                    key: 'cummlative_heat_time',
+                    width: 150
+                },
+                {
+                    title: '累计综合节电量',
+                    key: 'comprehensive_electricity_saving',
+                    width: 150
+                },
+                {
+                    title: '注销原因',
+                    key: 'explanation',
+                    width: 150
                 },
                 {
                     title: '备注',
                     key: 'remark',
                     width: 150
+                },
+                {
+                    title: '试用截至日期',
+                    key: 'set_free_time_date',
+                    width: 150,
+                    render: (h, params) => {
+                        return (
+                            nereus.displayDate(params.row.set_free_time_date)
+                        )
+                    }
+                },
+                {
+                    title: '免费使用时间',
+                    key: 'set_free_time',
+                    width: 150,
+                    render: (h, params) => {
+                        return (
+                            nereus.displayDate(params.row.set_free_time)
+                        )
+                    }
+                },
+                {
+                    title: '是否更换设备',
+                    key: 'is_change_equipment',
+                    width: 150,
+                    render: (h, params) => {
+                        return (
+                            this.isChange(params.row.is_change_equipment)
+                        )
+                    }
+                },
+                {
+                    title: '更换时间',
+                    key: 'change_time',
+                    width: 150,
+                    render: (h, params) => {
+                        return (
+                            nereus.displayDate(params.row.change_time)
+                        )
+                    }
+                },
+                {
+                    title: '代理商公司名',
+                    key: 'agent_company_name',
+                    width: 150
+                },
+                {
+                    title: '代理商业务员电话',
+                    key: 'agent_phone',
+                    width: 150
+                },
+                {
+                    title: '申请者姓名',
+                    key: 'apply_account_name',
+                    width: 150
+                },
+                {
+                    title: '安装工姓名',
+                    key: 'erector_name',
+                    width: 150
+                },
+                {
+                    title: '安装工电话号码',
+                    key: 'erector_phone',
+                    width: 150
+                },
+                {
+                    title: '设备管理者名称',
+                    key: 'owner_intendant_name',
+                    width: 150
+                },
+                {
+                    title: '设备管理者电话号码',
+                    key: 'owner_intendant_phone',
+                    width: 150
+                },
+                {
+                    title: '设备用户的公司名称',
+                    key: 'owner_company_name',
+                    width: 150
+                },
+                {
+                    title: '设备用户名称',
+                    key: 'owner_name',
+                    width: 150
+                },
+                {
+                    title: '设备用户电话',
+                    key: 'owner_phone',
+                    width: 150
+                },
+                {
+                    title: '设备用户省地址',
+                    key: 'owner_address_province',
+                    width: 150
+                },
+                {
+                    title: '设备用户市地址',
+                    key: 'owner_address_city',
+                    width: 150
+                },
+                {
+                    title: '设备用户区地址',
+                    key: 'owner_address_district',
+                    width: 150
+                },
+                {
+                    title: '设备用户详细地址',
+                    key: 'owner_address_detail',
+                    width: 150
+                },
+                {
+                    title: '设备初始金额',
+                    key: 'prepay_rent',
+                    width: 150
+                },
+                {
+                    title: '安装费',
+                    key: 'installation_charge',
+                    width: 150
+                },
+                {
+                    title: '合同生成日期',
+                    key: 'create_date',
+                    width: 150,
+                    render: (h, params) => {
+                        return (
+                            nereus.displayDate(params.row.create_date)
+                        )
+                    }
                 },
                 {
                     title: '操作',
@@ -162,6 +322,26 @@ export default {
             this.modal1 = true
         },
 
+        isChange (val) {
+            if (val === 1) {
+                return '是'
+            } else {
+                return '否'
+            }
+        },
+
+        showStatus (val) {
+            if (status === 0) {
+                return '正常注销'
+            } else if (status === 1) {
+                return '删除'
+            } else if (status === 2) {
+                return '更换设备注销'
+            } else {
+                return '未知'
+            }
+        },
+
         exportData () {
             let temp = JSON.parse(JSON.stringify(this.itemList))
             
@@ -170,7 +350,13 @@ export default {
                 element.in_due_form_date = nereus.displayDateTime(element.in_due_form_date)
                 element.statistics_equipment_in_due_form_date = nereus.displayDateTime(element.statistics_equipment_in_due_form_date)
                 element.inactivate_date = nereus.displayDateTime(element.inactivate_date)
-                element.create_date = nereus.displayDateTime(element.create_date)
+                element.t_equipment_inactivate_log_create_date = nereus.displayDateTime(element.t_equipment_inactivate_log_create_date)
+                element.status = this.showStatus(element.status)
+                element.set_free_time_date = nereus.displayDateTime(element.set_free_time_date)
+                element.set_free_time = nereus.displayDateTime(element.set_free_time)
+                element.is_change_equipment = this.isChange(element.is_change_equipment)
+                element.change_time = nereus.displayDate(element.change_time)
+                element.create_date = nereus.displayDate(element.create_date)
             })
 
             this.$refs.table.exportCsv({
