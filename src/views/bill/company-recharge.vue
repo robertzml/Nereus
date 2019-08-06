@@ -24,6 +24,8 @@
                     <Option v-for="item in rechargeTypeList" :value="item.id" :key="item.id">{{ item.name }}</Option>
                 </Select>
                 <Button type="primary" @click="loadRevenue">查询</Button>
+
+                <span>0点开始 - 0点结束</span>
             </div>
             <div class="filter-panel">
                 <h3>筛选</h3>

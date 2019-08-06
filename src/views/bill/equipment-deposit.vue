@@ -21,6 +21,8 @@
                 <DatePicker type="date" placement="bottom-end" placeholder="选择结束日期" style="width: 200px" v-model="endTime"></DatePicker>
 
                 <Button type="primary" @click="loadDeposit">查询</Button>
+
+                <span>0点开始 - 0点结束</span>
             </div>
             
             <br />
