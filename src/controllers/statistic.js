@@ -49,5 +49,12 @@ export default {
             .then(res => {
                 return res.data
             })
+    },
+
+    getTotalStatistic () {
+        return api._get({ url: '/platform_common/webfindEquipmentTotalStatistics' })
+        .then(res => {
+            return res.data
+        })
     }
 }
