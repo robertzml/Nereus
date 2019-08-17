@@ -31,31 +31,39 @@
                 </Card>
             </Col>
         </Row>
-        <Row>            
-            <Col v-for="item in cityList" v-bind:key="item.city" span="4">
-                <Form :label-width="120">
-                    <FormItem label="累计用热水量升">
-                        {{ item.statistics_heat_water }}
-                    </FormItem>
-                    <FormItem label="累计用电量度">
-                        {{ item.statistics_use_electricity }}
-                    </FormItem>
-                    <FormItem label="累计省电量度">
-                        {{ item.statistics_electricity_saving }}
-                    </FormItem>
-                    <FormItem label="累计通电时间分">
-                        {{ item.statistics_duration_machine }}
-                    </FormItem>
-                    <FormItem label="累计加热时间分">
-                        {{ item.statistics_heat_time }}
-                    </FormItem>
-                    <FormItem label="设备总数量">
-                        {{ item.total_number }}
-                    </FormItem>
-                    <FormItem label="更新时间">
-                        {{ item.create_date | displayDateTime }}
-                    </FormItem>
-                </Form>
+        <Row :gutter="16">            
+            <Col v-for="item in cityList" v-bind:key="item.city" span="6">
+                <Card>
+                    <Form :label-width="120">
+                        <FormItem label="省">
+                            {{ item.province }}
+                        </FormItem>
+                        <FormItem label="市">
+                            {{ item.city }}
+                        </FormItem>
+                        <FormItem label="设备总数量">
+                            {{ item.active_total_number }}
+                        </FormItem>
+                        <FormItem label="累计用热水量升">
+                            {{ item.statistics_heat_water }}
+                        </FormItem>
+                        <FormItem label="累计用电量度">
+                            {{ item.statistics_use_electricity }}
+                        </FormItem>
+                        <FormItem label="累计省电量度">
+                            {{ item.statistics_electricity_saving }}
+                        </FormItem>
+                        <FormItem label="累计通电时间分">
+                            {{ item.statistics_duration_machine }}
+                        </FormItem>
+                        <FormItem label="累计加热时间分">
+                            {{ item.statistics_heat_time }}
+                        </FormItem>
+                        <FormItem label="更新时间">
+                            {{ item.create_date | displayDateTime }}
+                        </FormItem>
+                    </Form>
+                </Card>
             </Col>
         </Row>
     </div>

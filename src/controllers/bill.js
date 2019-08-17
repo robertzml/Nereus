@@ -117,6 +117,13 @@ export default {
                     return res.data
                 })
         }
+    },
+
+    findInactivateBill (id) {
+        return api._get({ url: '/t_agent_account_new_equipment/findInactivateBillInfoById', params: { t_equipment_inactivate_bill_id: id } })
+            .then(res => {
+                return res.data
+            })
     }
 }
 

@@ -15,11 +15,18 @@
                     @on-page-size-change="changePageSize"></Page>
             </div>
         </div>
+        <Modal
+            v-model="modal1"
+            title="押金退还信息"
+            width="600">
+            <inactivate-bill-mod ref="com1"></inactivate-bill-mod>
+        </Modal>
     </div>
 </template>
 
 <script>
 import * as nereus from '@/utility/nereus.js'
+import inactivateBillMod from './inactivate-bill-mod.vue'
 
 export default {
     name: 'equipment-deposit-list',
@@ -28,12 +35,16 @@ export default {
         showPager: { type: Boolean, default: true },
         type: { type: Number }
     },
+    components: {
+        inactivateBillMod
+    },
     data () {
         return {
             pageSize: 10,
             columns: [],
             currentPage: 1,
-            pageSizeOpt: [5, 10, 20, 30]
+            pageSizeOpt: [5, 10, 20, 30],
+            modal1: false
         }
     },
     watch: {
@@ -67,6 +78,10 @@ export default {
             } else if (status === 1) {
                 return '已退还'
             }
+        },
+        showDetails (item) {
+            this.$refs.com1.getInfo(item.t_equipment_inactivate_bill_id)
+            this.modal1 = true
         },
         exportData () {
             let temp = JSON.parse(JSON.stringify(this.itemList))
@@ -131,7 +146,7 @@ export default {
                             this.depositStatus(params.row.pay_equipment_deposit_status)
                         )
                     }
-                },                
+                },
                 {
                     title: '押金支付人名称',
                     key: 'pay_equipment_deposit_online_account_name'
@@ -282,6 +297,10 @@ export default {
                     }
                 },
                 {
+                    title: '实际退还押金金额',
+                    key: 'return_equipment_deposit'
+                },
+                {
                     title: '押金支付方式',
                     key: 'pay_equipment_deposit_type_name'
                 },
@@ -297,6 +316,19 @@ export default {
                 {
                     title: '审核人员',
                     key: 'operater_name'
+                },
+                {
+                    title: '操作',
+                    key: 'action',
+                    width: 150,
+                    align: 'center',
+                    render: (h, params) => {
+                        return (
+                        <div>
+                            <i-button type="primary" size="small" style="marginRight: 5px" onClick={ () => { this.showDetails(params.row) } }>查看</i-button>
+                        </div>
+                        )
+                    }
                 }
             ]
         }
