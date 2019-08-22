@@ -53,7 +53,7 @@ export default {
         { name: 'equipment-upload', roles: [1, 2, 3, 4, 5, 6] },
         { name: 'equipment-store', roles: [1, 2, 3, 4, 5, 6] },
         { name: 'equipment-agent-store', roles: [1] },
-        { name: 'equipment-history', roles: [1, 2, 3, 4, 5] },
+        { name: 'equipment-history', roles: [1, 2, 3, 4, 5, 6] },
         { name: 'equipment-real', roles: [1, 2, 3, 4, 5] },
         { name: 'user-index', roles: [1, 2, 3, 4, 5, 6] },
         { name: 'user-agreement', roles: [1, 2, 3, 4, 5, 6, 8] },
