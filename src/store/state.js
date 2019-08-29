@@ -33,6 +33,7 @@ export default {
     ],
     /* 页面视图权限 */
     viewPrivilege: [
+        { name: 'dashboard', roles: [1, 2, 3, 4] },
         { name: 'company-index', roles: [1, 2, 3, 4, 5, 6, 7, 8, 9] },
         { name: 'company-agent-index', roles: [5, 6, 7] },
         { name: 'account-index', roles: [1, 2, 3, 4] },

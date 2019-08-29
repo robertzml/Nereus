@@ -5,7 +5,7 @@
                 <Icon type="home"></Icon>
                 主页
             </MenuItem>
-            <MenuItem name="dashboard" v-if="roleId < 8">
+            <MenuItem name="dashboard" v-if="roleId < 5">
                 <Icon type="map"></Icon>
                 总览
             </MenuItem>          
