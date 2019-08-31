@@ -357,6 +357,12 @@ export default {
                 element.is_change_equipment = this.isChange(element.is_change_equipment)
                 element.change_time = nereus.displayDate(element.change_time)
                 element.create_date = nereus.displayDate(element.create_date)
+                if (element.remark != null) {
+                    element.remark = element.remark.replace(',', ';')
+                }
+                if (element.owner_address_detail != null) {
+                    element.owner_address_detail = element.owner_address_detail.replace(',', ';')
+                }
             })
 
             this.$refs.table.exportCsv({
