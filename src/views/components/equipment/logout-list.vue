@@ -122,10 +122,10 @@ export default {
         },
 
         reject (item) {
-            let act = [{
+            let act = {
                 serial_number: item.serial_number,
                 apply_state: 2
-            }]
+            }
        
             equipment.inactivate(act).then(res => {
                 if (res.status === 0) {
