@@ -173,10 +173,10 @@ export default {
 
         agree () {
             let vm = this
-            let act = [{
+            let act = {
                 serial_number: this.serialNumber,
                 apply_state: 1
-            }]
+            }
             this.loading = true
        
             equipment.inactivate(act).then(res => {
