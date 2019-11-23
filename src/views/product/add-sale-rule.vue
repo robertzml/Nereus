@@ -87,7 +87,7 @@
                             </FormItem>
 
                             <FormItem label="每期费用(元)" v-if="saleRuleInfo.charge_type === 1">
-                                <Input v-model="saleRuleInfo.fix_month_rent"></Input>
+                                <Input v-model="saleRuleInfo.fix_month_rent"></Input>代理商自定义月租时，留空
                             </FormItem>
 
                             <FormItem label="每期时间(月)" v-if="saleRuleInfo.charge_type === 4">
