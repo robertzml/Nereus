@@ -66,6 +66,26 @@ export default {
                     key: 'owner_phone'
                 },
                 {
+                    title: '省',
+                    key: 'owner_address_province'
+                },
+                {
+                    title: '市',
+                    key: 'owner_address_city'
+                },
+                {
+                    title: '区',
+                    key: 'owner_address_district'
+                },
+                {
+                    title: '地址',
+                    key: 'owner_address_detail'
+                },
+                {
+                    title: '公司名称',
+                    key: 'owner_company_name'
+                },
+                {
                     title: '设备转正时间',
                     key: 'in_due_form_date',
                     sortable: true,
