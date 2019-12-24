@@ -134,7 +134,9 @@ export default {
 
             let year = this.endTime.getFullYear()
             let month = this.endTime.getMonth()
+            let day = this.endTime.getDate()
             this.startTime = new Date(year, month, 1)
+            this.endTime = new Date(year, month, day)
 
             // this.getProductType()
             if (this.roleType === 0 || this.roleType === 1) {
