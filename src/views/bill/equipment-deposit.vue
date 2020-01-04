@@ -51,6 +51,14 @@
                     </div>
                     <equipment-deposit-list :item-list="filterData3" v-bind:type="3"></equipment-deposit-list>
                 </TabPane>
+
+                <TabPane label="线上钱包付款">
+                    <div class="filter-panel">
+                        <span>搜索</span>
+                        <Input v-model="filterKey4" style="width: 200px"></Input>
+                    </div>
+                    <equipment-deposit-list :item-list="filterData4" v-bind:type="4"></equipment-deposit-list>
+                </TabPane>
             </Tabs>
         </Card>
     </div>
@@ -78,9 +86,11 @@ export default {
             filterKey1: '',
             filterKey2: '',
             filterKey3: '',
+            filterKey4: '',
             depositData1: [],
             depositData2: [],
-            depositData3: []
+            depositData3: [],
+            depositData4: []
         }
     },
     computed: {
@@ -120,6 +130,20 @@ export default {
                 temp = temp.filter(function (row) {
                     return Object.keys(row).some(function (key) {
                         return String(row[key]).toLowerCase().indexOf(filterKey3) > -1
+                    })
+                })
+            }
+            return temp
+        },
+
+        filterData4 () {
+            let temp = this.depositData4
+
+            let filterKey4 = this.filterKey4 && this.filterKey4.toLowerCase()
+            if (filterKey4) {
+                temp = temp.filter(function (row) {
+                    return Object.keys(row).some(function (key) {
+                        return String(row[key]).toLowerCase().indexOf(filterKey4) > -1
                     })
                 })
             }
@@ -208,6 +232,18 @@ export default {
             bill.getEquipmentDeposit(this.sVendor, this.startTime, this.endTime, 3).then(res => {
                 if (res.status === 0) {
                     vm.depositData3 = res.entities
+                } else {
+                    this.$Notice.error({
+                        title: '获取记录失败',
+                        desc: res.message,
+                        duration: 5
+                    })
+                }
+            })
+
+            bill.getEquipmentDeposit(this.sVendor, this.startTime, this.endTime, 4).then(res => {
+                if (res.status === 0) {
+                    vm.depositData4 = res.entities
                 } else {
                     this.$Notice.error({
                         title: '获取记录失败',

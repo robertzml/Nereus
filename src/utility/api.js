@@ -4,7 +4,7 @@ import store from '../store'
 
 const ax = axios.create({
     baseURL: config.apihost,
-    timeout: 10000,
+    timeout: 30000,
     withCredentials: true, // 允许跨域 cookie
     headers: { 'X-Requested-With': 'XMLHttpRequest', 'Content-Type': 'application/json' }
     })
