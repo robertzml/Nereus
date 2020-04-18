@@ -56,6 +56,21 @@
             <TabPane label="设备操作">
                 <Row :gutter="16">
                     <Col span="12">
+                         <Card>
+                            <p slot="title">
+                                <Icon type="grid"></Icon>
+                                中途结算
+                            </p>
+
+                            <Form ref="formSettle" inline>                               
+                                <FormItem>
+                                    <Button type="primary" @click="handleSettle('formSettle')">结算</Button>
+                                </FormItem>
+                            </Form>                          
+                        </Card>
+                    </Col>
+
+                    <Col span="12">
                         <Card>
                             <p slot="title">
                                 <Icon type="grid"></Icon>
@@ -386,6 +401,26 @@ export default {
                 } else {
                     this.$Notice.error({
                         title: '注销失败',
+                        desc: res.message
+                    })
+                }
+            })
+        },
+
+        handleSettle (name) {
+            let act = {
+                serial_number: this.equipmentInfo.serial_number                        
+            }
+
+            equipment.settle(act).then(res => {
+                if (res.status === 0) {
+                    this.$Notice.success({
+                        title: '结算成功',
+                        desc: res.message
+                    })
+                } else {
+                    this.$Notice.error({
+                        title: '结算失败',
                         desc: res.message
                     })
                 }

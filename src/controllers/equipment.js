@@ -142,6 +142,16 @@ export default {
         })
     },
 
+    // 中途结算
+    settle (models) {
+        return api._post({ 
+            url: '/t_equipment/getStatisticsOfEquipmentOfThisMonth', 
+            data: models
+        }).then(res => {
+            return res.data
+        })
+    },
+
     // 设备解锁
     lock (models) {
         return api._post({ 
