@@ -64,7 +64,13 @@
 
                             <Form ref="formSettle" inline>                               
                                 <FormItem>
-                                    <Button type="primary" @click="handleSettle('formSettle')">结算</Button>
+                                    <Poptip
+                                        confirm
+                                        title="是否执行中途结算?"
+                                        @on-ok="handleSettle('formSettle')"
+                                        @on-cancel="cancelSettle">
+                                        <Button>结算</Button>
+                                    </Poptip>
                                 </FormItem>
                             </Form>                          
                         </Card>
@@ -425,6 +431,9 @@ export default {
                     })
                 }
             })
+        },
+
+        cancelSettle () {
         },
 
         handleLock (name) {
