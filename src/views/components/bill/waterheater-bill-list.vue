@@ -62,6 +62,16 @@ export default {
                     width: 100
                 },
                 {
+                    title: '付款方式',
+                    key: 'money_type',                    
+                    render: (h, params) => {
+                        return (
+                            this.moneyType(params.row.money_type)
+                        )
+                    },
+                    width: 100
+                },
+                {
                     title: '账单创建时间',
                     key: 'create_date',
                     render: (h, params) => {
@@ -284,6 +294,14 @@ export default {
 
         isUnlock (val) {
             return val ? '已解锁' : '未解锁'
+        },
+
+        moneyType (val) {
+            if (val === 1 || val === 2 || val === 34 || val === 4) {
+                return '先付款'
+            } else if (val === 31 || val === 32 || val === 33) {
+                return '后付款'
+            }
         },
 
         exportData () {
