@@ -13,6 +13,9 @@
                 <FormItem label="新设备主人电话" prop="name">
                     <Input v-model="ownerInfo.owner_phone"></Input>
                 </FormItem>
+                <FormItem label="申请状态">
+                    <Checkbox v-model="auditing_state">账单未结清</Checkbox>
+                </FormItem>
 
                 <FormItem>
                     <Button type="success" @click="saveInfo">修改</Button>
@@ -35,8 +38,10 @@ export default {
             ownerInfo: {
                 serial_number: '',
                 owner_name: '',
-                owner_phone: ''
-            }
+                owner_phone: '',
+                auditing_state: 0
+            },
+            auditing_state: false
         }
     },
     methods: {
@@ -57,6 +62,11 @@ export default {
             }
 
             this.ownerInfo.serial_number = this.serialNumber
+            if (this.auditing_state) {
+                this.ownerInfo.auditing_state = 5
+            } else {
+                this.ownerInfo.auditing_state = 0
+            }
 
             equipment.updateOwner(this.ownerInfo).then(res => {
                 if (res.status === 0) {
