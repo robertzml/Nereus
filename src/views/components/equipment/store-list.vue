@@ -47,6 +47,10 @@ export default {
                     key: 'serial_number'
                 },
                 {
+                    title: '代理商',
+                    key: 'agent_name'
+                },
+                {
                     title: '售出状态',
                     key: 'sale_status',
                     render: (h, params) => {
@@ -70,6 +74,15 @@ export default {
                     render: (h, params) => {
                         return (
                             <span>{ nereus.displayDateTime(params.row.update_date) }</span>
+                        )
+                    }
+                },
+                {
+                    title: '添加代理商日期',
+                    key: 'add_agent_date',
+                    render: (h, params) => {
+                        return (
+                            <span>{ nereus.displayDate(params.row.add_agent_date) }</span>
                         )
                     }
                 }
