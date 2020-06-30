@@ -17,6 +17,11 @@
                         <Option v-for="item in companyList" :value="item.id" :key="item.id">{{ item.name }}</Option>
                     </Select>
 
+                    <span>所属代理商</span>
+                    <Select v-model="sAgent" style="width:200px" placeholder="选择代理商" clearable>
+                        <Option v-for="item in agentList" :value="item.id" :key="item.id">{{ item.name }}</Option>
+                    </Select>
+
                     <span>产品名称</span>
                     <Select v-model="sProduct" style="width:200px" placeholder="选择产品" clearable>
                         <Option v-for="item in productList" :value="item.id" :key="item.id">{{ item.name }}</Option>
@@ -52,6 +57,8 @@ export default {
             sCompany: '',
             productList: [],
             sProduct: '',
+            agentList: [],
+            sAgent: '',
             filterKey: ''
         }
     },
@@ -63,9 +70,13 @@ export default {
                 temp = temp.filter(r => r.company_id === this.sCompany)
             }
 
+            if (this.sAgent) {
+                temp = temp.filter(r => r.agent_id === this.sAgent)
+            }
+
             if (this.sProduct) {
                 temp = temp.filter(r => r.product_id === this.sProduct)
-            }
+            }            
 
             var filterKey = this.filterKey && this.filterKey.toLowerCase()
             if (filterKey) {
@@ -82,6 +93,7 @@ export default {
         init () {
             this.roleType = this.$store.state.user.roleType
             this.getStores()
+            this.loadAgents()
 
             if (this.roleType === 0 || this.roleType === 1) {
                 this.loadCompanys()
@@ -134,6 +146,36 @@ export default {
                     })
                 }
             })
+        },
+
+        loadAgents () {
+            let vm = this
+
+            let companyId = this.$store.state.user.companyId
+
+            if (this.roleType === 0 || this.roleType === 1) {
+                company.list().then(res => {
+                    if (res.status === 0) {
+                        vm.agentList = res.entities.filter(r => r.type !== 1)
+                    } else {
+                        this.$Notice.error({
+                            title: '获取代理商信息失败',
+                            desc: res.message
+                        })
+                    }
+                })
+            } else {
+                company.listByParent(companyId).then(res => {
+                    if (res.status === 0) {
+                        vm.agentList = res.entities
+                    } else {
+                        this.$Notice.error({
+                            title: '获取代理商信息失败',
+                            desc: res.message
+                        })
+                    }
+                })
+            }
         },
 
         loadProducts (companyId) {
