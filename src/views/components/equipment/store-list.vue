@@ -123,6 +123,7 @@ export default {
                 element.sale_status = this.saleStatus(element.sale_status)
                 element.create_date = nereus.displayDateTime(element.create_date)
                 element.update_date = nereus.displayDateTime(element.update_date)
+                element.add_agent_date = nereus.displayDate(element.add_agent_date)
             })
 
             this.$refs.table.exportCsv({
