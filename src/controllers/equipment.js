@@ -214,14 +214,14 @@ export default {
 
     // 获取库存设备
     getStores () {
-        return api._get({ url: '/t_store/findStoreEquipmentInfoByConditions', params: { sale_status: 0 } })
+        return api._get({ url: '/t_store/findStoreEquipmentInfoByConditions', params: { } })
             .then(res => {
                 return res.data
             })
     },
 
     getStoresByCompany (companyId) {
-        return api._get({ url: '/t_store/findStoreEquipmentInfoByConditions', params: { company_id: companyId, sale_status: 0 } })
+        return api._get({ url: '/t_store/findStoreEquipmentInfoByConditions', params: { company_id: companyId } })
             .then(res => {
                 return res.data
             })
