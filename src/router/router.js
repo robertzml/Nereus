@@ -188,6 +188,7 @@ export const appRouter = [
             { path: 'agent-deduct', title: '代理商收益', parent: 'bill-menu', role: 6, name: 'bill-agent-deduct-index', meta: { keepAlive: true }, component: resolve => { require(['@/views/bill/agent-deduct-index.vue'], resolve) } },
             { path: 'company-recharge', title: '充值统计', parent: 'bill-menu', name: 'bill-company-recharge', meta: { keepAlive: true }, component: resolve => { require(['@/views/bill/company-recharge.vue'], resolve) } },
             { path: 'waterheater-bill', title: '厂商账单', parent: 'bill-menu', name: 'bill-waterheater-bill', meta: { keepAlive: true }, component: resolve => { require(['@/views/bill/waterheater-bill.vue'], resolve) } },
+            { path: 'equipment-summary', title: '设备统计', parent: 'bill-menu', name: 'bill-equipment-summary', meta: { keepAlive: true }, component: resolve => { require(['@/views/bill/equipment-summary.vue'], resolve) } },
             { path: 'equipment-status', title: '设备状态', parent: 'bill-menu', name: 'bill-equipment-status', meta: { keepAlive: true }, component: resolve => { require(['@/views/bill/equipment-status.vue'], resolve) } }
         ]
     }

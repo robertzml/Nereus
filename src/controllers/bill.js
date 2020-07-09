@@ -95,6 +95,14 @@ export default {
             })
     },
 
+    // 设备统计
+    getEquipmentSummary (companyId, month) {
+        return api._get({ url: '/t_water_heater_equipment_statistics/findWaterHeater', params: { company_id: companyId, statistics_year_month: month } })
+            .then(res => {
+                return res.data
+            })
+    },
+
     getEquipmentStatus (type, productTypeIds) {
         if (type === 1) {
             return api._get({ url: '/t_equipment_owner_protocol/webGetDeadLineTimeEquipmentStatusRealTimeByProductType', params: { product_type_ids: productTypeIds } })

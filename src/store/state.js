@@ -67,6 +67,7 @@ export default {
         { name: 'bill-agent-deduct-index', roles: [1, 2, 3, 4, 5, 6] },
         { name: 'bill-company-recharge', roles: [1, 2, 3, 4, 5, 6] },
         { name: 'bill-waterheater-bill', roles: [1, 2, 3, 4, 5, 6] },
+        { name: 'bill-equipment-summary', roles: [1, 2, 3, 4, 5, 6] },
         { name: 'bill-equipment-status', roles: [1, 2, 3, 4, 5, 6] }
     ]
 }
