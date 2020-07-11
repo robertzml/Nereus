@@ -102,6 +102,10 @@
                                 <InputNumber :max="1" :min="0" :precision="2" :step="0.01" v-model="saleRuleInfo.save_electricity_ratio" style="width: 200px;"></InputNumber>
                             </FormItem>
 
+                            <FormItem label="是否有最低消费" v-if="saleRuleInfo.charge_type === 3">
+                                <Input v-model="saleRuleInfo.fix_month_rent"></Input>代理商自定义时，留空
+                            </FormItem>
+
                             <FormItem label="免费使用时间(天)">
                                 <InputNumber :max="1000" :min="0" :precision="0" v-model="saleRuleInfo.set_free_time" style="width: 200px;"></InputNumber>
                             </FormItem>

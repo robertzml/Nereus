@@ -113,6 +113,10 @@
                                         {{ saleRuleInfo.fix_month_rent }}
                                     </FormItem>
 
+                                    <FormItem label="是否有最低消费" v-if="saleRuleInfo.charge_type === 3">
+                                        {{ saleRuleInfo.fix_month_rent }}                              
+                                    </FormItem>
+
                                     <FormItem label="免费使用时间(天)">
                                         {{ saleRuleInfo.set_free_time }}
                                     </FormItem>
