@@ -90,6 +90,9 @@
                                 <FormItem>
                                     <Button type="primary" @click="handleLock('formLock')">解锁</Button>
                                 </FormItem>
+                                <FormItem>
+                                    <Button type="warning" @click="handleLockNow()">立即锁定</Button>
+                                </FormItem>
                             </Form>
 
                             <br />
@@ -415,7 +418,7 @@ export default {
 
         handleSettle (name) {
             let act = {
-                serial_number: this.equipmentInfo.serial_number                        
+                serial_number: this.equipmentInfo.serial_number
             }
 
             equipment.settle(act).then(res => {
@@ -458,6 +461,28 @@ export default {
                                 desc: res.message
                             })
                         }
+                    })
+                }
+            })
+        },
+
+        // 立即锁定
+        handleLockNow () {
+            let act = {
+                serial_number: this.equipmentInfo.serial_number,
+                is_unlock: 0
+            }
+
+            equipment.lockEquipment(act).then(res => {
+                if (res.status === 0) {
+                    this.$Notice.success({
+                        title: '锁定成功',
+                        desc: res.message
+                    })
+                } else {
+                    this.$Notice.error({
+                        title: '锁定失败',
+                        desc: res.message
                     })
                 }
             })

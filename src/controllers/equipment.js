@@ -162,6 +162,16 @@ export default {
         })
     },
 
+    // 设备立即锁定 新接口
+    lockEquipment (models) {
+        return api._post({ 
+            url: '/t_equipment/webSetLockDevice', 
+            data: models
+        }).then(res => {
+            return res.data
+        })    
+    },
+
     // 设备充值
     tradeIn (models) {
         return api._post({ 
