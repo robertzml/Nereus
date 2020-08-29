@@ -9,6 +9,7 @@
              <div>
                 <span style="margin-left:20px;margin-right:20px;">共 {{ itemsCount }} 条收益记录</span>
                 <span style="margin-right:20px;">需付款金额合计 {{ totalAmount }} 元</span>
+                <span style="margin-right:20px;">应收款金额合计 {{ totalAgentMoney }} 元</span>
                 <br />
             </div>
             <div>
@@ -249,6 +250,13 @@ export default {
             let total = 0
             this.itemList.forEach(element => {
                 total += element.money_to_consumer
+            })
+            return total.toFixed(2)
+        },
+        totalAgentMoney () {
+             let total = 0
+            this.itemList.forEach(element => {
+                total += element.money_to_agent
             })
             return total.toFixed(2)
         }
