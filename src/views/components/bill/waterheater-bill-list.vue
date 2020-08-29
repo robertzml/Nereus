@@ -72,6 +72,16 @@ export default {
                     width: 100
                 },
                 {
+                    title: '分成比例',
+                    key: 'money_to_agent_ratio',
+                    width: 80
+                },
+                {
+                    title: '代理商应收款',
+                    key: 'money_to_agent',
+                    width: 80
+                },
+                {
                     title: '账单创建时间',
                     key: 'create_date',
                     render: (h, params) => {
@@ -145,46 +155,6 @@ export default {
                     title: '每月节能率',
                     key: 'fractional_energy_saving_each_month',
                     width: 100
-                },
-                {
-                    title: '设备激活日期',
-                    key: 'activate_date',
-                    render: (h, params) => {
-                        return (
-                            <span>{ nereus.displayDateTime(params.row.activate_date) }</span>
-                        )
-                    },
-                    width: 100
-                },
-                {
-                    title: '是否激活',
-                    key: 'is_activate',
-                    render: (h, params) => {
-                        return (
-                            this.isActivate(params.row.is_activate)
-                        )
-                    },
-                    width: 100
-                },
-                {
-                    title: '是否解锁',
-                    key: 'is_unlock',
-                    render: (h, params) => {
-                        return (
-                            this.isUnlock(params.row.is_unlock)
-                        )
-                    },
-                    width: 100
-                },
-                {
-                    title: '设备使用时间',
-                    key: 'device_deadline_date',
-                    render: (h, params) => {
-                        return (
-                            <span>{ nereus.displayDateTime(params.row.device_deadline_date) }</span>
-                        )
-                    },
-                    width: 120
                 },
                 {
                     title: '设备用户名称',
@@ -310,10 +280,10 @@ export default {
             temp.forEach(element => {
                 element.date_of_money_trade_result = nereus.displayDateTime(element.date_of_money_trade_result)
                 element.create_date = nereus.displayDateTime(element.create_date)
-                element.activate_date = nereus.displayDateTime(element.activate_date)
-                element.is_activate = this.isActivate(element.is_activate)
-                element.is_unlock = this.isUnlock(element.is_unlock)
-                element.device_deadline_date = nereus.displayDateTime(element.device_deadline_date)
+                // element.activate_date = nereus.displayDateTime(element.activate_date)
+                // element.is_activate = this.isActivate(element.is_activate)
+                // element.is_unlock = this.isUnlock(element.is_unlock)
+                // element.device_deadline_date = nereus.displayDateTime(element.device_deadline_date)
                 element.statistics_start_date = nereus.displayDate(element.statistics_start_date)
                 element.statistics_log_date = nereus.displayDate(element.statistics_log_date)
             })
