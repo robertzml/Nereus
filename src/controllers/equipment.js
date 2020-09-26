@@ -328,5 +328,21 @@ export default {
             .then(res => {
                 return res.data
             })
+    },
+
+    // 获取返厂设备数据
+    getReturn (startTime, endTime) {
+        return api._get({ url: '/platform_common/webfindReturnEquipment', params: { start_time: startTime, end_time: endTime } })
+            .then(res => {
+                return res.data
+            })
+    },
+
+    // 维修过的设备出库数据
+    getRepair (startTime, endTime) {
+        return api._get({ url: '/platform_common/webfindAddAgentStoreReapiredEquipment', params: { start_time: startTime, end_time: endTime } })
+            .then(res => {
+                return res.data
+            })
     }
 }

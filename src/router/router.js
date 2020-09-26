@@ -149,7 +149,9 @@ export const appRouter = [
             { path: 'store', title: '库存列表', parent: 'product-menu', role: 7, name: 'equipment-store', component: resolve => { require(['@/views/equipment/store.vue'], resolve) } },
             { path: 'agent-store', title: '代理商库存', parent: 'product-menu', name: 'equipment-agent-store', component: resolve => { require(['@/views/equipment/agent-store.vue'], resolve) } },
             { path: 'history', title: '历史设备', parent: 'product-menu', name: 'equipment-history', component: resolve => { require(['@/views/equipment/history.vue'], resolve) } },
-            { path: 'real', title: '实时数据', parent: 'product-menu', name: 'equipment-real', component: resolve => { require(['@/views/equipment/real.vue'], resolve) } }
+            { path: 'real', title: '实时数据', parent: 'product-menu', name: 'equipment-real', component: resolve => { require(['@/views/equipment/real.vue'], resolve) } },
+            { path: 'return', title: '返厂设备', parent: 'product-menu', name: 'equipment-return', component: resolve => { require(['@/views/equipment/return.vue'], resolve) } },
+            { path: 'repair', title: '维修出库', parent: 'product-menu', name: 'equipment-repair', component: resolve => { require(['@/views/equipment/repair.vue'], resolve) } }
         ]
     },
     {
