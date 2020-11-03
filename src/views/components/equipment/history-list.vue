@@ -281,6 +281,21 @@ export default {
                     }
                 },
                 {
+                    title: '返厂时间',
+                    key: 'equipment_return_date',
+                    width: 150,
+                    render: (h, params) => {
+                        return (
+                            nereus.displayDate(params.row.equipment_return_date)
+                        )
+                    }
+                },
+                {
+                    title: '返厂操作人',
+                    key: 'operater_name',
+                    width: 150
+                },
+                {
                     title: '操作',
                     width: 120,
                     align: 'center',
@@ -357,6 +372,7 @@ export default {
                 element.is_change_equipment = this.isChange(element.is_change_equipment)
                 element.change_time = nereus.displayDate(element.change_time)
                 element.create_date = nereus.displayDate(element.create_date)
+                element.equipment_return_date = nereus.displayDate(element.equipment_return_date)
                 if (element.remark != null) {
                     element.remark = element.remark.replace(',', ';')
                 }
