@@ -331,6 +331,80 @@ export default {
                     }
                 }
             ]
+        } else if (this.type === 4) {
+            this.columns = [
+                {
+                    type: 'index',
+                    width: 60,
+                    align: 'center'
+                },
+                {
+                    title: '账单序号',
+                    key: 'pay_equipment_deposit_out_trade_no'
+                },
+                {
+                    title: '设备序列号',
+                    key: 'serial_number'
+                },
+                {
+                    title: '产品名称',
+                    key: 'product_name'
+                },
+                {
+                    title: '设备主人帐号',
+                    key: 'consumer_name'
+                },
+                {
+                    title: '设备主人',
+                    key: 'owner_name'
+                },
+                {
+                    title: '设备主人电话',
+                    key: 'consumer_phone'
+                },
+                {
+                    title: '代理商公司名称',
+                    key: 'agent_company_name'
+                },
+                {
+                    title: '设备押金',
+                    key: 'equipment_deposit'
+                },  
+                {
+                    title: '押金状态',
+                    key: 'pay_equipment_deposit_status',
+                    render: (h, params) => {
+                        return (
+                            this.depositStatus(params.row.pay_equipment_deposit_status)
+                        )
+                    }
+                },
+                {
+                    title: '押金支付人名称',
+                    key: 'pay_equipment_deposit_online_account_name'
+                },
+                {
+                    title: '押金支付人电话号码',
+                    key: 'pay_equipment_deposit_online_account_phone'
+                },
+                {
+                    title: '押金支付方式',
+                    key: 'pay_equipment_deposit_type_name'
+                },
+                {
+                    title: '押金支付时间',
+                    key: 'pay_equipment_deposit_date',
+                    render: (h, params) => {
+                        return (
+                            <span>{ nereus.displayDateTime(params.row.pay_equipment_deposit_date) }</span>
+                        )
+                    }
+                },
+                {
+                    title: '审核人员',
+                    key: 'operater_name'
+                }
+            ]
         }
     }
 }

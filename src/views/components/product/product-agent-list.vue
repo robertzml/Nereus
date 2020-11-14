@@ -30,7 +30,7 @@
                 </FormItem>
 
                 <FormItem label="代理商分成比例">
-                    <InputNumber :max="1" :min="0" :precision="2" v-model="ruleInfo.wealth_sharing" style="width: 250px;"></InputNumber>
+                    <InputNumber :max="1" :min="0" :precision="3" v-model="ruleInfo.wealth_sharing" style="width: 250px;"></InputNumber>
                 </FormItem>
             </Form>
         </Modal>
@@ -55,7 +55,7 @@
                 </FormItem>
 
                 <FormItem label="代理商分成比例">
-                    <InputNumber :max="1" :min="0" :precision="2" v-model="newRuleInfo.wealth_sharing" style="width: 200px;"></InputNumber>
+                    <InputNumber :max="1" :min="0" :precision="3" v-model="newRuleInfo.wealth_sharing" style="width: 200px;"></InputNumber>
                 </FormItem>
             </Form>
         </Modal>
