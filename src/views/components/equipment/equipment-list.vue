@@ -40,22 +40,22 @@ export default {
                     sortable: true
                 },
                 {
-                    title: '产品类别',
-                    key: 'product_type_name',
-                    sortable: true
-                },
-                {
                     title: '产品名称',
                     key: 'product_name',
                     sortable: true
                 },
                 {
-                    title: '生产厂商',
-                    key: 'vendor_company_name'
-                },
-                {
                     title: '代理商',
                     key: 'agent_company_name'
+                },
+                {
+                    title: '业务员姓名',
+                    key: 'agent_account_name',
+                    sortable: true
+                },
+                {
+                    title: '安装工姓名',
+                    key: 'erector_name'
                 },
                 {
                     title: '设备主人',
