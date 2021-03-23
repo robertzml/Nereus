@@ -226,6 +226,16 @@ export default {
                         )
                     },
                     width: 120
+                },
+                {
+                    title: '合同激活时间',
+                    key: 'equipment_activate_date',
+                    render: (h, params) => {
+                        return (
+                            <span>{ nereus.displayDate(params.row.equipment_activate_date) }</span>
+                        )
+                    },
+                    width: 120
                 }
             ],
             pageSize: 10,
@@ -294,6 +304,7 @@ export default {
                 // element.device_deadline_date = nereus.displayDateTime(element.device_deadline_date)
                 element.statistics_start_date = nereus.displayDate(element.statistics_start_date)
                 element.statistics_log_date = nereus.displayDate(element.statistics_log_date)
+                element.equipment_activate_date = nereus.displayDate(element.equipment_activate_date)
             })
 
             this.$refs.table.exportCsv({
