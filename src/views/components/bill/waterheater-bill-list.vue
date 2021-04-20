@@ -158,6 +158,11 @@ export default {
                     width: 100
                 },
                 {
+                    title: '最低消费',
+                    key: 'fix_rent',
+                    width: 100
+                },
+                {
                     title: '设备用户名称',
                     key: 'owner_name',
                     width: 120
